@@ -16,3 +16,6 @@ node_modules/
 # Logs (diff)
 LOGS/*.diff
 LOGS/*.patch
+
+# workdir
+work/
