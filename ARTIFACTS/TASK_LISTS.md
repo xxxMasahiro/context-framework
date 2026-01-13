@@ -1,26 +1,62 @@
-# Task Lists (Working)
+# Task Lists（タスクリスト / Antigravity準拠）
+> 目的：`cf-dist_v0.1.3_complete.zip` を入力として、Antigravityの主要アーティファクト
+> **Task Lists / Implementation Plan / Walkthrough** を「標準機能」として取り込み、
+> **完成版 `cf-dist_v0.1.4_complete.zip` を生成**できる状態にする（失敗しない開発のための改良）。
 
-> ベースライン手順書：`vendor/.../extracted/artifacts/` を参照（原則不変）
+## 1. ゴール（1行）
+- Antigravity 3点セットを内包した `cf-dist_v0.1.4_complete.zip` を生成できる（= core と vendored core へ追加＋参照更新＋メタ整合）。
 
-## 0. Goal
-- `cf-dist_v0.1.4_complete.zip` を作れる状態にする（3主要アーティファクト内包）
+## 2. スコープ
+### In scope（やる）
+- `cf-core_v0.1.3.zip` → `cf-core_v0.1.4.zip`
+  - テンプレ3点追加（Task Lists / Implementation Plan / Walkthrough）
+  - 参照（ARTIFACTS, artifacts/README, roles）更新
+  - VERSION / CHANGELOG / _meta（BUILD_INFO, MANIFEST, REPO_TREE, CHECKSUMS）更新
+- `cf-wf-sample-product_v0.1.1.zip` → `cf-wf-sample-product_v0.1.2.zip`
+  - `workframe/core` に同様の取り込み（vendored core更新）
+  - ルートVERSION/CHANGELOG/WORKFRAME_MANIFEST/_meta更新
+- dist（封筒）を `cf-dist_v0.1.4_complete.zip` として再生成
+  - `cf-business-pack_v0.1.0.zip` は同梱（変更なし）
+  - `cf-wf-starter_v0.1.0.zip` は同梱（変更なし）
 
-## 1. Scope (このサイクルでやること)
-- [ ] 手順書ZIPのベースライン確認（ファイル構造・意図）
-- [ ] v0.1.4 完全版に含めるべきファイル/配置を確定
-- [ ] 参照関係（README, DOCS_INDEX, _meta）を整合
-- [ ] Walkthrough を “一発で再現できる” 形に更新
+### Out of scope（やらない）
+- `cf-business-pack` の内容変更
+- `cf-wf-starter` の中身（.keepのみ）変更
+- Lite/Standard/Strict の運用ルール強化（別タスク）
 
-## 2. Out of scope (やらないこと)
-- [ ] コード実装（アプリ開発）
-- [ ] GitHub PR運用（今回はやらない）
+## 3. 制約（安全のためのルール）
+- **リネーム/移動は原則しない**（追加＋最小修正）
+- “証跡（diff/ログ/チェックサム）” を必ず残す
+- 1PR=1目的（Core取り込み / SampleProduct追随 / Dist再生成で分割推奨）
 
-## 3. Done Definition
-- [ ] Gate B の Implementation Plan が“ファイル単位で差分”になっている
-- [ ] Gate C の Walkthrough で、手順どおりに `cf-dist_v0.1.4_complete.zip` が生成できる
-- [ ] 生成物の中身が 3主要アーティファクトに準拠している
-- [ ] 変更点が `CHANGELOG.md` と Walkthrough に残っている
+## 4. タスク分割（順序付き）
+1. 作業準備：作業ディレクトリ作成、dist展開、Gitブランチ作成
+2. Core更新（v0.1.4化）
+   - テンプレ3点追加
+   - 参照更新（ARTIFACTS/README/roles）
+   - VERSION/CHANGELOG/_meta更新
+   - `cf-core_v0.1.4.zip` を生成
+3. Sample Product更新（v0.1.2化）
+   - `workframe/core` を v0.1.4 と整合
+   - ルート VERSION/CHANGELOG/WORKFRAME_MANIFEST/_meta更新
+   - `cf-wf-sample-product_v0.1.2.zip` を生成
+4. Dist再生成（v0.1.4）
+   - business-pack, starter は旧版をそのまま同梱
+   - `cf-dist_v0.1.4_complete.zip` を生成
+5. 検証（必須）
+   - 追加ファイルが存在する（core + vendored core）
+   - 参照ドキュメントからリンクされている
+   - 役割定義に成果物として載っている
+   - `_meta/CHECKSUMS.sha256` が再生成され整合している
+   - `VERSION / CHANGELOG / _meta/BUILD_INFO.json / _meta/MANIFEST.yaml` が更新されている
+   - distの同梱ZIP名・バージョンが意図通り
 
-## 4. Risks / Notes
-- 手順書（vendor側）を勝手に改変しない
-- “どのファイルをどこへ置くか” が最大の事故ポイント（必ずPlanで固定）
+## 5. Doneの定義（合格条件）
+- `cf-dist_v0.1.4_complete.zip` が生成できる
+- 生成物の中に `cf-core_v0.1.4.zip` と `cf-wf-sample-product_v0.1.2.zip` が入り、内容が上記条件を満たす
+- 主要コマンドログ（実行履歴）と `sha256sum` の証跡が残っている
+
+## 6. GO/NO-GO（レビューゲート）
+- Gate A：Task Lists（本書）レビュー完了
+- Gate B：Implementation Plan レビュー完了（変更点の合意）
+- Gate C：Walkthrough の検証手順で “全項目OK” を確認
