@@ -12,3 +12,7 @@ __pycache__/
 
 # Node
 node_modules/
+
+# Logs (diff)
+LOGS/*.diff
+LOGS/*.patch
