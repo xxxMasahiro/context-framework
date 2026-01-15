@@ -2,6 +2,12 @@
 > 対象：`cf-dist_v0.1.3_complete.zip` を入力として、最終的に `cf-dist_v0.1.4_complete.zip` を生成する。
 > ここでは「どのファイルをどう変えるか」を **ファイル単位**で明確化し、レビュー可能にする。
 
+## Profile / Triggers
+- 定義：`../WORKFLOW/MODES_AND_TRIGGERS.md`
+- Profile:
+- Triggers: Yes | No
+- Reason:
+
 ## 0. 変更方針（最重要）
 - **追加 + 最小修正**で完結させる（既存のPLAN/DESIGN_NOTE/RISK_ASSESSMENTは残す）
 - Antigravity 3点セットは **新テンプレとして標準搭載**し、参照ドキュメントと役割定義で “公式成果物” にする

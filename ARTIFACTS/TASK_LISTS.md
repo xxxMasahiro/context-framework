@@ -22,7 +22,7 @@
 ### Out of scope（やらない）
 - `cf-business-pack` の内容変更
 - `cf-wf-starter` の中身（.keepのみ）変更
-- Lite/Standard/Strict の運用ルール強化（別タスク）
+- Lite/Standard/Strict の運用定義は `../WORKFLOW/MODES_AND_TRIGGERS.md` を参照
 
 ## 3. 制約（安全のためのルール）
 - **リネーム/移動は原則しない**（追加＋最小修正）
@@ -55,6 +55,12 @@
 - `cf-dist_v0.1.4_complete.zip` が生成できる
 - 生成物の中に `cf-core_v0.1.4.zip` と `cf-wf-sample-product_v0.1.2.zip` が入り、内容が上記条件を満たす
 - 主要コマンドログ（実行履歴）と `sha256sum` の証跡が残っている
+
+## Profile / Triggers
+- 定義：`../WORKFLOW/MODES_AND_TRIGGERS.md`
+- Profile:
+- Triggers: Yes | No
+- Reason:
 
 ## 6. GO/NO-GO（レビューゲート）
 - Gate A：Task Lists（本書）レビュー完了
