@@ -1,6 +1,12 @@
 # Walkthrough（検証 / Antigravity準拠）
 > 目的：実装完了後に「何を変えたか」「どう検証するか」をまとめ、Trust Gapを埋める。
 
+## Profile / Triggers
+- 定義：`../WORKFLOW/MODES_AND_TRIGGERS.md`
+- Profile:
+- Triggers: Yes | No
+- Reason:
+
 ## 1. What changed（変更概要）
 - Coreに Antigravity 3点セット（Task Lists / Implementation Plan / Walkthrough）テンプレを標準搭載
 - Sample Productの `workframe/core` にも同一テンプレを取り込み、参照・役割・メタを更新

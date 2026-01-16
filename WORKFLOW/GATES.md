@@ -11,11 +11,13 @@ PR無し運用の代わりに **Gateコミット**でレビューと証跡を残
 ### Gate A：Task Lists 合意
 - 目的：作業範囲（スコープ）とDoneを固定
 - 成果物：`ARTIFACTS/TASK_LISTS.md` が埋まっている
+  - Profile/Triggers を記入（定義：`./MODES_AND_TRIGGERS.md`）
 - コミット例：`gate(A): scope + done definition`
 
 ### Gate B：Implementation Plan 合意
 - 目的：ファイル単位の差分計画を固定
 - 成果物：`ARTIFACTS/IMPLEMENTATION_PLAN.md` が埋まっている
+  - Profile/Triggers を確認（定義：`./MODES_AND_TRIGGERS.md`）
 - コミット例：`gate(B): implementation plan locked`
 
 ### Gate C：Walkthrough 完走
@@ -23,6 +25,7 @@ PR無し運用の代わりに **Gateコミット**でレビューと証跡を残
 - 成果物：
   - `ARTIFACTS/WALKTHROUGH.md` が更新されている
   - `LOGS/` に実行ログが置かれている
+  - Profile/Triggers と証跡が整合（定義：`./MODES_AND_TRIGGERS.md`）
 - コミット例：`gate(C): walkthrough passed (logs attached)`
 
 ## main への反映（PR無し）
