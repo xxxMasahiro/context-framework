@@ -51,7 +51,7 @@
 - Profile: Lite | Standard | Strict
 - Triggers: Yes | No
 - Reason: 
-- 定義: ../WORKFLOW/MODES_AND_TRIGGERS.md
+- 定義: [../WORKFLOW/MODES_AND_TRIGGERS.md](../WORKFLOW/MODES_AND_TRIGGERS.md)
 ```
 
 ## GATEとの接続（最低限の運用手順）
