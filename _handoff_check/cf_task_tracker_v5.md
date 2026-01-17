@@ -388,3 +388,5 @@
   - 対象: WORKFLOW/TOOLING/COEXIST_3FILES.md / TOOLING/ADAPTERS/*.template.md / CLAUDE.md / AGENTS.md / GEMINI.md / Prompt.md / _handoff_check/cf_task_tracker_v5.md
   - タスクID: STEP-301, STEP-302, STEP-303, STEP-304, STEP-305（Done=[x]）
   - 証跡: PR#8（https://github.com/xxxMasahiro/cf-context-framework/pull/8） / merge: 27459ca / commits: 2154ebe, d77aec7
+
+- 2026-01-17 | UPD-20260117-03 | 3指針ファイル（CLAUDE.md / AGENTS.md / GEMINI.md）差分確認：共存整合を確認 | 証跡: diff -u CLAUDE.md AGENTS.md / diff -u AGENTS.md GEMINI.md（差分は目的・役割・参考テンプレのみ、運用ルール/統一必須文言は一致）
