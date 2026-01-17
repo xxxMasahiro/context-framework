@@ -1,3 +1,5 @@
+新チャット開始：添付の Prompt.md に従って開始してください。最初に「次にやること1つ」だけ指示してください。
+
 <!-- CFCTX_UPDATE_ZIP_DEPRECATED_V1 -->
 ## 運用ルール更新（2026-01-17）：ZIP廃止 / SSOTは _handoff_check
 
@@ -9,6 +11,87 @@
 - `_handoff_cache/` は過去の証跡・互換用。原則参照しない（必要時のみ監査/検証用）。
 - 文中の `*.zip`（例: `next2_work.zip` 等）は「旧称ラベル」として残る場合があるが、実体ZIPは前提にしない。
 
+## 最初に実行する1コマンド（必須）
+```bash
+cd /home/masahiro/projects/_cfctx/cf-context-framework && git status -sb
+```
+- 目的: ブランチ名・差分・作業状態を確定する（迷いを防ぐ）。
+
+# Prompt.md（次チャット開始用：引継ぎ実行 / 現行運用）
+
+> この Prompt.md は **新しいチャットで最初にAIへ渡す指示**です。
+> ZIP運用は廃止済み。**SSOTは常に `_handoff_check/` の3ファイル**です。
+> 添付は Prompt.md のみで十分に開始できるよう、手順と運用ルールをこのファイルに統合します。
+
+---
+
+## 0. ゴール（最重要）
+- `_handoff_check/` の **3ファイルを漏れなく読む**
+- **Single Source of Truth は常に `_handoff_check/`**
+- 3ファイル間の参照を整合させ、**追記ベース**で更新する
+- **ZIPの作成/検証/展開は行わない（廃止）**
+
+---
+
+## 1. SSOT（必須）
+- `cf_handoff_prompt.md`（入力/今回の指示）
+- `cf_update_runbook.md`（手順）
+- `cf_task_tracker_vN.md`（トラッカー）
+
+> これら以外は補助資料。**判断は常にSSOTに寄せる**。
+
+---
+
+## 2. 絶対ルール（運用）
+1. **最初の返信で全体像を短く説明**してから、ユーザーに「次にやること1つ」だけ指示する。
+2. ユーザーへの指示は **常に1つだけ**（1コマンド/1操作）。結果が貼られたら次へ進む。
+3. 実行結果が貼られたら、**その後に使ったコマンドの意味（復習用）**を必ず添える。
+4. 変更が入ったら、**何を追加/削除/修正したか**を箇条書きで明示する。
+5. **既存の記載は削除・改変しない（追記のみ）**。削除・改変が必要な場合は **廃止/Deprecated を明記して残す**。
+6. **ファイル名は変更しない**（Prompt.md / 3ファイルの命名を維持）。
+7. ヒアドキュメント（`cat <<'EOF'`）を案内する場合は、**全文を一括コピペできる形**で提示する。
+
+---
+
+## 3. 新チャットでの作業フロー（順番固定）
+### Step 0：最初の返信（必須の型）
+- 全体像を短く説明（SSOT確認 → 参照整合 → 追記更新 → 変更点提示）
+- その後、**次にやること1つ**を指示（原則 Step 1 のコマンド）
+
+### Step 1：作業状態の確認（必須）
+ユーザーに次の1手を依頼：
+- `cd /home/masahiro/projects/_cfctx/cf-context-framework && git status -sb`
+
+> 結果が貼られたら、**コマンドの意味（復習用）**を添える。
+
+### Step 2：SSOT 3ファイルの読込（必須）
+- `cf_handoff_prompt.md`
+- `cf_update_runbook.md`
+- `cf_task_tracker_vN.md`（番号は最大値を採用）
+
+### Step 3：参照整合（必須）
+- 3ファイル内のトラッカー参照が `cf_task_tracker_v{N}.md` で一致しているか確認
+- 不一致があれば **追記ブロック**で最新参照を宣言して整合を取る
+
+### Step 4：更新（追記のみ）
+- `cf_update_runbook.md` の手順に従って追記
+- `cf_task_tracker_v{N+1}.md` を作成（必ず +1）し、参照を追記で更新
+- 変更点（追加/削除/修正）を明示する
+
+### Step 5：報告
+- 何を追加/削除/修正したかを箇条書きで提示
+- 次の1手を1つだけ指示
+
+---
+
+## 4. 「ZIPが最新か不明」問題への結論
+SSOTは常に `_handoff_check/` の3ファイル。ZIPは廃止。
+万一 ZIP が提示された場合は **参考資料として扱い**、必要に応じて diff/hash で差異を確認し、**最終的に SSOT へ寄せて追記更新**する。
+
+---
+
+## 旧運用（廃止/Deprecated：履歴保持）
+> 以下は **旧ZIP運用の手順**。参照しない（必要な場合のみ履歴確認用）。
 
 # Prompt.md（次チャット開始用：引継ぎ実行）
 
@@ -108,18 +191,17 @@ ZIPを展開し、**中身のファイル一覧**を提示して確認する。
 
 ---
 
-## Tracker progress update policy (Exception + Safety)
+## トラッカー更新ルール（例外 + 安全）
 
-We use both A and B for clarity and safety.
+AとBの両方を使う（明確さと安全のため）。
 
-### A) Checkbox update (EXCEPTION is allowed)
-- When a task is completed, it is allowed to change `[ ]` to `[x]` on the corresponding task line.
-- This checkbox change is treated as an explicit exception to the “no modification / append-only” rule.
+### A) チェックボックス更新（例外として許可）
+- タスク完了時に `[ ]` を `[x]` に変更してよい。
+- このチェック変更は **「追記のみ」原則の明示的例外**として扱う。
 
-### B) Progress Log / Updates (ALWAYS required)
-- Regardless of A, ALWAYS append a completion record to the end of the tracker file under a "Progress Log / Updates" section.
-- Each record MUST include: date/time, task ID (or exact task line), and evidence (PR link / command output / screenshot reference).
-
+### B) 進捗ログ / 更新（常に必須）
+- Aに関係なく、トラッカー末尾の「Progress Log / Updates」へ完了記録を追記する。
+- 各レコードは必須: 日時、タスクID（またはタスク行）、証跡（PRリンク/コマンド出力/スクショ参照）。
 
 ---
 
@@ -129,3 +211,9 @@ We use both A and B for clarity and safety.
 - 例外：コマンド、コード、固有名詞、引用等で英語が必要な場合のみ最小限で併記可。
 - 既に英語表記になっているドキュメント（特に監査/Audit関連）は、トラッカーに「日本語化・表現整合」の修正タスクとして必ず記録し、後で修正する。
 
+---
+
+## 更新履歴（最新追記）
+- 追加: 新チャット開始用の1行指示、最初の1コマンド、SSOT（_handoff_check）基準の現行フロー
+- 修正: ZIP廃止/SSOT統一の運用ルールを本文へ統合し、日本語表記で整理
+- 廃止: ZIP前提の旧手順を「旧運用（廃止/Deprecated）」として明記
