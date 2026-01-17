@@ -7,7 +7,7 @@
 - Date: `<YYYY-MM-DD>`
 - Auditor: `<agent/model name>`
 
-> Rule: Auditor is independent and **does not implement fixes**.
+> Rule: AuditorはPRへ監査結果を返す。修正はCrafter/Orchestratorが行う。
 
 ---
 

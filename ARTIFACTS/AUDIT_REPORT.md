@@ -9,7 +9,7 @@
 - Auditor: `<agent/model name>`
 - Scope Summary: `<what was audited in 1-3 lines>`
 
-> Note: Auditor is **independent**. Auditor returns findings to the PR, but **does not implement fixes**.
+> Note: AuditorはPRへ監査結果を返す。修正はCrafter/Orchestratorが行う。
 
 ---
 
