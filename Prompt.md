@@ -93,3 +93,27 @@ ZIPを展開し、**中身のファイル一覧**を提示して確認する。
 - [ ] v{N+1} の新トラッカーを作成し、参照を追記で更新した
 - [ ] 出力ZIPに「更新後の3ファイルのみ」を同梱した
 - [ ] 変更点（追加/削除/修正）を明示した
+
+---
+
+## Tracker progress update policy (Exception + Safety)
+
+We use both A and B for clarity and safety.
+
+### A) Checkbox update (EXCEPTION is allowed)
+- When a task is completed, it is allowed to change `[ ]` to `[x]` on the corresponding task line.
+- This checkbox change is treated as an explicit exception to the “no modification / append-only” rule.
+
+### B) Progress Log / Updates (ALWAYS required)
+- Regardless of A, ALWAYS append a completion record to the end of the tracker file under a "Progress Log / Updates" section.
+- Each record MUST include: date/time, task ID (or exact task line), and evidence (PR link / command output / screenshot reference).
+
+
+---
+
+## 表記ルール（日本語統一）
+
+- 原則：ドキュメント（md）は日本語表記で統一する。
+- 例外：コマンド、コード、固有名詞、引用等で英語が必要な場合のみ最小限で併記可。
+- 既に英語表記になっているドキュメント（特に監査/Audit関連）は、トラッカーに「日本語化・表現整合」の修正タスクとして必ず記録し、後で修正する。
+
