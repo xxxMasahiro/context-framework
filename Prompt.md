@@ -1,5 +1,15 @@
 新チャット開始：添付の Prompt.md に従って開始してください。最初に「次にやること1つ」だけ指示してください。
 
+## 重要: 現行SSOT（_handoff_check / ZIP不要）
+- **SSOTはリポジトリ直下 `_handoff_check/` の3ファイル**（`cf_handoff_prompt.md` / `cf_task_tracker_v5.md` / `cf_update_runbook.md`）。**ZIP運用は廃止**。
+- この `Prompt.md` 内で `ZIP` / `SHA` 等が出ても、**「## 旧運用（廃止/Deprecated）」配下は参照しない**。
+- 指示は常に **「次にやること1つ（1コマンド/1操作）」**だけ。実行結果を貼ったら次へ。
+- 実行結果の後に、使ったコマンドの意味（復習）も毎回セットで提示。
+- 変更したら「何を追加/削除/修正したか」を明示。
+- コピペが必要な文は必ず **コードブロック（コピーブロック）**で提示。
+- ドキュメント表記は日本語に統一。
+- トラッカーは `[ ]→[x]` を例外的に許容（完了時）。同時に末尾の Progress Log/Updates へ記録を追記。
+
 <!-- CFCTX_UPDATE_ZIP_DEPRECATED_V1 -->
 ## 運用ルール更新（2026-01-17）：ZIP廃止 / SSOTは _handoff_check
 
