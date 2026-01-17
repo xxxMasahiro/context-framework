@@ -228,12 +228,12 @@
 
 | ID | タスク | Done | 証跡（Evidence） | 変更点（Add/Del/Mod） |
 |---|---|---:|---|---|
-| STEP-301 | Claude Code 用 `CLAUDE.md` を “渡せる形”に整備 | [ ] | ファイル内容 | Add/Mod |
-| STEP-302 | Codex 用 `AGENTS.md` を “渡せる形”に整備 | [ ] | ファイル内容 | Add/Mod |
-| STEP-303 | Antigravity 用 `GEMINI.md` を “渡せる形”に整備 | [ ] | ファイル内容 | Add/Mod |
-| STEP-304 | 3ファイル内の Source-of-Truth 宣言が同一か確認 | [ ] | チェック結果 | - |
+| STEP-301 | Claude Code 用 `CLAUDE.md` を “渡せる形”に整備 | [x] | ファイル内容 | Add/Mod |
+| STEP-302 | Codex 用 `AGENTS.md` を “渡せる形”に整備 | [x] | ファイル内容 | Add/Mod |
+| STEP-303 | Antigravity 用 `GEMINI.md` を “渡せる形”に整備 | [x] | ファイル内容 | Add/Mod |
+| STEP-304 | 3ファイル内の Source-of-Truth 宣言が同一か確認 | [x] | チェック結果 | - |
 | STEP-306 | 3ファイルに「Skill優先実行（無ければ作成提案）」があるか確認 | [ ] | チェック結果 | - |
-| STEP-305 | 参照リンク（Charter/Mode/Artifacts/Skills）整合確認 | [ ] | リンク確認ログ | - |
+| STEP-305 | 参照リンク（Charter/Mode/Artifacts/Skills）整合確認 | [x] | リンク確認ログ | - |
 
 ---
 
@@ -379,3 +379,8 @@
       - `CFCTX_UPDATE_ZIP_DEPRECATED_V1`
       - `CFCTX_LANG_POLICY_CANONICAL_V1`
 
+
+- 2026-01-17 | UPD-20260117-02 | 3ファイル共存アダプタ導入をPR#8でmainへ反映し、Gate C（STEP-301〜305）を完了記録
+  - 対象: WORKFLOW/TOOLING/COEXIST_3FILES.md / TOOLING/ADAPTERS/*.template.md / CLAUDE.md / AGENTS.md / GEMINI.md / Prompt.md / _handoff_check/cf_task_tracker_v5.md
+  - タスクID: STEP-301, STEP-302, STEP-303, STEP-304, STEP-305（Done=[x]）
+  - 証跡: PR#8（https://github.com/xxxMasahiro/cf-context-framework/pull/8） / merge: 27459ca / commits: 2154ebe, d77aec7
