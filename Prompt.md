@@ -217,3 +217,47 @@ AとBの両方を使う（明確さと安全のため）。
 - 追加: 新チャット開始用の1行指示、最初の1コマンド、SSOT（_handoff_check）基準の現行フロー
 - 修正: ZIP廃止/SSOT統一の運用ルールを本文へ統合し、日本語表記で整理
 - 廃止: ZIP前提の旧手順を「旧運用（廃止/Deprecated）」として明記
+
+---
+
+# 最新状況の追記（2026-01-17）: 3ファイル共存アダプタ導入
+
+## 目的
+- `CLAUDE.md / AGENTS.md / GEMINI.md` を **SSOTではなく「各AIエージェントへ直接渡す運用アダプタ」**として共存させる。
+- SSOT（唯一の正）は **cf-context-framework側（Charter→Mode→Artifacts→Skills）** に固定し、重複記述を避けて参照リンク中心で運用する。
+
+## SSOT（唯一の正）
+- 優先順位: **Charter → Mode → Artifacts → Skills**
+- 規範ドキュメントは原則 **日本語が正**（必要最小限のみ英語併記可）。
+- ZIP運用は廃止（以後はリポジトリ直下 `_handoff_check/` の3ファイルを正とする）。
+
+## 役割対応（運用アダプタ3ファイル）
+- Claude Code: `CLAUDE.md`（Crafter: 実装）
+- OpenAI Codex: `AGENTS.md`（Crafter/Orchestrator: CLI運用含む）
+- Google Antigravity / Gemini系: `GEMINI.md`（Orchestrator: 統制/整理）
+
+## main直push禁止（運用ルール）
+- 目的: 事故防止・証跡確保（レビュー/監査ログ前提）
+- **作業は wip/* ブランチ**で行い、PRで `main` に反映する。
+- 注: GitHubのRulesetsではなく、ローカルの `.git/hooks/pre-push` により `main` からのpushがブロックされる構成。
+
+## 統一文言（運用上の固定）
+- **AuditorはPRへ監査結果を返す。修正はCrafter/Orchestratorが行う**
+
+## 現状（このチャット時点）
+- 作業ブランチ: `wip/agent-adapters`
+- 追加済み（Addのみで既存変更なし）:
+  - `WORKFLOW/TOOLING/COEXIST_3FILES.md`
+  - `TOOLING/ADAPTERS/CLAUDE.template.md`
+  - `TOOLING/ADAPTERS/AGENTS.template.md`
+  - `TOOLING/ADAPTERS/GEMINI.template.md`
+  - `CLAUDE.md`
+  - `AGENTS.md`
+  - `GEMINI.md`
+- すでにコミット済み（例: `docs: add COEXIST_3FILES and agent adapter templates`）
+
+## 次にやること（新チャットで続行）
+- `wip/agent-adapters` を push → PR作成 → レビュー → merge → ブランチ削除
+- `main` を pull して同期
+- `cf_task_tracker_v5.md` の該当タスクを [x] にし、末尾の Progress Log / Updates に日時・タスクID・証跡（PR/コミット等）を追記
+
