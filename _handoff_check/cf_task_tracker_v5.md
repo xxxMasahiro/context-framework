@@ -263,7 +263,7 @@
 | STEP-451 | 英語混在ドキュメントを洗い出し（grep等） | [ ] | `grep -RIn --include='*.md' -E '[A-Za-z]{3,}' ...` | Add |
 | STEP-452 | 対象ドキュメントを日本語へ修正（監査系を優先） | [ ] | `git diff` | Mod |
 | STEP-453 | 再検出して英語混在が許容範囲内か確認 | [ ] | `grep` 結果 | Add |
-| STEP-454 | Progress Log/Updates に完了記録（日時・タスクID・証跡） | [ ] | `commit hash` | Add |
+| STEP-454 | Progress Log/Updates に完了記録（日時・タスクID・証跡） | [x] | `b1c32a2` | Add |
 
 ---
 
@@ -427,3 +427,11 @@
     -rwxr-xr-x  1 masahiro masahiro 13767 Jan 17 17:08 cf_update_runbook.md
     ```
   - 変更点: STEP-005 の Done を [ ]→[x] / 更新ログに本エントリを追記
+- 2026-01-18 | UPD-20260118-03 | Gate 0: STEP-006 バックアップ作成・整合性確認（rsync / 件数・容量一致 / Prompt.md sha256一致）
+  - 対象: ../cf-context-framework_backup_20260118
+  - タスクID: STEP-006
+  - 証跡:
+    - rsync: rsync -a --delete ./ ../cf-context-framework_backup_20260118
+    - 件数/容量: src 115 files / 58M, backup 115 files / 58M
+    - Prompt.md: sha256一致 (2cbd549f400ab050fec458488e5121bcd7e4754ffe5bd71fc936cf2ece115a67)
+    - repo HEAD: b1c32a2
