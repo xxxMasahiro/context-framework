@@ -19,3 +19,6 @@ LOGS/*.patch
 
 # workdir
 work/
+
+# Temporary handoff cache (delete after tracker completion)
+/_handoff_cache/
