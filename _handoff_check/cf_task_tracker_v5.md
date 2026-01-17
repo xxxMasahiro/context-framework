@@ -60,6 +60,10 @@
 - 次にやる「1手」:
   - next2_work.zip を展開し、3常駐指示ファイル（CLAUDE.md / AGENTS.md / GEMINI.md）の共存方針差分を洗い出す
 
+    - 注: `next2_work.zip` は旧運用ラベルです。**ZIPの作成/展開はしません**。
+    - 実作業のSSOTは `/_handoff_check/` の3ファイル（`cf_task_tracker_v5.md` / `cf_update_runbook.md` / `cf_handoff_prompt.md`）です。
+    - 差分洗い出しは、ZIPではなくリポジトリ内の `CLAUDE.md` / `AGENTS.md` / `GEMINI.md` を対象に行います。
+
 ---
 
 ## 3. 実行ログ（証跡として残す）
