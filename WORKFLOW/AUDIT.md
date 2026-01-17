@@ -3,8 +3,7 @@
 ## Purpose
 Gate D (Audit) は、Gate A/B/C で揃えた成果物と Evidence を第三者視点で点検し、**PASS/FAIL** と最小修正案を返すための運用です。
 
-- Auditor は独立ロールです（監査結果を返すだけ）。
-- Auditor は **実装修正をしません**（修正は別ロールが担当）。
+- AuditorはPRへ監査結果を返す。修正はCrafter/Orchestratorが行う。
 
 ---
 
