@@ -194,7 +194,7 @@
 | STEP-002 | ブランチ確認（wip/<version>） | [x] | `git branch`（作業時: `wip/v0.1.5` / 現在: `main`） | - |
 | STEP-003 | clean確認 | [x] | `git status` → working tree clean | - |
 | STEP-004 | リモート確認 | [x] | `git remote -v` | - |
-| STEP-005 | 3ZIP展開・内容把握（差分対象の洗い出し） | [ ] | 展開先パス＋ファイル一覧 | - |
+| STEP-005 | 3ZIP展開・内容把握（差分対象の洗い出し） | [x] | 展開先パス＋ファイル一覧 | - |
 | STEP-006 | バックアップ（作業前タグ or zip） | [ ] | tag名 or バックアップzip | - |
 
 ---
@@ -412,3 +412,18 @@
     origin  github-masahiro:xxxMasahiro/cf-context-framework (push)
     ```
   - 変更点: STEP-004 の Done を [ ]→[x] / 更新ログに本エントリを追記
+
+- 2026-01-18 | UPD-20260118-02 | Gate 0: STEP-005 展開先とファイル一覧を記録（チェック反映 + 証跡追記）
+  - 対象: _handoff_check/cf_task_tracker_v5.md
+  - タスクID: STEP-005
+  - 証跡: UNPACK_DIR + `ls -la _handoff_check`
+    ```
+    UNPACK_DIR=/home/masahiro/projects/_cfctx/cf-context-framework/_handoff_check
+    total 56
+    drwxr-xr-x  2 masahiro masahiro  4096 Jan 17 22:10 .
+    drwxr-xr-x 10 masahiro masahiro  4096 Jan 18 05:52 ..
+    -rwxr-xr-x  1 masahiro masahiro  6049 Jan 17 17:08 cf_handoff_prompt.md
+    -rwxr-xr-x  1 masahiro masahiro 22288 Jan 18 05:31 cf_task_tracker_v5.md
+    -rwxr-xr-x  1 masahiro masahiro 13767 Jan 17 17:08 cf_update_runbook.md
+    ```
+  - 変更点: STEP-005 の Done を [ ]→[x] / 更新ログに本エントリを追記
