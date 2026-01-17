@@ -193,7 +193,7 @@
 | STEP-001 | 作業/追従リポジトリのパス確認 | [x] | `pwd` → `/home/masahiro/projects/_cfctx/cf-context-framework` | - |
 | STEP-002 | ブランチ確認（wip/<version>） | [x] | `git branch`（作業時: `wip/v0.1.5` / 現在: `main`） | - |
 | STEP-003 | clean確認 | [x] | `git status` → working tree clean | - |
-| STEP-004 | リモート確認 | [ ] | `git remote -v` | - |
+| STEP-004 | リモート確認 | [x] | `git remote -v` | - |
 | STEP-005 | 3ZIP展開・内容把握（差分対象の洗い出し） | [ ] | 展開先パス＋ファイル一覧 | - |
 | STEP-006 | バックアップ（作業前タグ or zip） | [ ] | tag名 or バックアップzip | - |
 
@@ -402,3 +402,13 @@
   - 証跡: PR#8（https://github.com/xxxMasahiro/cf-context-framework/pull/8） / merge: 27459ca / commits: 2154ebe, d77aec7
 
 - 2026-01-17 | UPD-20260117-03 | 3指針ファイル（CLAUDE.md / AGENTS.md / GEMINI.md）差分確認：共存整合を確認 | 証跡: diff -u CLAUDE.md AGENTS.md / diff -u AGENTS.md GEMINI.md（差分は目的・役割・参考テンプレのみ、運用ルール/統一必須文言は一致）
+
+- 2026-01-18 | UPD-20260118-01 | Gate 0: STEP-004 リモート確認を完了（チェック反映 + 証跡追記）
+  - 対象: _handoff_check/cf_task_tracker_v5.md
+  - タスクID: STEP-004
+  - 証跡: `git remote -v`
+    ```
+    origin  github-masahiro:xxxMasahiro/cf-context-framework (fetch)
+    origin  github-masahiro:xxxMasahiro/cf-context-framework (push)
+    ```
+  - 変更点: STEP-004 の Done を [ ]→[x] / 更新ログに本エントリを追記
