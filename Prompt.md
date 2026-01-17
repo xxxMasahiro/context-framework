@@ -1,3 +1,15 @@
+<!-- CFCTX_UPDATE_ZIP_DEPRECATED_V1 -->
+## 運用ルール更新（2026-01-17）：ZIP廃止 / SSOTは _handoff_check
+
+- ZIP（例: `cf_handoff_and_tracker.zip`）の作成・検証・展開は行わない。
+- 作業対象（SSOT）はリポジトリ直下 `_handoff_check/` の3ファイル：
+  - `cf_handoff_prompt.md`（入力/今回の指示）
+  - `cf_update_runbook.md`（手順）
+  - `cf_task_tracker_vN.md`（トラッカー）
+- `_handoff_cache/` は過去の証跡・互換用。原則参照しない（必要時のみ監査/検証用）。
+- 文中の `*.zip`（例: `next2_work.zip` 等）は「旧称ラベル」として残る場合があるが、実体ZIPは前提にしない。
+
+
 # Prompt.md（次チャット開始用：引継ぎ実行）
 
 > この Prompt.md は **新しいチャットで最初にAIへ渡す指示**です。  
