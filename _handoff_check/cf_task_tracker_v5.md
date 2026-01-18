@@ -456,3 +456,9 @@
 - 2026-01-18 | UPD-20260118-09 | Gate A: STEP-108 SKILLS/skill-001.md（Skillテンプレ）を追加 | 証跡: 1f00593 / SKILLS/skill-001.md
 - 2026-01-18 | UPD-20260118-10 | 運用メモ: 変更点列は Add/Del/Mod を使用。No（No-op）は原則使わず、「作らない判断」は Notes（または本Log）へ記録する。
 - 2026-01-18 | UPD-20260118-11 | 修正: STEP-107 の変更点表記を Add/No→Add に統一（No-op は Notes/Log で表現）
+
+- 2026-01-19 | UPD-20260119-01 | 翻訳レイヤ（Translation Layer）を追加し、Artifacts から参照できる導線を追記
+  - 対象: WORKFLOW/TRANSLATION_LAYER.md / ARTIFACTS/TASK_LISTS.md / ARTIFACTS/WALKTHROUGH.md
+  - PR: PR#20（Merged）
+  - 証跡: commit 03a2c82（main） / commit c8f8523（wip）
+  - 備考: 追記のみ（既存内容の置換なし）
