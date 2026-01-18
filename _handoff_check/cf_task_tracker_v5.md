@@ -208,7 +208,7 @@
 | STEP-103 | 3常駐指示ファイル共存方針（COEXIST_3FILES）を格納 | [x] | 追加ファイル / WORKFLOW/TOOLING/COEXIST_3FILES.md | Add |
 | STEP-104 | Skills統合の方針（SKILLS_INTEGRATION）を格納 | [x] | 追加ファイル / commit: 6addee1 / WORKFLOW/SKILLS_INTEGRATION.md | Add |
 | STEP-106 | Skillsの“呼び出しフレーズ”と“Artifactsへの書き戻し規則”を確定 | [x] | commit: 921dbe5 | Mod候補 |
-| STEP-107 | `SKILLS/_registry.md`（Skill一覧）を作るか決める（推奨） | [x] | commit: 5caa45c / SKILLS/_registry.md | Add/No |
+| STEP-107 | `SKILLS/_registry.md`（Skill一覧）を作るか決める（推奨） | [x] | commit: 5caa45c / SKILLS/_registry.md | Add |
 | STEP-108 | SKILLS/skill-001.md（Skillテンプレ）を追加 | [x] | commit: 1f00593 / SKILLS/skill-001.md | Add |
 | STEP-105 | 統一文言の導入箇所を確定（※実装は後フェーズでOK） | [x] | 追記場所一覧 | Mod候補 |
 
@@ -449,3 +449,4 @@
 - 2026-01-18 | UPD-20260118-08 | Gate A: STEP-107 SKILLS/_registry.md（Skill一覧）を追加 | 証跡: 5caa45c / SKILLS/_registry.md
 - 2026-01-18 | UPD-20260118-09 | Gate A: STEP-108 SKILLS/skill-001.md（Skillテンプレ）を追加 | 証跡: 1f00593 / SKILLS/skill-001.md
 - 2026-01-18 | UPD-20260118-10 | 運用メモ: 変更点列は Add/Del/Mod を使用。No（No-op）は原則使わず、「作らない判断」は Notes（または本Log）へ記録する。
+- 2026-01-18 | UPD-20260118-11 | 修正: STEP-107 の変更点表記を Add/No→Add に統一（No-op は Notes/Log で表現）
