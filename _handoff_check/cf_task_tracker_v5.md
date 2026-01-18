@@ -237,7 +237,7 @@
 | STEP-302 | Codex 用 `AGENTS.md` を “渡せる形”に整備 | [x] | ファイル内容 | Add/Mod |
 | STEP-303 | Antigravity 用 `GEMINI.md` を “渡せる形”に整備 | [x] | ファイル内容 | Add/Mod |
 | STEP-304 | 3ファイル内の Source-of-Truth 宣言が同一か確認 | [x] | チェック結果 | - |
-| STEP-306 | 3ファイルに「Skill優先実行（無ければ作成提案）」があるか確認 | [ ] | チェック結果 | - |
+| STEP-306 | 3ファイルに「Skill優先実行（無ければ作成提案）」があるか確認 | [x] | チェック結果 | - |
 | STEP-305 | 参照リンク（Charter/Mode/Artifacts/Skills）整合確認 | [x] | リンク確認ログ | - |
 
 ---
@@ -445,6 +445,8 @@
 - 2026-01-18 | UPD-20260118-07 | Gate A: STEP-106 完了。呼び出しフレーズ（SKILL: ...）とArtifacts書き戻し規則を WORKFLOW/SKILLS_INTEGRATION.md に追記。Evidence: 921dbe5
 
 ## Progress Log/Updates
+- 2026-01-18 | UPD-20260118-14 | 完了: STEP-306 3ファイルの Skill優先実行/作成提案 記載を確認（結果: 全てNOT FOUND） | Evidence: grep -nE 'Skill優先実行|作成提案' (CLAUDE.md/AGENTS.md/GEMINI.md) => NOT FOUND | Notes: 記載追加は未実施
+
 - 2026-01-18 | UPD-20260118-13 | 完了: STEP-208 WALKTHROUGH に Skill適用の検証ログの残し方を追記 | Evidence: git diff -- ARTIFACTS/WALKTHROUGH.md | Notes: 追記のみ
 
 - 2026-01-18 | UPD-20260118-12 | 完了: STEP-207 TASK_LISTS に Apply Skill 記載ルールを追記 | Evidence: git diff -- ARTIFACTS/TASK_LISTS.md | Notes: 追記のみ
