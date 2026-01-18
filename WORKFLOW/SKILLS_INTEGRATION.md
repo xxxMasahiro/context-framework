@@ -55,6 +55,32 @@
   - ツール非依存性の維持（adaptersへの分離）
   - 再現性（検証手順と証跡の妥当性）
 
+### 7.1 呼び出しフレーズ（固定）
+- Skillを適用する指示は、必ず次の1行で開始する（grepしやすくするため）:
+  - `SKILL: <Skill名 or SkillID>`
+- 続けて、最低限のパラメータを箇条書きで付す（不足は“推測しない”で追記要求する）:
+  - `Mode: <lite|standard|strict>`
+  - `Target: <対象/範囲/成果物>`
+  - `Inputs: <参照すべきArtifacts/Evidence>`
+  - `Expected: <期待する出力/Done条件>`
+  - `Evidence: <証跡の置き場所/種類>`
+- 実行手段（Claude Code/Codex/Google Antigravity/GUI/CLI 等）に依存する手順は、adapters側へ分離し、Skill本文には“原理と検証”のみ残す
+
+### 7.2 Artifactsへの書き戻し規則（固定）
+- Skill実行後、結果は必ずArtifactsへ書き戻す（Skillドキュメント単体で完結させない）
+- 書き戻し先の優先順位（SSOT優先度を維持）:
+  1. `ARTIFACTS/TASK_LISTS.md`：該当タスクの [ ]→[x] と Evidence
+  2. `ARTIFACTS/IMPLEMENTATION_PLAN.md`：手順/設計が更新された場合のみ追記
+  3. `ARTIFACTS/WALKTHROUGH.md`：実行手順・判断・検証・証跡を追記（再現可能性の担保）
+  4. `ARTIFACTS/AUDIT_REPORT.md` / `ARTIFACTS/AUDIT_CHECKLIST.md`：監査観点に影響が出た場合のみ追記
+  5. `ARTIFACTS/EXCEPTIONS.md`：例外運用が必要になった場合のみ追記
+- Artifactsへ追記する最低要件（テンプレ）:
+  - 変更点（Add/Del/Mod）
+  - Skill呼び出しフレーズ（`SKILL: ...`）
+  - 実行者（Crafter / Orchestrator / CIQA / Auditor）
+  - Evidence（commit hash / diff / logs / checksums 等）
+  - 実行手段に依存する詳細がある場合は adapters への参照（本文へ埋め込まない）
+
 ## 8. 例（2つだけ）
 - 良い例（ツール非依存のSkills）:
   - 「外部API連携の追加」：前提/入力/出力/検証まで共通化し、実行方法はadaptersに分離
