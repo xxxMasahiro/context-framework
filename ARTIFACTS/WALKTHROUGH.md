@@ -106,6 +106,12 @@ cd -
 - `git diff`（または差分ログ）
 - 必要ならスクショ/録画（更新内容の確認が早くなる）
 
+- Skill適用の検証ログ（残し方）
+  - Walkthrough の該当手順の直後に、Skill名と「実行ログ/検証ログ」を残す（後から再現できる粒度）。
+  - `Apply Skill: SKILLS/<skill_file>.md`
+  - 実行ログ（例）: `git status -sb` / `git diff` / `git diff -- <file>` / `git log -1 --oneline`
+  - 検証ログ（例）: 期待どおりの差分・出力が取れたこと（No-op の場合は理由と確認観点のみを残す）
+
 ## 5. Known issues / Notes
 - `cf-wf-starter` はプレースホルダのみのため、今回の取り込み対象外（同梱は継続）
 - `WORKFRAME_MANIFEST.yaml` の `vendored.core_zip.sha256` は **新しいcore zip** のshaを入れること（更新漏れ注意）

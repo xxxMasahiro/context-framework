@@ -222,7 +222,7 @@
 | STEP-202 | IMPLEMENTATION_PLAN に Gate D を接続 | [x] | PR#1 Files changed（ARTIFACTS/IMPLEMENTATION_PLAN.md） | Mod |
 | STEP-203 | WALKTHROUGH に Evidence 準備を接続 | [x] | PR#1 Files changed（ARTIFACTS/WALKTHROUGH.md） | Mod |
 | STEP-207 | TASK_LISTS に「Apply Skill: ...」の記載ルールを追記 | [x] | diff / 該当セクション | Mod |
-| STEP-208 | WALKTHROUGH に「Skill適用の検証ログの残し方」を追記 | [ ] | diff / 該当セクション | Mod |
+| STEP-208 | WALKTHROUGH に「Skill適用の検証ログの残し方」を追記 | [x] | diff / 該当セクション | Mod |
 | STEP-204 | AUDIT_REPORT テンプレ追加 | [x] | `ARTIFACTS/AUDIT_REPORT.md` | Add |
 | STEP-205 | AUDIT_CHECKLIST テンプレ追加 | [x] | `ARTIFACTS/AUDIT_CHECKLIST.md` | Add |
 | STEP-206 | EXCEPTIONS（例外記録）追加（任意だが推奨） | [x] | `ARTIFACTS/EXCEPTIONS.md` | Add |
@@ -445,6 +445,8 @@
 - 2026-01-18 | UPD-20260118-07 | Gate A: STEP-106 完了。呼び出しフレーズ（SKILL: ...）とArtifacts書き戻し規則を WORKFLOW/SKILLS_INTEGRATION.md に追記。Evidence: 921dbe5
 
 ## Progress Log/Updates
+- 2026-01-18 | UPD-20260118-13 | 完了: STEP-208 WALKTHROUGH に Skill適用の検証ログの残し方を追記 | Evidence: git diff -- ARTIFACTS/WALKTHROUGH.md | Notes: 追記のみ
+
 - 2026-01-18 | UPD-20260118-12 | 完了: STEP-207 TASK_LISTS に Apply Skill 記載ルールを追記 | Evidence: git diff -- ARTIFACTS/TASK_LISTS.md | Notes: 追記のみ
 
 - UPD-20260118-06: STEP-105 完了。統一文言のSSOT導入箇所を WORKFLOW/AUDIT.md:6（# Purpose直下）に確定。Evidence: WORKFLOW/AUDIT.md:6
