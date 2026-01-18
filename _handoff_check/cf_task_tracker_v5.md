@@ -208,7 +208,7 @@
 | STEP-103 | 3常駐指示ファイル共存方針（COEXIST_3FILES）を格納 | [x] | 追加ファイル / WORKFLOW/TOOLING/COEXIST_3FILES.md | Add |
 | STEP-104 | Skills統合の方針（SKILLS_INTEGRATION）を格納 | [x] | 追加ファイル / commit: 6addee1 / WORKFLOW/SKILLS_INTEGRATION.md | Add |
 | STEP-106 | Skillsの“呼び出しフレーズ”と“Artifactsへの書き戻し規則”を確定 | [x] | commit: 921dbe5 | Mod候補 |
-| STEP-107 | `SKILLS/_registry.md`（Skill一覧）を作るか決める（推奨） | [ ] | 決定メモ | Add/No |
+| STEP-107 | `SKILLS/_registry.md`（Skill一覧）を作るか決める（推奨） | [x] | commit: 5caa45c / SKILLS/_registry.md | Add/No |
 | STEP-105 | 統一文言の導入箇所を確定（※実装は後フェーズでOK） | [x] | 追記場所一覧 | Mod候補 |
 
 ---
@@ -445,3 +445,4 @@
 
 ## Progress Log/Updates
 - UPD-20260118-06: STEP-105 完了。統一文言のSSOT導入箇所を WORKFLOW/AUDIT.md:6（# Purpose直下）に確定。Evidence: WORKFLOW/AUDIT.md:6
+- 2026-01-18 | UPD-20260118-08 | Gate A: STEP-107 SKILLS/_registry.md（Skill一覧）を追加 | 証跡: 5caa45c / SKILLS/_registry.md
