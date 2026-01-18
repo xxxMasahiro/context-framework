@@ -103,3 +103,9 @@ cd /home/masahiro/projects/_cfctx/cf-context-framework && git status -sb
 ### 最新参照（v5）
 - Single Source of Truth: `cf_task_tracker_v5.md`
 - 本文中に `cf_task_tracker_vN.md` / `cf_task_tracker_v4.md` 等の旧参照が残っていても、履歴として保持し、**最新は `cf_task_tracker_v5.md` を参照**する。
+
+## 翻訳レイヤ（抽象→具体の戻り先）
+
+- 迷ったらまず `WORKFLOW/TRANSLATION_LAYER.md` を参照する（憲章/Modeの原則を、Artifactsへ落とす if/then 判断手順）。
+- Artifacts側の参照導線：`ARTIFACTS/TASK_LISTS.md` / `ARTIFACTS/WALKTHROUGH.md`
+
