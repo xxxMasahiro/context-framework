@@ -209,7 +209,7 @@
 | STEP-104 | Skills統合の方針（SKILLS_INTEGRATION）を格納 | [x] | 追加ファイル / commit: 6addee1 / WORKFLOW/SKILLS_INTEGRATION.md | Add |
 | STEP-106 | Skillsの“呼び出しフレーズ”と“Artifactsへの書き戻し規則”を確定 | [ ] | 決定メモ | Mod候補 |
 | STEP-107 | `SKILLS/_registry.md`（Skill一覧）を作るか決める（推奨） | [ ] | 決定メモ | Add/No |
-| STEP-105 | 統一文言の導入箇所を確定（※実装は後フェーズでOK） | [ ] | 追記場所一覧 | Mod候補 |
+| STEP-105 | 統一文言の導入箇所を確定（※実装は後フェーズでOK） | [x] | 追記場所一覧 | Mod候補 |
 
 ---
 
@@ -441,3 +441,6 @@
   - タスクID: STEP-103
   - 証跡: _handoff_check/cf_task_tracker_v5.md（STEP-103 [x], Evidence: WORKFLOW/TOOLING/COEXIST_3FILES.md）
 - 2026-01-18 | UPD-20260118-05 | Gate A: STEP-104 Skills統合方針（SKILLS_INTEGRATION）を格納完了 | 証跡: 6addee1 / WORKFLOW/SKILLS_INTEGRATION.md
+
+## Progress Log/Updates
+- UPD-20260118-06: STEP-105 完了。統一文言のSSOT導入箇所を WORKFLOW/AUDIT.md:6（# Purpose直下）に確定。Evidence: WORKFLOW/AUDIT.md:6
