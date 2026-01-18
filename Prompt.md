@@ -149,3 +149,45 @@ AuditorはPRへ監査結果を返す。修正はCrafter/Orchestratorが行う
 - 更新ログ追記: `UPD-20260118-02`
 - コミット: `60f5033`
 
+
+## 引継ぎ（2026-01-18）
+
+### 状態
+- repo: `~/projects/_cfctx/cf-context-framework`
+- branch: `main`
+- git: `main...origin/main`（クリーン、同期済み）
+- 備考: 今回は作業ブランチを切らずに `main` へ直接コミット→push（PR/merge工程は発生していない）
+
+### このチャットでやったこと（変更点の明示）
+- Add: `WORKFLOW/SKILLS_INTEGRATION.md`
+  - Skills統合方針の「唯一の正」を定義（SSOT優先順位：Charter → Mode → Artifacts → Skills）
+  - Skills定義/統合原則/証跡/再利用性/再現性を明文化
+  - ツール依存は adapters に分離（境界基準）
+  - 3ファイル（`CLAUDE.md` / `AGENTS.md` / `GEMINI.md`）は SSOT ではなく運用アダプタとして扱う
+  - 補足文言：
+    ※ここでいう「ツール非依存」とは、対象サービス（例：Supabase/Stripe）への依存は許容しつつ、実行手段（例：Claude Code/Codex/Google Antigravity/GUI/CLI）に依存する手順は adapters に分離する、という意味である。
+- Mod: `_handoff_check/cf_task_tracker_v5.md`
+  - STEP-104 を [ ]→[x] に更新
+  - Evidence に `commit: 6addee1 / WORKFLOW/SKILLS_INTEGRATION.md` を追記
+  - Progress Log/Updates に `UPD-20260118-05`（Gate A: STEP-104 完了記録）を追記
+
+### Evidence（証跡）
+- `6addee1` docs: WORKFLOW/SKILLS_INTEGRATION を追加（STEP-104）
+- `08dad69` docs: tracker STEP-104 完了（evidence追記）
+
+### 進行中（次の作業）
+- STEP-105: 「統一文言の導入箇所を確定（※実装は後フェーズでOK）」が未完
+  - 統一したい文言（1行案）：
+    「AuditorはPRへ監査結果を返す。修正はCrafter/Orchestratorが行う」
+  - grep で候補箇所が見つかった主なファイル：
+    - `WORKFLOW/AUDIT.md`
+    - `PROMPTS/AUDITOR.md`
+    - `ARTIFACTS/AUDIT_REPORT.md`
+    - `ARTIFACTS/AUDIT_CHECKLIST.md`
+    - `_handoff_check/cf_update_runbook.md`
+    - `_handoff_check/cf_handoff_prompt.md`
+    - `Prompt.md`（既存表現の揺れが無いか確認対象）
+  - STEP-105 の成果物は「追記場所一覧（Mod候補）」であり、まだ各ファイルへ実装はしない（後フェーズでOK）
+
+### 次にやること（新チャット最初の1手）
+- `WORKFLOW/AUDIT.md` の先頭（役割/責務が書かれる範囲）を行番号付きで確認し、統一文言を“どこに置くべきか”の導入箇所を確定する
