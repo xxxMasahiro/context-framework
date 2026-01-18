@@ -115,3 +115,4 @@ cd -
 ## 5. Known issues / Notes
 - `cf-wf-starter` はプレースホルダのみのため、今回の取り込み対象外（同梱は継続）
 - `WORKFRAME_MANIFEST.yaml` の `vendored.core_zip.sha256` は **新しいcore zip** のshaを入れること（更新漏れ注意）
+- 具体的な書き方は `WORKFLOW/TRANSLATION_LAYER.md` を参照する。

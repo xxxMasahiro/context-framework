@@ -76,4 +76,5 @@
 - **No-op の場合は記載しない**（Skills を実行していないため）。
 - 例:
   - `Apply Skill: SKILLS/skill-001.md`
+- 具体的な書き方は `WORKFLOW/TRANSLATION_LAYER.md` を参照する。
 
