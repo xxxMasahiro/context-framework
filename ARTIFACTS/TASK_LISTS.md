@@ -66,3 +66,14 @@
 - Gate A：Task Lists（本書）レビュー完了
 - Gate B：Implementation Plan レビュー完了（変更点の合意）
 - Gate C：Walkthrough の検証手順で “全項目OK” を確認
+
+## 記載ルール（Apply Skill）
+
+- TASK_LISTS 内で Skills（手順モジュール）を使って進めた場合、該当タスクの直下（またはチェック項目の末尾）に **次の1行**を追記する。
+  - `Apply Skill: SKILLS/<skill_file>.md`
+- Skills を複数使う場合は **1行ずつ列挙**する。
+- 表記は **`Apply Skill:` を固定**し、grep で機械検索できるようにする（大文字小文字・コロン含め固定）。
+- **No-op の場合は記載しない**（Skills を実行していないため）。
+- 例:
+  - `Apply Skill: SKILLS/skill-001.md`
+
