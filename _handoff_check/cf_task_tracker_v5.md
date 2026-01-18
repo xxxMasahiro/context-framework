@@ -448,3 +448,4 @@
 - UPD-20260118-06: STEP-105 完了。統一文言のSSOT導入箇所を WORKFLOW/AUDIT.md:6（# Purpose直下）に確定。Evidence: WORKFLOW/AUDIT.md:6
 - 2026-01-18 | UPD-20260118-08 | Gate A: STEP-107 SKILLS/_registry.md（Skill一覧）を追加 | 証跡: 5caa45c / SKILLS/_registry.md
 - 2026-01-18 | UPD-20260118-09 | Gate A: STEP-108 SKILLS/skill-001.md（Skillテンプレ）を追加 | 証跡: 1f00593 / SKILLS/skill-001.md
+- 2026-01-18 | UPD-20260118-10 | 運用メモ: 変更点列は Add/Del/Mod を使用。No（No-op）は原則使わず、「作らない判断」は Notes（または本Log）へ記録する。
