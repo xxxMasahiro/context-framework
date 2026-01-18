@@ -195,7 +195,7 @@
 | STEP-003 | clean確認 | [x] | `git status` → working tree clean | - |
 | STEP-004 | リモート確認 | [x] | `git remote -v` | - |
 | STEP-005 | 3ZIP展開・内容把握（差分対象の洗い出し） | [x] | 展開先パス＋ファイル一覧 | - |
-| STEP-006 | バックアップ（作業前タグ or zip） | [ ] | tag名 or バックアップzip | - |
+| STEP-006 | バックアップ（作業前タグ or zip） | [x] | tag名 or バックアップzip | - |
 
 ---
 
@@ -205,7 +205,7 @@
 |---|---|---:|---|---|
 | STEP-101 | Gate D（Audit Gate）の位置づけを決定（Modeとの関係も含む） | [x] | `WORKFLOW/AUDIT.md` + PR#1説明 | Mod |
 | STEP-102 | 監査の定義を追加（AUDIT.md or 既存へ統合） | [x] | `WORKFLOW/AUDIT.md` / `PROMPTS/AUDITOR.md` | Add/Mod |
-| STEP-103 | 3常駐指示ファイル共存方針（COEXIST_3FILES）を格納 | [ ] | 追加ファイル | Add |
+| STEP-103 | 3常駐指示ファイル共存方針（COEXIST_3FILES）を格納 | [x] | 追加ファイル / WORKFLOW/TOOLING/COEXIST_3FILES.md | Add |
 | STEP-104 | Skills統合の方針（SKILLS_INTEGRATION）を格納 | [ ] | 追加ファイル | Add |
 | STEP-106 | Skillsの“呼び出しフレーズ”と“Artifactsへの書き戻し規則”を確定 | [ ] | 決定メモ | Mod候補 |
 | STEP-107 | `SKILLS/_registry.md`（Skill一覧）を作るか決める（推奨） | [ ] | 決定メモ | Add/No |
@@ -435,3 +435,8 @@
     - 件数/容量: src 115 files / 58M, backup 115 files / 58M
     - Prompt.md: sha256一致 (2cbd549f400ab050fec458488e5121bcd7e4754ffe5bd71fc936cf2ece115a67)
     - repo HEAD: b1c32a2
+--- 変更点: STEP-103 の Done を [ ]→[x] / Evidence 追記 / 更新ログに本エントリを追記
+- 2026-01-18 | UPD-20260118-04 | Gate A: STEP-103 3ファイル共存方針（COEXIST_3FILES）確認・反映
+  - 対象: WORKFLOW/TOOLING/COEXIST_3FILES.md
+  - タスクID: STEP-103
+  - 証跡: _handoff_check/cf_task_tracker_v5.md（STEP-103 [x], Evidence: WORKFLOW/TOOLING/COEXIST_3FILES.md）
