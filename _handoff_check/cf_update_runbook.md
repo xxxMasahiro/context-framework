@@ -15,6 +15,27 @@
 - 文中の `*.zip` は旧称ラベルとして残る場合がある（実体ZIPは前提にしない）。
 - バックアップは `git tag`（作業前タグ）を標準とする（zipバックアップは廃止）。
 
+### バックアップ（STEP-006）作成の判断基準（運用ルール）
+
+原則:
+- バックアップは「上書き更新」しない。常に新規作成（証跡固定のため）。
+- 標準は `git tag`（作業前タグ）。※zipバックアップは廃止。
+- ディレクトリバックアップ（例: `../cf-context-framework_backup_YYYYMMDD[-HHMM]`）は、必要に応じて補助として併用してよい（証跡を残すこと）。
+
+バックアップ作成を必須とするタイミング（いずれか該当で実施）:
+- 広範囲の変更に入る前（大量編集/移動/削除、SSOT更新など）
+- 事故りやすいGit操作の前（rebase/reset/履歴改変/大きめのマージ 等）
+- Gateをまたぐ前後、または作業の大きな区切りの前後
+- 「この時点に戻れないと困る」作業を始める前
+
+命名規則（例）:
+- git tag: `backup/YYYYMMDD-HHMM`（または `backup/YYYYMMDD`）
+- directory: `../cf-context-framework_backup_YYYYMMDD-HHMM`
+
+証跡（Evidence）:
+- `cf_task_tracker_v5.md` の STEP-006 の Evidence に「tag名（またはバックアップ先パス）」を記録する
+- 完了時は Progress Log/Updates に「日時・タスクID・証跡（tag名/パス）」を追記する
+
 
 # cf-context-framework アップデート手順書（統合版 + Skills運用統合）
 Version: draft-2026-01-16+skills
