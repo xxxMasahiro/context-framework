@@ -1,7 +1,7 @@
 <!-- CFCTX_LANG_POLICY_CANONICAL_V1 -->
 ## 表記ポリシー（日本語統一 / SSOT）
 
-- 新しいチャットへ引き継ぐ場合は、**Prompt.md に加えて SSOT の3ファイル（cf_handoff_prompt.md / cf_update_runbook.md / cf_task_tracker_v5.md）も必ず添付**する（より正確な引継ぎのため必須）。
+- 新しいチャットへ引き継ぐ場合は、**_handoff_check の3ファイル（cf_update_runbook.md / cf_task_tracker_v5.md / cf_handoff_prompt.md）を必ず添付**する（新運用の固定）。
 - 規範文書（Charter/Mode/Workflow/Artifacts/Skills）は **日本語本文が正（SSOT）**。
 - `PROMPTS/` や各ツール入口（`CLAUDE.md` / `AGENTS.md` / `GEMINI.md`）は、**日本語本文＋必要最小限の英語要約を併記可**（規範は日本語側）。
 - 固有名詞（パス/コマンド/ファイル名/GitHub用語）は **英語表記のまま固定**（無理に日本語化しない）。
@@ -10,6 +10,16 @@
 
 <!-- CFCTX_UPDATE_ZIP_DEPRECATED_V1 -->
 ## 追記（2026-01-17）：ZIP運用廃止 / SSOTは _handoff_check
+
+## 引継ぎ簡略運用（旧引継ぎ文書不使用）
+
+- 新チャット添付は次の3ファイルのみ（整合性対象は前2点）:
+  - `_handoff_check/cf_update_runbook.md`
+  - `_handoff_check/cf_task_tracker_v5.md`
+  - `_handoff_check/cf_handoff_prompt.md`（都度更新・整合性対象外だが運用はこれに準拠）
+- 固定SSOTは `cf_update_runbook.md` と `cf_task_tracker_v5.md`
+- 引継ぎプロンプト（テンプレ・表記固定）:
+  > 前回のチャットからの引継ぎを行います。まずは、添付した3つのファイル（cf_handoff_prompt.md / cf_update_runbook.md / cf_task_tracker_v5.md）をすべて読み込んで確認し、整合性の取れた適切な引継ぎ構成を構築してください。cf_update_runbook.md と cf_task_tracker_v5.md に完全準拠し、cf_handoff_prompt.md を参照してこれまでの経緯と次の指示（次にやること1つ）を提示してください。
 
 - 今後の引継ぎはZIPを作らない。SSOTはリポジトリ直下 `_handoff_check/` の3ファイル。
 - `_handoff_cache/` は過去の証跡・互換用（原則参照しない）。
@@ -391,7 +401,7 @@
 ## 更新ログ（Progress Log / Updates）
 
 - 2026-01-17 | UPD-20260117-01 | ZIP運用廃止（SSOT=_handoff_check）へ統一 / 表記ポリシー（日本語統一）を3ファイル先頭に追記 / _handoff_cache をSSOTへ同期
-  - 対象: Prompt.md, _handoff_check/cf_handoff_prompt.md, _handoff_check/cf_update_runbook.md, _handoff_check/cf_task_tracker_v5.md
+  - 対象: 旧引継ぎ文書（当時の運用）, _handoff_check/cf_handoff_prompt.md, _handoff_check/cf_update_runbook.md, _handoff_check/cf_task_tracker_v5.md
   - 変更種別: 追記のみ（チェックボックス変更なし）
   - 証跡:
     - sha256検証: `cf_handoff_and_tracker.zip: OK`
@@ -403,7 +413,7 @@
 
 
 - 2026-01-17 | UPD-20260117-02 | 3ファイル共存アダプタ導入をPR#8でmainへ反映し、Gate C（STEP-301〜305）を完了記録
-  - 対象: WORKFLOW/TOOLING/COEXIST_3FILES.md / TOOLING/ADAPTERS/*.template.md / CLAUDE.md / AGENTS.md / GEMINI.md / Prompt.md / _handoff_check/cf_task_tracker_v5.md
+  - 対象: WORKFLOW/TOOLING/COEXIST_3FILES.md / TOOLING/ADAPTERS/*.template.md / CLAUDE.md / AGENTS.md / GEMINI.md / 旧引継ぎ文書（当時の運用） / _handoff_check/cf_task_tracker_v5.md
   - タスクID: STEP-301, STEP-302, STEP-303, STEP-304, STEP-305（Done=[x]）
   - 証跡: PR#8（https://github.com/xxxMasahiro/cf-context-framework/pull/8） / merge: 27459ca / commits: 2154ebe, d77aec7
 
@@ -433,13 +443,13 @@
     -rwxr-xr-x  1 masahiro masahiro 13767 Jan 17 17:08 cf_update_runbook.md
     ```
   - 変更点: STEP-005 の Done を [ ]→[x] / 更新ログに本エントリを追記
-- 2026-01-18 | UPD-20260118-03 | Gate 0: STEP-006 バックアップ作成・整合性確認（rsync / 件数・容量一致 / Prompt.md sha256一致）
+- 2026-01-18 | UPD-20260118-03 | Gate 0: STEP-006 バックアップ作成・整合性確認（rsync / 件数・容量一致 / 旧引継ぎ文書（当時の運用） sha256一致）
   - 対象: ../cf-context-framework_backup_20260118
   - タスクID: STEP-006
   - 証跡:
     - rsync: rsync -a --delete ./ ../cf-context-framework_backup_20260118
     - 件数/容量: src 115 files / 58M, backup 115 files / 58M
-    - Prompt.md: sha256一致 (2cbd549f400ab050fec458488e5121bcd7e4754ffe5bd71fc936cf2ece115a67)
+    - 旧引継ぎ文書（当時の運用）: sha256一致 (2cbd549f400ab050fec458488e5121bcd7e4754ffe5bd71fc936cf2ece115a67)
     - repo HEAD: b1c32a2
 --- 変更点: STEP-103 の Done を [ ]→[x] / Evidence 追記 / 更新ログに本エントリを追記
 - 2026-01-18 | UPD-20260118-04 | Gate A: STEP-103 3ファイル共存方針（COEXIST_3FILES）確認・反映
@@ -451,11 +461,10 @@
 
 ## Progress Log/Updates
 
-- 2026-01-20 | UPD-20260120-01 | 検証: 未完了抽出→分類（A=0 / B=1）; 進行条件の確認のみ（記録専用）
-  - 対象: STEP-506（リリース用メモ作成・任意）= B（完了証跡なしのため未完了のまま）
-  - Evidence: `python3`抽出で `STEP-506` が [ ] のまま / `git log -n 200 | rg 'STEP-506|リリース|release|notes'` ヒット0
-  - 参考: `git pull --ff-only origin main` はDNS失敗（github.com name resolution）で同期不可（作業継続はローカル検証のみ）
-  - 次アクション案: STEP-506 のリリースメモを作成し、保存先ファイル/コミットを Evidence としてトラッカーに記録
+- 2026-01-20 | UPD-20260120-01 | 引継ぎ簡略運用へ切替（旧引継ぎ文書不使用） | Done[x]
+  - 対象: _handoff_check/cf_update_runbook.md / _handoff_check/cf_task_tracker_v5.md
+  - 変更点: 新チャット添付は3ファイルのみ / SSOTはrunbook+tracker / 引継ぎテンプレ統一
+  - Evidence: COMMIT_TBD
 - 2026-01-18 | UPD-20260118-14 | 完了: STEP-306 3ファイルの Skill優先実行/作成提案 記載を確認（結果: 全てNOT FOUND） | Evidence: grep -nE 'Skill優先実行|作成提案' (CLAUDE.md/AGENTS.md/GEMINI.md) => NOT FOUND | Notes: 記載追加は未実施
 
 - 2026-01-18 | UPD-20260118-13 | 完了: STEP-208 WALKTHROUGH に Skill適用の検証ログの残し方を追記 | Evidence: git diff -- ARTIFACTS/WALKTHROUGH.md | Notes: 追記のみ

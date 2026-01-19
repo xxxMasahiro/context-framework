@@ -1,7 +1,7 @@
 <!-- CFCTX_LANG_POLICY_CANONICAL_V1 -->
 ## 表記ポリシー（日本語統一 / SSOT）
 
-- 新しいチャットへ引き継ぐ場合は、**Prompt.md に加えて SSOT の3ファイル（cf_handoff_prompt.md / cf_update_runbook.md / cf_task_tracker_v5.md）も必ず添付**する（より正確な引継ぎのため必須）。
+- 新しいチャットへ引き継ぐ場合は、**_handoff_check の3ファイル（cf_update_runbook.md / cf_task_tracker_v5.md / cf_handoff_prompt.md）を必ず添付**する（新運用の固定）。
 - 規範文書（Charter/Mode/Workflow/Artifacts/Skills）は **日本語本文が正（SSOT）**。
 - `PROMPTS/` や各ツール入口（`CLAUDE.md` / `AGENTS.md` / `GEMINI.md`）は、**日本語本文＋必要最小限の英語要約を併記可**（規範は日本語側）。
 - 固有名詞（パス/コマンド/ファイル名/GitHub用語）は **英語表記のまま固定**（無理に日本語化しない）。
@@ -10,6 +10,16 @@
 
 <!-- CFCTX_UPDATE_ZIP_DEPRECATED_V1 -->
 ## 追記（2026-01-17）：ZIP運用廃止 / SSOTは _handoff_check
+
+## 引継ぎ簡略運用（旧引継ぎ文書不使用）
+
+- 新チャット添付は次の3ファイルのみ（整合性対象は前2点）:
+  - `_handoff_check/cf_update_runbook.md`
+  - `_handoff_check/cf_task_tracker_v5.md`
+  - `_handoff_check/cf_handoff_prompt.md`（都度更新・整合性対象外だが運用はこれに準拠）
+- 固定SSOTは `cf_update_runbook.md` と `cf_task_tracker_v5.md`
+- 引継ぎプロンプト（テンプレ・表記固定）:
+  > 前回のチャットからの引継ぎを行います。まずは、添付した3つのファイル（cf_handoff_prompt.md / cf_update_runbook.md / cf_task_tracker_v5.md）をすべて読み込んで確認し、整合性の取れた適切な引継ぎ構成を構築してください。cf_update_runbook.md と cf_task_tracker_v5.md に完全準拠し、cf_handoff_prompt.md を参照してこれまでの経緯と次の指示（次にやること1つ）を提示してください。
 
 - 今後の引継ぎはZIPを作らない。SSOTはリポジトリ直下 `_handoff_check/` の3ファイル。
 - `_handoff_cache/` は過去の証跡・互換用（原則参照しない）。
