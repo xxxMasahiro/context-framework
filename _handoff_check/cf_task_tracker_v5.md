@@ -281,7 +281,7 @@
 | STEP-502 | コミット（メッセージ規約に従う） | [x] | commit: `6a735ec`（Add Audit Gate D templates and docs）/ merge: `6e4c782` | - |
 | STEP-503 | push（作業リポジトリ） | [x] | `git push -u origin wip/v0.1.5`（PR#1作成） | - |
 | STEP-504 | pull（追従リポジトリ） | [x] | `git switch main && git pull` | - |
-| STEP-505 | 最終整合チェック（GATES/Artifacts/3files/Skills） | [ ] | チェック結果 | - |
+| STEP-505 | 最終整合チェック（GATES/Artifacts/3files/Skills） | [x] | PASSレポート / commit 5f2a393 | - |
 | STEP-506 | リリース用メモ作成（任意） | [ ] | release notes | - |
 
 ---
@@ -471,3 +471,4 @@
 - 2026-01-19 | UPD-20260119-03 | Gate D: 監査ドキュメント日本語化 | Done[x] | テンプレ構造維持のまま日本語化 | Evidence: commit bbca353 / push origin main
 - 2026-01-19 | UPD-20260119-04 | Gate D: bbca353 監査（監査成果物作成） | Done[x] | Evidence: commit 6a8ff96 / target bbca353
 - 2026-01-19 | UPD-20260119-05 | Gate D: STEP-407 SKILL-LOG 証跡確認 | Done[x] | Evidence: _handoff_check/cf_task_tracker_v5.md（SKILL-LOG-001/002: L170,L188）
+- 2026-01-19 | UPD-20260119-06 | STEP-505 最終整合チェック PASS | Done[x] | Evidence: commit 5f2a393

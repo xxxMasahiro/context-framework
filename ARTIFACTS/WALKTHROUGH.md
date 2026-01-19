@@ -105,6 +105,7 @@ cd -
 - 各コンポーネントzipの `sha256sum`
 - `git diff`（または差分ログ）
 - 必要ならスクショ/録画（更新内容の確認が早くなる）
+- Gate D の参照先: `ARTIFACTS/AUDIT_REPORT.md` / `ARTIFACTS/AUDIT_CHECKLIST.md`
 
 - Skill適用の検証ログ（残し方）
   - Walkthrough の該当手順の直後に、Skill名と「実行ログ/検証ログ」を残す（後から再現できる粒度）。
