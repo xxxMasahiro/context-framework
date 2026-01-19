@@ -265,10 +265,10 @@
 
 | ID | タスク | Done | 証跡（Evidence） | 変更点（Add/Del/Mod） |
 |---|---|---|---|---|
-| STEP-450 | 日本語表記ポリシー（用語・表記ゆれ）を確定 | [ ] | `CFTX_LANG_POLICY_CANONICAL_V1` | Add |
-| STEP-451 | 英語混在ドキュメントを洗い出し（grep等） | [ ] | `grep -RIn --include='*.md' -E '[A-Za-z]{3,}' ...` | Add |
-| STEP-452 | 対象ドキュメントを日本語へ修正（監査系を優先） | [ ] | `git diff` | Mod |
-| STEP-453 | 再検出して英語混在が許容範囲内か確認 | [ ] | `grep` 結果 | Add |
+| STEP-450 | 日本語表記ポリシー（用語・表記ゆれ）を確定 | [x] | `CFTX_LANG_POLICY_CANONICAL_V1` | Add |
+| STEP-451 | 英語混在ドキュメントを洗い出し（grep等） | [x] | `grep -RIn --include='*.md' -E '[A-Za-z]{3,}' ...` | Add |
+| STEP-452 | 対象ドキュメントを日本語へ修正（監査系を優先） | [x] | `git diff` | Mod |
+| STEP-453 | 再検出して英語混在が許容範囲内か確認 | [x] | `grep` 結果 | Add |
 | STEP-454 | Progress Log/Updates に完了記録（日時・タスクID・証跡） | [x] | `b1c32a2` | Add |
 
 ---
