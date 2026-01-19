@@ -1,6 +1,7 @@
 <!-- CFCTX_LANG_POLICY_CANONICAL_V1 -->
 ## 表記ポリシー（日本語統一 / SSOT）
 
+- 新しいチャットへ引き継ぐ場合は、**Prompt.md に加えて SSOT の3ファイル（cf_handoff_prompt.md / cf_update_runbook.md / cf_task_tracker_v5.md）も必ず添付**する（より正確な引継ぎのため必須）。
 - 規範文書（Charter/Mode/Workflow/Artifacts/Skills）は **日本語本文が正（SSOT）**。
 - `PROMPTS/` や各ツール入口（`CLAUDE.md` / `AGENTS.md` / `GEMINI.md`）は、**日本語本文＋必要最小限の英語要約を併記可**（規範は日本語側）。
 - 固有名詞（パス/コマンド/ファイル名/GitHub用語）は **英語表記のまま固定**（無理に日本語化しない）。

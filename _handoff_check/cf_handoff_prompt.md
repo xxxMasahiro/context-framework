@@ -1,6 +1,7 @@
 <!-- CFCTX_LANG_POLICY_CANONICAL_V1 -->
 ## 表記ポリシー（日本語統一 / SSOT）
 
+- 新しいチャットへ引き継ぐ場合は、**Prompt.md に加えて SSOT の3ファイル（cf_handoff_prompt.md / cf_update_runbook.md / cf_task_tracker_v5.md）も必ず添付**する（より正確な引継ぎのため必須）。
 - 規範文書（Charter/Mode/Workflow/Artifacts/Skills）は **日本語本文が正（SSOT）**。
 - `PROMPTS/` や各ツール入口（`CLAUDE.md` / `AGENTS.md` / `GEMINI.md`）は、**日本語本文＋必要最小限の英語要約を併記可**（規範は日本語側）。
 - 固有名詞（パス/コマンド/ファイル名/GitHub用語）は **英語表記のまま固定**（無理に日本語化しない）。
@@ -24,6 +25,10 @@
 ## 0. 運用ルール（最重要）
 - **Single Source of Truth（優先順位）**: Charter → Mode（lite/standard/strict） → Artifacts（Task Lists / Implementation Plan / Walkthrough） → Skills
 - 進行は **「次にやること1つ」** だけ提示し、実行結果が貼られてから次へ進む。
+- 例外（Developerが明示的に「このセッションは複数提示で」と要求した場合のみ）：
+  - そのセッションに限り、手順を複数提示してよい（次回は要求がない限り、必ず「次にやること1つ」に戻す）。
+  - ただし原則として、複数提示を許容するのは **読み取り系コマンド（確認/表示）** に限る。
+  - **書き込み系（編集/削除/コミット等）** が含まれる場合は、事故防止のため「1手」または「最大3手＋中間で結果貼付」を維持する。
 - 監査（Auditor）は独立ロール。**AuditorはPRへ監査結果を返す。修正はCrafter/Orchestratorが行う。**
 
 ## 1. 現在の状態（ここまで完了）
