@@ -468,3 +468,4 @@
   - 証跡: commit 03a2c82（main） / commit c8f8523（wip）
   - 備考: 追記のみ（既存内容の置換なし）
 - 2026-01-19 | UPD-20260119-02 | Gate E: STEP-450〜453 を Done[x] に更新（日本語ポリシー） | Evidence: commit 1990219 / push origin main
+- 2026-01-19 | UPD-20260119-03 | Gate D: 監査ドキュメント日本語化 | Done[x] | テンプレ構造維持のまま日本語化 | Evidence: commit bbca353 / push origin main
