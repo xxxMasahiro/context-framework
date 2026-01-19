@@ -251,13 +251,13 @@
 
 | ID | タスク | Done | 証跡（Evidence） | 変更点（Add/Del/Mod） |
 |---|---|---:|---|---|
-| STEP-401 | 監査入力（Evidence）を揃える（差分/ログ/テンプレ等） | [ ] | Evidence一覧 | - |
-| STEP-402 | AUDIT_CHECKLIST を記入（PASS/FAIL） | [ ] | checklist | - |
-| STEP-403 | AUDIT_REPORT を作成（指摘/根拠/要求） | [ ] | report | - |
+| STEP-401 | 監査入力（Evidence）を揃える（差分/ログ/テンプレ等） | [x] | ARTIFACTS/AUDIT_REPORT.md / ARTIFACTS/AUDIT_CHECKLIST.md / target bbca353 / commit 6a8ff96 | - |
+| STEP-402 | AUDIT_CHECKLIST を記入（PASS/FAIL） | [x] | ARTIFACTS/AUDIT_CHECKLIST.md / target bbca353 / commit 6a8ff96 | - |
+| STEP-403 | AUDIT_REPORT を作成（指摘/根拠/要求） | [x] | ARTIFACTS/AUDIT_REPORT.md / target bbca353 / commit 6a8ff96 | - |
 | STEP-407 | Skill適用ログ（SKILL-LOG）がEvidenceに揃っているか確認 | [ ] | チェック結果 | - |
-| STEP-404 | FAIL項目を Crafter/Orchestrator に差し戻し | [ ] | 差し戻しログ | - |
-| STEP-405 | 修正後に再監査（必要なら複数回） | [ ] | report（統一文言）… | - |
-| STEP-406 | 最終PASS（Gate D完了） | [ ] | report + checklist | - |
+| STEP-404 | FAIL項目を Crafter/Orchestrator に差し戻し | [x] | N/A（PASSのため差し戻し不要）/ target bbca353 / commit 6a8ff96 | - |
+| STEP-405 | 修正後に再監査（必要なら複数回） | [x] | N/A（PASSのため再監査不要）/ target bbca353 / commit 6a8ff96 | - |
+| STEP-406 | 最終PASS（Gate D完了） | [x] | ARTIFACTS/AUDIT_REPORT.md / ARTIFACTS/AUDIT_CHECKLIST.md / target bbca353 / commit 6a8ff96 | - |
 
 ---
 
@@ -469,3 +469,4 @@
   - 備考: 追記のみ（既存内容の置換なし）
 - 2026-01-19 | UPD-20260119-02 | Gate E: STEP-450〜453 を Done[x] に更新（日本語ポリシー） | Evidence: commit 1990219 / push origin main
 - 2026-01-19 | UPD-20260119-03 | Gate D: 監査ドキュメント日本語化 | Done[x] | テンプレ構造維持のまま日本語化 | Evidence: commit bbca353 / push origin main
+- 2026-01-19 | UPD-20260119-04 | Gate D: bbca353 監査（監査成果物作成） | Done[x] | Evidence: commit 6a8ff96 / target bbca353
