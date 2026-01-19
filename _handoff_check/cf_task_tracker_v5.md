@@ -34,7 +34,7 @@
 - 作業ブランチ: `wip/v0.1.5`（PR#1でmainへマージ後、ローカル/リモートとも削除済）
 - 対象ZIP:
   - [x] next1_work.zip（Auditor / Gate D）
-  - [ ] next2_work.zip（3常駐指示ファイル共存）
+  - [x] next2_work.zip（3常駐指示ファイル共存）
   - [ ] next3_work.zip（Skills統合）
 - 参照手順書: `cf_update_runbook.md`
 - 実行方針（固定）: **Charter → Mode → Artifacts → Skills**
