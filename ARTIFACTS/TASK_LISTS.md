@@ -66,6 +66,7 @@
 - Gate A：Task Lists（本書）レビュー完了
 - Gate B：Implementation Plan レビュー完了（変更点の合意）
 - Gate C：Walkthrough の検証手順で “全項目OK” を確認
+- Gate D：監査結果（`ARTIFACTS/AUDIT_REPORT.md` / `ARTIFACTS/AUDIT_CHECKLIST.md`）を確認
 
 ## 記載ルール（Apply Skill）
 
@@ -77,4 +78,3 @@
 - 例:
   - `Apply Skill: SKILLS/skill-001.md`
 - 具体的な書き方は `WORKFLOW/TRANSLATION_LAYER.md` を参照する。
-

@@ -66,3 +66,4 @@
 - Gate A：`ARTIFACTS/TASK_LISTS.md` に **Profile / Triggers** を記入して合意
 - Gate B：`ARTIFACTS/IMPLEMENTATION_PLAN.md` で **Profile / Triggers** を再確認（必要なら昇格）
 - Gate C：`ARTIFACTS/WALKTHROUGH.md` で **Profile / Triggers** と証跡の整合を確認
+- Gate D：`ARTIFACTS/AUDIT_REPORT.md` / `ARTIFACTS/AUDIT_CHECKLIST.md` で監査結果とEvidenceの整合を確認（定義：`./AUDIT.md`）

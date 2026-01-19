@@ -11,6 +11,7 @@
 ## 0. 変更方針（最重要）
 - **追加 + 最小修正**で完結させる（既存のPLAN/DESIGN_NOTE/RISK_ASSESSMENTは残す）
 - Antigravity 3点セットは **新テンプレとして標準搭載**し、参照ドキュメントと役割定義で “公式成果物” にする
+- Gate D（監査）の成果物は `ARTIFACTS/AUDIT_REPORT.md` / `ARTIFACTS/AUDIT_CHECKLIST.md` を参照
 
 ---
 

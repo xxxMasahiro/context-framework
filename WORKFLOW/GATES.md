@@ -28,6 +28,14 @@ PR無し運用の代わりに **Gateコミット**でレビューと証跡を残
   - Profile/Triggers と証跡が整合（定義：`./MODES_AND_TRIGGERS.md`）
 - コミット例：`gate(C): walkthrough passed (logs attached)`
 
+### Gate D：Audit 完了
+- 目的：第三者視点でEvidenceの整合性を監査する
+- 成果物：
+  - `ARTIFACTS/AUDIT_REPORT.md` が更新されている
+  - `ARTIFACTS/AUDIT_CHECKLIST.md` が更新されている
+  - 監査運用の定義は `./AUDIT.md`
+- コミット例：`gate(D): audit passed`
+
 ## main への反映（PR無し）
 - Developer GO 後に以下のいずれか
   - Fast-forward merge
