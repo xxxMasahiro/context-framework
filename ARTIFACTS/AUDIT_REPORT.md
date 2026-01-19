@@ -1,20 +1,20 @@
 # AUDIT_REPORT
 
-## 0. Meta
+## 0. メタ
 - Audit Gate: **D (Audit)**
 - Decision: **PASS / FAIL**
-- Target: `<repo / branch / commit / version>`
+- 対象: `<repo / branch / commit / version>`
 - Mode: `<lite | standard | strict>`
-- Date: `<YYYY-MM-DD>`
+- 日付: `<YYYY-MM-DD>`
 - Auditor: `<agent/model name>`
-- Scope Summary: `<what was audited in 1-3 lines>`
+- Scope Summary: `<監査対象の要約（1-3行）>`
 
 > Note: AuditorはPRへ監査結果を返す。修正はCrafter/Orchestratorが行う。
 
 ---
 
-## 1. Executive Summary
-- Overall: `<one paragraph>`
+## 1. エグゼクティブサマリ
+- Overall: `<1段落>`
 - Key Risks (top 3):
   1. `<risk>`
   2. `<risk>`
@@ -22,8 +22,8 @@
 
 ---
 
-## 2. Findings (Top 5)
-> Each finding should include: **What / Why / Evidence / Recommended minimal fix / Re-audit condition**
+## 2. 指摘（Top 5）
+> 各指摘は **What / Why / Evidence / Recommended minimal fix / Re-audit condition** を含める
 
 ### F-01
 - What:
@@ -66,23 +66,23 @@
 - Task Lists: `ARTIFACTS/TASK_LISTS.md`
 - Implementation Plan: `ARTIFACTS/IMPLEMENTATION_PLAN.md`
 - Walkthrough: `ARTIFACTS/WALKTHROUGH.md`
-- Logs: `LOGS/` (e.g. `LOGS/audit_*.log`, CI/QA logs, diffs)
-- Checksums: `meta/CHECKSUMS.sha256` (if applicable)
+- Logs: `LOGS/`（例: `LOGS/audit_*.log`, CI/QA logs, diffs）
+- Checksums: `meta/CHECKSUMS.sha256`（該当時）
 
 ---
 
-## 4. Exceptions
-- If any exception was applied, record it in `ARTIFACTS/EXCEPTIONS.md` and reference it here.
+## 4. 例外
+- 例外が適用された場合は `ARTIFACTS/EXCEPTIONS.md` に記録し、ここから参照する。
   - `<exception-id>`
 
 ---
 
-## 5. Final Decision
+## 5. 最終判断
 - **PASS** criteria (example):
-  - Required evidence is present and consistent
-  - No unresolved critical risks
+  - 必要な Evidence が揃い、一貫している
+  - 未解決の重大リスクがない
 - **FAIL** criteria (example):
-  - Missing evidence / inconsistent artifacts
-  - Unresolved critical risks / rule violations
+  - Evidence 不足 / Artifacts の不整合
+  - 未解決の重大リスク / ルール違反
 
 Decision: **<PASS|FAIL>**

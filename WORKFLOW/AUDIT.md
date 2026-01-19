@@ -1,13 +1,13 @@
 # WORKFLOW: Audit (Gate D)
 
-## Purpose
+## 目的
 Gate D (Audit) は、Gate A/B/C で揃えた成果物と Evidence を第三者視点で点検し、**PASS/FAIL** と最小修正案を返すための運用です。
 
 - AuditorはPRへ監査結果を返す。修正はCrafter/Orchestratorが行う。
 
 ---
 
-## When to run
+## 実行タイミング
 - Gate A/B/C が完了し、`ARTIFACTS/*` と Evidence（LOGS/diff/checksum など）が揃った後に実行します。
 - Mode との関係（目安）:
   - **lite**: 任意（重要変更のみ推奨）
@@ -37,7 +37,7 @@ Auditor は以下を作成/更新します:
 
 ---
 
-## Decision rule (PASS / FAIL)
+## 判定ルール (PASS / FAIL)
 - **PASS**: 必要な Evidence が揃い、重大な矛盾・未解決リスクがない
 - **FAIL**: Evidence 不足 / 重大な矛盾 / 重大リスク未解決 / ルール違反がある
 
@@ -47,7 +47,7 @@ FAIL の場合は、必ず以下を返します:
 
 ---
 
-## Procedure
+## 手順
 1. 対象を確定（repo/branch/commit/version と Mode）
 2. Gate A/B/C 成果物の整合を確認（スコープ/計画/実行ログ）
 3. Evidence 品質を確認（LOGS / diff / checksums など）
@@ -57,7 +57,6 @@ FAIL の場合は、必ず以下を返します:
 
 ---
 
-## Notes
+## 補足
 - 例外運用をする場合は `ARTIFACTS/EXCEPTIONS.md` に **理由・リスク・軽減策・期限（または解除条件）** を必ず記録します。
 - 監査の参照先（Evidence）や Gate 定義は、上位ドキュメント（Charter/Mode/Artifacts）を優先します。
-
