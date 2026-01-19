@@ -464,7 +464,7 @@
 - 2026-01-20 | UPD-20260120-01 | 引継ぎ簡略運用へ切替（旧引継ぎ文書不使用） | Done[x]
   - 対象: _handoff_check/cf_update_runbook.md / _handoff_check/cf_task_tracker_v5.md
   - 変更点: 新チャット添付は3ファイルのみ / SSOTはrunbook+tracker / 引継ぎテンプレ統一
-  - Evidence: COMMIT_TBD
+  - Evidence: commit 0f70baa
 - 2026-01-18 | UPD-20260118-14 | 完了: STEP-306 3ファイルの Skill優先実行/作成提案 記載を確認（結果: 全てNOT FOUND） | Evidence: grep -nE 'Skill優先実行|作成提案' (CLAUDE.md/AGENTS.md/GEMINI.md) => NOT FOUND | Notes: 記載追加は未実施
 
 - 2026-01-18 | UPD-20260118-13 | 完了: STEP-208 WALKTHROUGH に Skill適用の検証ログの残し方を追記 | Evidence: git diff -- ARTIFACTS/WALKTHROUGH.md | Notes: 追記のみ
