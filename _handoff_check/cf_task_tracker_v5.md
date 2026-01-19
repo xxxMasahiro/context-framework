@@ -282,7 +282,7 @@
 | STEP-503 | push（作業リポジトリ） | [x] | `git push -u origin wip/v0.1.5`（PR#1作成） | - |
 | STEP-504 | pull（追従リポジトリ） | [x] | `git switch main && git pull` | - |
 | STEP-505 | 最終整合チェック（GATES/Artifacts/3files/Skills） | [x] | PASSレポート / commit 5f2a393 | - |
-| STEP-506 | リリース用メモ作成（任意） | [ ] | release notes | - |
+| STEP-506 | リリース用メモ作成（任意） | [x] | release notes | - |
 
 ---
 
@@ -478,3 +478,5 @@
 - 2026-01-19 | UPD-20260119-04 | Gate D: bbca353 監査（監査成果物作成） | Done[x] | Evidence: commit 6a8ff96 / target bbca353
 - 2026-01-19 | UPD-20260119-05 | Gate D: STEP-407 SKILL-LOG 証跡確認 | Done[x] | Evidence: _handoff_check/cf_task_tracker_v5.md（SKILL-LOG-001/002: L170,L188）
 - 2026-01-19 | UPD-20260119-06 | STEP-505 最終整合チェック PASS | Done[x] | Evidence: commit 5f2a393
+
+- 2026-01-20 02:57 +0900 | STEP-506 | CHANGELOG.md の ## Unreleased にリリースメモを追記して完了（Unreleasedの1行置換）。Evidence: git diff -- CHANGELOG.md / tracker STEP-506 が [x]
