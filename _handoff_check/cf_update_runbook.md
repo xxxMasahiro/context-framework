@@ -228,6 +228,49 @@ Skillsは単体で完結させず、必ずArtifactsへ“書き戻し”ます�
 - コマンドを提示する場合、**そのコマンドの意味（復習用）**を必ず添える
 - 軽微変更は手作業（開発者がCLI）、複雑変更はCrafter/Orchestrator主導（AIで実装）
 
+### 8.1 例外：PR後の後処理を“まとめて提示”する場合（ガード付き一括手続きテンプレ）
+この例外は、Developerが「PRタイトル/本文も提示し、PR/merge/branch削除/同期/prune/statusまで一括で指示して」と**明示要求**した場合のみ有効。
+
+- main保護: **main は削除しない**
+- ブランチの決め方:
+  - 環境変数 `TOPIC_BRANCH` があればそれを使う
+  - なければ「実行開始時のブランチ（start_branch）」を削除候補にする
+- 削除条件: topic が main ではなく、**main にマージ済みのときのみ** `git branch -d`
+
+```bash
+# guard: 想定リポジトリ以外なら中止
+EXPECTED_REPO="/home/masahiro/projects/_cfctx/cf-context-framework"
+CURRENT_REPO="$(git rev-parse --show-toplevel 2>/dev/null || true)"
+[ "$CURRENT_REPO" = "$EXPECTED_REPO" ] || { echo "ERROR: unexpected repo: $CURRENT_REPO"; exit 1; }
+
+# branch capture
+start_branch="$(git rev-parse --abbrev-ref HEAD)"
+topic_branch="${TOPIC_BRANCH:-$start_branch}"
+
+# sync main
+git switch main
+git fetch --prune origin
+git pull --ff-only origin main
+
+# delete local topic branch if merged (never delete main)
+if [ "$topic_branch" != "main" ]; then
+  if git branch --merged main | sed 's/^\\* //' | grep -qx "$topic_branch"; then
+    git branch -d "$topic_branch"
+  else
+    echo "WARN: $topic_branch is not merged; skip delete"
+  fi
+else
+  echo "WARN: topic_branch is main; skip delete"
+fi
+
+# cleanup and final status
+git fetch --prune origin
+git status -sb
+```
+
+注意:
+- このテンプレは**全文を一括コピペ可能**な形で提示する。
+- 実行結果を貼って次に進む（1手運用の原則は維持）。
 ---
 
 ## 9. アップデート手順（Gate運用で統合する）
@@ -303,4 +346,3 @@ Skillsは単体で完結させず、必ずArtifactsへ“書き戻し”ます�
 
 - 迷ったらまず `WORKFLOW/TRANSLATION_LAYER.md` を参照する（憲章/Modeの原則を、Artifactsへ落とす if/then 判断手順）。
 - Artifacts側の参照導線：`ARTIFACTS/TASK_LISTS.md` / `ARTIFACTS/WALKTHROUGH.md`
-
