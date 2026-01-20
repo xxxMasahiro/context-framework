@@ -26,6 +26,20 @@
 - 文中の `*.zip` は旧称ラベルとして残る場合がある（実体ZIPは前提にしない）。
 - バックアップは `git tag`（作業前タグ）を標準とする（zipバックアップは廃止）。
 
+## Repo Lock（作業開始前の必須チェック）
+
+- 目的: リポジトリ取り違え防止（パス固定ではなく、Repo Fingerprint + Guard で判定する）。
+- Repo Fingerprint: `.cfctx/repo_fingerprint.json` を同一性の正とする。
+- Guard: `./tools/cf-guard.sh --check` で事前確認し、NGなら中止する。
+- 破壊的操作（restore/reset/clean/rm など）は Guard 経由を推奨する。
+- 詳細: `WORKFLOW/TOOLING/REPO_LOCK.md`
+
+例:
+```
+./tools/cf-guard.sh --check
+./tools/cf-guard.sh -- git status -sb
+```
+
 ### バックアップ（STEP-006）作成の判断基準（運用ルール）
 
 原則:
@@ -238,10 +252,8 @@ Skillsは単体で完結させず、必ずArtifactsへ“書き戻し”ます�
 - 削除条件: topic が main ではなく、**main にマージ済みのときのみ** `git branch -d`
 
 ```bash
-# guard: 想定リポジトリ以外なら中止
-EXPECTED_REPO="/home/masahiro/projects/_cfctx/cf-context-framework"
-CURRENT_REPO="$(git rev-parse --show-toplevel 2>/dev/null || true)"
-[ "$CURRENT_REPO" = "$EXPECTED_REPO" ] || { echo "ERROR: unexpected repo: $CURRENT_REPO"; exit 1; }
+# guard: Repo Lock（想定リポジトリ以外なら中止）
+./tools/cf-guard.sh --check
 
 # branch capture
 start_branch="$(git rev-parse --abbrev-ref HEAD)"

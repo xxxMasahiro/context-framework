@@ -64,6 +64,7 @@
     - ブランチ削除は **mainを絶対消さない**／**マージ済みのみ削除**／**指定がなければ開始時ブランチを対象**。
     - `git pull --ff-only` / `git fetch --prune` / `git status -sb` を含める。
     - コマンドの意味（復習用）と矛盾しないよう、説明は runbook 8.1 に集約して添える。
+- [ ] 作業開始前に Repo Lock を確認する（`./tools/cf-guard.sh --check`）。NGなら中止し、原因を確認する（詳細は runbook の Repo Lock）。
 - [ ] 変更したら必ず「何を追加・削除・修正したか」を記録する
 - [ ] コマンドを実行したら「意味（復習用）」も必ず記録する
 - [ ] 迷ったら上位規範（Charter→Mode→Artifacts→Skills）に戻って判断する
@@ -466,6 +467,9 @@
 
 ## Progress Log/Updates
 
+- 2026-01-21 | UPD-20260121-01 | Repo Lock 導入（fingerprint/guard/runbook/handoff prompt） | Done[x]
+  - 対象: `.cfctx/repo_fingerprint.json` / `tools/cf-guard.sh` / `WORKFLOW/TOOLING/REPO_LOCK.md` / `_handoff_check/cf_update_runbook.md` / `_handoff_check/cf_handoff_prompt.md`
+  - Evidence: `./tools/cf-guard.sh --check`
 - 2026-01-20 | UPD-20260120-01 | 引継ぎ簡略運用へ切替（旧引継ぎ文書不使用） | Done[x]
   - 対象: _handoff_check/cf_update_runbook.md / _handoff_check/cf_task_tracker_v5.md
   - 変更点: 新チャット添付は3ファイルのみ / SSOTはrunbook+tracker / 引継ぎテンプレ統一

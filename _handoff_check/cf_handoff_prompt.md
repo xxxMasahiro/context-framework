@@ -36,6 +36,7 @@
 - 添付3ファイルを最初に読むこと
 - runbook/tracker をSSOTとして準拠すること（cf_handoff_prompt はメモであり、整合性チェック対象外だが運用はSSOT準拠）
 - 次にやることは「1つ（1コマンド/1操作）」で提示すること
+- 最初の安全確認として Repo Lock を実行する（`./tools/cf-guard.sh --check`）
 
 ---
 
@@ -55,4 +56,3 @@
 - merge commit: `8d888ab`
 - 作業ブランチ: `wip/exception-batch-postpr-cleanup`（削除済み）
 - 最終状態: `main` が `origin/main` と一致（`git status -sb` で確認）
-
