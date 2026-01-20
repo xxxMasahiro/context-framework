@@ -494,3 +494,7 @@
 - 2026-01-19 | UPD-20260119-06 | STEP-505 最終整合チェック PASS | Done[x] | Evidence: commit 5f2a393
 
 - 2026-01-20 02:57 +0900 | STEP-506 | CHANGELOG.md の ## Unreleased にリリースメモを追記して完了（Unreleasedの1行置換）。Evidence: git diff -- CHANGELOG.md / tracker STEP-506 が [x]
+
+- 2026-01-20 | UPD-20260120-PR25 | PR#25 merged: PR後の後処理を「ガード付きで一括提示してよい」例外を追加 | Done [x]
+  - 対象: `_handoff_check/cf_task_tracker_v5.md` / `_handoff_check/cf_update_runbook.md`
+  - Evidence: PR #25 (merged) / commit eb6fc91 / merge 8d888ab

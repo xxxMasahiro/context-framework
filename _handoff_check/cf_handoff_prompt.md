@@ -36,3 +36,23 @@
 - 添付3ファイルを最初に読むこと
 - runbook/tracker をSSOTとして準拠すること（cf_handoff_prompt はメモであり、整合性チェック対象外だが運用はSSOT準拠）
 - 次にやることは「1つ（1コマンド/1操作）」で提示すること
+
+---
+
+## 追記: 2026-01-20 PR#25（例外：PR後の後処理を“ガード付きで一括提示”してよいケース）
+
+### 変更点（何を追加・削除・修正したか）
+- Mod: `_handoff_check/cf_task_tracker_v5.md`
+  - 「次にやることは1つ（1コマンド/1操作）」原則の**例外**として、Developerが明示的に依頼した場合のみ
+    「PR作成→merge→branch削除→main同期→prune→status」を**まとめて提示してよい**旨を追記（詳細は runbook 8.1）。
+- Mod: `_handoff_check/cf_update_runbook.md`
+  - `8.1 例外: PR後の後処理をまとめて提示する場合（ガード付き一括手続きテンプレ）` を追記。
+  - main保護、`--ff-only`、開始ブランチ（`TOPIC_BRANCH` / `start_branch`）、削除条件、想定repoガード等を明文化。
+
+### エビデンス
+- PR: #25（merged）
+- commit: `eb6fc91`（docs: add guarded batch cleanup exception）
+- merge commit: `8d888ab`
+- 作業ブランチ: `wip/exception-batch-postpr-cleanup`（削除済み）
+- 最終状態: `main` が `origin/main` と一致（`git status -sb` で確認）
+
