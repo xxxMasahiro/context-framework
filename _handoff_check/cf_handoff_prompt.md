@@ -56,3 +56,20 @@
 - merge commit: `8d888ab`
 - 作業ブランチ: `wip/exception-batch-postpr-cleanup`（削除済み）
 - 最終状態: `main` が `origin/main` と一致（`git status -sb` で確認）
+
+## 5. 追記（2026-01-21）｜「役割は固定しない」方針と初期設定ファイル導入（新規タスク化）
+- 背景:
+  - 現状 runbook 4.2 に「エージェント→想定ロール例」があり、将来の方針（Developerが役割割当を決める）と衝突し得る。
+- 方針（合意したい方向）:
+  - Developer は、どのエージェントにも任意の役割を割り当て可能（固定対応はしない）。
+  - 役割は「初期設定ファイル（SSOT）」で決まり、CLAUDE.md / AGENTS.md / GEMINI.md は “入口/運用アダプタ” として初期設定を参照する。
+  - 役割セットは以下（将来拡張可）:
+    - Architect / Crafter / Orchestrator / CI/QA / Auditor
+- 次の作業（大きめ・Codex推奨）:
+  1) cf_task_tracker_v5.md を「まず再構築」し、この論点を新規タスクとして「## 5. タスク一覧（Gate別）」へ正規追加
+  2) runbook 4.2 を「固定の想定」ではなく「デフォルト例/参考」へ格下げし、初期設定ファイルをSSOTとして明記
+  3) CLAUDE.md / AGENTS.md / GEMINI.md（＋template群）を、初期設定ファイル前提で矛盾なく更新
+- 安全:
+  - 新チャット開始時の最初の安全確認は `./tools/cf-guard.sh --check`
+  - 破壊的操作（restore/reset/clean/rm等）は Guard 経由を推奨
+
