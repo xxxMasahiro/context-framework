@@ -480,6 +480,9 @@
 
 ## Progress Log/Updates
 
+- 2026-01-21T18:11:10+09:00 | UPD-20260121-04 | Gate B: next3_work.zip (Skills統合) をDone更新 (PR #30) | Done[x]
+  - 対象: _handoff_check/cf_task_tracker_v5.md
+  - Evidence: PR #30 (merge: ef0791c / commit: f99300f)
 - 2026-01-21T15:27:47+09:00 | UPD-20260121-03 | Gate F: SSOT 3ファイル表記の統一と証跡更新（STEP-507〜512） | Done[x]
   - 対象: _handoff_check/cf_handoff_prompt.md / _handoff_check/cf_update_runbook.md / _handoff_check/cf_task_tracker_v5.md
   - Evidence: PR#28（merge: 18edacb / commit: 463b277）
