@@ -37,6 +37,7 @@
 - runbook/tracker をSSOTとして準拠すること（cf_handoff_prompt はメモであり、整合性チェック対象外だが運用はSSOT準拠）
 - 次にやることは「1つ（1コマンド/1操作）」で提示すること
 - 最初の安全確認として Repo Lock を実行する（`./tools/cf-guard.sh --check`）
+- 役割は初期設定ファイルに従う（`WORKFLOW/TOOLING/INITIAL_SETTINGS.md` を参照）
 
 ---
 
@@ -59,7 +60,7 @@
 
 ## 5. 追記（2026-01-21）｜「役割は固定しない」方針と初期設定ファイル導入（新規タスク化）
 - 背景:
-  - 現状 runbook 4.2 に「エージェント→想定ロール例」があり、将来の方針（Developerが役割割当を決める）と衝突し得る。
+  - 現状 runbook 4.2 に「エージェント→参考例（固定しない）」があり、将来の方針（Developerが役割割当を決める）と衝突し得る。
 - 方針（合意したい方向）:
   - Developer は、どのエージェントにも任意の役割を割り当て可能（固定対応はしない）。
   - 役割は「初期設定ファイル（SSOT）」で決まり、CLAUDE.md / AGENTS.md / GEMINI.md は “入口/運用アダプタ” として初期設定を参照する。
@@ -72,4 +73,3 @@
 - 安全:
   - 新チャット開始時の最初の安全確認は `./tools/cf-guard.sh --check`
   - 破壊的操作（restore/reset/clean/rm等）は Guard 経由を推奨
-

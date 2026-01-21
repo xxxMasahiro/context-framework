@@ -79,7 +79,7 @@
 - 未解決ブロッカー:
   - （なし）
 - 次にやる「1手」:
-  - next2_work.zip を展開し、3常駐指示ファイル（CLAUDE.md / AGENTS.md / GEMINI.md）の共存方針差分を洗い出す
+  - 次の指示待ち（追加タスクがあれば Gate F に追記）
 
     - 注: `next2_work.zip` は旧運用ラベルです。**ZIPの作成/展開はしません**。
     - 実作業のSSOTは `/_handoff_check/` の3ファイル（`cf_task_tracker_v5.md` / `cf_update_runbook.md` / `cf_handoff_prompt.md`）です。
@@ -302,6 +302,19 @@
 
 ---
 
+### Gate F｜初期設定/役割割当（Developer設定に従う）
+
+| ID | タスク | Done | 証跡（Evidence） | 変更点（Add/Del/Mod） |
+|---|---|---:|---|---|
+| STEP-507 | 初期設定ファイルの設計と置き場を追加（例: .cfctx/agent_role_assignment.example.yaml） | [x] | `.cfctx/agent_role_assignment.example.yaml` / `WORKFLOW/TOOLING/INITIAL_SETTINGS.md` | Add |
+| STEP-508 | 3ファイルの「役割固定」撤廃と役割一覧の共通化 | [x] | `CLAUDE.md` / `AGENTS.md` / `GEMINI.md` | Mod |
+| STEP-509 | templates（TOOLING/ADAPTERS）を初期設定参照へ整合 | [x] | `TOOLING/ADAPTERS/CLAUDE.template.md` / `TOOLING/ADAPTERS/AGENTS.template.md` / `TOOLING/ADAPTERS/GEMINI.template.md` | Mod |
+| STEP-510 | COEXIST_3FILES に初期設定ファイル導線を追記 | [x] | `WORKFLOW/TOOLING/COEXIST_3FILES.md` | Mod |
+| STEP-511 | runbook/handoff に初期設定ファイル導入を追記 | [x] | `_handoff_check/cf_update_runbook.md` / `_handoff_check/cf_handoff_prompt.md` | Mod |
+| STEP-512 | 整合チェック（3ファイル参照一致/Repo Lock非混同） | [x] | `rg -n "INITIAL_SETTINGS.md" CLAUDE.md AGENTS.md GEMINI.md` / `rg -n "Repo Lock" _handoff_check/cf_update_runbook.md` | Mod |
+
+---
+
 ## 6. 変更点サマリ（最後に確定させる）
 
 ### Add（追加）
@@ -467,6 +480,9 @@
 
 ## Progress Log/Updates
 
+- 2026-01-21 | UPD-20260121-02 | Gate F: 役割固定の撤廃と初期設定導入（STEP-507〜512） | Done[x]
+  - 対象: `CLAUDE.md` / `AGENTS.md` / `GEMINI.md` / `TOOLING/ADAPTERS/*.template.md` / `.cfctx/agent_role_assignment.example.yaml` / `WORKFLOW/TOOLING/INITIAL_SETTINGS.md` / `WORKFLOW/TOOLING/COEXIST_3FILES.md` / `_handoff_check/cf_update_runbook.md` / `_handoff_check/cf_handoff_prompt.md`
+  - Evidence: `rg -n "INITIAL_SETTINGS.md" CLAUDE.md AGENTS.md GEMINI.md` / `rg -n "Repo Lock" _handoff_check/cf_update_runbook.md`
 - 2026-01-21 | UPD-20260121-01 | Repo Lock 導入（fingerprint/guard/runbook/handoff prompt） | Done[x]
   - 対象: `.cfctx/repo_fingerprint.json` / `tools/cf-guard.sh` / `WORKFLOW/TOOLING/REPO_LOCK.md` / `_handoff_check/cf_update_runbook.md` / `_handoff_check/cf_handoff_prompt.md`
   - Evidence: `./tools/cf-guard.sh --check`
