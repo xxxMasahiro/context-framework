@@ -19,12 +19,17 @@
 - 各AIエージェントに **直接渡す運用アダプタ**として使う
 - 詳細本文の複製は避け、**参照リンク中心**で運用する
 
-## 役割対応
-| エージェント | 対応ファイル | 想定ロール例 |
+## 役割対応（参考）
+| エージェント | 対応ファイル | 参考例（固定しない） |
 |---|---|---|
-| Claude Code | `CLAUDE.md` | Crafter（実装） |
-| OpenAI Codex | `AGENTS.md` | Crafter/Orchestrator（CLI運用も含む） |
-| Google Antigravity / Gemini系 | `GEMINI.md` | Orchestrator（統制/整理） |
+| Claude Code | `CLAUDE.md` | 例: Crafter |
+| OpenAI Codex | `AGENTS.md` | 例: Orchestrator / Crafter |
+| Google Antigravity / Gemini系 | `GEMINI.md` | 例: Architect / Auditor |
+
+## 役割の割当（初期設定）
+- 役割は固定しない。Developer が初期設定ファイルで割り当てる。
+- 参照: `WORKFLOW/TOOLING/INITIAL_SETTINGS.md`
+- 設定例: `.cfctx/agent_role_assignment.example.yaml`
 
 ## 統一必須文言（運用上の固定）
 **AuditorはPRへ監査結果を返す。修正はCrafter/Orchestratorが行う。**

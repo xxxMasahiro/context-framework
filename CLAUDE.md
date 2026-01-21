@@ -4,8 +4,20 @@
 - Claude Code に **直接渡す運用アダプタ**として使う
 - SSOT（唯一の正）は cf-context-framework 側に固定する
 
-## 役割
-- 想定ロール: Crafter（実装）
+## 役割（固定しない）
+- このmdは Claude 向けの入口（読み込み必須）であり、役割は固定しない
+- 役割は Developer が初期設定ファイルで割り当てる
+- 初期設定（共通参照先）:
+  - WORKFLOW/TOOLING/INITIAL_SETTINGS.md
+  - .cfctx/agent_role_assignment.example.yaml
+- 役割の行動規範は SSOT（Charter → Mode → Artifacts → Skills）に従う
+
+### 役割一覧（一般的な説明）
+- Architect: 設計・整合性の前段チェックを担う場合がある
+- Crafter: 実装（追加/修正/削除）を担う場合がある
+- Orchestrator: タスク分解・横断調整・進行管理を担う場合がある
+- CI/QA: 検証・ログ化・再現性の担保を担う場合がある
+- Auditor: 監査・証跡・リスク指摘を担う場合がある（実装はしない）
 
 ## SSOT参照順（唯一の正）
 - Charter → Mode → Artifacts → Skills

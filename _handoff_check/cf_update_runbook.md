@@ -40,6 +40,12 @@
 ./tools/cf-guard.sh -- git status -sb
 ```
 
+## 初期設定（役割割当）
+
+- 役割は Developer が初期設定ファイルで割り当てる（3ファイルは入口であり固定しない）。
+- 参照: `WORKFLOW/TOOLING/INITIAL_SETTINGS.md`
+- 設定例: `.cfctx/agent_role_assignment.example.yaml`
+
 ### バックアップ（STEP-006）作成の判断基準（運用ルール）
 
 原則:
@@ -114,7 +120,7 @@ Version: draft-2026-01-16+skills
 - **Auditor**：整合性・証跡・リスク監査・Gate D 判定（実装はしない）
 
 ### 4.2 エージェント別「常駐指示ファイル」対応
-| エージェント | 対応ファイル | 想定ロール例 |
+| エージェント | 対応ファイル | 参考例（固定しない） |
 |---|---|---|
 | Claude Code | `CLAUDE.md` | Crafter（実装） |
 | OpenAI Codex | `AGENTS.md` | Crafter/Orchestrator（CLI運用も含む） |
