@@ -45,7 +45,7 @@
 - 対象ZIP:
   - [x] next1_work.zip（Auditor / Gate D）
   - [x] next2_work.zip（3常駐指示ファイル共存）
-  - [ ] next3_work.zip（Skills統合）
+  - [x] next3_work.zip（Skills統合）
 - 参照手順書: `cf_update_runbook.md`
 - 実行方針（固定）: **Charter → Mode → Artifacts → Skills**
 - 監査運用（固定 / 表現統一は後で反映）: **AuditorはPRへ監査結果を返す。修正はCrafter/Orchestratorが行う。**
