@@ -1,30 +1,28 @@
 # cf_handoff_prompt.md（このチャットの引継ぎメモ）
 
 ## 0. 目的
-- 引継ぎ運用を「_handoff_check の3ファイル添付」に簡略化した。
+- 引継ぎ運用を「_handoff_check の3ファイル添付」に簡略化した（ZIP不要）。
 - 今後 Prompt.md は使わない（参照禁止）。
 
 ## 1. 今回の変更サマリ（何を追加/削除/修正したか）
-- 修正対象は _handoff_check の2ファイルのみ：
+- 修正対象は _handoff_check の3ファイル：
+  - _handoff_check/cf_handoff_prompt.md
   - _handoff_check/cf_update_runbook.md
   - _handoff_check/cf_task_tracker_v5.md
 - 変更内容（要約）：
-  - Prompt.md 参照を runbook/tracker から排除（運用からPrompt.md撤廃）
-  - 「新チャット引継ぎ = 3ファイル添付（runbook/tracker + cf_handoff_prompt）」のテンプレを両ファイルへ統一
-  - tracker の Progress Log/Updates に「引継ぎ簡略運用」系の更新を反映
+  - Gate F（INITIAL_SETTINGS導入・固定ロール撤廃）前提に統一
+  - SSOTは _handoff_check の3ファイルで統一（ZIP不要）
+  - Gate Fの証跡（PR#28/commit）をタスク表と更新ログに反映
 
 ## 2. エビデンス（コミット/状態）
-- 直近コミット：
-  - 0f70baa docs: handoff simplification (drop prompt refs)
-  - c15a9c3 docs: tracker log evidence for handoff simplification
-- push は最終的に成功（DNS失敗が出たが再実行で解消）。
-- 現状：main ブランチ、作業ツリー clean。
+- Gate F（PR#28）:
+  - Merge: 18edacb
+  - Commit: 463b277（docs: add INITIAL_SETTINGS + role assignment (Gate F)）
+- 現状：main ブランチ、作業ツリー clean（作業前提）。
 
 ## 3. 同一性確認（引用個所と同じ最新版か）
-- sha256（引用スクショで示されていた値と一致）：
-  - cf_update_runbook.md: 2347a6ac7021d9304f67f60dba77346d34dd5d97163eaa7bf7cd06e66e307673
-  - cf_task_tracker_v5.md: 2f7a01112a589e02ecf1fced3608435a2b98e2f262fbfc7859fc582320e22fc0
-→ 「引用個所のファイル」と同一の最新版。
+- sha256 は固定値を書かず、必要時に現物で算出する：
+  - `sha256sum _handoff_check/cf_handoff_prompt.md _handoff_check/cf_update_runbook.md _handoff_check/cf_task_tracker_v5.md`
 
 ## 4. 懸念点/次にやる候補（未実施）
 ※致命ではないが、将来の混乱を減らす改善候補（必要なら最小差分）
@@ -34,7 +32,8 @@
 
 ## 5. 新チャット側への要求（最重要）
 - 添付3ファイルを最初に読むこと
-- runbook/tracker をSSOTとして準拠すること（cf_handoff_prompt はメモであり、整合性チェック対象外だが運用はSSOT準拠）
+- SSOTは _handoff_check の3ファイル（ZIP不要）
+- 運用規範は runbook/tracker を優先し、handoff_prompt は経緯メモとして整合させる
 - 次にやることは「1つ（1コマンド/1操作）」で提示すること
 - 最初の安全確認として Repo Lock を実行する（`./tools/cf-guard.sh --check`）
 - 役割は初期設定ファイルに従う（`WORKFLOW/TOOLING/INITIAL_SETTINGS.md` を参照）
@@ -58,18 +57,10 @@
 - 作業ブランチ: `wip/exception-batch-postpr-cleanup`（削除済み）
 - 最終状態: `main` が `origin/main` と一致（`git status -sb` で確認）
 
-## 5. 追記（2026-01-21）｜「役割は固定しない」方針と初期設定ファイル導入（新規タスク化）
-- 背景:
-  - 現状 runbook 4.2 に「エージェント→参考例（固定しない）」があり、将来の方針（Developerが役割割当を決める）と衝突し得る。
-- 方針（合意したい方向）:
-  - Developer は、どのエージェントにも任意の役割を割り当て可能（固定対応はしない）。
-  - 役割は「初期設定ファイル（SSOT）」で決まり、CLAUDE.md / AGENTS.md / GEMINI.md は “入口/運用アダプタ” として初期設定を参照する。
-  - 役割セットは以下（将来拡張可）:
-    - Architect / Crafter / Orchestrator / CI/QA / Auditor
-- 次の作業（大きめ・Codex推奨）:
-  1) cf_task_tracker_v5.md を「まず再構築」し、この論点を新規タスクとして「## 5. タスク一覧（Gate別）」へ正規追加
-  2) runbook 4.2 を「固定の想定」ではなく「デフォルト例/参考」へ格下げし、初期設定ファイルをSSOTとして明記
-  3) CLAUDE.md / AGENTS.md / GEMINI.md（＋template群）を、初期設定ファイル前提で矛盾なく更新
-- 安全:
-  - 新チャット開始時の最初の安全確認は `./tools/cf-guard.sh --check`
-  - 破壊的操作（restore/reset/clean/rm等）は Guard 経由を推奨
+## 6. 追記（2026-01-21）｜Gate F 完了（役割固定撤廃 / INITIAL_SETTINGS導入）
+- 方針:
+  - 役割は初期設定ファイルで割り当て（固定しない）
+  - 3ファイル（CLAUDE/AGENTS/GEMINI）は入口として初期設定を参照
+- エビデンス:
+  - PR#28（merged）
+  - Merge: 18edacb / Commit: 463b277

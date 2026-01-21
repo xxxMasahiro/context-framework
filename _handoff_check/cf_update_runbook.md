@@ -13,11 +13,11 @@
 
 ## 引継ぎ簡略運用（旧引継ぎ文書不使用）
 
-- 新チャット添付は次の3ファイルのみ（整合性対象は前2点）:
+- 新チャット添付は次の3ファイルのみ（整合性対象は3ファイル）:
   - `_handoff_check/cf_update_runbook.md`
   - `_handoff_check/cf_task_tracker_v5.md`
-  - `_handoff_check/cf_handoff_prompt.md`（都度更新・整合性対象外だが運用はこれに準拠）
-- 固定SSOTは `cf_update_runbook.md` と `cf_task_tracker_v5.md`
+  - `_handoff_check/cf_handoff_prompt.md`（都度更新の運用メモだが、SSOTパックに含める）
+- SSOTは _handoff_check の3ファイル（運用規範は runbook/tracker を優先）
 - 引継ぎプロンプト（テンプレ・表記固定）:
   > 前回のチャットからの引継ぎを行います。まずは、添付した3つのファイル（cf_handoff_prompt.md / cf_update_runbook.md / cf_task_tracker_v5.md）をすべて読み込んで確認し、整合性の取れた適切な引継ぎ構成を構築してください。cf_update_runbook.md と cf_task_tracker_v5.md に完全準拠し、cf_handoff_prompt.md を参照してこれまでの経緯と次の指示（次にやること1つ）を提示してください。
 
@@ -71,7 +71,7 @@
 # cf-context-framework アップデート手順書（統合版 + Skills運用統合）
 Version: draft-2026-01-16+skills
 
-この手順書は、このチャットで確定した方針と、添付3ZIP（next1/next2/next3）の内容を統合し、**cf-context-framework 全体の整合性（Charter→Mode→Artifacts→Skills）を保ったままアップデートする**ための実行ランブックです。
+この手順書は、このチャットで確定した方針と、_handoff_check の3ファイルの内容を統合し、**cf-context-framework 全体の整合性（Charter→Mode→Artifacts→Skills）を保ったままアップデートする**ための実行ランブックです。
 
 > 進捗管理・証跡（Evidence）記録は、併設のタスク管理票 `cf_task_tracker_vN.md`（最新版） を使用します。
 

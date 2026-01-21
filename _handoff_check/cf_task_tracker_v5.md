@@ -13,11 +13,11 @@
 
 ## 引継ぎ簡略運用（旧引継ぎ文書不使用）
 
-- 新チャット添付は次の3ファイルのみ（整合性対象は前2点）:
+- 新チャット添付は次の3ファイルのみ（整合性対象は3ファイル）:
   - `_handoff_check/cf_update_runbook.md`
   - `_handoff_check/cf_task_tracker_v5.md`
-  - `_handoff_check/cf_handoff_prompt.md`（都度更新・整合性対象外だが運用はこれに準拠）
-- 固定SSOTは `cf_update_runbook.md` と `cf_task_tracker_v5.md`
+  - `_handoff_check/cf_handoff_prompt.md`（都度更新の運用メモだが、SSOTパックに含める）
+- SSOTは _handoff_check の3ファイル（運用規範は runbook/tracker を優先）
 - 引継ぎプロンプト（テンプレ・表記固定）:
   > 前回のチャットからの引継ぎを行います。まずは、添付した3つのファイル（cf_handoff_prompt.md / cf_update_runbook.md / cf_task_tracker_v5.md）をすべて読み込んで確認し、整合性の取れた適切な引継ぎ構成を構築してください。cf_update_runbook.md と cf_task_tracker_v5.md に完全準拠し、cf_handoff_prompt.md を参照してこれまでの経緯と次の指示（次にやること1つ）を提示してください。
 
@@ -306,12 +306,12 @@
 
 | ID | タスク | Done | 証跡（Evidence） | 変更点（Add/Del/Mod） |
 |---|---|---:|---|---|
-| STEP-507 | 初期設定ファイルの設計と置き場を追加（例: .cfctx/agent_role_assignment.example.yaml） | [x] | `.cfctx/agent_role_assignment.example.yaml` / `WORKFLOW/TOOLING/INITIAL_SETTINGS.md` | Add |
-| STEP-508 | 3ファイルの「役割固定」撤廃と役割一覧の共通化 | [x] | `CLAUDE.md` / `AGENTS.md` / `GEMINI.md` | Mod |
-| STEP-509 | templates（TOOLING/ADAPTERS）を初期設定参照へ整合 | [x] | `TOOLING/ADAPTERS/CLAUDE.template.md` / `TOOLING/ADAPTERS/AGENTS.template.md` / `TOOLING/ADAPTERS/GEMINI.template.md` | Mod |
-| STEP-510 | COEXIST_3FILES に初期設定ファイル導線を追記 | [x] | `WORKFLOW/TOOLING/COEXIST_3FILES.md` | Mod |
-| STEP-511 | runbook/handoff に初期設定ファイル導入を追記 | [x] | `_handoff_check/cf_update_runbook.md` / `_handoff_check/cf_handoff_prompt.md` | Mod |
-| STEP-512 | 整合チェック（3ファイル参照一致/Repo Lock非混同） | [x] | `rg -n "INITIAL_SETTINGS.md" CLAUDE.md AGENTS.md GEMINI.md` / `rg -n "Repo Lock" _handoff_check/cf_update_runbook.md` | Mod |
+| STEP-507 | 初期設定ファイルの設計と置き場を追加（例: .cfctx/agent_role_assignment.example.yaml） | [x] | `.cfctx/agent_role_assignment.example.yaml` / `WORKFLOW/TOOLING/INITIAL_SETTINGS.md` / PR#28（merge: 18edacb / commit: 463b277） | Add |
+| STEP-508 | 3ファイルの「役割固定」撤廃と役割一覧の共通化 | [x] | `CLAUDE.md` / `AGENTS.md` / `GEMINI.md` / PR#28（merge: 18edacb / commit: 463b277） | Mod |
+| STEP-509 | templates（TOOLING/ADAPTERS）を初期設定参照へ整合 | [x] | `TOOLING/ADAPTERS/CLAUDE.template.md` / `TOOLING/ADAPTERS/AGENTS.template.md` / `TOOLING/ADAPTERS/GEMINI.template.md` / PR#28（merge: 18edacb / commit: 463b277） | Mod |
+| STEP-510 | COEXIST_3FILES に初期設定ファイル導線を追記 | [x] | `WORKFLOW/TOOLING/COEXIST_3FILES.md` / PR#28（merge: 18edacb / commit: 463b277） | Mod |
+| STEP-511 | runbook/handoff に初期設定ファイル導入を追記 | [x] | `_handoff_check/cf_update_runbook.md` / `_handoff_check/cf_handoff_prompt.md` / PR#28（merge: 18edacb / commit: 463b277） | Mod |
+| STEP-512 | 整合チェック（3ファイル参照一致/Repo Lock非混同） | [x] | `rg -n "INITIAL_SETTINGS.md" CLAUDE.md AGENTS.md GEMINI.md` / `rg -n "Repo Lock" _handoff_check/cf_update_runbook.md` / PR#28（merge: 18edacb / commit: 463b277） | Mod |
 
 ---
 
@@ -480,6 +480,9 @@
 
 ## Progress Log/Updates
 
+- 2026-01-21T15:27:47+09:00 | UPD-20260121-03 | Gate F: SSOT 3ファイル表記の統一と証跡更新（STEP-507〜512） | Done[x]
+  - 対象: _handoff_check/cf_handoff_prompt.md / _handoff_check/cf_update_runbook.md / _handoff_check/cf_task_tracker_v5.md
+  - Evidence: PR#28（merge: 18edacb / commit: 463b277）
 - 2026-01-21 | UPD-20260121-02 | Gate F: 役割固定の撤廃と初期設定導入（STEP-507〜512） | Done[x]
   - 対象: `CLAUDE.md` / `AGENTS.md` / `GEMINI.md` / `TOOLING/ADAPTERS/*.template.md` / `.cfctx/agent_role_assignment.example.yaml` / `WORKFLOW/TOOLING/INITIAL_SETTINGS.md` / `WORKFLOW/TOOLING/COEXIST_3FILES.md` / `_handoff_check/cf_update_runbook.md` / `_handoff_check/cf_handoff_prompt.md`
   - Evidence: `rg -n "INITIAL_SETTINGS.md" CLAUDE.md AGENTS.md GEMINI.md` / `rg -n "Repo Lock" _handoff_check/cf_update_runbook.md`
