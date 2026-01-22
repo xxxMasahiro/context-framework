@@ -249,6 +249,30 @@ Skillsは単体で完結させず、必ずArtifactsへ“書き戻し”ます�
 - 軽微変更は手作業（開発者がCLI）、複雑変更はCrafter/Orchestrator主導（AIで実装）
 
 ### 8.1 例外：PR後の後処理を“まとめて提示”する場合（ガード付き一括手続きテンプレ）
+
+#### コピペ枠：ガード付き一括最終確認（main同期）
+
+- ユーザーが一括処理を希望した場合にのみ使用（基本は「次にやること1つ」）。
+- **必ず先頭でGuard（誤リポジトリ防止＋Repo Lock）**を実行し、NGなら中止。
+- 最後に `HEAD == origin/main` を確認して同期ズレを潰す。
+
+```bash
+set -euo pipefail
+
+REPO="/home/masahiro/projects/_cfctx/cf-context-framework"
+cd "$REPO"
+
+# Guard（安全確認：想定リポジトリ以外なら中止）
+test "$(git rev-parse --show-toplevel)" = "$REPO"
+./tools/cf-guard.sh --check
+
+# 同期/クリーン確認（push後の最終整合）
+git status -sb
+git fetch --prune origin
+test "$(git rev-parse HEAD)" = "$(git rev-parse origin/main)"
+git status -sb
+git log -1 --oneline --decorate
+```
 この例外は、Developerが「PRタイトル/本文も提示し、PR/merge/branch削除/同期/prune/statusまで一括で指示して」と**明示要求**した場合のみ有効。
 
 - main保護: **main は削除しない**
