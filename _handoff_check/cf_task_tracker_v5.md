@@ -572,7 +572,7 @@ git status -sb
 
 - 2026-01-22T20:48:32+09:00 | UPD-20260122-05 | Gate G（ログ運用95%効率化）のタスク設計を追加 | Done[x]
   - 対象: _handoff_check/cf_task_tracker_v5.md / LOGS/INDEX.md
-  - Evidence: commit TBD
+  - Evidence: commit 9f3e5a7
 - 2026-01-22T16:39:13+09:00 | UPD-20260122-04 | ログ索引生成ツール導入（tools追加＋LOGS/INDEX.md生成＋runbook注記） | Done[x]
   - 対象: tools/cf-log-index.sh / LOGS/INDEX.md / _handoff_check/cf_update_runbook.md / _handoff_check/cf_task_tracker_v5.md
   - Evidence: commit d404554
