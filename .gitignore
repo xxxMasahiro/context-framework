@@ -22,3 +22,5 @@ work/
 
 # Temporary handoff cache (delete after tracker completion)
 /_handoff_cache/
+# local-only: agent role assignment (do not commit)
+.cfctx/agent_role_assignment.yaml
