@@ -120,3 +120,12 @@
 - PR #33（merged）
 - Merge: 85f2e88 / Commits: 554ed36, fb54b7d
 - 最終状態: Repo Lock: OK / `main == origin/main` / working tree clean
+
+## 追記（2026-01-22）｜PR #36（ログ索引生成ツール導入）
+- PR #36（merge commit: 2f8cc22）
+  - tools/cf-log-index.sh を追加（trackerから LOG/UPD/SKILL-LOG を抽出して LOGS/INDEX.md を生成）
+  - LOGS/INDEX.md を追加（生成物：手編集禁止、再生成コマンドは `./tools/cf-log-index.sh`）
+  - _handoff_check/cf_update_runbook.md に「LOGS/INDEX.md は生成物。tracker更新PRでは再生成して同一PRで更新」を1行追記
+  - _handoff_check/cf_task_tracker_v5.md に UPD-20260122-04 を追記（Done[x]）
+- 証跡: Merge 2f8cc22 / Commits d404554, 593dea4 / Repo Lock OK / main==origin/main / clean
+
