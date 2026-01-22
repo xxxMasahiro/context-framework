@@ -77,6 +77,7 @@ Version: draft-2026-01-16+skills
 
 > 進捗管理・証跡（Evidence）記録は、併設のタスク管理票 `cf_task_tracker_vN.md`（最新版） を使用します。
 
+- ログ索引（`LOGS/INDEX.md`）は生成物。trackerの LOG/UPD/SKILL-LOG を更新したPRでは `tools/cf-log-index.sh` を再実行し、同一PRで更新する。
 ※最新版の判定: 作業フォルダ内の `cf_task_tracker_v*.md` のうち番号 N が最大のもの。新規作成時はその N+1 で作成します。
 ---
 
