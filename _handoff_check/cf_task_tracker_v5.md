@@ -381,7 +381,7 @@ git status -sb
 #### Phase 1（検索導線の成立：最小導入）
 | ID | タスク | Done | 証跡（Evidence） | 変更点（Add/Del/Mod） |
 |---|---|---:|---|---|
-| STEP-G001 | 現状棚卸し（具体ログの正/抽象索引の正）をSSOTに沿って確認 | [ ] |  | - |
+| STEP-G001 | 現状棚卸し（具体ログの正/抽象索引の正）をSSOTに沿って確認 | [x] | LOG-007 / LOGS/INDEX.md | Mod |
 | STEP-G002 | 具体ログの最小テンプレ合意（ID/状態/カテゴリ/症状/原因/対処/証跡） | [ ] |  | - |
 | STEP-G003 | 抽象ログ（索引）仕様合意（カテゴリ→パターン→具体ID、ID検索を正） | [ ] |  | - |
 | STEP-G004 | 運用ルール追記が必要か判定（同一PRで索引更新、生成物の扱い等） | [ ] |  | - |
@@ -448,6 +448,32 @@ git status -sb
   - `ls -l cf_task_tracker_vN.md` でリンク先が v4 であることを確認
 - 次の1手:
   - 以後の記録は `cf_task_tracker_vN.md`（最新版）に追記し、必要になったら N+1 を作成
+
+
+
+### LOG-007｜Gate G（STEP-G001）現状棚卸し：Concrete/Abstract/検索導線/証跡の確定
+- 日時: 2026-01-23
+- Guard（安全確認）:
+  - `./tools/cf-guard.sh --check`（Repo Lock: OK）
+  - `./tools/cf-guard.sh -- git status -sb`（## main...origin/main）
+- 実行コマンド:
+  - `./tools/cf-guard.sh -- sed -n 1,160p LOGS/INDEX.md`
+  - `./tools/cf-guard.sh -- rg -n "STEP-G001" _handoff_check/cf_task_tracker_v5.md`
+  - `./tools/cf-guard.sh -- sed -n 350,410p _handoff_check/cf_task_tracker_v5.md`
+  - `./tools/cf-guard.sh -- rg -n "## 3\. 実行ログ" _handoff_check/cf_task_tracker_v5.md`
+  - `./tools/cf-guard.sh -- sed -n 80,140p _handoff_check/cf_task_tracker_v5.md`
+  - `./tools/cf-guard.sh -- rg -n "8\.1" _handoff_check/cf_update_runbook.md`
+  - `./tools/cf-guard.sh -- sed -n 245,310p _handoff_check/cf_update_runbook.md`
+- コマンドの意味（復習用）:
+  - `sed -n a,bp`：対象ファイルの指定範囲だけ表示（参照専用）
+  - `rg -n`：行番号つき検索（位置特定→抜粋表示に使う）
+- 実行結果（確定事項）:
+  - Concrete（具体ログ）の正: tracker（`_handoff_check/cf_task_tracker_v5.md`）の「## 3. 実行ログ」に LOG を追記（各LOG冒頭に Guard 必須）
+  - Abstract（抽象索引）の正: `LOGS/INDEX.md`（Generated／手編集禁止／再生成=`./tools/cf-log-index.sh`／Source=tracker）
+  - 検索導線: `LOGS/INDEX.md` の `Ref: rg -n "ID" _handoff_check/cf_task_tracker_v5.md` で ID（UPD/LOG/SKILL-LOG）→Concreteへ到達
+  - 証跡: Guard（Repo Lock: OK）＋コマンド＋意味（復習）＋結果要約＋（可能ならスクショ/ログパス）
+- 次の1手:
+  - STEP-G001 を [x] 更新し、同一PRで `./tools/cf-log-index.sh` を再実行して `LOGS/INDEX.md` を更新
 
 
 
@@ -570,6 +596,8 @@ git status -sb
 
 ## Progress Log/Updates
 
+- 2026-01-23T07:13:35+09:00 | UPD-20260123-01 | Gate G: STEP-G001 現状棚卸しを Done 更新（Concrete/Abstract/検索導線/証跡確定） | Done[x]
+  - Evidence: LOG-007（L454）/ STEP-G001 [x]（L384）
 - 2026-01-22T20:48:32+09:00 | UPD-20260122-05 | Gate G（ログ運用95%効率化）のタスク設計を追加 | Done[x]
   - 対象: _handoff_check/cf_task_tracker_v5.md / LOGS/INDEX.md
   - Evidence: commit 9f3e5a7
