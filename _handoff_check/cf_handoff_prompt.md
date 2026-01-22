@@ -105,3 +105,18 @@
 - Commit: 35a6483（docs: runbookに添付不可時の代替手順注記を追記）
 - 状態: `main == origin/main`, 作業ツリー clean
 - 追記行確認: `rg -n "添付できない場合は.*代替手順" _handoff_check/cf_update_runbook.md` で該当行を確認
+
+---
+
+## 追記（2026-01-22）｜PR #33（衝突時の意思決定フロー／tracker修復）
+
+### 変更点（Add/Del/Mod）
+- **Mod**: `_handoff_check/cf_update_runbook.md`
+  - 4.1 ロール（責務）に「衝突時の意思決定」1行を追記
+- **Mod**: `_handoff_check/cf_task_tracker_v5.md`
+  - Progress Log/Updates の UPD-20260122-02 を復元（壊れ行の修正）
+
+### 証跡（Evidence）
+- PR #33（merged）
+- Merge: 85f2e88 / Commits: 554ed36, fb54b7d
+- 最終状態: Repo Lock: OK / `main == origin/main` / working tree clean
