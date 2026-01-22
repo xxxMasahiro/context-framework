@@ -369,6 +369,42 @@ git status -sb
 
 ---
 
+### Gate G｜ログ運用95%効率化（Concrete/Abstract連携）
+
+#### Gate G Done定義
+- 抽象（カテゴリ）→具体ID→解決策 の導線が成立している
+- 抽象側が肥大化しないルールがある（カテゴリ増殖抑制）
+- 生成物運用なら再生成手順が明確で同一PR更新ができる
+- 成功パターンがSkillへ昇格できる（入口がある）
+- 証跡（commit/PR/ログ）が tracker に残っている
+
+#### Phase 1（検索導線の成立：最小導入）
+| ID | タスク | Done | 証跡（Evidence） | 変更点（Add/Del/Mod） |
+|---|---|---:|---|---|
+| STEP-G001 | 現状棚卸し（具体ログの正/抽象索引の正）をSSOTに沿って確認 | [ ] |  | - |
+| STEP-G002 | 具体ログの最小テンプレ合意（ID/状態/カテゴリ/症状/原因/対処/証跡） | [ ] |  | - |
+| STEP-G003 | 抽象ログ（索引）仕様合意（カテゴリ→パターン→具体ID、ID検索を正） | [ ] |  | - |
+| STEP-G004 | 運用ルール追記が必要か判定（同一PRで索引更新、生成物の扱い等） | [ ] |  | - |
+| STEP-G005 | 受入テスト（失敗→抽象→具体→解決策へ辿れる）を最小シナリオで検証 | [ ] |  | - |
+
+#### Phase 2（カテゴリ/パターン育成：肥大化抑制）
+| ID | タスク | Done | 証跡（Evidence） | 変更点（Add/Del/Mod） |
+|---|---|---:|---|---|
+| STEP-G101 | 固定カテゴリ案を作成（最小セット＋OTHER有無の検討） | [ ] |  | - |
+| STEP-G102 | パターン分類案を定義（例：接続/権限/マイグレーション等） | [ ] |  | - |
+| STEP-G103 | 新カテゴリ追加ルール（同種2回目から/Go-NoGo）の必要性を判定 | [ ] |  | - |
+| STEP-G104 | 受入テスト（同種2回→パターンにまとまる）を検証 | [ ] |  | - |
+
+#### Phase 3（Skill昇格＋監査ループ）
+| ID | タスク | Done | 証跡（Evidence） | 変更点（Add/Del/Mod） |
+|---|---|---:|---|---|
+| STEP-G201 | Skill昇格条件（同種2回以上で候補化等）を確定 | [ ] |  | - |
+| STEP-G202 | Skillsへの導線（抽象→Skill）設計（入口の置き場を決める） | [ ] |  | - |
+| STEP-G203 | Auditor監査観点（再現性/証跡/安全）と指摘→修正→再検証の流れをタスク化 | [ ] |  | - |
+| STEP-G204 | 受入テスト（入口→Skillに辿れる）を検証 | [ ] |  | - |
+
+---
+
 ## 6. 変更点サマリ（最後に確定させる）
 
 ### Add（追加）
@@ -534,6 +570,9 @@ git status -sb
 
 ## Progress Log/Updates
 
+- 2026-01-22T20:48:32+09:00 | UPD-20260122-05 | Gate G（ログ運用95%効率化）のタスク設計を追加 | Done[x]
+  - 対象: _handoff_check/cf_task_tracker_v5.md / LOGS/INDEX.md
+  - Evidence: commit TBD
 - 2026-01-22T16:39:13+09:00 | UPD-20260122-04 | ログ索引生成ツール導入（tools追加＋LOGS/INDEX.md生成＋runbook注記） | Done[x]
   - 対象: tools/cf-log-index.sh / LOGS/INDEX.md / _handoff_check/cf_update_runbook.md / _handoff_check/cf_task_tracker_v5.md
   - Evidence: commit d404554
