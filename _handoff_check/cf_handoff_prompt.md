@@ -73,3 +73,22 @@
 - エビデンス:
   - PR#28（merged）
   - Merge: 18edacb / Commit: 463b277
+
+---
+
+## 追記（2026-01-22）｜runbook「添付不可時の代替手順」注記の追加
+
+### 目的
+- runbook単体で読んだ新エージェントが「3ファイル添付できない」ケースで詰まる確率を下げる。
+
+### 変更点（Add/Del/Mod）
+- **Mod**: `_handoff_check/cf_update_runbook.md`
+  - 「表記ポリシー（日本語統一 / SSOT）」内の「3ファイル必ず添付」直後に、
+    「添付できない場合は `cf_handoff_prompt.md` の『SSOT 3ファイルを添付できない場合の代替手順』に従う。」を**1行**追記。
+
+### 証跡（Evidence）
+- Repo Lock: OK
+- Commit: 35a6483（docs: runbookに添付不可時の代替手順注記を追記）
+- 状態: `main == origin/main`, 作業ツリー clean
+- 追記行確認: `rg -n "添付できない場合は.*代替手順" _handoff_check/cf_update_runbook.md` で該当行を確認
+
