@@ -120,6 +120,7 @@ Version: draft-2026-01-16+skills
 - **Orchestrator**：タスク分解・横断整合・進行管理
 - **CI/QA**：Walkthrough 実行・ログ化・Gate C 判定
 - **Auditor**：整合性・証跡・リスク監査・Gate D 判定（実装はしない）
+- **衝突時の意思決定**：SSOT（_handoff_check）は運用の入口だが、Charter→Mode→Artifacts→Skillsに従う。衝突時はSSOTを勝手に上書きせず、Architectが選択肢（Yes/Noまたは複数案）と影響/リスク/差分を提示し、DeveloperがGo/No-Goで承認する。承認後に実装し、trackerに証跡を残す。
 
 ### 4.2 エージェント別「常駐指示ファイル」対応
 | エージェント | 対応ファイル | 参考例（固定しない） |
