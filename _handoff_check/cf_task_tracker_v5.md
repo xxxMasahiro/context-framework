@@ -536,7 +536,7 @@ git status -sb
 
 - 2026-01-22T11:37:00+09:00 | UPD-20260122-02 | runbook 4.1 に「衝突時の意思決定」1行追記 | Done[x]
   - 対象: _handoff_check/cf_update_runbook.md / _handoff_check/cf_task_tracker_v5.md
-  - Evidence: commit b2e61ea
+  - Evidence: commit 554ed36
 - 2026-01-22T11:37:00+09:00 | UPD-20260122-01 | PR #31: .gitignore にローカル初期設定ファイル除外を反映 / SSOT 3ファイルへ反映 | Done[x]
   - 対象: _handoff_check/cf_handoff_prompt.md / _handoff_check/cf_update_runbook.md / _handoff_check/cf_task_tracker_v5.md
   - Evidence: PR #31（merge: ee5c074 / commit: 8f06dcc）/ Repo Lock: OK / main==origin/main / working tree clean
