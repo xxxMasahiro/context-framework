@@ -534,6 +534,9 @@ git status -sb
 
 ## Progress Log/Updates
 
+- 2026-01-22T11:37:00+09:00 | UPD-20260122-01 | PR #31: .gitignore にローカル初期設定ファイル除外を反映 / SSOT 3ファイルへ反映 | Done[x]
+  - 対象: _handoff_check/cf_handoff_prompt.md / _handoff_check/cf_update_runbook.md / _handoff_check/cf_task_tracker_v5.md
+  - Evidence: PR #31（merge: ee5c074 / commit: 8f06dcc）/ Repo Lock: OK / main==origin/main / working tree clean
 - 2026-01-21T18:11:10+09:00 | UPD-20260121-04 | Gate B: next3_work.zip (Skills統合) をDone更新 (PR #30) | Done[x]
   - 対象: _handoff_check/cf_task_tracker_v5.md
   - Evidence: PR #30 (merge: ef0791c / commit: f99300f)

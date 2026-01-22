@@ -46,6 +46,7 @@
 - 役割は Developer が初期設定ファイルで割り当てる（3ファイルは入口であり固定しない）。
 - 参照: `WORKFLOW/TOOLING/INITIAL_SETTINGS.md`
 - 設定例: `.cfctx/agent_role_assignment.example.yaml`
+- 実運用ファイル（例: `.cfctx/agent_role_assignment.yaml`）はローカル専用のため Git 管理しない（`.gitignore` 推奨）。
 
 ### バックアップ（STEP-006）作成の判断基準（運用ルール）
 

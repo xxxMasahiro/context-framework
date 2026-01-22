@@ -74,6 +74,20 @@
   - PR#28（merged）
   - Merge: 18edacb / Commit: 463b277
 
+## 7. 追記（2026-01-22）｜初期設定の実運用ファイルはローカル専用（.gitignore）
+- 目的:
+  - INITIAL_SETTINGS の実運用ファイルを誤コミットしないため（.gitignore化）
+- 変更点:
+  - PR #31 で `.gitignore` にローカル専用ファイルの除外を反映済み
+  - runbook に「実運用ファイルは Git 管理しない」旨を追記
+  - tracker に Progress Log/Updates の追記
+- 証跡:
+  - PR #31（merged）
+  - Merge: ee5c074 / Commit: 8f06dcc
+  - Repo Lock: OK / main==origin/main / working tree clean
+- 変更点（Add/Del/Mod）:
+  - Mod: _handoff_check/cf_handoff_prompt.md / _handoff_check/cf_update_runbook.md / _handoff_check/cf_task_tracker_v5.md
+
 ---
 
 ## 追記（2026-01-22）｜runbook「添付不可時の代替手順」注記の追加
@@ -91,4 +105,3 @@
 - Commit: 35a6483（docs: runbookに添付不可時の代替手順注記を追記）
 - 状態: `main == origin/main`, 作業ツリー clean
 - 追記行確認: `rg -n "添付できない場合は.*代替手順" _handoff_check/cf_update_runbook.md` で該当行を確認
-
