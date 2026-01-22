@@ -49,6 +49,33 @@
 
 ---
 
+## 追記（2026-01-23）｜PR #40（Gate G STEP-G001 logs/index sync）
+
+### 目的
+- Gate G Phase 1 / STEP-G001（現状棚卸し）を完了し、Concrete（tracker）と Abstract（LOGS/INDEX）を整合させる。
+
+### 変更点（Add/Del/Mod）
+- **Mod**: `_handoff_check/cf_task_tracker_v5.md`
+  - Gate G: STEP-G001 を Done[x] に更新（Evidence: `LOG-007` / `LOGS/INDEX.md`）
+  - `LOG-007` を追記（Concrete/Abstract/検索導線/証跡確定の記録）
+  - Progress Log/Updates に `UPD-20260123-01` を追記（索引生成ツールが拾えるよう行パイプ形式に正規化）
+- **Mod**: `LOGS/INDEX.md`
+  - `./tools/cf-log-index.sh` 再実行で再生成（`LOG-007` / `UPD-20260123-01` を反映）
+
+### 証跡（Evidence）
+- PR #40（merged）
+- Merge: `9a802ee` / Commit: `b4e1f7a`
+- Branch: `wip/gate-g-stepg001`（削除済み）
+- Repo Lock: OK / `main == origin/main` / working tree clean
+- 確認コマンド:
+  - `rg -n "^| STEP-G001" _handoff_check/cf_task_tracker_v5.md`
+  - `rg -n "LOG-007" _handoff_check/cf_task_tracker_v5.md`
+  - `rg -n "UPD-20260123-01" _handoff_check/cf_task_tracker_v5.md`
+  - `rg -n "LOG-007" LOGS/INDEX.md`
+  - `rg -n "UPD-20260123-01" LOGS/INDEX.md`
+
+---
+
 ## 追記: 2026-01-20 PR#25（例外：PR後の後処理を“ガード付きで一括提示”してよいケース）
 
 ### 変更点（何を追加・削除・修正したか）
