@@ -129,3 +129,8 @@
   - _handoff_check/cf_task_tracker_v5.md に UPD-20260122-04 を追記（Done[x]）
 - 証跡: Merge 2f8cc22 / Commits d404554, 593dea4 / Repo Lock OK / main==origin/main / clean
 
+## 追記（2026-01-22）｜PR #38（Gate G 追加＋LOGS/INDEX更新）
+- PR #38（merged）
+  - tracker: Gate G（Concrete/Abstract連携のロードマップ）追加＋Done定義、Progress Log/Updates に UPD-20260122-05 追記
+  - runbook準拠: tracker更新に伴い tools/cf-log-index.sh を再実行し、LOGS/INDEX.md を同一PRで更新（生成物）
+  - 状態: PR merge済み／ブランチ削除済み／main==origin/main／Repo Lock: OK
