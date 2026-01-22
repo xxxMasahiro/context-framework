@@ -38,6 +38,15 @@
 - 最初の安全確認として Repo Lock を実行する（`./tools/cf-guard.sh --check`）
 - 役割は初期設定ファイルに従う（`WORKFLOW/TOOLING/INITIAL_SETTINGS.md` を参照）
 
+### SSOT 3ファイルを添付できない場合の代替手順（必須）
+- 代替: リポジトリの `_handoff_check/` から **直接読み込む**
+- その前に必ず Guard（誤リポジトリ防止＋Repo Lock）を通す:
+  - `cd /home/masahiro/projects/_cfctx/cf-context-framework`
+  - `test "$(git rev-parse --show-toplevel)" = "/home/masahiro/projects/_cfctx/cf-context-framework"`
+  - `./tools/cf-guard.sh --check`（Repo Lock: OK）
+- 一括処理を希望された場合は、runbook 8.1 の「ガード付き一括テンプレ（コピペ枠）」へ誘導する  
+  （一括でも Guard を先頭に置くこと）
+
 ---
 
 ## 追記: 2026-01-20 PR#25（例外：PR後の後処理を“ガード付きで一括提示”してよいケース）
