@@ -94,12 +94,36 @@
 ## 3. 実行ログ（証跡として残す）
 
 > ここは「コマンド実行のたびに」追記します。  
+> **各LOGの冒頭に Guard（安全確認）ブロックを必ず入れ、Repo Lock: OK の証跡を残す**こと。  
 > 可能なら、貼り付けた実行結果のスクショ/ログファイルのパスも書いてください。
+
+### ガード付き一括処理テンプレ（例外）
+Developerが**一括処理を明示要求**した場合のみ利用可（詳細は runbook 8.1）。
+必ず **Guard を先頭に置く**。書き込み系を含める場合は runbook 8.1 を参照。
+
+```bash
+set -euo pipefail
+
+# guard: Repo Lock（想定リポジトリ以外なら中止）
+cd /home/masahiro/projects/_cfctx/cf-context-framework
+test "$(git rev-parse --show-toplevel)" = "/home/masahiro/projects/_cfctx/cf-context-framework"
+./tools/cf-guard.sh --check
+git remote get-url origin
+git status -sb
+
+# ここから下に実処理（読み取り系中心）
+# 書き込み系を含める場合は runbook 8.1 の手順に従う
+```
 
 ### LOG-001｜Gate D（Audit）テンプレ/運用ドキュメント追加
 - 日時: 2026-01-17
-- 実行コマンド:
+- Guard（安全確認）:
   - `cd /home/masahiro/projects/_cfctx/cf-context-framework`
+  - `test "$(git rev-parse --show-toplevel)" = "/home/masahiro/projects/_cfctx/cf-context-framework"`
+  - `./tools/cf-guard.sh --check`（Repo Lock: OK）
+  - `git remote get-url origin`
+  - `git status -sb`
+- 実行コマンド:
   - `mkdir -p WORKFLOW`
   - `cat > WORKFLOW/AUDIT.md <<'EOF' ... EOF`
 - コマンドの意味（復習用）:
@@ -114,13 +138,17 @@
 
 ### LOG-002｜追加ファイルをステージング→コミット→push
 - 日時: 2026-01-17
-- 実行コマンド:
+- Guard（安全確認）:
+  - `cd /home/masahiro/projects/_cfctx/cf-context-framework`
+  - `test "$(git rev-parse --show-toplevel)" = "/home/masahiro/projects/_cfctx/cf-context-framework"`
+  - `./tools/cf-guard.sh --check`（Repo Lock: OK）
+  - `git remote get-url origin`
   - `git status -sb`
+- 実行コマンド:
   - `git add ARTIFACTS/AUDIT_CHECKLIST.md ARTIFACTS/AUDIT_REPORT.md ARTIFACTS/EXCEPTIONS.md PROMPTS/AUDITOR.md WORKFLOW/AUDIT.md`
   - `git commit -m "Add Audit Gate D templates and docs"`
   - `git push -u origin wip/v0.1.5`
 - コマンドの意味（復習用）:
-  - `git status -sb`：短い形式でブランチ/差分状況を確認
   - `git add`：コミット対象に追加
   - `git commit -m`：変更を履歴化（メッセージ付き）
   - `git push -u origin <branch>`：リモートへ送信し追跡設定
@@ -133,6 +161,12 @@
 
 ### LOG-003｜PR作成→マージ→ブランチ削除
 - 日時: 2026-01-17
+- Guard（安全確認）:
+  - `cd /home/masahiro/projects/_cfctx/cf-context-framework`
+  - `test "$(git rev-parse --show-toplevel)" = "/home/masahiro/projects/_cfctx/cf-context-framework"`
+  - `./tools/cf-guard.sh --check`（Repo Lock: OK）
+  - `git remote get-url origin`
+  - `git status -sb`
 - 実行（UI操作）:
   - GitHubで PR#1 を作成し、`Merge pull request` → `Confirm merge`
   - マージ後、GitHubの `Delete branch` で `wip/v0.1.5` を削除
@@ -147,14 +181,23 @@
 
 ### LOG-004｜ローカル main へ取り込み→ローカルブランチ削除
 - 日時: 2026-01-17
+- Guard（安全確認）:
+  - `cd /home/masahiro/projects/_cfctx/cf-context-framework`
+  - `test "$(git rev-parse --show-toplevel)" = "/home/masahiro/projects/_cfctx/cf-context-framework"`
+  - `./tools/cf-guard.sh --check`（Repo Lock: OK）
+  - `git remote get-url origin`
+  - `git status -sb`
 - 実行コマンド:
   - `git switch main`
-  - `git pull`
-  - `git branch -D wip/v0.1.4 wip/v0.1.5`
+  - `git fetch --prune origin`
+  - `git pull --ff-only origin main`
+  - `git branch --merged main`（確認）
+  - `git branch -d wip/v0.1.4 wip/v0.1.5`
 - コマンドの意味（復習用）:
   - `git switch main`：mainへ移動
-  - `git pull`：リモートmainの変更を取り込み
-  - `git branch -D`：ローカルブランチを強制削除（マージ済前提）
+  - `git fetch --prune`：削除済みリモート追跡を整理
+  - `git pull --ff-only`：Fast-forwardのみ許可して同期
+  - `git branch -d`：マージ済みブランチのみ削除（mainは削除しない）
 - 実行結果（貼り付け/要約）:
   - mainに反映（Fast-forward）、ローカルは main のみ
 - 出力/証跡:
@@ -164,6 +207,12 @@
 
 ### LOG-005｜remote.origin.fetch のrefspec修正→fetch --prune
 - 日時: 2026-01-17
+- Guard（安全確認）:
+  - `cd /home/masahiro/projects/_cfctx/cf-context-framework`
+  - `test "$(git rev-parse --show-toplevel)" = "/home/masahiro/projects/_cfctx/cf-context-framework"`
+  - `./tools/cf-guard.sh --check`（Repo Lock: OK）
+  - `git remote get-url origin`
+  - `git status -sb`
 - 実行コマンド:
   - `git config --get-all remote.origin.fetch`
   - `git config --replace-all remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*'`
@@ -178,6 +227,7 @@
   - ターミナルスクショ（エラー解消後のfetch --prune成功）
 - 次の1手:
   - next2_work.zip（3常駐指示ファイル共存）へ着手
+  - ※必要時のみ。常用しない（判断は runbook 8.1 と Repo Lock に従う）
 
 
 ---
