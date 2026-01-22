@@ -534,6 +534,9 @@ git status -sb
 
 ## Progress Log/Updates
 
+- 2026-01-22T16:39:13+09:00 | UPD-20260122-04 | ログ索引生成ツール導入（tools追加＋LOGS/INDEX.md生成＋runbook注記） | Done[x]
+  - 対象: tools/cf-log-index.sh / LOGS/INDEX.md / _handoff_check/cf_update_runbook.md / _handoff_check/cf_task_tracker_v5.md
+  - Evidence: commit TBD
 - 2026-01-22T15:07:03+09:00 | UPD-20260122-03 | WORKFLOW/MODES_AND_TRIGGERS.md に runbook 4.1 参照を1行追記（衝突時の意思決定の導線） | Done[x]
   - 対象: WORKFLOW/MODES_AND_TRIGGERS.md / _handoff_check/cf_task_tracker_v5.md
   - Evidence: commit f87c622
