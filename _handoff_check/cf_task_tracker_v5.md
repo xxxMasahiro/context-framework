@@ -536,7 +536,7 @@ git status -sb
 
 - 2026-01-22T15:07:03+09:00 | UPD-20260122-03 | WORKFLOW/MODES_AND_TRIGGERS.md に runbook 4.1 参照を1行追記（衝突時の意思決定の導線） | Done[x]
   - 対象: WORKFLOW/MODES_AND_TRIGGERS.md / _handoff_check/cf_task_tracker_v5.md
-  - Evidence: commit TBD
+  - Evidence: commit f87c622
 - 2026-01-22T11:37:00+09:00 | UPD-20260122-02 | runbook 4.1 に「衝突時の意思決定」1行追記 | Done[x]
   - 対象: _handoff_check/cf_update_runbook.md / _handoff_check/cf_task_tracker_v5.md
   - Evidence: commit 554ed36
