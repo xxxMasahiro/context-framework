@@ -58,7 +58,6 @@
 > 各セッションでの実行確認（Repo Lock実行・1手運用・変更点明示・復習ログなど）は、下部の **Progress Log/Updates** に日付＋Evidenceとして残す。
 
 
-| UPD-20260123-02 | Gate G: STEP-G002 具体ログ最小テンプレ合意 → Done[x] | Evidence: LOG-008（L662）/ STEP-G002（Gate G表） | Add |
 - 「次にやることは1つだけ（1コマンド/1操作）」を守る
   - 例外（Developerが明示的に「このセッションは複数提示で」と要求した場合のみ）：
     - そのセッションに限り、手順を複数提示してよい（次回は要求がない限り、必ず「次にやること1つ」に戻す）。
@@ -597,6 +596,8 @@ git status -sb
 
 ## Progress Log/Updates
 
+- 2026-01-23T12:49:00+09:00 | UPD-20260123-02 | Gate G: STEP-G002 具体ログ最小テンプレ合意 → Done[x] | Done[x]
+  - Evidence: LOG-008（L663）/ STEP-G002 [x]（L385）
 - 2026-01-23T07:13:35+09:00 | UPD-20260123-01 | Gate G: STEP-G001 現状棚卸しを Done 更新（Concrete/Abstract/検索導線/証跡確定） | Done[x]
   - Evidence: LOG-007（L454）/ STEP-G001 [x]（L384）
 - 2026-01-22T20:48:32+09:00 | UPD-20260122-05 | Gate G（ログ運用95%効率化）のタスク設計を追加 | Done[x]
