@@ -58,6 +58,7 @@
 > 各セッションでの実行確認（Repo Lock実行・1手運用・変更点明示・復習ログなど）は、下部の **Progress Log/Updates** に日付＋Evidenceとして残す。
 
 
+| UPD-20260123-02 | Gate G: STEP-G002 具体ログ最小テンプレ合意 → Done[x] | Evidence: LOG-008（L662）/ STEP-G002（Gate G表） | Add |
 - 「次にやることは1つだけ（1コマンド/1操作）」を守る
   - 例外（Developerが明示的に「このセッションは複数提示で」と要求した場合のみ）：
     - そのセッションに限り、手順を複数提示してよい（次回は要求がない限り、必ず「次にやること1つ」に戻す）。
@@ -382,7 +383,7 @@ git status -sb
 | ID | タスク | Done | 証跡（Evidence） | 変更点（Add/Del/Mod） |
 |---|---|---:|---|---|
 | STEP-G001 | 現状棚卸し（具体ログの正/抽象索引の正）をSSOTに沿って確認 | [x] | LOG-007 / LOGS/INDEX.md | Mod |
-| STEP-G002 | 具体ログの最小テンプレ合意（ID/状態/カテゴリ/症状/原因/対処/証跡） | [ ] |  | - |
+| STEP-G002 | 具体ログの最小テンプレ合意（ID/状態/カテゴリ/症状/原因/対処/証跡） | [x] | LOG-008 / LOGS/INDEX.md | Mod |
 | STEP-G003 | 抽象ログ（索引）仕様合意（カテゴリ→パターン→具体ID、ID検索を正） | [ ] |  | - |
 | STEP-G004 | 運用ルール追記が必要か判定（同一PRで索引更新、生成物の扱い等） | [ ] |  | - |
 | STEP-G005 | 受入テスト（失敗→抽象→具体→解決策へ辿れる）を最小シナリオで検証 | [ ] |  | - |
@@ -657,3 +658,29 @@ git status -sb
 - 2026-01-20 | UPD-20260120-PR25 | PR#25 merged: PR後の後処理を「ガード付きで一括提示してよい」例外を追加 | Done [x]
   - 対象: `_handoff_check/cf_task_tracker_v5.md` / `_handoff_check/cf_update_runbook.md`
   - Evidence: PR #25 (merged) / commit eb6fc91 / merge 8d888ab
+
+### LOG-008｜Gate G（STEP-G002）具体ログの最小テンプレ合意
+
+- 日時: 2026-01-23（JST）
+- 目的: 具体ログ（LOG-XXX）の最小要素を統一し、抽象索引（LOGS/INDEX.md）から辿れるようにする
+
+- 合意した最小テンプレ（Concrete）
+  - ID: LOG-XXX（連番・一意）
+  - 状態: WIP | Done | Blocked
+  - カテゴリ: 短いトークン（例: git / tooling / docs / workflow / log-index / gate-g）
+  - 症状: 観測事実（何が起きたか）
+  - 原因: 根因 or 仮説（不明なら不明と明記）
+  - 対処: 実施内容（コマンド/変更点/判断）
+  - 証跡: PR/commit/ファイルパス/行番号/ログID（再現・追跡できる形）
+  - 検索導線: Ref: rg -n "LOG-XXX" _handoff_check/cf_task_tracker_v5.md
+
+- 実行コマンド（抜粋）
+  - ./tools/cf-guard.sh --check
+  - ./tools/cf-guard.sh -- git status -sb
+  - ./tools/cf-guard.sh -- git switch -c wip/gate-g-stepg002
+  - python3（STEP-G002 行の [ ]→[x] 更新）
+
+- 実行結果（確定事項）
+  - STEP-G002: [x]
+  - Evidence: LOG-008 / LOGS/INDEX.md
+  - 変更区分: Mod（表行更新） / Add（本LOG-008節）
