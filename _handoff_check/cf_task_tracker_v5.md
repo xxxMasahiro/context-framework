@@ -383,7 +383,7 @@ git status -sb
 |---|---|---:|---|---|
 | STEP-G001 | 現状棚卸し（具体ログの正/抽象索引の正）をSSOTに沿って確認 | [x] | LOG-007 / LOGS/INDEX.md | Mod |
 | STEP-G002 | 具体ログの最小テンプレ合意（ID/状態/カテゴリ/症状/原因/対処/証跡） | [x] | LOG-008 / LOGS/INDEX.md | Mod |
-| STEP-G003 | 抽象ログ（索引）仕様合意（カテゴリ→パターン→具体ID、ID検索を正） | [ ] |  | - |
+| STEP-G003 | 抽象ログ（索引）仕様合意（カテゴリ→パターン→具体ID、ID検索を正） | [x] | LOG-009 / LOGS/INDEX.md | Mod |
 | STEP-G004 | 運用ルール追記が必要か判定（同一PRで索引更新、生成物の扱い等） | [ ] |  | - |
 | STEP-G005 | 受入テスト（失敗→抽象→具体→解決策へ辿れる）を最小シナリオで検証 | [ ] |  | - |
 
@@ -596,6 +596,7 @@ git status -sb
 
 ## Progress Log/Updates
 
+- 2026-01-24 | UPD-20260124-01 | Gate G: STEP-G003 抽象ログ（索引）仕様合意 | Done[x] | Evidence: LOG-009（L689）/ STEP-G003 [x]（L386）
 - 2026-01-23T12:49:00+09:00 | UPD-20260123-02 | Gate G: STEP-G002 具体ログ最小テンプレ合意 → Done[x] | Done[x]
   - Evidence: LOG-008（L663）/ STEP-G002 [x]（L385）
 - 2026-01-23T07:13:35+09:00 | UPD-20260123-01 | Gate G: STEP-G001 現状棚卸しを Done 更新（Concrete/Abstract/検索導線/証跡確定） | Done[x]
@@ -685,3 +686,21 @@ git status -sb
   - STEP-G002: [x]
   - Evidence: LOG-008 / LOGS/INDEX.md
   - 変更区分: Mod（表行更新） / Add（本LOG-008節）
+
+### LOG-009｜Gate G（STEP-G003）抽象ログ（索引）仕様合意
+
+- 対象: LOGS/INDEX.md（Generated）
+- 仕様（合意）:
+  - 抽象索引は「カテゴリ → パターン → 具体ID」の導線を提供する
+    - カテゴリ: UPD / LOG / SKILL-LOG
+    - パターン: ID接頭辞+採番規則（例: LOG-### / SKILL-LOG-### / UPD-YYYYMMDD-##）
+    - 具体ID: 各IDの正（根拠）は tracker（_handoff_check/cf_task_tracker_v5.md）。INDEX は tracker へリンクする
+  - 「ID検索を正」:
+    - まず tracker を `rg -n "<ID>" _handoff_check/cf_task_tracker_v5.md` で検索して到達する（INDEXは補助ナビ）
+  - 生成物運用:
+    - tracker の LOG/UPD/SKILL-LOG を更新したPRでは `tools/cf-log-index.sh` を再実行し、同一PRで LOGS/INDEX.md を更新する
+- Evidence:
+  - _handoff_check/cf_update_runbook.md（LOGS/INDEX.md は生成物 / 同一PR更新の規定）
+  - LOGS/INDEX.md（Generated）
+- 変更区分: Mod（STEP-G003 表行更新） / Add（本LOG-009節） / Mod（LOGS/INDEX.md 再生成）
+
