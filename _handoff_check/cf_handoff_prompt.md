@@ -49,6 +49,35 @@
 
 ---
 
+## 追記（2026-01-23）｜PR #42（Gate G STEP-G002 minimal concrete log template）
+
+### 目的
+- Gate G Phase 1 / STEP-G002（具体ログの最小テンプレ合意）を完了し、Concrete（tracker）と Abstract（LOGS/INDEX）を整合させる。
+
+### 変更点（Add/Del/Mod）
+- **Mod**: `_handoff_check/cf_task_tracker_v5.md`
+  - Gate G: STEP-G002 を Done[x] に更新（Evidence: `LOG-008` / `LOGS/INDEX.md`）
+  - `LOG-008` を追記（最小テンプレ合意の内容を明文化）
+  - Progress Log/Updates に `UPD-20260123-02` を追記（検索導線の証跡を追加）
+- **Mod**: `LOGS/INDEX.md`
+  - `./tools/cf-log-index.sh` 再実行で再生成（`LOG-008` / `UPD-20260123-02` を反映）
+
+### 証跡（Evidence）
+- PR #42（merged）
+- Merge: `244dc7b` / Commit: `1b844f5`
+- Branch: `wip/gate-g-stepg002`（削除済み）
+- Repo Lock: OK / `main == origin/main` / working tree clean
+- 次に進むべきタスク: Gate G / STEP-G003（抽象ログ仕様合意）
+- 新チャット開始時の最初の1手: `./tools/cf-guard.sh --check`
+- 確認コマンド:
+  - `rg -n "^| STEP-G002" _handoff_check/cf_task_tracker_v5.md`
+  - `rg -n "LOG-008" _handoff_check/cf_task_tracker_v5.md`
+  - `rg -n "UPD-20260123-02" _handoff_check/cf_task_tracker_v5.md`
+  - `rg -n "LOG-008" LOGS/INDEX.md`
+  - `rg -n "UPD-20260123-02" LOGS/INDEX.md`
+
+---
+
 ## 追記（2026-01-23）｜PR #40（Gate G STEP-G001 logs/index sync）
 
 ### 目的
