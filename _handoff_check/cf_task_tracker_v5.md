@@ -391,7 +391,7 @@ git status -sb
 | ID | タスク | Done | 証跡（Evidence） | 変更点（Add/Del/Mod） |
 |---|---|---:|---|---|
 | STEP-G101 | 固定カテゴリ案を作成（最小セット＋OTHER有無の検討） | [x] |  Gate G Phase2: 固定カテゴリ案（git/tooling/docs/workflow/log-index + OTHER）  |  Mod  |
-| STEP-G102 | パターン分類案を定義（例：接続/権限/マイグレーション等） | [ ] |  | - |
+| STEP-G102 | パターン分類案を定義（例：接続/権限/マイグレーション等） | [x] |  Gate G Phase2: パターン分類案（reference-miss/generation-gap/permission-block/connectivity-issue/procedure-mismatch/state-divergence）  |  Mod  |
 | STEP-G103 | 新カテゴリ追加ルール（同種2回目から/Go-NoGo）の必要性を判定 | [ ] |  | - |
 | STEP-G104 | 受入テスト（同種2回→パターンにまとまる）を検証 | [ ] |  | - |
 
@@ -402,6 +402,15 @@ git status -sb
 - **workflow**: Gate/Mode/Artifacts/運用ルール等のプロセス設計に関する失敗・手順
 - **log-index**: LOGS/INDEX の生成・参照導線・索引運用に関する失敗・手順
 - **OTHER（推奨）**: 初出の単発のみで一旦受け止める避雷針。**同種が2回目に出た時点で**既存カテゴリへ移管 or 新カテゴリ検討（STEP-G103の判断材料）
+
+##### パターン分類案（STEP-G102）
+- **reference-miss**: 参照先/リンク/ファイル指定の曖昧や不足（パス・リンク切れ等を含む）。境界：単一の手順問題は含めない。
+- **generation-gap**: 生成・再生成・同期の手順漏れ/順序違い（INDEX再生成を含む）。境界：単なる参照ミスは含めない。
+- **permission-block**: 権限/保護/保留/停止による実行停止（protected branch案を含む）。境界：単なる接続障害は含めない。
+- **connectivity-issue**: 接続/通信/到達性の失敗（fetch/push/remote 到達など）。境界：権限問題は permission-block へ。
+- **procedure-mismatch**: 手順/運用ルール/手順の取り違え（runbook記載の手順に寄せる）。境界：生成漏れは generation-gap へ。
+- **state-divergence**: 期待状態と実状態のズレ（main同期ズレ/ロック不一致/整合性ズレ）。境界：単発の参照ミスは含めない。
+
 
 
 #### Phase 3（Skill昇格＋監査ループ）
@@ -605,6 +614,8 @@ git status -sb
 
 ## Progress Log/Updates
 
+- 2026-01-24T18:41:29+09:00 | UPD-20260124-06 | Gate G: STEP-G102 パターン分類案（最小セット）を追記 → Done[x] | Done[x]
+  - Evidence: Gate G Phase2: パターン分類案（reference-miss/generation-gap/permission-block/connectivity-issue/procedure-mismatch/state-divergence）
 - 2026-01-24T18:20:11+09:00 | UPD-20260124-05 | Gate G: STEP-G101 固定カテゴリ案（最小セット＋OTHER）を追記 → Done[x] | Done[x]
   - Evidence: Gate G Phase2: 固定カテゴリ案（git/tooling/docs/workflow/log-index + OTHER）
 - 2026-01-24T17:01:43+09:00 | UPD-20260124-04 | Gate G: STEP-G005 受入テスト（失敗→抽象→具体→解決策）PASS → Done[x] | Done[x]
