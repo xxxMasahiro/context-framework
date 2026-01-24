@@ -49,6 +49,44 @@
 
 ---
 
+## 追記（2026-01-24）｜PR #47（chore(tools): add safe branch cleanup scripts）
+
+### 目的
+- ブランチ掃除の安全手順を標準化し、ローカル/リモートの削除操作を再現可能にする。
+
+### 変更点（Add/Del/Mod）
+- **Add**: `tools/cleanup-local-merged.sh`
+  - main にマージ済みのローカルブランチだけを安全に削除（`git branch -d`）
+- **Add**: `tools/delete-remote-branch.sh`
+  - `--yes` 必須のリモート削除（protected: main/master/HEAD 拒否）
+  - `--yes` なしは DRY-RUN で即終了（ネットワーク不要）
+
+### 証跡（Evidence）
+- PR #47（merged）
+- Merge: `f6d5c7c`
+
+---
+
+## 追記（2026-01-24）｜PR #46（Gate G STEP-G004 decision）
+
+### 目的
+- Gate G Phase 1 / STEP-G004（運用ルール追記の要否判定）を完了し、運用ルールは「追記不要」と確定。
+
+### 変更点（Add/Del/Mod）
+- **Mod**: `_handoff_check/cf_task_tracker_v5.md`
+  - STEP-G004 を Done[x] に更新（Evidence: `_handoff_check/cf_update_runbook.md:L80`）
+  - Progress Log/Updates に `UPD-20260124-02` を追記
+- **Mod**: `LOGS/INDEX.md`
+  - `./tools/cf-log-index.sh` 再実行で再生成（`UPD-20260124-02` を反映）
+
+### 証跡（Evidence）
+- PR #46（merged）
+- Merge: `5dd667f`
+- 次に進むべきタスク: Gate G / STEP-G005（受入テストの最小シナリオ検証）
+- 新チャット開始時の最初の1手: `./tools/cf-guard.sh --check`
+
+---
+
 ## 追記（2026-01-24）｜PR #44（Gate G STEP-G003 抽象ログ（索引）仕様合意）
 
 ### 目的
