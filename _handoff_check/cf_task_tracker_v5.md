@@ -390,10 +390,19 @@ git status -sb
 #### Phase 2（カテゴリ/パターン育成：肥大化抑制）
 | ID | タスク | Done | 証跡（Evidence） | 変更点（Add/Del/Mod） |
 |---|---|---:|---|---|
-| STEP-G101 | 固定カテゴリ案を作成（最小セット＋OTHER有無の検討） | [ ] |  | - |
+| STEP-G101 | 固定カテゴリ案を作成（最小セット＋OTHER有無の検討） | [x] |  Gate G Phase2: 固定カテゴリ案（git/tooling/docs/workflow/log-index + OTHER）  |  Mod  |
 | STEP-G102 | パターン分類案を定義（例：接続/権限/マイグレーション等） | [ ] |  | - |
 | STEP-G103 | 新カテゴリ追加ルール（同種2回目から/Go-NoGo）の必要性を判定 | [ ] |  | - |
 | STEP-G104 | 受入テスト（同種2回→パターンにまとまる）を検証 | [ ] |  | - |
+
+##### 固定カテゴリ案（STEP-G101）
+- **git**: git操作（branch/merge/rebase/reset/fetch等）に関する失敗・手順
+- **tooling**: tools/ 配下スクリプトや自動化・CI補助に関する失敗・手順
+- **docs**: ドキュメント更新・表記揺れ・SSOT整合に関する失敗・手順
+- **workflow**: Gate/Mode/Artifacts/運用ルール等のプロセス設計に関する失敗・手順
+- **log-index**: LOGS/INDEX の生成・参照導線・索引運用に関する失敗・手順
+- **OTHER（推奨）**: 初出の単発のみで一旦受け止める避雷針。**同種が2回目に出た時点で**既存カテゴリへ移管 or 新カテゴリ検討（STEP-G103の判断材料）
+
 
 #### Phase 3（Skill昇格＋監査ループ）
 | ID | タスク | Done | 証跡（Evidence） | 変更点（Add/Del/Mod） |
@@ -596,6 +605,8 @@ git status -sb
 
 ## Progress Log/Updates
 
+- 2026-01-24T18:20:11+09:00 | UPD-20260124-05 | Gate G: STEP-G101 固定カテゴリ案（最小セット＋OTHER）を追記 → Done[x] | Done[x]
+  - Evidence: Gate G Phase2: 固定カテゴリ案（git/tooling/docs/workflow/log-index + OTHER）
 - 2026-01-24T17:01:43+09:00 | UPD-20260124-04 | Gate G: STEP-G005 受入テスト（失敗→抽象→具体→解決策）PASS → Done[x] | Done[x]
   - Evidence: LOG-007 / LOGS/INDEX.md / _handoff_check/cf_update_runbook.md:8.1
 - 2026-01-24T12:45:00+09:00 | UPD-20260124-03 | Tools: ブランチ掃除スクリプト追加（安全版/強い版） | Done[x]
