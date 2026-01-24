@@ -67,6 +67,30 @@
 
 ---
 
+## 追記（2026-01-24）｜Gate G 進捗（STEP-G005/101/102）
+
+### 目的
+- Gate G の最新進捗を handoff に反映し、runbook/tracker と整合させる。
+- INDEX は Generated（手編集禁止）であり、“正”は tracker/runbook に置く方針を明示する。
+
+### 変更点（Add/Del/Mod）
+- **Add**: handoff_prompt に進捗メモを追記（本項）
+
+### 進捗（Done）
+- STEP-G005: 受入テスト（失敗→抽象→具体→解決策）PASS → Done[x]
+- STEP-G101: 固定カテゴリ案（git/tooling/docs/workflow/log-index + OTHER）→ Done[x]
+- STEP-G102: パターン分類案（reference-miss / generation-gap / permission-block / connectivity-issue / procedure-mismatch / state-divergence）→ Done[x]
+
+### 証跡（Evidence）
+- Progress Log: `UPD-20260124-04` / `UPD-20260124-05` / `UPD-20260124-06`
+- tracker: `_handoff_check/cf_task_tracker_v5.md`（Gate G Phase 1/2）
+
+### 次にやること
+- STEP-G103（新カテゴリ追加ルールの必要性判定）→ STEP-G104（受入テスト）
+- 新チャット開始時の最初の一手: `./tools/cf-guard.sh --check`
+
+---
+
 ## 追記（2026-01-24）｜PR #46（Gate G STEP-G004 decision）
 
 ### 目的
