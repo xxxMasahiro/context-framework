@@ -49,6 +49,49 @@
 
 ---
 
+## 追記（2026-01-24）｜PR #44（Gate G STEP-G003 抽象ログ（索引）仕様合意）
+
+### 目的
+- Gate G Phase 1 / STEP-G003（抽象ログ仕様合意）を完了し、Concrete（tracker）と Abstract（LOGS/INDEX）を整合させる。
+
+### 変更点（Add/Del/Mod）
+- **Mod**: `_handoff_check/cf_task_tracker_v5.md`
+  - Gate G: STEP-G003 を Done[x] に更新（Evidence: `LOG-009` / `LOGS/INDEX.md`）
+  - `LOG-009` を追記（抽象ログ仕様の合意内容）
+  - Progress Log/Updates に `UPD-20260124-01` を追記
+- **Mod**: `LOGS/INDEX.md`
+  - `./tools/cf-log-index.sh` 再実行で再生成（`LOG-009` / `UPD-20260124-01` を反映）
+
+### 証跡（Evidence）
+- PR #44（merged）
+- Merge: `40b3f0c`
+- Repo Lock: OK / `main == origin/main` / working tree clean
+- 次に進むべきタスク: Gate G / STEP-G004（運用ルール追記が必要か判定）
+- 新チャット開始時の最初の1手: `./tools/cf-guard.sh --check`
+- 確認コマンド:
+  - `rg -n "^| STEP-G003" _handoff_check/cf_task_tracker_v5.md`
+  - `rg -n "LOG-009" _handoff_check/cf_task_tracker_v5.md`
+  - `rg -n "UPD-20260124-01" _handoff_check/cf_task_tracker_v5.md`
+  - `rg -n "LOG-009" LOGS/INDEX.md`
+  - `rg -n "UPD-20260124-01" LOGS/INDEX.md`
+
+---
+
+## 追記（2026-01-24）｜PR #43（handoff note for STEP-G002）
+
+### 目的
+- STEP-G002 完了後の引継ぎメモを追加し、handoff_prompt の経緯メモを最新化する。
+
+### 変更点（Add/Del/Mod）
+- **Mod**: `_handoff_check/cf_handoff_prompt.md`
+  - STEP-G002 完了の引継ぎメモを追記
+
+### 証跡（Evidence）
+- PR #43（merged）
+- Merge: `7a86b2a`
+
+---
+
 ## 追記（2026-01-23）｜PR #42（Gate G STEP-G002 minimal concrete log template）
 
 ### 目的
