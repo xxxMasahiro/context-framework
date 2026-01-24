@@ -385,7 +385,7 @@ git status -sb
 | STEP-G002 | 具体ログの最小テンプレ合意（ID/状態/カテゴリ/症状/原因/対処/証跡） | [x] | LOG-008 / LOGS/INDEX.md | Mod |
 | STEP-G003 | 抽象ログ（索引）仕様合意（カテゴリ→パターン→具体ID、ID検索を正） | [x] | LOG-009 / LOGS/INDEX.md | Mod |
 | STEP-G004 | 運用ルール追記が必要か判定（同一PRで索引更新、生成物の扱い等） | [x] | _handoff_check/cf_update_runbook.md:L80 | Mod |
-| STEP-G005 | 受入テスト（失敗→抽象→具体→解決策へ辿れる）を最小シナリオで検証 | [ ] |  | - |
+| STEP-G005 | 受入テスト（失敗→抽象→具体→解決策へ辿れる）を最小シナリオで検証 | [x] |  LOG-007 / LOGS/INDEX.md / _handoff_check/cf_update_runbook.md:8.1  |  Mod  |
 
 #### Phase 2（カテゴリ/パターン育成：肥大化抑制）
 | ID | タスク | Done | 証跡（Evidence） | 変更点（Add/Del/Mod） |
@@ -596,6 +596,8 @@ git status -sb
 
 ## Progress Log/Updates
 
+- 2026-01-24T17:01:43+09:00 | UPD-20260124-04 | Gate G: STEP-G005 受入テスト（失敗→抽象→具体→解決策）PASS → Done[x] | Done[x]
+  - Evidence: LOG-007 / LOGS/INDEX.md / _handoff_check/cf_update_runbook.md:8.1
 - 2026-01-24T12:45:00+09:00 | UPD-20260124-03 | Tools: ブランチ掃除スクリプト追加（安全版/強い版） | Done[x]
   - Evidence: PR #47（merge: f6d5c7c）
 - 2026-01-24T12:17:00+09:00 | UPD-20260124-02 | Gate G: STEP-G004 判定（追記不要：runbook に既記載）→ Done[x] | Done[x]
