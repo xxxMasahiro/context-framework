@@ -384,7 +384,7 @@ git status -sb
 | STEP-G001 | 現状棚卸し（具体ログの正/抽象索引の正）をSSOTに沿って確認 | [x] | LOG-007 / LOGS/INDEX.md | Mod |
 | STEP-G002 | 具体ログの最小テンプレ合意（ID/状態/カテゴリ/症状/原因/対処/証跡） | [x] | LOG-008 / LOGS/INDEX.md | Mod |
 | STEP-G003 | 抽象ログ（索引）仕様合意（カテゴリ→パターン→具体ID、ID検索を正） | [x] | LOG-009 / LOGS/INDEX.md | Mod |
-| STEP-G004 | 運用ルール追記が必要か判定（同一PRで索引更新、生成物の扱い等） | [ ] |  | - |
+| STEP-G004 | 運用ルール追記が必要か判定（同一PRで索引更新、生成物の扱い等） | [x] | _handoff_check/cf_update_runbook.md:L80 | Mod |
 | STEP-G005 | 受入テスト（失敗→抽象→具体→解決策へ辿れる）を最小シナリオで検証 | [ ] |  | - |
 
 #### Phase 2（カテゴリ/パターン育成：肥大化抑制）
@@ -596,6 +596,8 @@ git status -sb
 
 ## Progress Log/Updates
 
+- 2026-01-24T12:17:00+09:00 | UPD-20260124-02 | Gate G: STEP-G004 判定（追記不要：runbook に既記載）→ Done[x] | Done[x]
+  - Evidence: _handoff_check/cf_update_runbook.md:L80 / STEP-G004 [x]（L387）
 - 2026-01-24 | UPD-20260124-01 | Gate G: STEP-G003 抽象ログ（索引）仕様合意 | Done[x] | Evidence: LOG-009（L689）/ STEP-G003 [x]（L386）
 - 2026-01-23T12:49:00+09:00 | UPD-20260123-02 | Gate G: STEP-G002 具体ログ最小テンプレ合意 → Done[x] | Done[x]
   - Evidence: LOG-008（L663）/ STEP-G002 [x]（L385）
@@ -703,4 +705,3 @@ git status -sb
   - _handoff_check/cf_update_runbook.md（LOGS/INDEX.md は生成物 / 同一PR更新の規定）
   - LOGS/INDEX.md（Generated）
 - 変更区分: Mod（STEP-G003 表行更新） / Add（本LOG-009節） / Mod（LOGS/INDEX.md 再生成）
-
