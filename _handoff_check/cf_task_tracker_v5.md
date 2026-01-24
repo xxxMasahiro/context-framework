@@ -596,6 +596,8 @@ git status -sb
 
 ## Progress Log/Updates
 
+- 2026-01-24T12:45:00+09:00 | UPD-20260124-03 | Tools: ブランチ掃除スクリプト追加（安全版/強い版） | Done[x]
+  - Evidence: PR #47（merge: f6d5c7c）
 - 2026-01-24T12:17:00+09:00 | UPD-20260124-02 | Gate G: STEP-G004 判定（追記不要：runbook に既記載）→ Done[x] | Done[x]
   - Evidence: _handoff_check/cf_update_runbook.md:L80 / STEP-G004 [x]（L387）
 - 2026-01-24 | UPD-20260124-01 | Gate G: STEP-G003 抽象ログ（索引）仕様合意 | Done[x] | Evidence: LOG-009（L689）/ STEP-G003 [x]（L386）
