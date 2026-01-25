@@ -387,6 +387,12 @@ git status -sb
 | STEP-G004 | 運用ルール追記が必要か判定（同一PRで索引更新、生成物の扱い等） | [x] | _handoff_check/cf_update_runbook.md:L80 | Mod |
 | STEP-G005 | 受入テスト（失敗→抽象→具体→解決策へ辿れる）を最小シナリオで検証 | [x] |  LOG-007 / LOGS/INDEX.md / _handoff_check/cf_update_runbook.md:8.1  |  Mod  |
 
+##### STEP-G005 受入テスト（最小シナリオ）チェック項目
+- 対象シナリオ（過去事例）: patch/unified diff 適用失敗（例: `No valid patches` / `does not apply` / `corrupt patch`）
+- 実行: 失敗事例のConcreteを起点に、Abstract（カテゴリ/パターン）→ Concrete → 解決策（runbook/変更）まで辿る
+- 期待: 成功(SUCCESS)=狙った状態に到達し、検証コマンドで再現確認できる／失敗(FAIL)=狙った状態に未到達、または同じ失敗が再現する
+- 記録: Concreteに **Category / Signature（同種判定キー） / Evidence** を残す（Abstractは索引＋パターン＋参照先に限定）
+
 #### Phase 2（カテゴリ/パターン育成：肥大化抑制）
 | ID | タスク | Done | 証跡（Evidence） | 変更点（Add/Del/Mod） |
 |---|---|---:|---|---|
