@@ -112,3 +112,9 @@
 - `SKILL:` 呼び出しフレーズが検索できる（例：`rg -n "SKILL:" SKILLS/ || true`）
 - registry からリンク切れが無いこと（最低1件で確認）
 
+## 13. 定義固定（Concrete→Abstract→Skills の最小ルール）（STEP-G006）
+- 成功/失敗（必要ならPartial/Unknown）定義：Concreteは「1回の試行＝1エントリ」
+- Signature仕様（Concreteに置く）：項目（例: error_code / message要約 / component）、短い固定文字列、例: `patch-apply/no-valid-patches` / `patch-apply/does-not-apply`
+- 同種2回目ルール：Signatureの件数>=2で Abstract に「入口のみ」作成（手順は書かず refs: [Concrete#...] と件数だけ）
+- Skills昇格（3回目）最小条件：3回成功 + 再現性（前提/手順/検証コマンド固定）+ 受入テスト + 安全弁（read-only確認/dry-run/ロールバック導線等）
+- 例外：重大事故/高頻度は1回目でも Abstract に入口のみ（手順は書かず Concrete 参照）
