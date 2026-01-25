@@ -387,7 +387,7 @@ git status -sb
 | STEP-G004 | 運用ルール追記が必要か判定（同一PRで索引更新、生成物の扱い等） | [x] | _handoff_check/cf_update_runbook.md:L80 | Mod |
 | STEP-G005 | 受入テスト（失敗→抽象→具体→解決策へ辿れる）を最小シナリオで検証 | [x] |  LOG-007 / LOGS/INDEX.md / _handoff_check/cf_update_runbook.md:8.1  |  Mod  |
 | STEP-G006 | 定義固定（Concrete→Abstract→Skills：成功/失敗/同種判定/昇格/例外） | [x] | WORKFLOW/SKILLS_INTEGRATION.md | Mod |
-| STEP-G007 | Signature集計（>=2/>=3）候補検出ツール追加（refs付き） | [ ] | tools/cf-signature-report.sh | Add |
+| STEP-G007 | Signature集計（>=2/>=3）候補検出ツール追加（refs付き） | [x] | tools/cf-signature-report.sh | Add |
 
 ##### STEP-G005 受入テスト（最小シナリオ）チェック項目
 - 対象シナリオ（過去事例）: patch/unified diff 適用失敗（例: `No valid patches` / `does not apply` / `corrupt patch`）
@@ -642,6 +642,9 @@ git status -sb
 - 2026-01-18 | UPD-20260118-07 | Gate A: STEP-106 完了。呼び出しフレーズ（SKILL: ...）とArtifacts書き戻し規則を WORKFLOW/SKILLS_INTEGRATION.md に追記。Evidence: 921dbe5
 
 ## Progress Log/Updates
+- 2026-01-25T23:57:27+09:00 | UPD-20260125-05 | Gate G: STEP-G007 Signature集計ツール（候補検出）をDone更新 | Done[x] | Evidence: PR #59 / merge 795d53f / topic bc0a5c7
+  - 対象: _handoff_check/cf_task_tracker_v5.md(L390-L418) / tools/cf-signature-report.sh(L1-L95)
+
 - 2026-01-25T22:23:20+09:00 | UPD-20260125-04 | Gate G: STEP-G006 定義固定（Concrete→Abstract→Skills）をDone更新 | Done[x] | Evidence: PR #57 / merge 6305b49 / topic 1a1f3eb
   - 対象: _handoff_check/cf_task_tracker_v5.md(L389-L403) / WORKFLOW/SKILLS_INTEGRATION.md(L115-L120)
 - 2026-01-25T17:52:33+09:00 | UPD-20260125-03 | Gate G: STEP-G005 受入テスト（チェック項目）を定義として追記 | Done[x] | Evidence: PR #54 / merge f14ec13 / topic 69aad10 / _handoff_check/cf_task_tracker_v5.md:L390-L395
