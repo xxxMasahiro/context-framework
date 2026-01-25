@@ -95,3 +95,20 @@
 - [ ] 参照関係と推奨配置が明記されている
 - [ ] 作成/更新/レビューの運用フローがある
 - [ ] 例が2つだけ示されている
+
+## 10. Skillsへの導線（抽象→Skill）
+- 入口の置き場（推奨）：`LOGS/INDEX.md` → Concrete/Skill へのリンク
+- 参照の置き場：`SKILLS/_registry.md`（Skill一覧）
+- 必要に応じて tracker からも参照してよい（重複は避け、リンクで誘導）
+- 抽象に手順を全部書かず、**リンクで深掘り**する
+
+## 11. Skill昇格条件（STEP-G201確定）
+- 同種が2回以上出たら候補化
+- 最低条件：tool非依存 / 再現可能 / 証跡あり / 入出力が定義できる
+- 昇格時にやること：`SKILLS/_registry.md` 追加、必要ならログ/Artifactsへリンク追加
+
+## 12. 受入テスト（入口→Skillに辿れる）（STEP-G204）
+- `LOGS/INDEX.md` から1件 → `SKILLS/_registry.md` → Skill本文へ到達できる
+- `SKILL:` 呼び出しフレーズが検索できる（例：`rg -n "SKILL:" SKILLS/ || true`）
+- registry からリンク切れが無いこと（最低1件で確認）
+
