@@ -400,3 +400,21 @@ Gate G / Phase 3（STEP-G201〜G204）を、Skills統合の本文へ反映して
 - 確認コマンド:
   - `rg -n "^\| STEP-G20" _handoff_check/cf_task_tracker_v5.md`
   - `sed -n '420,440p' _handoff_check/cf_task_tracker_v5.md`
+
+
+### Handoff Memo: PR #57-#60（Gate G: STEP-G006/STEP-G007）
+- 目的: Concrete→Abstract→Skills の運用（成功/失敗/同種判定/昇格/例外）を定義固定し、同種判定の集計（Signature出現回数）をオンデマンドで検出できるようにした。
+- 反映内容:
+  - PR #57 (merged): docs: add STEP-G006 define-freeze (Concrete→Abstract→Skills)
+  - PR #58 (merged): docs: mark STEP-G006 done and log PR57
+  - PR #59 (merged): docs: add signature report tool (STEP-G007)
+  - PR #60 (merged): docs: mark STEP-G007 done and log PR59
+- Evidence（代表）:
+  - merge commits: PR57=6305b49 / PR58=390dd58 / PR59=795d53f / PR60=695279
+  - tool: tools/cf-signature-report.sh（read-only, refs付き）
+- 使い方（同種2回/3回の候補検出）:
+  - ./tools/cf-guard.sh -- tools/cf-signature-report.sh -min 2
+  - ./tools/cf-guard.sh -- tools/cf-signature-report.sh -min 3 -scope LOGS
+- 次に進むべき作業:
+  - _handoff_check/cf_task_tracker_v5.md の Gate G 未完了 [ ] を上から実施（Concreteの記録→Signature付与→集計→Abstract/Skill昇格判断）。
+
