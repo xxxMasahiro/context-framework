@@ -626,6 +626,7 @@ git status -sb
 - 2026-01-18 | UPD-20260118-07 | Gate A: STEP-106 完了。呼び出しフレーズ（SKILL: ...）とArtifacts書き戻し規則を WORKFLOW/SKILLS_INTEGRATION.md に追記。Evidence: 921dbe5
 
 ## Progress Log/Updates
+- 2026-01-25T17:52:33+09:00 | UPD-20260125-03 | Gate G: STEP-G005 受入テスト（チェック項目）を定義として追記 | Done[x] | Evidence: PR #54 / merge f14ec13 / topic 69aad10 / _handoff_check/cf_task_tracker_v5.md:L390-L395
 - 2026-01-25T14:05:42+0900 | UPD-20260125-02 | Gate G: STEP-G201〜G204 をDone更新（Skills導線/昇格条件/受入テスト/監査観点） | Evidence: WORKFLOW/SKILLS_INTEGRATION.md / WORKFLOW/AUDIT.md / commit 97535ef
 - 2026-01-25T11:27:33+09:00 | UPD-20260125-01 | Gate G: STEP-G104 受入テスト（同種2回→パターン吸収）PASS → Done[x] | Evidence: procedure-mismatch / _handoff_check/cf_update_runbook.md（パッチ事故防止） / HEAD=637b0db
 - 2026-01-24T19:10:00+09:00 | UPD-20260124-07 | Gate G: STEP-G103 新カテゴリ追加ルール（Go/No-Go）必要と判定 →Done[x] | Evidence: Repo Lock OK / SSOT参照 / 判定=必要
