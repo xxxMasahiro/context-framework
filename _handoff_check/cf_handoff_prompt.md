@@ -19,6 +19,7 @@
   - Merge: 18edacb
   - Commit: 463b277（docs: add INITIAL_SETTINGS + role assignment (Gate F)）
 - 現状：main ブランチ、作業ツリー clean（作業前提）。
+- 最新の次タスク: Gate G / STEP-G005（受入テストの最小シナリオ検証）
 
 ## 3. 同一性確認（引用個所と同じ最新版か）
 - sha256 は固定値を書かず、必要時に現物で算出する：
@@ -46,6 +47,30 @@
   - `./tools/cf-guard.sh --check`（Repo Lock: OK）
 - 一括処理を希望された場合は、runbook 8.1 の「ガード付き一括テンプレ（コピペ枠）」へ誘導する  
   （一括でも Guard を先頭に置くこと）
+
+---
+
+## 追記（2026-01-25）| PR #51（Gate G Phase 3 — Skills導線/昇格条件/受入テスト）
+
+### 目的
+Gate G / Phase 3（STEP-G201〜G204）を、Skills統合の本文へ反映して確定する。
+
+### 変更点（Add/Del/Mod）
+- **Mod**: WORKFLOW/SKILLS_INTEGRATION.md
+  - Skillsへの導線（抽象→Skill）
+  - Skill昇格条件（候補化の条件）
+  - 受入テスト（入口→Skillに辿れる）
+- **Mod**: _handoff_check/cf_task_tracker_v5.md
+  - STEP-G201〜G204 を Done 更新
+  - Evidence/Progress Log を追記
+
+### 証跡（Evidence）
+- PR #51（merged）
+- Merge commit: 8b51993
+- commits: 97535ef / 3e5ff0a
+- Repo Lock: OK / main == origin/main / working tree clean
+
+次に進むべきタスク: Gate G / STEP-G005（受入テストの最小シナリオ検証）
 
 ---
 
