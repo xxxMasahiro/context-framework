@@ -252,6 +252,13 @@ Skillsは単体で完結させず、必ずArtifactsへ“書き戻し”ます�
 - コマンドを提示する場合、**そのコマンドの意味（復習用）**を必ず添える
 - 軽微変更は手作業（開発者がCLI）、複雑変更はCrafter/Orchestrator主導（AIで実装）
 
+### パッチ（unified diff）事故防止ルール（必須）
+
+- **原則**：チャットからコピペした diff は崩れやすい。適用前に `git apply --check` を必須とする。
+- **推奨**：差分はローカルで生成する（例：変更後ファイル `.new` を作り、`diff -u` で `/tmp/*.patch` を生成）。
+- **受領パッチを使う場合**：`cat <<'PATCH'` でファイル化 → `git apply --recount --check` まで通ったものだけ採用する。
+- `corrupt patch` / `fragment without header` / `does not apply` が出たら **修復に粘らず**、ローカル生成（`.new`→`diff -u`）へ切り替える。
+
 ### 8.1 例外：PR後の後処理を“まとめて提示”する場合（ガード付き一括手続きテンプレ）
 
 #### コピペ枠：ガード付き一括最終確認（main同期）
