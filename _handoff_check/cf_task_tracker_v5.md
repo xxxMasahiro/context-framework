@@ -393,7 +393,7 @@ git status -sb
 | STEP-G101 | 固定カテゴリ案を作成（最小セット＋OTHER有無の検討） | [x] |  Gate G Phase2: 固定カテゴリ案（git/tooling/docs/workflow/log-index + OTHER）  |  Mod  |
 | STEP-G102 | パターン分類案を定義（例：接続/権限/マイグレーション等） | [x] |  Gate G Phase2: パターン分類案（reference-miss/generation-gap/permission-block/connectivity-issue/procedure-mismatch/state-divergence）  |  Mod  |
 | STEP-G103 | 新カテゴリ追加ルール（同種2回目から/Go-NoGo）の必要性を判定 | [x] | Gate G Phase2: 新カテゴリ追加ルール（Go/No-Go） | Mod |
-| STEP-G104 | 受入テスト（同種2回→パターンにまとまる）を検証 | [ ] |  | - |
+| STEP-G104 | 受入テスト（同種2回→パターンにまとまる）を検証 | [x] | procedure-mismatch（unified diff事故） / runbook:パッチ事故防止（637b0db） | Mod |
 
 ##### 固定カテゴリ案（STEP-G101）
 - **git**: git操作（branch/merge/rebase/reset/fetch等）に関する失敗・手順
@@ -620,6 +620,7 @@ git status -sb
 - 2026-01-18 | UPD-20260118-07 | Gate A: STEP-106 完了。呼び出しフレーズ（SKILL: ...）とArtifacts書き戻し規則を WORKFLOW/SKILLS_INTEGRATION.md に追記。Evidence: 921dbe5
 
 ## Progress Log/Updates
+- 2026-01-25T11:27:33+09:00 | UPD-20260125-01 | Gate G: STEP-G104 受入テスト（同種2回→パターン吸収）PASS → Done[x] | Evidence: procedure-mismatch / _handoff_check/cf_update_runbook.md（パッチ事故防止） / HEAD=637b0db
 - 2026-01-24T19:10:00+09:00 | UPD-20260124-07 | Gate G: STEP-G103 新カテゴリ追加ルール（Go/No-Go）必要と判定 →Done[x] | Evidence: Repo Lock OK / SSOT参照 / 判定=必要
 
 - 2026-01-24T18:41:29+09:00 | UPD-20260124-06 | Gate G: STEP-G102 パターン分類案（最小セット）を追記 → Done[x] | Done[x]
