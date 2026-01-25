@@ -335,4 +335,3 @@
 - 確認コマンド:
   - `rg -n "^\| STEP-G20" _handoff_check/cf_task_tracker_v5.md`
   - `sed -n '420,440p' _handoff_check/cf_task_tracker_v5.md`
-
