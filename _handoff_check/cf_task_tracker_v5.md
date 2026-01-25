@@ -387,6 +387,7 @@ git status -sb
 | STEP-G004 | 運用ルール追記が必要か判定（同一PRで索引更新、生成物の扱い等） | [x] | _handoff_check/cf_update_runbook.md:L80 | Mod |
 | STEP-G005 | 受入テスト（失敗→抽象→具体→解決策へ辿れる）を最小シナリオで検証 | [x] |  LOG-007 / LOGS/INDEX.md / _handoff_check/cf_update_runbook.md:8.1  |  Mod  |
 | STEP-G006 | 定義固定（Concrete→Abstract→Skills：成功/失敗/同種判定/昇格/例外） | [x] | WORKFLOW/SKILLS_INTEGRATION.md | Mod |
+| STEP-G007 | Signature集計（>=2/>=3）候補検出ツール追加（refs付き） | [ ] | tools/cf-signature-report.sh | Add |
 
 ##### STEP-G005 受入テスト（最小シナリオ）チェック項目
 - 対象シナリオ（過去事例）: patch/unified diff 適用失敗（例: `No valid patches` / `does not apply` / `corrupt patch`）
@@ -400,6 +401,13 @@ git status -sb
 - 同種2回目ルール：Signatureの件数>=2で Abstract に「入口のみ」作成（手順は書かず refs: [Concrete#...] と件数だけ）
 - Skills昇格（3回目）最小条件：3回成功 + 再現性（前提/手順/検証コマンド固定）+ 受入テスト + 安全弁（read-only確認/dry-run/ロールバック導線等）
 - 例外：重大事故/高頻度は1回目でも Abstract に入口のみ（手順は書かず Concrete 参照）
+
+##### STEP-G007 Signature集計ツール（候補検出）
+- 目的: ConcreteのSignature出現回数を集計し、Abstract(>=2)/Skills(>=3)の候補を提示（検出のみ）
+- 実行例:
+  ./tools/cf-guard.sh -- tools/cf-signature-report.sh --min 2
+  ./tools/cf-guard.sh -- tools/cf-signature-report.sh --min 3 --scope LOGS
+- 出力: "count | signature | refs(file:line...)" の形式
 
 #### Phase 2（カテゴリ/パターン育成：肥大化抑制）
 | ID | タスク | Done | 証跡（Evidence） | 変更点（Add/Del/Mod） |
