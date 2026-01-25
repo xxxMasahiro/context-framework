@@ -315,3 +315,24 @@
   - tracker: Gate G（Concrete/Abstract連携のロードマップ）追加＋Done定義、Progress Log/Updates に UPD-20260122-05 追記
   - runbook準拠: tracker更新に伴い tools/cf-log-index.sh を再実行し、LOGS/INDEX.md を同一PRで更新（生成物）
   - 状態: PR merge済み／ブランチ削除済み／main==origin/main／Repo Lock: OK
+---
+
+## 追記（2026-01-25）｜Gate G Phase 2: STEP-G104（受入テスト）Done → 次は Phase 3（STEP-G201）
+
+### 変更点（Add/Del/Mod）
+- **Mod**: `_handoff_check/cf_task_tracker_v5.md`
+  - STEP-G104 を Done[x]（procedure-mismatch / runbook:パッチ事故防止）
+  - Progress Log/Updates: UPD-20260125-01 を追記
+- **Mod**: `_handoff_check/cf_update_runbook.md`
+  - 出力（根拠/判定/変更提案）を「重要点のみ短く」する運用ルールを最小追記
+- **Mod**: `_handoff_check/cf_handoff_prompt.md`（本追記）
+
+### 証跡（Evidence）
+- Commit: `7f9655a`（docs: trackerでSTEP-G104をDoneに更新）
+- 状態: Repo Lock: OK / `main == origin/main` / working tree clean
+- 次に進むべきタスク: Gate G / Phase 3 / STEP-G201（Skill昇格条件）
+- 新チャット開始時の最初の1手: `./tools/cf-guard.sh --check`
+- 確認コマンド:
+  - `rg -n "^\| STEP-G20" _handoff_check/cf_task_tracker_v5.md`
+  - `sed -n '420,440p' _handoff_check/cf_task_tracker_v5.md`
+
