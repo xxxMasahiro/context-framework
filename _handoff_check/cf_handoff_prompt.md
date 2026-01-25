@@ -19,6 +19,7 @@
   - Merge: 18edacb
   - Commit: 463b277（docs: add INITIAL_SETTINGS + role assignment (Gate F)）
 - 現状：main ブランチ、作業ツリー clean（作業前提）。
+- 最新のタスク（暫定）: Concrete（初回）→ Abstract（2回）→ Skills（3回）の判定条件を“定義として固定”する（次チャットで合意→SSOT反映）
 - 最新の次タスク: Gate G / STEP-G005（受入テストの最小シナリオ検証）
 
 ## 3. 同一性確認（引用個所と同じ最新版か）
@@ -49,6 +50,31 @@
   （一括でも Guard を先頭に置くこと）
 
 ---
+
+## 追記（2026-01-25）｜次チャット引継ぎメモ：Concrete→Abstract→Skills 判定条件（未確定→合意予定）
+
+### 背景（要約）
+- 具体ログ（成功/失敗）を記録し、抽象ログ（カテゴリ/パターン）から検索→具体ログへ辿る。
+- ログ膨張を避けるため、抽象は「索引＋パターン＋参照先（具体ログ/Skill）」に限定する。
+
+### 提案フロー（草案）
+- Concrete（初回）
+  ↓
+- Abstract（2回目で候補化）
+  ↓
+- Skills（3回目で昇格）
+
+### 未確定の論点（次チャットで合意したい）
+1) 成功/失敗の分類基準（Concreteに記録する単位）
+2) 「同種が増えた」判断根拠をどこに置くか（ConcreteのSignature/タグ、または抽象側の集計）
+3) 「解決が安定したらSkillへ昇格」= 解決/安定の定義（再現性、適用回数、証跡、受入テスト 等）
+
+### 合意後にやること（CodexでSSOT反映）
+- WORKFLOW/SKILLS_INTEGRATION.md / tracker / handoff_prompt に判定条件を“定義として固定”（追記のみ）
+- 必要なら tracker に新タスク追加し、Progress Log/Updates に証跡を残す
+
+（作業時点HEAD: b270712）
+
 
 ## 追記（2026-01-25）| PR #51（Gate G Phase 3 — Skills導線/昇格条件/受入テスト）
 
