@@ -89,6 +89,26 @@
 - STEP-G103（新カテゴリ追加ルールの必要性判定）→ STEP-G104（受入テスト）
 - 新チャット開始時の最初の一手: `./tools/cf-guard.sh --check`
 
+
+## 追記（2026-01-25）｜Gate G STEP-G103（新カテゴリ追加ルール）完了
+
+### 目的
+- カテゴリ増殖（肥大化）を抑えるため、新カテゴリ追加の Go/No-Go（同種2回目から検討）を最小ルールとして確定し、SSOT（tracker）へ反映したことを handoff に記録する。
+
+### 変更点（Add/Del/Mod）
+- **Mod**: `_handoff_check/cf_task_tracker_v5.md`
+  - STEP-G103 を Done[x] に更新
+  - 「新カテゴリ追加ルール（STEP-G103）」を追記（3〜7行の最小ルール）
+  - Progress Log/Updates に `UPD-20260124-07` を追記（日時/タスクID/証跡）
+
+### 証跡（Evidence）
+- Commit: `857cb61`（STEP-G103 完了を main へ反映済み）
+- Repo: main / origin/main 同期、作業ツリー clean（手元確認済み）
+
+### 次にやること
+- Gate G Phase 2 / STEP-G104（受入テスト）※原則 read-only 検証→必要なら最小 diff 提案
+- 新チャット開始時の最初の一手: `./tools/cf-guard.sh --check`
+
 ---
 
 ## 追記（2026-01-24）｜PR #46（Gate G STEP-G004 decision）
