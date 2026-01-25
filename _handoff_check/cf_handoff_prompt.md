@@ -20,7 +20,7 @@
   - Commit: 463b277（docs: add INITIAL_SETTINGS + role assignment (Gate F)）
 - 現状：main ブランチ、作業ツリー clean（作業前提）。
 - 最新のタスク（暫定）: Concrete（初回）→ Abstract（2回）→ Skills（3回）の判定条件を“定義として固定”する（次チャットで合意→SSOT反映）
-- 最新の次タスク: Gate G / STEP-G005（受入テストの最小シナリオ検証）
+- 最新の次タスク: Gate G / 次フェーズ（定義固定）— 成功/失敗分類・Signature・Skill昇格条件を WORKFLOW/SKILLS_INTEGRATION.md 等へ移す
 
 ## 3. 同一性確認（引用個所と同じ最新版か）
 - sha256 は固定値を書かず、必要時に現物で算出する：
@@ -74,6 +74,20 @@
 - 必要なら tracker に新タスク追加し、Progress Log/Updates に証跡を残す
 
 （作業時点HEAD: b270712）
+
+## 追記（2026-01-25）｜PR #54/#55（Gate G STEP-G005 チェック項目固定＋Progress Log証跡）
+
+- 反映内容:
+  - PR #54: Gate G / STEP-G005 に「受入テスト（最小シナリオ）チェック項目（実行→期待→記録）」を追記
+  - PR #55: Progress Log/Updates に PR #54 の証跡（PR/commit/行番号レンジ）を追記
+- Evidence:
+  - PR #54 merged: merge f14ec13 / topic 69aad10
+  - PR #55 merged: merge b1d4a36 / topic ca43087
+  - 対象レンジ（目安）: `_handoff_check/cf_task_tracker_v5.md` の STEP-G005 チェック項目（L390付近）＋ Progress Log/Updates（UPD-20260125-03）
+- 次に進むべきタスク:
+  - ①成功/失敗分類 ②Signature（同種判定キー）③Skill昇格条件 を、トラッカー「チェック項目」から一段上げて **定義として固定**（WORKFLOW/SKILLS_INTEGRATION.md 等へ）するフェーズ
+  - 新チャット開始の最初の1手: `./tools/cf-guard.sh --check`
+
 
 
 ## 追記（2026-01-25）| PR #51（Gate G Phase 3 — Skills導線/昇格条件/受入テスト）
