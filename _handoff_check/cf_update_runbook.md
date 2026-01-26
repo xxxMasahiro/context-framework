@@ -255,6 +255,7 @@ Skillsは単体で完結させず、必ずArtifactsへ“書き戻し”ます�
 - コマンドを提示する場合、**そのコマンドの意味（復習用）**を必ず添える
 - 出力（根拠/判定/変更提案）は**重要点のみ短く**（冗長な実行ログ/出力の転載は不要。必要なら要点のみ）
 - 復習コマンド（`git status -sb` / `git fetch --prune origin` / `HEAD==origin/main` / `git log -1`）は**毎回短く**添える
+- 新規タスクの入口は Gate H（Phase 1）に統一する（Gate G は完了扱い）
 - 軽微変更は手作業（開発者がCLI）、複雑変更はCrafter/Orchestrator主導（AIで実装）
 
 ### パッチ（unified diff）事故防止ルール（必須）
