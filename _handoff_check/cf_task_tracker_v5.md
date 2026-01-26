@@ -70,7 +70,7 @@
 - [ ] H12: Phase 3 — 運用成熟（CIでスキーマ/ルール検証、ログ整備）
 
 ## 4. 更新ログ（Progress Log/Updates）※直近のみ
-- 2026-01-27T02:28:23+0900 | UPD-20260127-01 | Gate H: Controller新規タスク（Phase 0〜3）を追加 | Evidence: PR作成後に埋める
+- 2026-01-27T02:28:23+0900 | UPD-20260127-01 | Gate H: Controller新規タスク（Phase 0〜3）を追加 | Evidence: PR#74 (merge: 23f03dd, commit: 9c5624e)
 - 2026-01-27T01:57:13+0900 | UPD-20260126-04 | Gate H: T1/T2 確定再確認（調査証跡をSSOTへ追記） | Evidence: commit 6b009c1 / PR予定 wip/ssot-confirm-t1-t2
 - 2026-01-26T22:01:33+0900 | UPD-20260126-03 | Gate H を新規タスク入口へ統一（Gate G 完了扱い） | Evidence: PR #70 / merge e9105da
 - 2026-01-26T21:28:50+0900 | UPD-20260126-02 | trackerスリム化（テンプレ/完了タスク/旧ログをrunbook付録へ移設、参照更新） | Evidence: PR予定 wip/slim-tracker-v5
