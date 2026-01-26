@@ -39,6 +39,7 @@
 - SSOTは _handoff_check の3ファイル（ZIP不要）
 - 運用規範は runbook/tracker を優先し、handoff_prompt は経緯メモとして整合させる
 - tracker はスリム化済み。詳細テンプレ/完了済み一覧/旧ログは runbook 付録「tracker退避」へ移設
+- 新規タスクの入口は Gate H（Phase 1）に統一する（Gate G は完了扱い）
 - 次にやることは「1つ（1コマンド/1操作）」で提示すること
 - 最初の安全確認として Repo Lock を実行する（`./tools/cf-guard.sh --check`）
 - 役割は初期設定ファイルに従う（`WORKFLOW/TOOLING/INITIAL_SETTINGS.md` を参照）
@@ -419,7 +420,7 @@ Gate G / Phase 3（STEP-G201〜G204）を、Skills統合の本文へ反映して
   - ./tools/cf-guard.sh -- tools/cf-signature-report.sh -min 2
   - ./tools/cf-guard.sh -- tools/cf-signature-report.sh -min 3 -scope LOGS
 - 次に進むべき作業:
-  - _handoff_check/cf_task_tracker_v5.md の Gate G 未完了 [ ] を上から実施（Concreteの記録→Signature付与→集計→Abstract/Skill昇格判断）。
+  - _handoff_check/cf_task_tracker_v5.md の Gate H 未完了 [ ] を上から実施（Concreteの記録→Signature付与→集計→Abstract/Skill昇格判断）。
 
 
 ## 追記（2026-01-26）｜PR #62/#63：runbook8 出力契約・検索0終了ルールを固定

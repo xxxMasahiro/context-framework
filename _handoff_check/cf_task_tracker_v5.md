@@ -47,13 +47,18 @@
 
 ## 2. 進捗サマリ
 - 未完了タスク: なし
-- 次にやる1手: 次の指示待ち（必要なら Gate G / Phase 1 に [ ] を追加）
+- 次にやる1手: 次の指示待ち（必要なら Gate H / Phase 1 に [ ] を追加）
 
 ## 3. タスク一覧（未完了のみ）
 - （未完了なし）
-- 追加ルール: 新規タスクは Gate G / Phase 1 に追記（詳細テンプレは runbook 付録を参照）
+- 追加ルール: 新規タスクは Gate H / Phase 1 に追記（詳細テンプレは runbook 付録を参照）
+
+## Gate H（新規タスクの入口）
+### Phase 1（未着手タスク）
+- [ ] （新規タスクをここへ追記：1行1タスク、Evidenceは必要に応じて）
 
 ## 4. 更新ログ（Progress Log/Updates）※直近のみ
+- 2026-01-26T22:01:33+0900 | UPD-20260126-03 | Gate H を新規タスク入口へ統一（Gate G 完了扱い） | Evidence: PR予定 wip/gate-h-entrypoint
 - 2026-01-26T21:28:50+0900 | UPD-20260126-02 | trackerスリム化（テンプレ/完了タスク/旧ログをrunbook付録へ移設、参照更新） | Evidence: PR予定 wip/slim-tracker-v5
 - 2026-01-25T23:57:27+09:00 | UPD-20260125-05 | Gate G: STEP-G007 Signature集計ツールをDone更新 | Evidence: PR #59 / merge 795d53f / topic bc0a5c7
 - 2026-01-25T22:23:20+09:00 | UPD-20260125-04 | Gate G: STEP-G006 定義固定をDone更新 | Evidence: PR #57 / merge 6305b49 / topic 1a1f3eb
@@ -65,4 +70,3 @@
 - 2026-01-24T18:20:11+09:00 | UPD-20260124-05 | Gate G: STEP-G101 固定カテゴリ案 追記 | Evidence: Gate G Phase2: 固定カテゴリ案
 
 - 旧ログは runbook 付録（tracker退避）へ移設
-
