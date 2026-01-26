@@ -447,7 +447,7 @@ Gate G / Phase 3（STEP-G201〜G204）を、Skills統合の本文へ反映して
 
 ### このチャットで確定した論点
 - 『3ファイルの整合性から無駄を省いて整理（特にトラッカーの重複/不要の削除）』は、SSOT（_handoff_check の3ファイル）へは **未反映**。
-- 今回は一時ワークスペース `_handoff_check/_workspace_tracker_20260126/` に `cf_task_tracker_v5.WIP.md` を作成し、ZIP関連の記述/重複ヘッダ等の除去を実施（WIP内のみ）。
+- （注）一時ワークスペース `_handoff_check/_workspace_tracker_20260126/`／`cf_task_tracker_v5.WIP.md` はリポジトリ内に実体が見つからない（作成は未実施 or ローカルのみで破棄済みの可能性）。以後は SSOT（_handoff_check の3ファイル）を正として作業する。
 - SSOT方針: ZIPは不要。正は `_handoff_check` の3ファイル（cf_handoff_prompt.md / cf_update_runbook.md / cf_task_tracker_v5.md）。
 
 ### 次にやること（1つだけ）
