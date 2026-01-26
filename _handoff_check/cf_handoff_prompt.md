@@ -33,6 +33,7 @@
 （※矛盾まではしていない前提。実際に残っているかはSSOTの現物で確認して判断する）
 
 ## 5. 新チャット側への要求（最重要）
+- 検索（見つからなくてもOK）系の `rg`/`grep` などは必ず `|| true` を付けて 0 終了にする（runbook ##8）
 - 添付3ファイルを最初に読むこと
 - `cf_handoff_prompt.md` 読了直後に `cf_update_runbook.md` の「## 8. 実行プロトコル（運用ルール）」を必ず確認し、以後の出力は **根拠/判定/変更提案** を厳守する
 - SSOTは _handoff_check の3ファイル（ZIP不要）
@@ -419,3 +420,19 @@ Gate G / Phase 3（STEP-G201〜G204）を、Skills統合の本文へ反映して
 - 次に進むべき作業:
   - _handoff_check/cf_task_tracker_v5.md の Gate G 未完了 [ ] を上から実施（Concreteの記録→Signature付与→集計→Abstract/Skill昇格判断）。
 
+
+## 追記（2026-01-26）｜PR #62/#63：runbook8 出力契約・検索0終了ルールを固定
+
+### 変更内容（最小差分）
+- PR #62（merged）: handoff_prompt に runbook8 必読＋出力契約（**根拠/判定/変更提案**）を明示
+- PR #63（merged）: runbook8 に「見つからなくてもOKの検索は `rg/grep ... || true` で 0 終了」を運用ルールとして固定
+
+### Evidence（代表）
+- PR #62: merge commit = 2f56e69 / commit = 6facfa8
+- PR #63: merge commit = 7b4ed39 / commit = c98331c
+
+### 次チャットの開始手順（再掲）
+- Repo Lock: `./tools/cf-guard.sh --check`
+- 読み込み順: handoff → runbook（##8）→ tracker
+- 出力: **根拠/判定/変更提案**
+- 検索（見つからなくてもOK）: `rg ... || true`
