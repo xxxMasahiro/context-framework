@@ -68,7 +68,8 @@
   ↓
 - Skills（3回目で昇格）
 
-### 未確定の論点（次チャットで合意したい）
+### 確定済み（再確認）
+※内容は変更せず、STEP-G006 を正として再確認。
 1) 成功/失敗の分類基準（Concreteに記録する単位）
 2) 「同種が増えた」判断根拠をどこに置くか（ConcreteのSignature/タグ、または抽象側の集計）
 3) 「解決が安定したらSkillへ昇格」= 解決/安定の定義（再現性、適用回数、証跡、受入テスト 等）
@@ -450,7 +451,12 @@ Gate G / Phase 3（STEP-G201〜G204）を、Skills統合の本文へ反映して
 ### このチャットで確定した論点
 - 『3ファイルの整合性から無駄を省いて整理（特にトラッカーの重複/不要の削除）』は、SSOT（_handoff_check の3ファイル）へは **未反映**。
 - （注）一時ワークスペース `_handoff_check/_workspace_tracker_20260126/`／`cf_task_tracker_v5.WIP.md` はリポジトリ内に実体が見つからない（作成は未実施 or ローカルのみで破棄済みの可能性）。以後は SSOT（_handoff_check の3ファイル）を正として作業する。
+- 確定ルール: 参照不能/存在不明の作業メモは SSOT 判断根拠にしない。
 - SSOT方針: ZIPは不要。正は `_handoff_check` の3ファイル（cf_handoff_prompt.md / cf_update_runbook.md / cf_task_tracker_v5.md）。
+
+### 調査証跡（2026-01-26）
+- `ls -la _workspace_tracker_20260126` → `No such file or directory`
+- `find . -maxdepth 3 -type d -name "*workspace*tracker*"` → 検出なし
 
 ### 次にやること（1つだけ）
 - SSOT 3ファイルに ZIP/旧運用の残骸がないか横断検索し、結果を貼って判定する。
@@ -484,4 +490,3 @@ Gate G / Phase 3（STEP-G201〜G204）を、Skills統合の本文へ反映して
 - PR #71（merged）: tracker 更新ログ UPD-20260126-03 の Evidence を「PR予定」から「PR #70 / merge e9105da」へ修正。Evidence: PR #71 / merge 6d5df16
 
 （新チャットでは SSOT として _handoff_check の3ファイルを添付し、最初に Repo Lock（./tools/cf-guard.sh --check）から開始する）
-

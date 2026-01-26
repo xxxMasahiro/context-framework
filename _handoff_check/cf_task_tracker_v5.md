@@ -55,9 +55,12 @@
 
 ## Gate H（新規タスクの入口）
 ### Phase 1（未着手タスク）
-- [ ] （新規タスクをここへ追記：1行1タスク、Evidenceは必要に応じて）
+- （新規タスクをここへ追記：1行1タスク、Evidenceは必要に応じて）
+- [x] H1: 昇格/分類ルール（STEP-G006）確定再確認
+- [x] H2: workspace_tracker 非SSOT扱い確定再確認
 
 ## 4. 更新ログ（Progress Log/Updates）※直近のみ
+- 2026-01-27T01:57:13+0900 | UPD-20260126-04 | Gate H: T1/T2 確定再確認（調査証跡をSSOTへ追記） | Evidence: commit 6b009c1 / PR予定 wip/ssot-confirm-t1-t2
 - 2026-01-26T22:01:33+0900 | UPD-20260126-03 | Gate H を新規タスク入口へ統一（Gate G 完了扱い） | Evidence: PR #70 / merge e9105da
 - 2026-01-26T21:28:50+0900 | UPD-20260126-02 | trackerスリム化（テンプレ/完了タスク/旧ログをrunbook付録へ移設、参照更新） | Evidence: PR予定 wip/slim-tracker-v5
 - 2026-01-25T23:57:27+09:00 | UPD-20260125-05 | Gate G: STEP-G007 Signature集計ツールをDone更新 | Evidence: PR #59 / merge 795d53f / topic bc0a5c7
