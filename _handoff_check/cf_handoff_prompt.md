@@ -460,3 +460,19 @@ Gate G / Phase 3（STEP-G201〜G204）を、Skills統合の本文へ反映して
   _handoff_check/cf_task_tracker_v5.md || true
 ```
 
+<!-- CFTCX_HANDOFF_20260126_PR66_67_NOTE -->
+
+## 引継ぎメモ（2026-01-26）
+
+### 直近で確定したこと（PR #66/#67 の反映状況）
+- PR #66（merge commit: 7897a64）: handoff_prompt 内の「workspace_tracker_20260126 / cf_task_tracker_v5.WIP.md 作成」記述は、**リポジトリ実体（ファイル/ディレクトリ）が見つからない**ため、未実施 or ローカルのみの可能性として扱う（SSOTは _handoff_check の3ファイルを正とする）。
+- PR #67（merge commit: 4998f4f）: SSOT運用の「本文中の .zip は旧運用ラベル（実体ZIPは前提にしない）」に加え、**vendor/ 配下の *.zip は入力/成果物ZIP（実体）であり、運用ZIP廃止/ラベル扱いとは別物**、を明確化。
+
+### 現状（確定）
+- Repo Lock: OK
+- HEAD == origin/main（merge PR #67 反映済み）
+- working tree: clean
+
+### 次にやること（1つだけ）
+./tools/cf-guard.sh --check
+意味（復習用）: Repo Lock の安全確認（想定リポジトリ以外なら中止）
