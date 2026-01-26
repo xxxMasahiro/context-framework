@@ -478,3 +478,10 @@ Gate G / Phase 3（STEP-G201〜G204）を、Skills統合の本文へ反映して
 ### 次にやること（1つだけ）
 ./tools/cf-guard.sh --check
 意味（復習用）: Repo Lock の安全確認（想定リポジトリ以外なら中止）
+
+## 追記 (2026-01-27) | PR #70/#71 : Gate H 入口統一 + tracker Evidence 修正
+- PR #70（merged）: 新規タスクの入口を Gate H（Phase 1）に統一（Gate G は完了扱い）。Evidence: PR #70 / merge e9105da
+- PR #71（merged）: tracker 更新ログ UPD-20260126-03 の Evidence を「PR予定」から「PR #70 / merge e9105da」へ修正。Evidence: PR #71 / merge 6d5df16
+
+（新チャットでは SSOT として _handoff_check の3ファイルを添付し、最初に Repo Lock（./tools/cf-guard.sh --check）から開始する）
+
