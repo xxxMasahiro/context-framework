@@ -779,6 +779,9 @@ git status -sb
 - 同種2回目ルール：Signatureの件数>=2で Abstract に「入口のみ」作成（手順は書かず refs: [Concrete#...] と件数だけ）
 - Skills昇格（3回目）最小条件：3回成功 + 再現性（前提/手順/検証コマンド固定）+ 受入テスト + 安全弁（read-only確認/dry-run/ロールバック導線等）
 - 例外：重大事故/高頻度は1回目でも Abstract に入口のみ（手順は書かず Concrete 参照）
+- （2026-01-27 調査で確定再確認）昇格/分類ルールは本 STEP-G006 を正とする
+- （再確認）抽象ログは「索引＋パターン＋参照先」のみ（手順全文は書かない）
+- 証跡: `cf_handoff_prompt.md` の「調査証跡」小節を参照
 
 ##### STEP-G007 Signature集計ツール（候補検出）
 - 目的: ConcreteのSignature出現回数を集計し、Abstract(>=2)/Skills(>=3)の候補を提示（検出のみ）

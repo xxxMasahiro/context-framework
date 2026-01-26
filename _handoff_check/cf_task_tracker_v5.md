@@ -55,7 +55,9 @@
 
 ## Gate H（新規タスクの入口）
 ### Phase 1（未着手タスク）
-- [ ] （新規タスクをここへ追記：1行1タスク、Evidenceは必要に応じて）
+- （新規タスクをここへ追記：1行1タスク、Evidenceは必要に応じて）
+- [x] H1: 昇格/分類ルール（STEP-G006）確定再確認
+- [x] H2: workspace_tracker 非SSOT扱い確定再確認
 
 ## 4. 更新ログ（Progress Log/Updates）※直近のみ
 - 2026-01-26T22:01:33+0900 | UPD-20260126-03 | Gate H を新規タスク入口へ統一（Gate G 完了扱い） | Evidence: PR #70 / merge e9105da
