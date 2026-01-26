@@ -38,6 +38,7 @@
 - `cf_handoff_prompt.md` 読了直後に `cf_update_runbook.md` の「## 8. 実行プロトコル（運用ルール）」を必ず確認し、以後の出力は **根拠/判定/変更提案** を厳守する
 - SSOTは _handoff_check の3ファイル（ZIP不要）
 - 運用規範は runbook/tracker を優先し、handoff_prompt は経緯メモとして整合させる
+- tracker はスリム化済み。詳細テンプレ/完了済み一覧/旧ログは runbook 付録「tracker退避」へ移設
 - 次にやることは「1つ（1コマンド/1操作）」で提示すること
 - 最初の安全確認として Repo Lock を実行する（`./tools/cf-guard.sh --check`）
 - 役割は初期設定ファイルに従う（`WORKFLOW/TOOLING/INITIAL_SETTINGS.md` を参照）
@@ -85,7 +86,7 @@
 - Evidence:
   - PR #54 merged: merge f14ec13 / topic 69aad10
   - PR #55 merged: merge b1d4a36 / topic ca43087
-  - 対象レンジ（目安）: `_handoff_check/cf_task_tracker_v5.md` の STEP-G005 チェック項目（L390付近）＋ Progress Log/Updates（UPD-20260125-03）
+  - 対象レンジ（目安）: `rg -n "STEP-G005" _handoff_check/cf_update_runbook.md || true` ＋ `rg -n "UPD-20260125-03" _handoff_check/cf_task_tracker_v5.md || true`
 - 次に進むべきタスク:
   - ①成功/失敗分類 ②Signature（同種判定キー）③Skill昇格条件 を、トラッカー「チェック項目」から一段上げて **定義として固定**（WORKFLOW/SKILLS_INTEGRATION.md 等へ）するフェーズ
   - 新チャット開始の最初の1手: `./tools/cf-guard.sh --check`
@@ -185,7 +186,7 @@ Gate G / Phase 3（STEP-G201〜G204）を、Skills統合の本文へ反映して
 
 ### 変更点（Add/Del/Mod）
 - **Mod**: `_handoff_check/cf_task_tracker_v5.md`
-  - STEP-G004 を Done[x] に更新（Evidence: `_handoff_check/cf_update_runbook.md:L80`）
+  - STEP-G004 を Done[x] に更新（Evidence: `rg -n "Repo Lock（作業開始前の必須チェック）" _handoff_check/cf_update_runbook.md || true`）
   - Progress Log/Updates に `UPD-20260124-02` を追記
 - **Mod**: `LOGS/INDEX.md`
   - `./tools/cf-log-index.sh` 再実行で再生成（`UPD-20260124-02` を反映）
@@ -400,8 +401,8 @@ Gate G / Phase 3（STEP-G201〜G204）を、Skills統合の本文へ反映して
 - 次に進むべきタスク: Gate G / Phase 3 / STEP-G201（Skill昇格条件）
 - 新チャット開始時の最初の1手: `./tools/cf-guard.sh --check`
 - 確認コマンド:
-  - `rg -n "^\| STEP-G20" _handoff_check/cf_task_tracker_v5.md`
-  - `sed -n '420,440p' _handoff_check/cf_task_tracker_v5.md`
+  - `rg -n "STEP-G20" _handoff_check/cf_update_runbook.md || true`
+  - `rg -n "Progress Log/Updates" _handoff_check/cf_task_tracker_v5.md || true`
 
 
 ### Handoff Memo: PR #57-#60（Gate G: STEP-G006/STEP-G007）
