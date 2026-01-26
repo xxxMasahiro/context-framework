@@ -436,3 +436,27 @@ Gate G / Phase 3（STEP-G201〜G204）を、Skills統合の本文へ反映して
 - 読み込み順: handoff → runbook（##8）→ tracker
 - 出力: **根拠/判定/変更提案**
 - 検索（見つからなくてもOK）: `rg ... || true`
+
+<!-- CFCTX_HANDOFF_20260126_SSOT_DEDUP_NOTE_V2 -->
+## 引継ぎメモ（2026-01-26 15:33 JST）
+
+### 現状（確定）
+- Repo Lock: OK
+- 同期: HEAD と origin/main が同一（fd13699）
+- 作業ツリー: clean（このメモ追加後は差分が出ます）
+
+### このチャットで確定した論点
+- 『3ファイルの整合性から無駄を省いて整理（特にトラッカーの重複/不要の削除）』は、SSOT（_handoff_check の3ファイル）へは **未反映**。
+- 今回は一時ワークスペース `_handoff_check/_workspace_tracker_20260126/` に `cf_task_tracker_v5.WIP.md` を作成し、ZIP関連の記述/重複ヘッダ等の除去を実施（WIP内のみ）。
+- SSOT方針: ZIPは不要。正は `_handoff_check` の3ファイル（cf_handoff_prompt.md / cf_update_runbook.md / cf_task_tracker_v5.md）。
+
+### 次にやること（1つだけ）
+- SSOT 3ファイルに ZIP/旧運用の残骸がないか横断検索し、結果を貼って判定する。
+
+```bash
+./tools/cf-guard.sh -- rg -n "(ZIP|zip|cf_handoff_and_tracker\\.zip|next[0-9]+_work\\.zip)" \
+  _handoff_check/cf_handoff_prompt.md \
+  _handoff_check/cf_update_runbook.md \
+  _handoff_check/cf_task_tracker_v5.md || true
+```
+
