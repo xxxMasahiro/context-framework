@@ -58,7 +58,7 @@
 - [ ] （新規タスクをここへ追記：1行1タスク、Evidenceは必要に応じて）
 
 ## 4. 更新ログ（Progress Log/Updates）※直近のみ
-- 2026-01-26T22:01:33+0900 | UPD-20260126-03 | Gate H を新規タスク入口へ統一（Gate G 完了扱い） | Evidence: PR予定 wip/gate-h-entrypoint
+- 2026-01-26T22:01:33+0900 | UPD-20260126-03 | Gate H を新規タスク入口へ統一（Gate G 完了扱い） | Evidence: PR #70 / merge e9105da
 - 2026-01-26T21:28:50+0900 | UPD-20260126-02 | trackerスリム化（テンプレ/完了タスク/旧ログをrunbook付録へ移設、参照更新） | Evidence: PR予定 wip/slim-tracker-v5
 - 2026-01-25T23:57:27+09:00 | UPD-20260125-05 | Gate G: STEP-G007 Signature集計ツールをDone更新 | Evidence: PR #59 / merge 795d53f / topic bc0a5c7
 - 2026-01-25T22:23:20+09:00 | UPD-20260125-04 | Gate G: STEP-G006 定義固定をDone更新 | Evidence: PR #57 / merge 6305b49 / topic 1a1f3eb
