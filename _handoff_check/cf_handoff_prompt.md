@@ -518,3 +518,24 @@ Gate G / Phase 3（STEP-G201〜G204）を、Skills統合の本文へ反映して
 意味（復習用）: Repo Lock の安全確認（想定リポジトリ以外なら中止）
 
 （新チャットでは SSOT 3ファイルを添付し、Gate H / H4 を進める）
+
+<!-- CFCTX_HANDOFF_20260127_GATEH_H4_RULES_DONE -->
+## 追記（2026-01-27 12:11 JST）｜Gate H: H4（ルール設計）完了
+
+### 完了内容
+- PR #78（merged）: `rules/routes.yaml` / `rules/policy.json` / `rules/ssot_manifest.yaml` の導入・更新、および SSOT 側の完了記録（Evidence）を反映。
+
+### Evidence
+- PR #78 / merge: 7885ee5
+
+### 現状
+- Repo Lock: OK
+- 作業ブランチ: wip/handoff-pr78-h4-done
+- HEAD: 7885ee5
+- 次タスク: Gate H / Phase 1 / H5（Controller骨格）
+
+### 次にやること（1つだけ）
+```bash
+./tools/cf-guard.sh --check
+```
+意味（復習用）: Repo Lock の安全確認（想定リポジトリ以外なら中止）
