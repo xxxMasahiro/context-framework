@@ -46,11 +46,11 @@
 - 変更は Add/Del/Mod を明示し、Evidence は更新ログへ残す
 
 ## 2. 進捗サマリ
-- 未完了タスク: あり（Gate H / Phase 1: H6〜H12）
-- 次にやる1手: Gate H / Phase 1 / H6（危険操作ゲート：Go/NoGo + 危険フラグ/禁止語）
+- 未完了タスク: あり（Gate H / Phase 1: H7〜H12）
+- 次にやる1手: Gate H / Phase 1 / H7（2段階出力の定型）
 
 ## 3. タスク一覧（未完了のみ）
-- Gate H / Phase 1: H6〜H12
+- Gate H / Phase 1: H7〜H12
 - 追加ルール: 新規タスクは Gate H / Phase 1 に追記（詳細テンプレは runbook 付録を参照）
 
 ## Gate H（新規タスクの入口）
@@ -61,7 +61,7 @@
 - [x] H3: Phase 0 — `bin/ctx-run`（SSOT束注入）＋ `rules/ssot_manifest.yaml`（最小）
 - [x] H4: Phase 1 — ルール設計（`routes.yaml` / `policy.json` / `ssot_manifest.yaml`）
 - [x] H5: Phase 1 — Controller骨格（分類JSON→検証→束生成→生成→検証→ログ）
-- [ ] H6: Phase 1 — 危険操作ゲート（Go/NoGo）＋危険フラグ/禁止語の検知
+- [x] H6: Phase 1 — 危険操作ゲート（Go/NoGo）＋危険フラグ/禁止語の検知
 - [ ] H7: Phase 1 — 2段階出力の定型（次の1手1つ/復習用/変更点/根拠）
 - [ ] H8: Phase 1 — テスト（不一致は停止 / high riskはGo/NoGo / JSON破損は再生成or停止）
 - [ ] H9: Phase 1 — Gate C 検証組込み（`validate_agent_adapters()`：STEP-304/305/306）
@@ -70,6 +70,7 @@
 - [ ] H12: Phase 3 — 運用成熟（CIでスキーマ/ルール検証、ログ整備）
 
 ## 4. 更新ログ（Progress Log/Updates）※直近のみ
+- 2026-01-27T13:14:47+0900 | UPD-20260127-06 | Gate H: H6 危険操作ゲート（Go/NoGo + 検知）完了 | Evidence: commit:8a1dba1 / cmd: ./tools/cf-controller-smoke.sh
 - 2026-01-27T13:04:12+0900 | UPD-20260127-05 | Gate H: H3実装済みのためサマリをH6へ更新 | Evidence: cmd: ./bin/ctx-run --out /tmp/ssot_bundle.txt && test -s /tmp/ssot_bundle.txt
 - 2026-01-27T12:45:21+0900 | UPD-20260127-04 | Gate H: H5 Controller骨格（分類/検証/束/ログ）完了 | Evidence: commit:06261ac
 - 2026-01-27T11:30:30+0900 | UPD-20260127-03 | Gate H: H4 ルール設計（routes/policy/manifest）完了 | Evidence: commit:0fd03cf

@@ -193,12 +193,29 @@ def build_bundle(manifest, context_profile):
     return "\n".join(bundle_text).strip() + "\n", [p.relative_to(REPO_ROOT).as_posix() for p in bundle_files]
 
 
-def detect_risk(text, policy):
+def detect_risk_flags(text, policy):
     hits = []
     for cat, tokens in policy.get("risk_flags", {}).items():
         for token in tokens:
             if re.search(re.escape(token), text, re.IGNORECASE):
                 hits.append(f"{cat}:{token}")
+    return hits
+
+
+def detect_dangerous_ops(text, policy):
+    hits = []
+    for cat, patterns in policy.get("dangerous_ops", {}).items():
+        for pat in patterns:
+            if re.search(pat, text, re.IGNORECASE):
+                hits.append(f"{cat}:{pat}")
+    return hits
+
+
+def detect_prohibited_words(text, policy):
+    hits = []
+    for pat in policy.get("prohibited_words", []):
+        if re.search(pat, text, re.IGNORECASE):
+            hits.append(pat)
     return hits
 
 
@@ -292,6 +309,8 @@ def main():
     ap.add_argument("--classification-json", default="", help="Classification JSON string")
     ap.add_argument("--classification-file", default="", help="Classification JSON file")
     ap.add_argument("--classification-stdin", action="store_true", help="Read classification JSON from stdin")
+    ap.add_argument("--generated-text", default="", help="Generated output text to validate")
+    ap.add_argument("--generated-file", default="", help="Generated output file to validate")
     ap.add_argument("--profile", default="", help="Override context_profile")
     ap.add_argument("--print-bundle", action="store_true", help="Print bundle to stdout")
     ap.add_argument("--out-bundle", default="", help="Write bundle to file")
@@ -346,8 +365,30 @@ def main():
     route = choose_route(routes.get("routes", []), classification.get("intent"))
     classification = apply_route(classification, route, routes.get("default", {}))
 
-    risk_hits = detect_risk(task_text + "\n" + json.dumps(classification, ensure_ascii=False), policy)
-    banned_hits = detect_banned(task_text, policy)
+    generated_text = ""
+    if args.generated_text:
+        generated_text = args.generated_text
+    elif args.generated_file:
+        generated_text = Path(args.generated_file).read_text(encoding="utf-8")
+
+    scan_text = "\n".join([task_text, generated_text, json.dumps(classification, ensure_ascii=False)])
+    risk_hits = detect_risk_flags(scan_text, policy)
+    danger_hits = detect_dangerous_ops(scan_text, policy)
+    prohibited_hits = detect_prohibited_words(scan_text, policy)
+    banned_hits = detect_banned(scan_text, policy)
+
+    risk_score = classification.get("risk_score", 0)
+    require_cfg = policy.get("require_gonogo_conditions", {})
+    risk_score_gte = require_cfg.get("risk_score_gte", 8)
+    hit_categories = require_cfg.get("hit_categories", [])
+
+    all_hits = {
+        "risk_flags": risk_hits,
+        "dangerous_ops": danger_hits,
+        "prohibited_words": prohibited_hits,
+        "banned": banned_hits
+    }
+    hit_keys = [k for k, v in all_hits.items() if v]
 
     adapter_paths = None
     if args.adapter_paths:
@@ -357,13 +398,41 @@ def main():
     if not args.skip_adapter_check:
         adapter_result = validate_agent_adapters(parse_manifest(Path(args.manifest)), policy, adapter_paths)
         if not adapter_result.get("ok"):
-            log_path = write_log(classification, task_text, policy, adapter_result, risk_hits, banned_hits, None, [])
+            log_path = write_log(classification, task_text, policy, adapter_result, all_hits, None, [])
             print(json.dumps({"status": "STOP_AND_REQUEST_GONOGO", "reason": adapter_result.get("reason"), "log": str(log_path)}, ensure_ascii=False), file=sys.stderr)
             sys.exit(4)
 
-    if classification.get("risk") == "high" or classification.get("needs_gonogo") or risk_hits or banned_hits:
-        log_path = write_log(classification, task_text, policy, adapter_result, risk_hits, banned_hits, None, [])
-        print(json.dumps({"status": "STOP_AND_REQUEST_GONOGO", "reason": "risk_or_banned", "risk_hits": risk_hits, "banned": banned_hits, "log": str(log_path)}, ensure_ascii=False), file=sys.stderr)
+    need_gonogo = False
+    reasons = []
+    if classification.get("risk") == "high":
+        need_gonogo = True
+        reasons.append("risk=high")
+    if classification.get("needs_gonogo"):
+        need_gonogo = True
+        reasons.append("needs_gonogo=true")
+    if isinstance(risk_score, int) and risk_score >= risk_score_gte:
+        need_gonogo = True
+        reasons.append(f"risk_score>={risk_score_gte}")
+    if hit_keys:
+        for key in hit_keys:
+            if key in hit_categories:
+                need_gonogo = True
+                reasons.append(f"hit:{key}")
+        if not hit_categories:
+            need_gonogo = True
+            reasons.append("hit:policy")
+
+    if need_gonogo:
+        log_path = write_log(classification, task_text, policy, adapter_result, all_hits, None, [])
+        print(json.dumps({
+            "status": "STOP_AND_REQUEST_GONOGO",
+            "reason": "risk_gate",
+            "reasons": reasons,
+            "risk_score": risk_score,
+            "hits": all_hits,
+            "question": "危険操作の可能性があります。続行しますか？(Go/NoGo)",
+            "log": str(log_path)
+        }, ensure_ascii=False), file=sys.stderr)
         sys.exit(3)
 
     manifest = parse_manifest(Path(args.manifest))
@@ -380,7 +449,7 @@ def main():
         "4) 根拠（参照したSSOT箇所）\n"
     )
 
-    log_path = write_log(classification, task_text, policy, adapter_result, risk_hits, banned_hits, bundle_files, ["dry_run" if args.dry_run else "no_llm_call"])
+    log_path = write_log(classification, task_text, policy, adapter_result, all_hits, bundle_files, ["dry_run" if args.dry_run else "no_llm_call"])
 
     result = {
         "status": "OK",
@@ -397,15 +466,14 @@ def main():
         print(json.dumps(result, ensure_ascii=False, indent=2))
 
 
-def write_log(classification, task_text, policy, adapter_result, risk_hits, banned_hits, bundle_files, tags):
+def write_log(classification, task_text, policy, adapter_result, hits, bundle_files, tags):
     DEFAULT_LOG_DIR.mkdir(parents=True, exist_ok=True)
     log = {
         "timestamp": datetime.now().isoformat(timespec="seconds"),
         "task": task_text,
         "classification": classification,
         "adapter_check": adapter_result,
-        "risk_hits": risk_hits,
-        "banned_hits": banned_hits,
+        "risk_hits": hits,
         "bundle_files": bundle_files or [],
         "tags": tags or []
     }
