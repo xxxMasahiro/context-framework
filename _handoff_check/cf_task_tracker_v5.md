@@ -46,11 +46,11 @@
 - 変更は Add/Del/Mod を明示し、Evidence は更新ログへ残す
 
 ## 2. 進捗サマリ
-- 未完了タスク: あり（Gate H / Phase 1: H10〜H12）
-- 次にやる1手: Gate H / Phase 2 / H10（Docs MCP 導入手順）
+- 未完了タスク: あり（Gate H / Phase 2: H11〜H12）
+- 次にやる1手: Gate H / Phase 2 / H11（用途別ツールMCP設計）
 
 ## 3. タスク一覧（未完了のみ）
-- Gate H / Phase 1: H10〜H12
+- Gate H / Phase 2: H11〜H12
 - 追加ルール: 新規タスクは Gate H / Phase 1 に追記（詳細テンプレは runbook 付録を参照）
 
 ## Gate H（新規タスクの入口）
@@ -65,11 +65,12 @@
 - [x] H7: Phase 1 — 2段階出力の定型（次の1手1つ/復習用/変更点/根拠）
 - [x] H8: Phase 1 — テスト（不一致は停止 / high riskはGo/NoGo / JSON破損は再生成or停止）
 - [x] H9: Phase 1 — Gate C 検証組込み（`validate_agent_adapters()`：STEP-304/305/306）
-- [ ] H10: Phase 2 — Docs MCP（読み取り専用）導入手順の整備（任意）
+- [x] H10: Phase 2 — Docs MCP（読み取り専用）導入手順の整備（任意）
 - [ ] H11: Phase 2 — 用途別ツールMCP（STDIO）設計（`get_ssot_bundle`/`diff_summary`等）
 - [ ] H12: Phase 3 — 運用成熟（CIでスキーマ/ルール検証、ログ整備）
 
 ## 4. 更新ログ（Progress Log/Updates）※直近のみ
+- 2026-01-27T17:59:36+0900 | UPD-20260127-10 | Gate H: H10 Docs MCP（読み取り専用）手順整備完了 | Evidence: commit:904b79a
 - 2026-01-27T14:57:33+0900 | UPD-20260127-09 | Gate H: H9 Gate C 検証組込み完了 | Evidence: commit:6b5cd88 / cmd: ./tools/cf-controller-smoke.sh
 - 2026-01-27T14:03:15+0900 | UPD-20260127-08 | Gate H: H8 テスト（不一致/高risk/JSON破損）完了 | Evidence: commit:4a4c86f / cmd: ./tools/cf-controller-smoke.sh
 - 2026-01-27T13:31:37+0900 | UPD-20260127-07 | Gate H: H7 2段階出力（分類→生成）整備完了 | Evidence: commit:b4b9295 / cmd: ./tools/cf-controller-smoke.sh
