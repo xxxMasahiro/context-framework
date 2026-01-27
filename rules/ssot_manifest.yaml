@@ -2,6 +2,16 @@ ssot:
   - "_handoff_check/cf_handoff_prompt.md"
   - "_handoff_check/cf_update_runbook.md"
   - "_handoff_check/cf_task_tracker_v5.md"
+charter:
+  - "CHARTER/*.md"
+architect:
+  - "WORKFLOW/*.md"
+skills:
+  - "SKILLS/**/*.md"
+projection:
+  - "CLAUDE.md"
+  - "AGENTS.md"
+  - "GEMINI.md"
 allow_read_prefix:
   - "_handoff_check/"
   - "CHARTER/"

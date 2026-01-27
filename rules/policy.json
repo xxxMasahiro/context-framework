@@ -1,0 +1,64 @@
+{
+  "version": 1,
+  "classification_schema": {
+    "type": "object",
+    "required": [
+      "intent",
+      "actor",
+      "risk",
+      "needs_gonogo",
+      "context_profile",
+      "output_format"
+    ],
+    "additionalProperties": false,
+    "properties": {
+      "intent": {
+        "type": "string",
+        "enum": ["verify", "edit", "add", "delete", "plan"]
+      },
+      "actor": {
+        "type": "string",
+        "enum": ["ubuntu", "codex"]
+      },
+      "risk": {
+        "type": "string",
+        "enum": ["low", "high"]
+      },
+      "needs_gonogo": {
+        "type": "boolean"
+      },
+      "context_profile": {
+        "type": "string",
+        "enum": ["ssot_only", "ssot_charter", "full"]
+      },
+      "output_format": {
+        "type": "string",
+        "enum": ["checklist", "json", "unified_diff"]
+      },
+      "notes": {
+        "type": "string",
+        "maxLength": 280
+      }
+    }
+  },
+  "risk_flags": {
+    "danger_ops": ["delete", "overwrite", "reset", "clean", "rebase"],
+    "external_send": ["curl", "wget", "scp", "ssh", "http://", "https://"],
+    "secrets": ["API_KEY", "TOKEN", "PASSWORD", "PRIVATE_KEY"],
+    "network": ["http://", "https://"]
+  },
+  "banned": {
+    "phrases": ["run_python(", "eval(", "pickle.load"],
+    "paths": ["/etc", "~/.ssh", ".env"]
+  },
+  "limits": {
+    "max_output_chars": 12000,
+    "max_patch_lines": 4000,
+    "timeout_sec": 60
+  },
+  "gate_c": {
+    "sot_declaration_regex": "Source of Truth|SoT宣言",
+    "links_regex": "Charter|Mode|Artifacts|Skills",
+    "skill_first_regex": "Skill優先実行|Skill.*優先"
+  }
+}
