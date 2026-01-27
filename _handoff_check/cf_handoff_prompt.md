@@ -55,6 +55,29 @@
 
 ---
 
+## 追記（2026-01-27）Gate H / Phase 1：H7〜H8 完了 → 次は H9（Gate C 検証組込み）
+
+- 状況
+  - H7 / H8 は PR で main に反映済み（2段階出力の定型追加・テスト強化まで完了）
+  - 次に進むべきタスク: Gate H / Phase 1 / H9（Gate C 検証組込み）
+
+- トラッカー（参照）
+  - - 次にやる1手: Gate H / Phase 1 / H9（Gate C 検証組込み）
+  - - [x] H8: Phase 1 — テスト（不一致は停止 / high riskはGo/NoGo / JSON破損は再生成or停止）
+  - - [ ] H9: Phase 1 — Gate C 検証組込み（`validate_agent_adapters()`：STEP-304/305/306）
+
+- Evidence（Progress Log）
+  - - 2026-01-27T14:03:15+0900 | UPD-20260127-08 | Gate H: H8 テスト（不一致/高risk/JSON破損）完了 | Evidence: commit:4a4c86f / cmd: ./tools/cf-controller-smoke.sh
+  - - 2026-01-27T13:31:37+0900 | UPD-20260127-07 | Gate H: H7 2段階出力（分類→生成）整備完了 | Evidence: commit:b4b9295 / cmd: ./tools/cf-controller-smoke.sh
+
+- H9 以降の外部仕様（Codex実行時は必ず参照）
+  - /mnt/c/Users/MASAHIRO/Desktop/作業ファイル/メモ/UPDATE/_mpc/01_説明.md
+  - /mnt/c/Users/MASAHIRO/Desktop/作業ファイル/メモ/UPDATE/_mpc/02_要件定義.md
+  - /mnt/c/Users/MASAHIRO/Desktop/作業ファイル/メモ/UPDATE/_mpc/03_仕様書.md
+  - /mnt/c/Users/MASAHIRO/Desktop/作業ファイル/メモ/UPDATE/_mpc/04_実装計画.md
+
+
+
 ## 追記（2026-01-27）｜Gate H H4 ルール設計完了
 
 - 反映内容: rules/ssot_manifest.yaml を拡張（charter/architect/skills/projection/allowlist）、rules/routes.yaml と rules/policy.json を追加（決定論ルート/分類スキーマ/危険フラグ/ Gate C検知）。
