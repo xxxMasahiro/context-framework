@@ -82,7 +82,14 @@ if missing:
     raise SystemExit(f"missing headings: {missing}")
 PY
 
-# 6) adapter validation NG should fail
+# 6) adapter validation OK should pass
+set +e
+"$BIN" --dry-run >/dev/null 2>&1
+code=$?
+set -e
+[ "$code" -eq 0 ] || fail "adapter validation OK did not pass"
+
+# 7) adapter validation NG should fail
 mkdir -p "$TMP_DIR/adapters"
 cat > "$TMP_DIR/adapters/CLAUDE.md" <<'TXT'
 ## SSOT参照順
@@ -114,7 +121,7 @@ code=$?
 set -e
 [ "$code" -eq 4 ] || fail "adapter validation NG did not stop"
 
-# 7) invalid generated output should fail validation
+# 8) invalid generated output should fail validation
 cat > "$TMP_DIR/bad.txt" <<'TXT'
 根拠: なし
 判定: OK
