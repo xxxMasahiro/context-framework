@@ -17,7 +17,23 @@ code=$?
 set -e
 [ "$code" -ne 0 ] || fail "invalid JSON did not fail"
 
-# 2) high risk should request Go/NoGo
+# 2) schema mismatch should fail
+cat > "$TMP_DIR/missing.json" <<'JSON'
+{
+  "actor": "codex",
+  "risk": "low",
+  "needs_gonogo": false,
+  "context_profile": "ssot_only",
+  "output_format": "checklist"
+}
+JSON
+set +e
+"$BIN" --classification-file "$TMP_DIR/missing.json" --dry-run --skip-adapter-check >/dev/null 2>&1
+code=$?
+set -e
+[ "$code" -eq 2 ] || fail "schema mismatch did not fail"
+
+# 3) high risk should request Go/NoGo
 cat > "$TMP_DIR/high.json" <<'JSON'
 {
   "intent": "delete",
@@ -35,7 +51,7 @@ code=$?
 set -e
 [ "$code" -eq 3 ] || fail "high risk did not request Go/NoGo"
 
-# 3) prohibited word should request Go/NoGo
+# 4) prohibited word should request Go/NoGo
 cat > "$TMP_DIR/low.json" <<'JSON'
 {
   "intent": "verify",
@@ -53,7 +69,7 @@ code=$?
 set -e
 [ "$code" -eq 3 ] || fail "prohibited word did not request Go/NoGo"
 
-# 4) two-stage output prompt should include required headings
+# 5) two-stage output prompt should include required headings
 OUT_JSON="$("$BIN" --dry-run --skip-adapter-check 2>/dev/null)"
 OUT_JSON="$OUT_JSON" python3 - <<'PY'
 import json, sys
@@ -66,7 +82,7 @@ if missing:
     raise SystemExit(f"missing headings: {missing}")
 PY
 
-# 5) adapter validation NG should fail
+# 6) adapter validation NG should fail
 mkdir -p "$TMP_DIR/adapters"
 cat > "$TMP_DIR/adapters/CLAUDE.md" <<'TXT'
 ## SSOT参照順
@@ -98,7 +114,7 @@ code=$?
 set -e
 [ "$code" -eq 4 ] || fail "adapter validation NG did not stop"
 
-# 6) invalid generated output should fail validation
+# 7) invalid generated output should fail validation
 cat > "$TMP_DIR/bad.txt" <<'TXT'
 根拠: なし
 判定: OK
