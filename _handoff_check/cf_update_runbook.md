@@ -1150,3 +1150,31 @@ git status -sb
   - _handoff_check/cf_update_runbook.md（LOGS/INDEX.md は生成物 / 同一PR更新の規定）
   - LOGS/INDEX.md（Generated）
 - 変更区分: Mod（STEP-G003 表行更新） / Add（本LOG-009節） / Mod（LOGS/INDEX.md 再生成）
+
+---
+
+## 9. Docs MCP（読み取り専用）導入手順（Phase 2 / H10）
+
+### 目的
+- 仕様/ドキュメント参照の精度向上（読み取り専用）。
+- **必須依存にしない**（MCPなしでもPhase 1が成立する前提）。
+
+### 前提（安全）
+- 読み取り専用（外部API代理呼び出しなし）。
+- 最小権限・allowlist前提・ネットワークは最小化。
+
+### 手順（例）
+```bash
+codex mcp add openaiDeveloperDocs --url https://developers.openai.com/mcp
+codex mcp list
+```
+
+### config.toml 例（任意）
+```toml
+[mcp_servers.openaiDeveloperDocs]
+url = "https://developers.openai.com/mcp"
+```
+
+### 運用上の注意
+- 参照用途のみ（書き込みや外部送信の自動化はしない）。
+- ツールの利用はログ/根拠に残す（参照元を明示）。
