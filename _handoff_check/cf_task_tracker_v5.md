@@ -60,7 +60,7 @@
 - [x] H2: workspace_tracker 非SSOT扱い確定再確認
 - [x] H3: Phase 0 — `bin/ctx-run`（SSOT束注入）＋ `rules/ssot_manifest.yaml`（最小）
 - [x] H4: Phase 1 — ルール設計（`routes.yaml` / `policy.json` / `ssot_manifest.yaml`）
-- [ ] H5: Phase 1 — Controller骨格（分類JSON→検証→束生成→生成→検証→ログ）
+- [x] H5: Phase 1 — Controller骨格（分類JSON→検証→束生成→生成→検証→ログ）
 - [ ] H6: Phase 1 — 危険操作ゲート（Go/NoGo）＋危険フラグ/禁止語の検知
 - [ ] H7: Phase 1 — 2段階出力の定型（次の1手1つ/復習用/変更点/根拠）
 - [ ] H8: Phase 1 — テスト（不一致は停止 / high riskはGo/NoGo / JSON破損は再生成or停止）
@@ -70,6 +70,7 @@
 - [ ] H12: Phase 3 — 運用成熟（CIでスキーマ/ルール検証、ログ整備）
 
 ## 4. 更新ログ（Progress Log/Updates）※直近のみ
+- 2026-01-27T12:45:21+0900 | UPD-20260127-04 | Gate H: H5 Controller骨格（分類/検証/束/ログ）完了 | Evidence: commit:06261ac
 - 2026-01-27T11:30:30+0900 | UPD-20260127-03 | Gate H: H4 ルール設計（routes/policy/manifest）完了 | Evidence: commit:0fd03cf
 - 2026-01-27T09:55:49+0900 | UPD-20260127-02 | Gate H: H3 Phase0 ctx-run + ssot_manifest 最小 | Evidence: commit:1f8fa30
 - 2026-01-27T02:28:23+0900 | UPD-20260127-01 | Gate H: Controller新規タスク（Phase 0〜3）を追加 | Evidence: PR#74 (merge: 23f03dd, commit: 9c5624e)
