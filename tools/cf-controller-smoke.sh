@@ -35,7 +35,25 @@ code=$?
 set -e
 [ "$code" -eq 3 ] || fail "high risk did not request Go/NoGo"
 
-# 3) adapter validation NG should fail
+# 3) prohibited word should request Go/NoGo
+cat > "$TMP_DIR/low.json" <<'JSON'
+{
+  "intent": "verify",
+  "actor": "codex",
+  "risk": "low",
+  "needs_gonogo": false,
+  "context_profile": "ssot_only",
+  "output_format": "checklist",
+  "notes": "test"
+}
+JSON
+set +e
+"$BIN" --classification-file "$TMP_DIR/low.json" --generated-text "rm -rf /" --dry-run --skip-adapter-check >/dev/null 2>&1
+code=$?
+set -e
+[ "$code" -eq 3 ] || fail "prohibited word did not request Go/NoGo"
+
+# 4) adapter validation NG should fail
 mkdir -p "$TMP_DIR/adapters"
 cat > "$TMP_DIR/adapters/CLAUDE.md" <<'TXT'
 ## SSOT参照順
