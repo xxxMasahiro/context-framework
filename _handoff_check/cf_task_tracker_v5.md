@@ -58,7 +58,7 @@
 - （新規タスクをここへ追記：1行1タスク、Evidenceは必要に応じて）
 - [x] H1: 昇格/分類ルール（STEP-G006）確定再確認
 - [x] H2: workspace_tracker 非SSOT扱い確定再確認
-- [ ] H3: Phase 0 — `bin/ctx-run`（SSOT束注入）＋ `rules/ssot_manifest.yaml`（最小）
+- [x] H3: Phase 0 — `bin/ctx-run`（SSOT束注入）＋ `rules/ssot_manifest.yaml`（最小）
 - [ ] H4: Phase 1 — ルール設計（`routes.yaml` / `policy.json` / `ssot_manifest.yaml`）
 - [ ] H5: Phase 1 — Controller骨格（分類JSON→検証→束生成→生成→検証→ログ）
 - [ ] H6: Phase 1 — 危険操作ゲート（Go/NoGo）＋危険フラグ/禁止語の検知
@@ -70,6 +70,7 @@
 - [ ] H12: Phase 3 — 運用成熟（CIでスキーマ/ルール検証、ログ整備）
 
 ## 4. 更新ログ（Progress Log/Updates）※直近のみ
+- 2026-01-27T09:55:49+0900 | UPD-20260127-02 | Gate H: H3 Phase0 ctx-run + ssot_manifest 最小 | Evidence: commit:1f8fa30
 - 2026-01-27T02:28:23+0900 | UPD-20260127-01 | Gate H: Controller新規タスク（Phase 0〜3）を追加 | Evidence: PR#74 (merge: 23f03dd, commit: 9c5624e)
 - 2026-01-27T01:57:13+0900 | UPD-20260126-04 | Gate H: T1/T2 確定再確認（調査証跡をSSOTへ追記） | Evidence: commit 6b009c1 / PR予定 wip/ssot-confirm-t1-t2
 - 2026-01-26T22:01:33+0900 | UPD-20260126-03 | Gate H を新規タスク入口へ統一（Gate G 完了扱い） | Evidence: PR #70 / merge e9105da
