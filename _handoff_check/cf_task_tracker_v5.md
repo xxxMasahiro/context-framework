@@ -46,11 +46,11 @@
 - 変更は Add/Del/Mod を明示し、Evidence は更新ログへ残す
 
 ## 2. 進捗サマリ
-- 未完了タスク: あり（Gate H / Phase 1: H3〜H12）
-- 次にやる1手: Gate H / Phase 1 / H3（Phase 0: ctx-run + ssot_manifest 最小）
+- 未完了タスク: あり（Gate H / Phase 1: H6〜H12）
+- 次にやる1手: Gate H / Phase 1 / H6（危険操作ゲート：Go/NoGo + 危険フラグ/禁止語）
 
 ## 3. タスク一覧（未完了のみ）
-- Gate H / Phase 1: H3〜H12
+- Gate H / Phase 1: H6〜H12
 - 追加ルール: 新規タスクは Gate H / Phase 1 に追記（詳細テンプレは runbook 付録を参照）
 
 ## Gate H（新規タスクの入口）
@@ -70,6 +70,7 @@
 - [ ] H12: Phase 3 — 運用成熟（CIでスキーマ/ルール検証、ログ整備）
 
 ## 4. 更新ログ（Progress Log/Updates）※直近のみ
+- 2026-01-27T13:04:12+0900 | UPD-20260127-05 | Gate H: H3実装済みのためサマリをH6へ更新 | Evidence: cmd: ./bin/ctx-run --out /tmp/ssot_bundle.txt && test -s /tmp/ssot_bundle.txt
 - 2026-01-27T12:45:21+0900 | UPD-20260127-04 | Gate H: H5 Controller骨格（分類/検証/束/ログ）完了 | Evidence: commit:06261ac
 - 2026-01-27T11:30:30+0900 | UPD-20260127-03 | Gate H: H4 ルール設計（routes/policy/manifest）完了 | Evidence: commit:0fd03cf
 - 2026-01-27T09:55:49+0900 | UPD-20260127-02 | Gate H: H3 Phase0 ctx-run + ssot_manifest 最小 | Evidence: commit:1f8fa30
