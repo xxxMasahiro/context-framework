@@ -55,6 +55,11 @@
 
 ---
 
+## 追記（2026-01-27）｜Gate H H4 ルール設計完了
+
+- 反映内容: rules/ssot_manifest.yaml を拡張（charter/architect/skills/projection/allowlist）、rules/routes.yaml と rules/policy.json を追加（決定論ルート/分類スキーマ/危険フラグ/ Gate C検知）。
+- Evidence: commit:0fd03cf
+
 ## 追記（2026-01-25）｜次チャット引継ぎメモ：Concrete→Abstract→Skills 判定条件（未確定→合意予定）
 
 ### 背景（要約）
