@@ -227,6 +227,52 @@ def detect_banned(text, policy):
     return hits
 
 
+def build_classification_prompt(schema):
+    required = schema.get("required", [])
+    props = schema.get("properties", {})
+    lines = [
+        "以下の依頼を分類し、厳密JSONのみで出力してください。",
+        "出力はJSONのみ（説明文は禁止）。",
+        "必須キー: " + ", ".join(required)
+    ]
+    for key, spec in props.items():
+        t = spec.get("type", "string")
+        enum = spec.get("enum")
+        if enum:
+            lines.append(f"- {key} ({t}): {' | '.join(enum)}")
+        else:
+            lines.append(f"- {key} ({t})")
+    return "\n".join(lines)
+
+
+def build_generation_prompt():
+    return (
+        "出力は日本語で、次の構成を**必ず**含める:\n"
+        "1) 根拠\n"
+        "2) 判定\n"
+        "3) 変更提案\n"
+        "   - 次にやること（1つ、コマンド1つ）\n"
+        "   - 意味（復習用）\n"
+        "   - 変更点（Add/Del/Mod）\n"
+        "注意: 余計な前置きや冗長な実行ログは不要。\n"
+    )
+
+
+def validate_generated_output(text):
+    errors = []
+    required = ["根拠", "判定", "変更提案", "次にやること", "意味（復習用）", "変更点"]
+    for key in required:
+        if key not in text:
+            errors.append(f"missing:{key}")
+    count_next = len(re.findall(r"次にやること", text))
+    if count_next != 1:
+        errors.append("next_step_count")
+    for token in ["Add", "Del", "Mod"]:
+        if token not in text:
+            errors.append(f"missing:{token}")
+    return errors
+
+
 def extract_section(text, header_regex):
     lines = text.splitlines()
     start = None
@@ -441,21 +487,33 @@ def main():
     if args.out_bundle:
         Path(args.out_bundle).write_text(bundle, encoding="utf-8")
 
-    generation_prompt = (
-        "出力構成:\n"
-        "1) 次にやること（1つ）\n"
-        "2) 意味（復習用）\n"
-        "3) 変更点（Add/Del/Mod）\n"
-        "4) 根拠（参照したSSOT箇所）\n"
-    )
+    stage1_prompt = build_classification_prompt(schema)
+    stage2_prompt = build_generation_prompt()
 
-    log_path = write_log(classification, task_text, policy, adapter_result, all_hits, bundle_files, ["dry_run" if args.dry_run else "no_llm_call"])
+    generated_validation = {"ok": True, "errors": []}
+    if generated_text:
+        gen_errors = validate_generated_output(generated_text)
+        if gen_errors:
+            generated_validation = {"ok": False, "errors": gen_errors}
+            log_path = write_log(classification, task_text, policy, adapter_result, all_hits, None, ["generated_invalid"], generated_validation)
+            print(json.dumps({
+                "status": "INVALID_OUTPUT",
+                "errors": gen_errors,
+                "question": "出力形式が不正です。修正して再実行してください。",
+                "log": str(log_path)
+            }, ensure_ascii=False), file=sys.stderr)
+            sys.exit(5)
+
+    log_path = write_log(classification, task_text, policy, adapter_result, all_hits, bundle_files, ["dry_run" if args.dry_run else "no_llm_call"], generated_validation)
 
     result = {
         "status": "OK",
         "classification": classification,
         "bundle_files": bundle_files,
-        "generation_stub": generation_prompt,
+        "stage1_prompt": stage1_prompt,
+        "stage2_prompt": stage2_prompt,
+        "generation_stub": stage2_prompt,
+        "generated_validation": generated_validation,
         "log": str(log_path)
     }
 
@@ -466,7 +524,7 @@ def main():
         print(json.dumps(result, ensure_ascii=False, indent=2))
 
 
-def write_log(classification, task_text, policy, adapter_result, hits, bundle_files, tags):
+def write_log(classification, task_text, policy, adapter_result, hits, bundle_files, tags, generated_validation=None):
     DEFAULT_LOG_DIR.mkdir(parents=True, exist_ok=True)
     log = {
         "timestamp": datetime.now().isoformat(timespec="seconds"),
@@ -475,7 +533,8 @@ def write_log(classification, task_text, policy, adapter_result, hits, bundle_fi
         "adapter_check": adapter_result,
         "risk_hits": hits,
         "bundle_files": bundle_files or [],
-        "tags": tags or []
+        "tags": tags or [],
+        "generated_validation": generated_validation or {"ok": True, "errors": []}
     }
     log_path = DEFAULT_LOG_DIR / f"ctx-controller-{datetime.now().strftime('%Y%m%d-%H%M%S')}.json"
     log_path.write_text(json.dumps(log, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
