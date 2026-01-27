@@ -1,0 +1,58 @@
+version: 1
+routes:
+  - id: verify_readonly
+    match:
+      intent: verify
+    action:
+      actor: codex
+      risk: low
+      needs_gonogo: false
+      context_profile: ssot_only
+      output_format: checklist
+
+  - id: edit_docs
+    match:
+      intent: edit
+    action:
+      actor: codex
+      risk: low
+      needs_gonogo: false
+      context_profile: ssot_charter
+      output_format: unified_diff
+
+  - id: add_files
+    match:
+      intent: add
+    action:
+      actor: codex
+      risk: low
+      needs_gonogo: false
+      context_profile: ssot_charter
+      output_format: unified_diff
+
+  - id: delete_or_overwrite
+    match:
+      intent: delete
+    action:
+      actor: codex
+      risk: high
+      needs_gonogo: true
+      context_profile: ssot_charter
+      output_format: unified_diff
+
+  - id: plan_only
+    match:
+      intent: plan
+    action:
+      actor: codex
+      risk: low
+      needs_gonogo: false
+      context_profile: ssot_only
+      output_format: checklist
+
+default:
+  actor: codex
+  risk: high
+  needs_gonogo: true
+  context_profile: ssot_only
+  output_format: checklist
