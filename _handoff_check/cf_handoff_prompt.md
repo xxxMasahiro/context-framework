@@ -490,3 +490,26 @@ Gate G / Phase 3（STEP-G201〜G204）を、Skills統合の本文へ反映して
 - PR #71（merged）: tracker 更新ログ UPD-20260126-03 の Evidence を「PR予定」から「PR #70 / merge e9105da」へ修正。Evidence: PR #71 / merge 6d5df16
 
 （新チャットでは SSOT として _handoff_check の3ファイルを添付し、最初に Repo Lock（./tools/cf-guard.sh --check）から開始する）
+
+
+<!-- CFCTX_HANDOFF_20260127_GATEH_H4_RULES_START -->
+## 引継ぎメモ（2026-01-27 10:43 JST）｜Gate H: H4（ルール設計）着手
+
+### 直近の確定（PR）
+- PR #74（merged / merge: 23f03dd / commit: 9c5624e）: Gate H に Controller 実装タスク（Phase 0〜3）を追加
+- PR #75（merged / merge: aaa01ea / commit: edb1cb2）: UPD-20260127-01 の Evidence を PR #74 に確定（埋め残し解消）
+- PR #76（merged / merge: c70ccd1 / commits: 1f8fa30, a8a0714）: H3（Phase 0 ctx-run + ssot_manifest 最小）実装・tracker H3 を Done[x]
+
+### 現状
+- Repo Lock: OK
+- 作業ブランチ: wip/gate-h-h4-rules
+- HEAD: c70ccd1
+- 次タスク: H4（Phase 1 — ルール設計：routes.yaml / policy.json / ssot_manifest.yaml）
+
+### 次にやること（1つだけ）
+```bash
+./tools/cf-guard.sh --check
+```
+意味（復習用）: Repo Lock の安全確認（想定リポジトリ以外なら中止）
+
+（新チャットでは SSOT 3ファイルを添付し、Gate H / H4 を進める）
