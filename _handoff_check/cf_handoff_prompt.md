@@ -62,7 +62,7 @@
   - 次に進むべきタスク: Gate H / Phase 1 / H9（Gate C 検証組込み）
 
 - トラッカー（参照）
-  - - 次にやる1手: Gate H / Phase 2 / H11（用途別ツールMCP設計）
+  - - 次にやる1手: Gate H / Phase 3 / H12（運用成熟）
   - - [x] H8: Phase 1 — テスト（不一致は停止 / high riskはGo/NoGo / JSON破損は再生成or停止）
   - - [ ] H9: Phase 1 — Gate C 検証組込み（`validate_agent_adapters()`：STEP-304/305/306）
 
