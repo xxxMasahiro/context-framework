@@ -1178,3 +1178,39 @@ url = "https://developers.openai.com/mcp"
 ### 運用上の注意
 - 参照用途のみ（書き込みや外部送信の自動化はしない）。
 - ツールの利用はログ/根拠に残す（参照元を明示）。
+
+---
+
+## 10. 用途別ツールMCP（STDIO）設計（Phase 2 / H11）
+
+### 目的
+- LLM側の**参照/要約/差分抽出**を補助する（Controllerが最終判断）。
+- **必須依存にしない**（MCP無しでもPhase 1が成立する前提）。
+
+### 前提（安全）
+- 読み取り専用・任意実行禁止。
+- パスは allowlist のみ、出力サイズ/タイムアウトを制限。
+- ネットワークは既定OFF（必要時のみ明示的に許可）。
+
+### ツール一覧（最小）
+1) `get_ssot_bundle(profile)`
+   - in: `{ "profile": "ssot_only|ssot_charter|full" }`
+   - out: `{ "bundle": "...", "sources": ["path#Lx-Ly", ...] }`
+2) `diff_summary(base, head)`
+   - in: `{ "base": "commit|path", "head": "commit|path" }`
+   - out: `{ "files": ["..."], "summary": "...", "risk_flags": ["..."] }`
+3) `validate_agent_adapters()`
+   - out: `{ "ok": true|false, "checks": {...}, "details": {...} }`
+（任意）`read_file_excerpt(path, range)`：allowlist内のみ／サイズ制限必須
+
+### エラー方針
+- 失敗時は **安全停止**（exit code ≠ 0 / stderr に理由）。
+- 失敗理由と根拠（どの入力/どの制限）を返す。
+
+### ログ方針
+- tool名・引数・結果要約・参照ファイル・ハッシュを記録。
+- LLM側の利用記録は根拠に残す（Controllerが判断）。
+
+### 互換性/拡張
+- ツール追加は「用途固定・読み取り中心」だけ。
+- 出力スキーマは後方互換を維持（既存キーは保持）。
