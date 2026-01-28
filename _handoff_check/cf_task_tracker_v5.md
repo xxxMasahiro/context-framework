@@ -46,11 +46,11 @@
 - 変更は Add/Del/Mod を明示し、Evidence は更新ログへ残す
 
 ## 2. 進捗サマリ
-- 未完了タスク: あり（Gate I / I1）
-- 次にやる1手: Gate I / I1（Gate H完了チェックリストをrunbook付録へ退避し、tracker/handoffをスリム化）
+- 未完了タスク: あり（Gate I / I2）
+- 次にやる1手: Gate I / I2（Gate I 入口定義: 目的/Done条件/最初の1手をSSOTに最小追記）
 
 ## 3. タスク一覧（未完了のみ）
-- Gate I / I1（Gate H完了チェックリストをrunbook付録へ退避し、tracker/handoffをスリム化）
+- Gate I / I2（Gate I 入口定義: 目的/Done条件/最初の1手をSSOTに最小追記）
 - 追加ルール: 新規タスクは Gate H / Phase 1 に追記（詳細テンプレは runbook 付録を参照）
 
 ## Gate H（完了：アーカイブ参照）

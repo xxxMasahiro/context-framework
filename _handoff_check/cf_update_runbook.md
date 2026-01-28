@@ -412,7 +412,8 @@ git status -sb
 
 ## 付録：Gate H アーカイブ（完了済みチェックリスト）
 - 注記: これは履歴/退避。現行の次にやる1手は tracker の進捗サマリが正。
-- 次にやる1手: Gate I / I1（Gate H完了チェックリストをrunbook付録へ退避し、tracker/handoffをスリム化）
+- 次にやる1手: Gate I / I2（Gate I 入口定義: 目的/Done条件/最初の1手をSSOTに最小追記）
+- 意図: Gate Hの入口定義は維持しつつ、次フェーズ(Gate I)の入口定義を固める
 
 ## Gate H（新規タスクの入口）
 ### Phase 1（未着手タスク）
