@@ -57,6 +57,16 @@
 ---
 
 
+
+## 追記（2026-01-28）｜Gate I 開始（I1: SSOTスリム化）
+
+- 反映内容:
+  - tracker: Gate H 完了チェックリストを runbook 付録へ退避し、未完了を Gate I / I1 に移行
+  - runbook: Gate H アーカイブ（完了済みチェックリスト）を付録として追加
+  - handoff: 最新の次タスクを Gate I / I1 に統一
+- Evidence: commit: 54a6bae
+- 次にやる1手: Gate I / I1（Gate H完了チェックリストをrunbook付録へ退避し、tracker/handoffをスリム化）
+
 ## 追記（2026-01-28）｜Gate H / Phase 3 H12（運用成熟：CI/ログ整備）完了
 
 - 反映内容:
