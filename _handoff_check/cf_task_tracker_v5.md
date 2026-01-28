@@ -57,6 +57,7 @@
 - Gate H（完了）：詳細は runbook 付録「Gate H アーカイブ（完了済みチェックリスト）」を参照
 
 ## 4. 更新ログ（Progress Log/Updates）※直近のみ
+- 2026-01-28T19:07:32+0900 | UPD-20260128-03 | Gate I: I2（入口定義の最小追記を開始） | Evidence: commit:7ba1242
 - 2026-01-28T16:36:42+0900 | UPD-20260128-02 | Gate I: I1（Gate H完了チェックリスト退避＋SSOTスリム化） | Evidence: commit:54a6bae
 - 2026-01-28T14:43:17+0900 | UPD-20260128-01 | Gate H: H12 運用成熟（CI/ログ整備）完了 | Evidence: commit:9626c12 / cmd: ./tools/cf-ci-validate.sh
 - 2026-01-27T18:53:51+0900 | UPD-20260127-11 | Gate H: H11 用途別ツールMCP（STDIO）設計完了 | Evidence: commit:40f33ad
