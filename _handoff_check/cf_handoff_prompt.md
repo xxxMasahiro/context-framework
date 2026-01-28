@@ -20,7 +20,7 @@
   - Commit: 463b277（docs: add INITIAL_SETTINGS + role assignment (Gate F)）
 - 現状：main ブランチ、作業ツリー clean（作業前提）。
 - 最新のタスク（暫定）: Concrete（初回）→ Abstract（2回）→ Skills（3回）の判定条件を“定義として固定”する（次チャットで合意→SSOT反映）
-- 最新の次タスク: Gate I / I1（Gate H完了チェックリストをrunbook付録へ退避し、tracker/handoffをスリム化）
+- 最新の次タスク: Gate I / I2（Gate I 入口定義: 目的/Done条件/最初の1手をSSOTに最小追記）
 
 ## 3. 同一性確認（引用個所と同じ最新版か）
 - sha256 は固定値を書かず、必要時に現物で算出する：
@@ -57,6 +57,13 @@
 ---
 
 
+## 追記（2026-01-28）| Gate I: I2 開始（入口定義）
+
+- 反映内容:
+  - I1 を完了扱いで閉じ、I2 を未完了として開始
+  - 3ファイルの「次にやる1手」を I2 に統一
+- Evidence: commit: 7ba1242
+- 次にやる1手: Gate I / I2（Gate I 入口定義: 目的/Done条件/最初の1手をSSOTに最小追記）
 
 ## 追記（2026-01-28）｜Gate I 開始（I1: SSOTスリム化）
 
