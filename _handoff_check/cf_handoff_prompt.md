@@ -20,7 +20,7 @@
   - Commit: 463b277（docs: add INITIAL_SETTINGS + role assignment (Gate F)）
 - 現状：main ブランチ、作業ツリー clean（作業前提）。
 - 最新のタスク（暫定）: Concrete（初回）→ Abstract（2回）→ Skills（3回）の判定条件を“定義として固定”する（次チャットで合意→SSOT反映）
-- 最新の次タスク: Gate G / 次フェーズ（定義固定）— 成功/失敗分類・Signature・Skill昇格条件を WORKFLOW/SKILLS_INTEGRATION.md 等へ移す
+- 最新の次タスク: Gate H 完了後の次フェーズ（指示待ち）
 
 ## 3. 同一性確認（引用個所と同じ最新版か）
 - sha256 は固定値を書かず、必要時に現物で算出する：
@@ -54,6 +54,16 @@
   （一括でも Guard を先頭に置くこと）
 
 ---
+
+
+## 追記（2026-01-28）｜Gate H / Phase 3 H12（運用成熟：CI/ログ整備）完了
+
+- 反映内容:
+  - CI: `.github/workflows/ci-validate.yml` 追加
+  - 検証: `tools/cf-ci-validate.sh` 追加（rules/manifest/routes/policy + smoke）
+  - ログ: `LOGS/ci/*.log` を artifact 回収
+- Evidence: commit: 9626c12 / cmd: ./tools/cf-ci-validate.sh
+- 次にやる1手: Gate H 完了後の次フェーズ（指示待ち）
 
 ## 追記（2026-01-27）Gate H / Phase 1：H7〜H8 完了 → 次は H9（Gate C 検証組込み）
 

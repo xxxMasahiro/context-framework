@@ -1214,3 +1214,19 @@ url = "https://developers.openai.com/mcp"
 ### 互換性/拡張
 - ツール追加は「用途固定・読み取り中心」だけ。
 - 出力スキーマは後方互換を維持（既存キーは保持）。
+
+---
+
+## 11. CI/ログ整備（Phase 3 / H12）
+
+### 目的
+- ルール/スキーマ/スモークを **毎回CIで検証** し、結果ログを回収する。
+
+### 実行（ローカル/CI共通）
+- `./tools/cf-ci-validate.sh`（rules/manifest/routes/policy の整合 + smoke）
+
+### CI（GitHub Actions）
+- `.github/workflows/ci-validate.yml` を実行し、`LOGS/ci/*.log` を artifact 回収。
+
+### 運用上の注意
+- 生成ログは SSOT へは混ぜない（LOGS/ 配下に残す）。
