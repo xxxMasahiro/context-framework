@@ -590,3 +590,18 @@ Gate G / Phase 3（STEP-G201〜G204）を、Skills統合の本文へ反映して
 ./tools/cf-guard.sh --check
 ```
 意味（復習用）: Repo Lock の安全確認（想定リポジトリ以外なら中止）
+
+## 追記
+
+## 追記（2026-01-28）｜PR #91（Gate I: I2 入口定義）＋Repo Lock（CI expected_remotes）整合
+
+- 事象:
+  - CI validate で Repo Lock: NG（reason: origin remote does not match expected_remotes）
+- 対応:
+  - expected_remotes に https origin を追加（CI/runner の origin が https のため）
+- Evidence:
+  - PR #91 merged（main）: commit:39339b3
+  - Gate I / I2 start 記録: commit:207545b
+  - Repo Lock fingerprint 更新: commit:b3c80c7
+- 次にやる1手: Gate I / I2（Gate I 入口定義: 目的/Done条件/最初の1手をSSOTに最小追記）
+
