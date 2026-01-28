@@ -46,30 +46,18 @@
 - 変更は Add/Del/Mod を明示し、Evidence は更新ログへ残す
 
 ## 2. 進捗サマリ
-- 未完了タスク: なし
-- 次にやる1手: Gate H 完了後の次フェーズ（指示待ち）
+- 未完了タスク: あり（Gate I / I1）
+- 次にやる1手: Gate I / I1（Gate H完了チェックリストをrunbook付録へ退避し、tracker/handoffをスリム化）
 
 ## 3. タスク一覧（未完了のみ）
-- （未完了なし）
+- Gate I / I1（Gate H完了チェックリストをrunbook付録へ退避し、tracker/handoffをスリム化）
 - 追加ルール: 新規タスクは Gate H / Phase 1 に追記（詳細テンプレは runbook 付録を参照）
 
-## Gate H（新規タスクの入口）
-### Phase 1（未着手タスク）
-- （新規タスクをここへ追記：1行1タスク、Evidenceは必要に応じて）
-- [x] H1: 昇格/分類ルール（STEP-G006）確定再確認
-- [x] H2: workspace_tracker 非SSOT扱い確定再確認
-- [x] H3: Phase 0 — `bin/ctx-run`（SSOT束注入）＋ `rules/ssot_manifest.yaml`（最小）
-- [x] H4: Phase 1 — ルール設計（`routes.yaml` / `policy.json` / `ssot_manifest.yaml`）
-- [x] H5: Phase 1 — Controller骨格（分類JSON→検証→束生成→生成→検証→ログ）
-- [x] H6: Phase 1 — 危険操作ゲート（Go/NoGo）＋危険フラグ/禁止語の検知
-- [x] H7: Phase 1 — 2段階出力の定型（次の1手1つ/復習用/変更点/根拠）
-- [x] H8: Phase 1 — テスト（不一致は停止 / high riskはGo/NoGo / JSON破損は再生成or停止）
-- [x] H9: Phase 1 — Gate C 検証組込み（`validate_agent_adapters()`：STEP-304/305/306）
-- [x] H10: Phase 2 — Docs MCP（読み取り専用）導入手順の整備（任意）
-- [x] H11: Phase 2 — 用途別ツールMCP（STDIO）設計（`get_ssot_bundle`/`diff_summary`等）
-- [x] H12: Phase 3 — 運用成熟（CIでスキーマ/ルール検証、ログ整備）
+## Gate H（完了：アーカイブ参照）
+- Gate H（完了）：詳細は runbook 付録「Gate H アーカイブ（完了済みチェックリスト）」を参照
 
 ## 4. 更新ログ（Progress Log/Updates）※直近のみ
+- 2026-01-28T16:36:42+0900 | UPD-20260128-02 | Gate I: I1（Gate H完了チェックリスト退避＋SSOTスリム化） | Evidence: commit:54a6bae
 - 2026-01-28T14:43:17+0900 | UPD-20260128-01 | Gate H: H12 運用成熟（CI/ログ整備）完了 | Evidence: commit:9626c12 / cmd: ./tools/cf-ci-validate.sh
 - 2026-01-27T18:53:51+0900 | UPD-20260127-11 | Gate H: H11 用途別ツールMCP（STDIO）設計完了 | Evidence: commit:40f33ad
 - 2026-01-27T17:59:36+0900 | UPD-20260127-10 | Gate H: H10 Docs MCP（読み取り専用）手順整備完了 | Evidence: commit:904b79a

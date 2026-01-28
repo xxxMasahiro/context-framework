@@ -409,6 +409,26 @@ git status -sb
 ---
 
 ## 付録：tracker退避（テンプレ/アーカイブ）
+
+## 付録：Gate H アーカイブ（完了済みチェックリスト）
+- 注記: これは履歴/退避。現行の次にやる1手は tracker の進捗サマリが正。
+- 次にやる1手: Gate I / I1（Gate H完了チェックリストをrunbook付録へ退避し、tracker/handoffをスリム化）
+
+## Gate H（新規タスクの入口）
+### Phase 1（未着手タスク）
+- （新規タスクをここへ追記：1行1タスク、Evidenceは必要に応じて）
+- [x] H1: 昇格/分類ルール（STEP-G006）確定再確認
+- [x] H2: workspace_tracker 非SSOT扱い確定再確認
+- [x] H3: Phase 0 — `bin/ctx-run`（SSOT束注入）＋ `rules/ssot_manifest.yaml`（最小）
+- [x] H4: Phase 1 — ルール設計（`routes.yaml` / `policy.json` / `ssot_manifest.yaml`）
+- [x] H5: Phase 1 — Controller骨格（分類JSON→検証→束生成→生成→検証→ログ）
+- [x] H6: Phase 1 — 危険操作ゲート（Go/NoGo）＋危険フラグ/禁止語の検知
+- [x] H7: Phase 1 — 2段階出力の定型（次の1手1つ/復習用/変更点/根拠）
+- [x] H8: Phase 1 — テスト（不一致は停止 / high riskはGo/NoGo / JSON破損は再生成or停止）
+- [x] H9: Phase 1 — Gate C 検証組込み（`validate_agent_adapters()`：STEP-304/305/306）
+- [x] H10: Phase 2 — Docs MCP（読み取り専用）導入手順の整備（任意）
+- [x] H11: Phase 2 — 用途別ツールMCP（STDIO）設計（`get_ssot_bundle`/`diff_summary`等）
+- [x] H12: Phase 3 — 運用成熟（CIでスキーマ/ルール検証、ログ整備）
 <!-- CFCTX_TRACKER_ARCHIVE_V5_SLIM_20260126 -->
 ### 付録A: cf_task_tracker_v5.md（スリム化前の内容）
 （履歴保全のため、旧セクションを runbook へ移設）
