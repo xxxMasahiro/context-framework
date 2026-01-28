@@ -594,6 +594,7 @@ Gate G / Phase 3（STEP-G201〜G204）を、Skills統合の本文へ反映して
 ## 追記
 
 ## 追記（2026-01-28）｜PR #91（Gate I: I2 入口定義）＋Repo Lock（CI expected_remotes）整合
+・ 注記: PR一覧で #89/#90 が×なのは当時のRepo Lock expected_remotes不一致が原因。後続PR #91で解消済み。
 
 - 事象:
   - CI validate で Repo Lock: NG（reason: origin remote does not match expected_remotes）
