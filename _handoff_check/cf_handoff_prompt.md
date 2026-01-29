@@ -607,3 +607,15 @@ Gate G / Phase 3（STEP-G201〜G204）を、Skills統合の本文へ反映して
   - Repo Lock fingerprint 更新: commit:b3c80c7
 - 次にやる1手: Gate I / I1（Gate I 入口定義: 目的/Done条件/最初の1手をSSOTに最小追記）
 
+<!-- CFCTX_HANDOFF_GATEI_PR93_94_NOTE -->
+## 追記（2026-01-29 18:38 JST）｜PR #93/#94（Gate I 番号整理＋runbook注記）反映
+
+- 事象:
+  - Gate I の番号が I2→I1、I1→I0 へ整理され、入口定義を I1 から開始する運用に統一された。
+  - runbook に「Gate I: 入口定義（I1）＆ SSOTスリム化（I0）」の注記ブロックが追加された。
+- 対応:
+  - handoff にも上記を明記し、次チャットの「次にやる1手」を Gate I / I1 に統一する。
+- Evidence:
+  - PR #93 merged（merge:87410aa）
+  - PR #94 merged（merge:b7ae771）
+- 次にやる1手: Gate I / I1（入口定義: 目的/Done条件/最初の1手をSSOTに最小追記）
