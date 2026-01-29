@@ -619,3 +619,35 @@ Gate G / Phase 3（STEP-G201〜G204）を、Skills統合の本文へ反映して
   - PR #93 merged（merge:87410aa）
   - PR #94 merged（merge:b7ae771）
 - 次にやる1手: Gate I / I1（入口定義: 目的/Done条件/最初の1手をSSOTに最小追記）
+
+---
+
+## 引継ぎメモ（20260130-014312）: STEP-G003 / cf-doctor / SSOT混乱の整理
+
+### 根拠
+- 外部仕様（特に 03_仕様書.md）に `ssot: _handoff_check/cf_task_tracker_v5.md` と tracker 前提の invariants が記載されていたため、Claude Code が「tracker 正」と解釈した可能性が高い。
+- あなたの運用整理：SSOT最高位は runbook（_handoff_check/cf_update_runbook.md）。tracker は進捗計測、handoff_prompt は引継ぎ便宜。
+- 観測メモ（ターミナル出力より）：cf-doctor.sh が `sh` 実行で syntax error（line 131 付近）を起こした。原因候補は **POSIX sh で無効なクォート/正規表現（例：sed の single-quote 内に \\' を含める等）**。
+
+### 判定
+- **SSOT（最高位）= cf_update_runbook.md** に統一するのが正。
+- 外部4ファイル（01-04）は runbook 最上位の優先順位を明文化し、spec/doctor も runbook 参照へ寄せる。
+- doctor は read-only のまま、**PASS/FAIL + 根拠 + Next 1 action** を安定出力できればよい。
+
+### 変更提案（次タスクの方向性）
+- 外部4ファイル（01-04）: SSOT優先順位を「runbook > tracker（進捗） > handoff_prompt（便宜）」で統一（※既にCodexで修正を進めている想定）。
+- repo側: tools/cf-doctor.sh を POSIX sh/dash 互換で修正（クォート事故の解消）。
+- repo側: Gate G の SPEC（例: WORKFLOW/SPEC/gates/gate-g.yaml）も SSOT を runbook に統一し、evidence_commands は末尾 `|| true` を付ける。
+- 必要なら: tools/cf-log-index.sh の入力デフォルトが tracker 参照になっていないか点検し、runbook 正へ寄せる（別PRでも可）。
+
+### 参考（証跡：この時点の repo 状態）
+- HEAD: 2b5ed9c
+- status: ## wip/handoff-20260130-014312-stepg003-ssot
+- stash(top): stash@{0}: On main: wip: pre-handoff auto stash
+- runbook STEP-G003: 790:| STEP-G003 | 抽象ログ（索引）仕様合意（カテゴリ→パターン→具体ID、ID検索を正） | [x] | LOG-009 / LOGS/INDEX.md | Mod |
+- runbook LOG-009: 1163:### LOG-009｜Gate G（STEP-G003）抽象ログ（索引）仕様合意
+- LOGS/INDEX LOG-009: 47:- LOG-009 | Gate G（STEP-G003）抽象ログ（索引）仕様合意 | L694 | Ref: rg -n "LOG-009" _handoff_check/cf_task_tracker_v5.md
+
+### 次にやること（1つだけ）
+./tools/cf-guard.sh --check
+意味（復習用）: Repo Lock の安全確認（想定リポジトリ以外なら中止）
