@@ -1,0 +1,21 @@
+gate: G
+phase: 1
+steps:
+  - id: STEP-G003
+    title: "抽象ログ（索引）仕様合意"
+    ssot:
+      - path: "_handoff_check/cf_update_runbook.md"
+        must_contain:
+          - "STEP-G003.*[x]"
+          - "### LOG-009"
+      - path: "LOGS/INDEX.md"
+        generated: true
+    invariants:
+      - type: file_contains
+        path: "LOGS/INDEX.md"
+        pattern: "LOG-009"
+    evidence_commands:
+      - 'rg -n "STEP-G003.*\\[x\\]" _handoff_check/cf_update_runbook.md 2>/dev/null || grep -nE "STEP-G003.*\\[x\\]" _handoff_check/cf_update_runbook.md 2>/dev/null || true'
+      - 'rg -n "^### LOG-009\\b" _handoff_check/cf_update_runbook.md 2>/dev/null || grep -nE "^### LOG-009\\b" _handoff_check/cf_update_runbook.md 2>/dev/null || true'
+      - 'rg -n "LOG-009" LOGS/INDEX.md 2>/dev/null || grep -nE "LOG-009" LOGS/INDEX.md 2>/dev/null || true'
+    next_action: "./tools/cf-guard.sh -- ./tools/cf-log-index.sh"

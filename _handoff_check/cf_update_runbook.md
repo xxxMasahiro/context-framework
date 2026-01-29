@@ -18,7 +18,7 @@
   - `_handoff_check/cf_update_runbook.md`
   - `_handoff_check/cf_task_tracker_v5.md`
   - `_handoff_check/cf_handoff_prompt.md`（都度更新の運用メモだが、SSOTパックに含める）
-- SSOTは _handoff_check の3ファイル（運用規範は runbook/tracker を優先）
+- SSOTは _handoff_check の3ファイル（**運用規範の最上位は runbook**／trackerは進捗／handoff_promptは便宜）
 - 引継ぎプロンプト（テンプレ・表記固定）:
   > 前回のチャットからの引継ぎを行います。まずは、添付した3つのファイル（cf_handoff_prompt.md / cf_update_runbook.md / cf_task_tracker_v5.md）をすべて読み込んで確認し、整合性の取れた適切な引継ぎ構成を構築してください。cf_update_runbook.md と cf_task_tracker_v5.md に完全準拠し、cf_handoff_prompt.md を参照してこれまでの経緯と次の指示（次にやること1つ）を提示してください。
 
@@ -398,8 +398,9 @@ git status -sb
 
 ## 追記（2026-01-17）
 ### 最新参照（v5）
-- Single Source of Truth: `cf_task_tracker_v5.md`
-- 本文中に `cf_task_tracker_vN.md` / `cf_task_tracker_v4.md` 等の旧参照が残っていても、履歴として保持し、**最新は `cf_task_tracker_v5.md` を参照**する。
+- Single Source of Truth: `cf_update_runbook.md`（運用規範）
+- 進捗の最新参照: `cf_task_tracker_v5.md`
+- 本文中に `cf_task_tracker_vN.md` / `cf_task_tracker_v4.md` 等の旧参照が残っていても、履歴として保持し、**最新の進捗は `cf_task_tracker_v5.md` を参照**する。
 
 ## 翻訳レイヤ（抽象→具体の戻り先）
 
@@ -1167,9 +1168,9 @@ git status -sb
   - 抽象索引は「カテゴリ → パターン → 具体ID」の導線を提供する
     - カテゴリ: UPD / LOG / SKILL-LOG
     - パターン: ID接頭辞+採番規則（例: LOG-### / SKILL-LOG-### / UPD-YYYYMMDD-##）
-    - 具体ID: 各IDの正（根拠）は tracker（_handoff_check/cf_task_tracker_v5.md）。INDEX は tracker へリンクする
+    - 具体ID: 規範（根拠）は runbook（_handoff_check/cf_update_runbook.md）、記録は tracker（進捗）。INDEX は tracker へリンクする
   - 「ID検索を正」:
-    - まず tracker を `rg -n "<ID>" _handoff_check/cf_task_tracker_v5.md` で検索して到達する（INDEXは補助ナビ）
+    - まず runbook（LOG-009規定）を確認し、ID検索は tracker を `rg -n "<ID>" _handoff_check/cf_task_tracker_v5.md` で検索して到達する（INDEXは補助ナビ）
   - 生成物運用:
     - tracker の LOG/UPD/SKILL-LOG を更新したPRでは `tools/cf-log-index.sh` を再実行し、同一PRで LOGS/INDEX.md を更新する
 - Evidence:

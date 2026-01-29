@@ -37,7 +37,7 @@
 - 添付3ファイルを最初に読むこと
 - `cf_handoff_prompt.md` 読了直後に `cf_update_runbook.md` の「## 8. 実行プロトコル（運用ルール）」を必ず確認し、以後の出力は **根拠/判定/変更提案** を厳守する
 - SSOTは _handoff_check の3ファイル（ZIP不要）
-- 運用規範は runbook/tracker を優先し、handoff_prompt は経緯メモとして整合させる
+- 運用規範の最上位は runbook。trackerは進捗、handoff_prompt は経緯メモとして整合させる
 - 次にやる1手の正は tracker の進捗サマリ。過去追記内の“次にやる”は履歴扱い。
 - tracker はスリム化済み。詳細テンプレ/完了済み一覧/旧ログは runbook 付録「tracker退避」へ移設
 - 新規タスクの入口は Gate H（Phase 1）に統一する（Gate G は完了扱い）
