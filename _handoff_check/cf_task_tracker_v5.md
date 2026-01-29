@@ -46,19 +46,19 @@
 - 変更は Add/Del/Mod を明示し、Evidence は更新ログへ残す
 
 ## 2. 進捗サマリ
-- 未完了タスク: あり（Gate I / I2）
-- 次にやる1手: Gate I / I2（Gate I 入口定義: 目的/Done条件/最初の1手をSSOTに最小追記）
+- 未完了タスク: あり（Gate I / I1）
+- 次にやる1手: Gate I / I1（Gate I 入口定義: 目的/Done条件/最初の1手をSSOTに最小追記）
 
 ## 3. タスク一覧（未完了のみ）
-- Gate I / I2（Gate I 入口定義: 目的/Done条件/最初の1手をSSOTに最小追記）
+- Gate I / I1（Gate I 入口定義: 目的/Done条件/最初の1手をSSOTに最小追記）
 - 追加ルール: 新規タスクは Gate H / Phase 1 に追記（詳細テンプレは runbook 付録を参照）
 
 ## Gate H（完了：アーカイブ参照）
 - Gate H（完了）：詳細は runbook 付録「Gate H アーカイブ（完了済みチェックリスト）」を参照
 
 ## 4. 更新ログ（Progress Log/Updates）※直近のみ
-- 2026-01-28T19:07:32+0900 | UPD-20260128-03 | Gate I: I2（入口定義の最小追記を開始） | Evidence: commit:7ba1242
-- 2026-01-28T16:36:42+0900 | UPD-20260128-02 | Gate I: I1（Gate H完了チェックリスト退避＋SSOTスリム化） | Evidence: commit:54a6bae
+- 2026-01-28T19:07:32+0900 | UPD-20260128-03 | Gate I: I1（入口定義の最小追記を開始） | Evidence: commit:7ba1242
+- 2026-01-28T16:36:42+0900 | UPD-20260128-02 | Gate I: I0（Gate H完了チェックリスト退避＋SSOTスリム化） | Evidence: commit:54a6bae
 - 2026-01-28T14:43:17+0900 | UPD-20260128-01 | Gate H: H12 運用成熟（CI/ログ整備）完了 | Evidence: commit:9626c12 / cmd: ./tools/cf-ci-validate.sh
 - 2026-01-27T18:53:51+0900 | UPD-20260127-11 | Gate H: H11 用途別ツールMCP（STDIO）設計完了 | Evidence: commit:40f33ad
 - 2026-01-27T17:59:36+0900 | UPD-20260127-10 | Gate H: H10 Docs MCP（読み取り専用）手順整備完了 | Evidence: commit:904b79a

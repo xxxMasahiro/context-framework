@@ -20,7 +20,7 @@
   - Commit: 463b277（docs: add INITIAL_SETTINGS + role assignment (Gate F)）
 - 現状：main ブランチ、作業ツリー clean（作業前提）。
 - 最新のタスク（暫定）: Concrete（初回）→ Abstract（2回）→ Skills（3回）の判定条件を“定義として固定”する（次チャットで合意→SSOT反映）
-- 最新の次タスク: Gate I / I2（Gate I 入口定義: 目的/Done条件/最初の1手をSSOTに最小追記）
+- 最新の次タスク: Gate I / I1（Gate I 入口定義: 目的/Done条件/最初の1手をSSOTに最小追記）
 
 ## 3. 同一性確認（引用個所と同じ最新版か）
 - sha256 は固定値を書かず、必要時に現物で算出する：
@@ -57,22 +57,23 @@
 ---
 
 
-## 追記（2026-01-28）| Gate I: I2 開始（入口定義）
+## 追記（2026-01-28）| Gate I: I1 開始（入口定義）
 
 - 反映内容:
-  - I1 を完了扱いで閉じ、I2 を未完了として開始
-  - 3ファイルの「次にやる1手」を I2 に統一
+  - I0 を完了扱いで閉じ、I1 を未完了として開始
+  - 3ファイルの「次にやる1手」を I1 に統一
 - Evidence: commit: 7ba1242
-- 次にやる1手: Gate I / I2（Gate I 入口定義: 目的/Done条件/最初の1手をSSOTに最小追記）
+- 次にやる1手: Gate I / I1（Gate I 入口定義: 目的/Done条件/最初の1手をSSOTに最小追記）
 
-## 追記（2026-01-28）｜Gate I 開始（I1: SSOTスリム化）
+
+## 追記（2026-01-28）｜Gate I 開始（I0: SSOTスリム化）
 
 - 反映内容:
-  - tracker: Gate H 完了チェックリストを runbook 付録へ退避し、未完了を Gate I / I1 に移行
+  - tracker: Gate H 完了チェックリストを runbook 付録へ退避し、未完了を Gate I / I0 に移行
   - runbook: Gate H アーカイブ（完了済みチェックリスト）を付録として追加
-  - handoff: 最新の次タスクを Gate I / I1 に統一
+  - handoff: 最新の次タスクを Gate I / I0 に統一
 - Evidence: commit: 54a6bae
-- 次にやる1手: Gate I / I1（Gate H完了チェックリストをrunbook付録へ退避し、tracker/handoffをスリム化）
+- 次にやる1手: Gate I / I1（Gate I 入口定義: 目的/Done条件/最初の1手をSSOTに最小追記）
 
 ## 追記（2026-01-28）｜Gate H / Phase 3 H12（運用成熟：CI/ログ整備）完了
 
@@ -81,7 +82,7 @@
   - 検証: `tools/cf-ci-validate.sh` 追加（rules/manifest/routes/policy + smoke）
   - ログ: `LOGS/ci/*.log` を artifact 回収
 - Evidence: commit: 9626c12 / cmd: ./tools/cf-ci-validate.sh
-- 次にやる1手: Gate H 完了後の次フェーズ（指示待ち）
+- 次にやる1手: Gate I / I1（Gate I 入口定義: 目的/Done条件/最初の1手をSSOTに最小追記）
 
 ## 追記（2026-01-27）Gate H / Phase 1：H7〜H8 完了 → 次は H9（Gate C 検証組込み）
 
@@ -90,7 +91,7 @@
   - 次に進むべきタスク: Gate H / Phase 1 / H9（Gate C 検証組込み）
 
 - トラッカー（参照）
-  - - 次にやる1手: Gate H / Phase 3 / H12（運用成熟）
+  - - 次にやる1手: Gate I / I1（Gate I 入口定義: 目的/Done条件/最初の1手をSSOTに最小追記）
   - - [x] H8: Phase 1 — テスト（不一致は停止 / high riskはGo/NoGo / JSON破損は再生成or停止）
   - - [ ] H9: Phase 1 — Gate C 検証組込み（`validate_agent_adapters()`：STEP-304/305/306）
 
@@ -593,7 +594,7 @@ Gate G / Phase 3（STEP-G201〜G204）を、Skills統合の本文へ反映して
 
 ## 追記
 
-## 追記（2026-01-28）｜PR #91（Gate I: I2 入口定義）＋Repo Lock（CI expected_remotes）整合
+## 追記（2026-01-28）｜PR #91（Gate I: I1 入口定義）＋Repo Lock（CI expected_remotes）整合
 ・ 注記: PR一覧で #89/#90 が×なのは当時のRepo Lock expected_remotes不一致が原因。後続PR #91で解消済み。
 
 - 事象:
@@ -602,7 +603,7 @@ Gate G / Phase 3（STEP-G201〜G204）を、Skills統合の本文へ反映して
   - expected_remotes に https origin を追加（CI/runner の origin が https のため）
 - Evidence:
   - PR #91 merged（main）: commit:39339b3
-  - Gate I / I2 start 記録: commit:207545b
+  - Gate I / I1 start 記録: commit:207545b
   - Repo Lock fingerprint 更新: commit:b3c80c7
-- 次にやる1手: Gate I / I2（Gate I 入口定義: 目的/Done条件/最初の1手をSSOTに最小追記）
+- 次にやる1手: Gate I / I1（Gate I 入口定義: 目的/Done条件/最初の1手をSSOTに最小追記）
 
