@@ -679,3 +679,25 @@ Gate G / Phase 3（STEP-G201〜G204）を、Skills統合の本文へ反映して
 #### 調査コマンド候補（見つからなくてもOK → 末尾 `|| true`）
 - `rg -n "tracker.*SSOT|SSOT.*tracker|cf_task_tracker_v5|03_仕様書|WORKFLOW/SPEC|cf-doctor" -S . || true`
 - `rg -n "SSOT" WORKFLOW/SPEC tools _handoff_check || true`
+
+<!-- CFCTX_HANDOFF_NOTE_20260130_GATEI_SPEC_DOCTOR_V1 -->
+## 追記（2026-01-30）｜Gate I: SPEC（宣言的仕様）+ cf-doctor（検証ツール）方針整理（実装前準備を含む）
+
+- 背景: 外部仕様 4ファイル（01_説明 / 02_要件定義 / 03_仕様書 / 04_実装計画）に基づき、cf-context-framework に「SPEC + cf-doctor」を段階導入する提案を比較（Codex vs Claude Code）。
+  - Windows: `C:\Users\MASAHIRO\Desktop\作業ファイル\メモ\UPDATE\_Script`
+  - WSL: `/mnt/c/Users/MASAHIRO/Desktop/作業ファイル/メモ/UPDATE/_Script`
+- 判定（採用方針）:
+  - 設計ガード（invariants/線引き/Phase0=決め打ちで安全に閉じる）は Claude Code 案を採用。
+  - 実装（最小差分に落として repo へ反映）は Codex に担当させる（ただし上記ガードを必須条件として適用）。
+- 事前検証（read-only / 失敗許容なしのための事実確認）:
+  - `git status -sb`: `## main...origin/main`（clean）
+  - `sh -n tools/cf-doctor.sh`: OK（出力なし）
+  - tracker（`_handoff_check/cf_task_tracker_v5.md`）に `LOG-009` は存在しない（rg出力なし）
+- 懸念（要確認）:
+  - `tools/cf-log-index.sh` の入力ソースが tracker のみの場合、INDEX 再生成で `LOG-009` が落ち、doctor の Next action（index再生成）で PASS に戻らない可能性がある。
+- 次フェーズ方針:
+  - 実装に入る前に「事前準備段階を含めた Gate I タスク」を tracker に正式追加してから着手する（スクリプト絡みの重要セクションで失敗許容なし）。
+- 新チャット開始の最初の1手（運用固定）:
+  - `./tools/cf-guard.sh --check`
+- Repo Lock: OK 後の read-only 確認（次の1手候補）:
+  - `./tools/cf-guard.sh -- bash -lc 'rg -n "cf_task_tracker|tracker|cf_update_runbook|runbook|INPUT|SOURCE|DEFAULT|LOGS/INDEX" tools/cf-log-index.sh || true'`
