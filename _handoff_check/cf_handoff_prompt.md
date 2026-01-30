@@ -729,5 +729,32 @@ Gate G / Phase 3（STEP-G201〜G204）を、Skills統合の本文へ反映して
   - cf-doctor:
     - `./tools/cf-guard.sh -- ./tools/cf-doctor.sh step STEP-G003` => PASS（必要なら再実行）
 
-<!-- CFCTX_HANDOFF_AUTO:5932561 -->
+---
+## 追記（2026-01-31T07:46:48+0900）｜Gate I: I1 完了（tracker整合）→ 次は I2
 
+### 根拠
+- tracker 側で Gate I / I1 が Done[x] になり、「次にやる1手」が Gate I / I2 に更新済み。
+
+### 判定
+- 次チャットの入口（handoff）を tracker の最新進捗（I2）に揃える。
+
+### 変更提案
+- handoff 末尾に本追記を追加し、最新の「次にやる1手」を I2 として明示する。
+
+### 変更内容（Add/Del/Mod）
+- **Mod**: `_handoff_check/cf_handoff_prompt.md`（本追記）
+- **Ref**: `_handoff_check/cf_task_tracker_v5.md`（I1 Done[x] / 次の1手 I2）
+
+### 状態
+- - 次にやる1手: Gate I / I2（Gate I 事前調査: 外部仕様4ファイルの要点とSSOT整合→LOG-009・LOGS/INDEX・cf-log-index入力ソースを read-only 確認）
+- 新チャット開始の最初の1手（運用固定）:
+  - `./tools/cf-guard.sh --check`
+
+### Evidence
+- HEAD: fc24b3b
+- HEAD(1): fc24b3b Merge pull request #100 from xxxMasahiro/wip/gate-i-i1-tracker-close
+- related (if in recent log):
+  - fc24b3b Merge pull request #100 from xxxMasahiro/wip/gate-i-i1-tracker-close
+  - df8a60f Merge pull request #99 from xxxMasahiro/wip/gate-i-i1-ssot-wording-fix
+
+<!-- CFCTX_HANDOFF_AUTO:fc24b3b -->
