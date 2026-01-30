@@ -19,6 +19,7 @@
   - `_handoff_check/cf_task_tracker_v5.md`
   - `_handoff_check/cf_handoff_prompt.md`（都度更新の運用メモだが、SSOTパックに含める）
 - SSOTは _handoff_check の3ファイル（**運用規範の最上位は runbook**／trackerは進捗／handoff_promptは便宜）
+- 注記: rules/ssot_manifest.yaml の `ssot` は「3ファイル集合（bundle）」の意味であり、SSOT最上位の意味ではない。
 - 引継ぎプロンプト（テンプレ・表記固定）:
   > 前回のチャットからの引継ぎを行います。まずは、添付した3つのファイル（cf_handoff_prompt.md / cf_update_runbook.md / cf_task_tracker_v5.md）をすべて読み込んで確認し、整合性の取れた適切な引継ぎ構成を構築してください。cf_update_runbook.md と cf_task_tracker_v5.md に完全準拠し、cf_handoff_prompt.md を参照してこれまでの経緯と次の指示（次にやること1つ）を提示してください。
 

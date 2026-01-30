@@ -171,14 +171,15 @@ def build_bundle(manifest, context_profile):
             if is_allowed(p, allow):
                 bundle_files.append(p)
 
+    ssot_key = "handoff_check_files" if "handoff_check_files" in manifest else "ssot"
     if context_profile == "ssot_only":
-        add_section("ssot")
+        add_section(ssot_key)
     elif context_profile == "ssot_charter":
-        add_section("ssot")
+        add_section(ssot_key)
         add_section("charter")
         add_section("architect")
     else:
-        add_section("ssot")
+        add_section(ssot_key)
         add_section("charter")
         add_section("architect")
         add_section("skills")

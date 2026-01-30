@@ -36,9 +36,10 @@ assert spec.loader is not None
 spec.loader.exec_module(mod)
 
 manifest = mod.parse_manifest(manifest_path)
-if not manifest.get("ssot"):
-    sys.exit("ERROR: manifest missing ssot")
-missing = [p for p in manifest["ssot"] if not (root / p).exists()]
+key = "handoff_check_files" if "handoff_check_files" in manifest else "ssot"
+if not manifest.get(key):
+    sys.exit(f"ERROR: manifest missing {key}")
+missing = [p for p in manifest[key] if not (root / p).exists()]
 if missing:
     sys.exit(f"ERROR: ssot files missing: {missing}")
 
