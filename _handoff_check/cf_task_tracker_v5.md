@@ -47,11 +47,15 @@
 - 変更は Add/Del/Mod を明示し、Evidence は更新ログへ残す
 
 ## 2. 進捗サマリ
-- 未完了タスク: あり（Gate I / I1）
+- 未完了タスク: あり（Gate I / I1〜I5）
 - 次にやる1手: Gate I / I1（Gate I 入口定義: 目的/Done条件/最初の1手をSSOTに最小追記）
 
 ## 3. タスク一覧（未完了のみ）
 - Gate I / I1（Gate I 入口定義: 目的/Done条件/最初の1手をSSOTに最小追記）
+- Gate I / I2（事前調査: 外部仕様4ファイルの要点とSSOT整合／LOG-009・LOGS/INDEX・cf-log-index 入力ソースを read-only で確認）
+- Gate I / I3（SPEC Phase 0: WORKFLOW/SPEC/gates/gate-g.yaml に STEP-G003 のみ定義（runbookを正として must_contain/invariants を最小化））
+- Gate I / I4（cf-doctor Phase 0: tools/cf-doctor.sh 最小実装（Read-only／rg→grep／PASS/FAIL＋根拠＋次の1手））
+- Gate I / I5（運用統合: runbook/tracker に実行タイミング・失敗時の運用・Evidenceの残し方を追記。最小スモークで確認）
 - 追加ルール: 新規タスクは Gate H / Phase 1 に追記（詳細テンプレは runbook 付録を参照）
 
 ## Gate H（完了：アーカイブ参照）
