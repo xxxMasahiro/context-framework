@@ -220,7 +220,7 @@ Gate G / Phase 3（STEP-G201〜G204）を、Skills統合の本文へ反映して
 ## 追記（2026-01-25）｜Gate G STEP-G103（新カテゴリ追加ルール）完了
 
 ### 目的
-- カテゴリ増殖（肥大化）を抑えるため、新カテゴリ追加の Go/No-Go（同種2回目から検討）を最小ルールとして確定し、SSOT（tracker）へ反映したことを handoff に記録する。
+- カテゴリ増殖（肥大化）を抑えるため、新カテゴリ追加の Go/No-Go（同種2回目から検討）を最小ルールとして確定し、進捗（tracker）へ反映したことを handoff に記録する。
 
 ### 変更点（Add/Del/Mod）
 - **Mod**: `_handoff_check/cf_task_tracker_v5.md`

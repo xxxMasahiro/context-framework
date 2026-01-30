@@ -8,7 +8,7 @@
 ## 1. 運用ルール（この作業の事故防止）
 
 ### 1.1 最優先（SSOT）
-- 新しいチャットへ引き継ぐ場合は、**Prompt.md に加えて SSOT の3ファイル（cf_handoff_prompt.md / cf_update_runbook.md / cf_task_tracker_v5.md）も必ず添付**する（より正確な引継ぎのため必須）。
+- 新しいチャットへ引き継ぐ場合は、**Prompt.md に加えて _handoff_check の3ファイル（cf_handoff_prompt.md / cf_update_runbook.md / cf_task_tracker_v5.md）も必ず添付**する（SSOT最上位はrunbook、trackerは進捗）。
 - SSOT優先順位は維持：**Charter → Mode（lite/standard/strict） → Artifacts（Task Lists / Implementation Plan / Walkthrough / Audit） → Skills**
 - **SSOT（最新の正）は `_handoff_check` の3ファイル**：
   - `_handoff_check/cf_handoff_prompt.md`
@@ -78,7 +78,7 @@
 - PR#21 は GitHub 上で merge 済み → ブランチ削除済み → ローカル `main` を fast-forward で最新化済み → `git fetch --prune origin` 済み → `git status -sb` でクリーン確認済み（ユーザー実行ログあり）。
 
 ### 未確認（次チャットで確かめたいこと）
-- `_handoff_check/cf_task_tracker_v5.md` の **Progress Log/Updates** に PR#21 の完了記録が入っているか（無ければ追記して証跡をSSOT側へ揃える）。
+- `_handoff_check/cf_task_tracker_v5.md` の **Progress Log/Updates** に PR#21 の完了記録が入っているか（無ければ追記して証跡を進捗側へ揃える）。
 
 ---
 
