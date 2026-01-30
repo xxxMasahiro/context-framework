@@ -651,3 +651,31 @@ Gate G / Phase 3（STEP-G201〜G204）を、Skills統合の本文へ反映して
 ### 次にやること（1つだけ）
 ./tools/cf-guard.sh --check
 意味（復習用）: Repo Lock の安全確認（想定リポジトリ以外なら中止）
+---
+
+## 引継ぎ追記（UPD-20260130-PR97-HANDOFF）
+
+### 状態（直近）
+- PR #97 merged: docs: runbook SSOT align cf-doctor/spec (STEP-G003)
+- 時刻（JST）: 
+- HEAD: 
+- status: 
+- stash:  件（0件が正）
+
+### 今回の変更サマリ（Add/Del/Mod）
+- Add:
+  - WORKFLOW/SPEC/gates/gate-g.yaml
+  - tools/cf-doctor.sh
+- Mod:
+  - _handoff_check/cf_update_runbook.md（SSOT最上位=runbook を明文化）
+  - _handoff_check/cf_task_tracker_v5.md（tracker=進捗計測 を明確化）
+  - _handoff_check/cf_handoff_prompt.md（引継ぎメモ更新）
+- Del: なし
+
+### 次にやりたいこと（新チャット）
+- 目的: 外部仕様（例: 03_仕様書.md など）や SPEC/doctor 側に「tracker を SSOT 扱い」する記述が残っていないか確認し、**runbook SSOT** に統一する（Gate I / I1）。
+- 最初の1手: `./tools/cf-guard.sh --check`
+
+#### 調査コマンド候補（見つからなくてもOK → 末尾 `|| true`）
+- `rg -n "tracker.*SSOT|SSOT.*tracker|cf_task_tracker_v5|03_仕様書|WORKFLOW/SPEC|cf-doctor" -S . || true`
+- `rg -n "SSOT" WORKFLOW/SPEC tools _handoff_check || true`
