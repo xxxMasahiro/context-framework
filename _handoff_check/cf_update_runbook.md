@@ -333,6 +333,19 @@ git status -sb
 - 実行結果を貼って次に進む（1手運用の原則は維持）。
 ---
 
+## 8.2 運用フロー契約（SSOT→cf-doctor→GO/NO-GO→Skills）
+
+- **SSOT優先順位**: runbook（最上位） > tracker（進捗） > handoff_prompt（便宜）
+- **cf-doctor出力契約**:
+  - 必須: PASS/FAIL / failures（不足理由） / evidence（file:line+短い抜粋） / next_action（**1コマンドのみ**）
+  - Read-only厳守（ファイル変更はしない）。Python等は**必須にしない**（あれば補助可）。
+- **GO/NO-GO契約（Architect/Auditor）**:
+  - 参照根拠: runbook・LOGS・生成物（evidence）を優先
+  - NO-GO時: 欠落/不整合と必要な次の1手（1コマンド）を明示して差し戻す
+- **Skills昇格/更新契約**:
+  - 昇格条件の正は `WORKFLOW/SKILLS_INTEGRATION.md`（最小条件に準拠）
+  - 更新時は **リンク/証跡（PR/commit/LOG/UPD）** を残す（runbook/trackerに記録）
+
 ## 9. アップデート手順（Gate運用で統合する）
 
 ### Phase 0：準備（作業ブランチ・現状固定）
