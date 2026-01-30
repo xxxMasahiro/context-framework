@@ -47,21 +47,27 @@
 - 変更は Add/Del/Mod を明示し、Evidence は更新ログへ残す
 
 ## 2. 進捗サマリ
-- 未完了タスク: あり（Gate I / I1〜I5）
+- 未完了タスク: あり（Gate I / I1, I2, I5）
 - 次にやる1手: Gate I / I1（Gate I 入口定義: 目的/Done条件/最初の1手をSSOTに最小追記）
 
-## 3. タスク一覧（未完了のみ）
-- Gate I / I1（Gate I 入口定義: 目的/Done条件/最初の1手をSSOTに最小追記）
-- Gate I / I2（事前調査: 外部仕様4ファイルの要点とSSOT整合／LOG-009・LOGS/INDEX・cf-log-index 入力ソースを read-only で確認）
-- Gate I / I3（SPEC Phase 0: WORKFLOW/SPEC/gates/gate-g.yaml に STEP-G003 のみ定義（runbookを正として must_contain/invariants を最小化））
-- Gate I / I4（cf-doctor Phase 0: tools/cf-doctor.sh 最小実装（Read-only／rg→grep／PASS/FAIL＋根拠＋次の1手））
-- Gate I / I5（運用統合: runbook/tracker に実行タイミング・失敗時の運用・Evidenceの残し方を追記。最小スモークで確認）
+## 3. タスク一覧（Gate別）
+- [x] Gate I / I0（Gate H完了チェックリスト退避＋SSOTスリム化）
+- [ ] Gate I / I1（Gate I 入口定義: 目的/Done条件/最初の1手をSSOTに最小追記）※in-progress
+- [ ] Gate I / I2（事前調査: 外部仕様4ファイルの要点とSSOT整合／LOG-009・LOGS/INDEX・cf-log-index 入力ソースを read-only で確認）
+- [x] Gate I / I3（SPEC Phase 0: WORKFLOW/SPEC/gates/gate-g.yaml に STEP-G003 のみ定義（runbookを正として must_contain/invariants を最小化））
+- [x] Gate I / I4（cf-doctor Phase 0: tools/cf-doctor.sh 最小実装（Read-only／rg→grep／PASS/FAIL＋根拠＋次の1手））
+- [ ] Gate I / I5（運用統合: runbook/tracker に実行タイミング・失敗時の運用・Evidenceの残し方を追記。最小スモークで確認）
+### 未完了のみ
+- [ ] Gate I / I1（Gate I 入口定義: 目的/Done条件/最初の1手をSSOTに最小追記）
+- [ ] Gate I / I2（事前調査: 外部仕様4ファイルの要点とSSOT整合／LOG-009・LOGS/INDEX・cf-log-index 入力ソースを read-only で確認）
+- [ ] Gate I / I5（運用統合: runbook/tracker に実行タイミング・失敗時の運用・Evidenceの残し方を追記。最小スモークで確認）
 - 追加ルール: 新規タスクは Gate H / Phase 1 に追記（詳細テンプレは runbook 付録を参照）
 
 ## Gate H（完了：アーカイブ参照）
 - Gate H（完了）：詳細は runbook 付録「Gate H アーカイブ（完了済みチェックリスト）」を参照
 
 ## 4. 更新ログ（Progress Log/Updates）※直近のみ
+- 2026-01-30T20:27:00+0900 | UPD-20260130-01 | Gate I: I3/I4 Phase0 実装完了として一覧に反映 | Evidence: commit:0773431
 - 2026-01-28T19:07:32+0900 | UPD-20260128-03 | Gate I: I1（入口定義の最小追記を開始） | Evidence: commit:7ba1242
 - 2026-01-28T16:36:42+0900 | UPD-20260128-02 | Gate I: I0（Gate H完了チェックリスト退避＋SSOTスリム化） | Evidence: commit:54a6bae
 - 2026-01-28T14:43:17+0900 | UPD-20260128-01 | Gate H: H12 運用成熟（CI/ログ整備）完了 | Evidence: commit:9626c12 / cmd: ./tools/cf-ci-validate.sh
