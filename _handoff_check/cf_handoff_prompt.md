@@ -701,3 +701,33 @@ Gate G / Phase 3（STEP-G201〜G204）を、Skills統合の本文へ反映して
   - `./tools/cf-guard.sh --check`
 - Repo Lock: OK 後の read-only 確認（次の1手候補）:
   - `./tools/cf-guard.sh -- bash -lc 'rg -n "cf_task_tracker|tracker|cf_update_runbook|runbook|INPUT|SOURCE|DEFAULT|LOGS/INDEX" tools/cf-log-index.sh || true'`
+
+---
+## 追記（2026-01-30T22:57:02+09:00）｜handoff更新（cf-doctor Phase 0 / 運用フロー契約 / Gate I 整合）
+
+- 反映内容（Add/Del/Mod）:
+  - **Mod**: `_handoff_check/cf_handoff_prompt.md`（本追記）
+  - **Ref**: `tools/cf-doctor.sh` / `WORKFLOW/SPEC/gates/gate-g.yaml`（cf-doctor Phase 0: STEP-G003）
+  - **Ref**: `_handoff_check/cf_update_runbook.md`（運用フロー契約: SSOT→cf-doctor→GO/NO-GO→Skills）
+  - **Ref**: `_handoff_check/cf_task_tracker_v5.md`（Gate I: I0/I1 の整合）
+
+- 状態:
+  - 次にやる1手: Gate I / I1（Gate I 入口定義: 目的/Done条件/最初の1手をSSOTに最小追記）
+  - 新チャット開始時の最初の1手: `./tools/cf-guard.sh --check`
+
+- Evidence:
+  - HEAD: 5932561
+  - 最近のコミット（参考）:
+  - 5932561 docs: fix tracker consistency for Gate I (I0/I1)
+  - cbd22ec docs: add ops flow contract (SSOT->doctor->GO/NO-GO->Skills)
+  - 0773431 feat: add cf-doctor Phase 0 (STEP-G003)
+  - 495b876 docs: tracker add Gate I tasks (I2-I5)
+  - 7e7da51 docs: handoff note (Gate I SPEC + cf-doctor)
+  - 6a8e99b Merge pull request #98 from xxxMasahiro/wip/gate-i-i1-ssot-bundle-clarify
+  - bf28712 docs: clarify ssot bundle vs runbook SSOT (Gate I / I1)
+  - 7594b85 docs: handoff memo (PR#97 / stash cleanup)
+  - cf-doctor:
+    - `./tools/cf-guard.sh -- ./tools/cf-doctor.sh step STEP-G003` => PASS（必要なら再実行）
+
+<!-- CFCTX_HANDOFF_AUTO:5932561 -->
+
