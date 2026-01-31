@@ -758,3 +758,53 @@ Gate G / Phase 3（STEP-G201〜G204）を、Skills統合の本文へ反映して
   - df8a60f Merge pull request #99 from xxxMasahiro/wip/gate-i-i1-ssot-wording-fix
 
 <!-- CFCTX_HANDOFF_AUTO:fc24b3b -->
+
+## 追記（2026-01-31 13:47 JST）｜Gate I 完了 → 次は Gate J / J0（入口定義）
+
+### 根拠
+- Repo Lock: OK（mainはorigin/mainに追従）
+- Gate I:
+  - I2（外部仕様4ファイルの要点/SSOT整合をread-only確認）完了
+  - I4/I5（運用統合: timing / failure / evidence / smoke）をrunbookへ追記し、最小スモークを実行
+  - 最小スモーク（doctor）: [cf-doctor] step=STEP-G003
+- status: PASS
+- evidence:
+  - _handoff_check/cf_update_runbook.md:818 | | STEP-G003 | 抽象ログ（索引）仕様合意（カテゴリ→パターン→具体ID、ID検索を正） | [x] | LOG-009 / LOGS/INDEX.md | Mod |
+  - _handoff_check/cf_update_runbook.md:1191 | ### LOG-009｜Gate G（STEP-G003）抽象ログ（索引）仕様合意
+  - LOGS/INDEX.md:47 | - LOG-009 | Gate G（STEP-G003）抽象ログ（索引）仕様合意 | L694 | Ref: rg -n "LOG-009" _handoff_check/cf_task_tracker_v5.md
+- next: (none) => PASS
+- trackerに Gate J のタスク行が無かったため、入口として Gate J / J0 を最小追加し「次にやる1手」を Gate J へ移行
+
+### 判定
+- 次チャットは Gate J / J0 を入口として進める。
+
+### 変更提案
+- Gate J / J0 で「目的 / Done条件 / 最初の1手」をSSOTに最小追記して固定し、以後のGate J作業へ接続する。
+
+### 変更内容（Add/Del/Mod）
+- **Mod**: （本追記）
+- **Ref**: （I5 運用統合の規範）
+- **Ref**: （次にやる1手: Gate J / J0）
+
+### 状態
+- 次にやる1手: Gate J / J0（Gate J 入口定義: 目的/Done条件/最初の1手をSSOTに最小追記）
+- 新チャット開始の最初の1手（運用固定）:
+  - Repo Lock: OK
+
+### Evidence
+- HEAD: 2de66e5
+- recent merges (if any):
+  - 008ff86 Merge pull request #101 from xxxMasahiro/wip/handoff-20260131-pr100-note
+  - fc24b3b Merge pull request #100 from xxxMasahiro/wip/gate-i-i1-tracker-close
+  - df8a60f Merge pull request #99 from xxxMasahiro/wip/gate-i-i1-ssot-wording-fix
+  - 6a8e99b Merge pull request #98 from xxxMasahiro/wip/gate-i-i1-ssot-bundle-clarify
+  - fbd86b7 Merge pull request #97 from xxxMasahiro/wip/gate-g-stepg003-cf-doctor-ssot
+  - 8c87c9e Merge pull request #96 from xxxMasahiro/wip/handoff-20260130-014312-stepg003-ssot
+  - 2b5ed9c Merge pull request #95 from xxxMasahiro/wip/handoff-20260129-gate-i-pr93-94-note
+  - b7ae771 Merge pull request #94 from xxxMasahiro/wip/gate-i-i1-entry-definition-text
+  - 87410aa Merge pull request #93 from xxxMasahiro/wip/gate-i-i2-entry-definition
+  - 9187cca Merge pull request #92 from xxxMasahiro/wip/gate-i-pr89-90-checks-note
+  - 39339b3 Merge pull request #91 from xxxMasahiro/wip/gate-i-i2-entry-definition
+  - 9f139cd Merge pull request #90 from xxxMasahiro/wip/gate-i-slim-ssot
+
+<!-- CFCTX_HANDOFF_AUTO:2de66e5 -->
