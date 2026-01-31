@@ -259,6 +259,19 @@ Skillsは単体で完結させず、必ずArtifactsへ“書き戻し”ます�
 - 新規タスクの入口は Gate H（Phase 1）に統一する（Gate G は完了扱い）
 - 軽微変更は手作業（開発者がCLI）、複雑変更はCrafter/Orchestrator主導（AIで実装）
 
+### I5: 運用統合（timing / failure / evidence / smoke）
+- 実行タイミング:
+  - 作業開始前: `./tools/cf-guard.sh --check`
+  - 主要作業前（またはPR前）: `./tools/cf-doctor.sh step STEP-G003`
+  - 失敗時: 原因と根拠を示して中止 → 次の1手を1コマンドで提示
+- 失敗時の運用:
+  - FAIL時は安全停止（中止）→ next_action を1つだけ提示（再実行前提）
+- Evidence:
+  - 規範は runbook、実行結果/証跡は tracker の Progress Log/Updates に残す
+- 最小スモーク（導線）:
+  - `./tools/cf-doctor.sh step STEP-G003`
+  - 必要に応じて `./tools/cf-ci-validate.sh`（smoke含む）
+
 ### パッチ（unified diff）事故防止ルール（必須）
 
 - **原則**：チャットからコピペした diff は崩れやすい。適用前に `git apply --check` を必須とする。
