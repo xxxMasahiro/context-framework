@@ -47,8 +47,8 @@
 - 変更は Add/Del/Mod を明示し、Evidence は更新ログへ残す
 
 ## 2. 進捗サマリ
-- 未完了タスク: あり（Gate I / I5）
-- 次にやる1手: Gate I / I5（運用統合: runbook/tracker に実行タイミング・失敗時の運用・Evidenceの残し方を追記。最小スモークで確認）
+- 未完了タスク: あり（Gate J / J0）
+- 次にやる1手: Gate J / J0（Gate J 入口定義: 目的/Done条件/最初の1手をSSOTに最小追記）
 
 ## 3. タスク一覧（Gate別）
 - [x] Gate I / I0（Gate H完了チェックリスト退避＋SSOTスリム化）
@@ -56,15 +56,20 @@
 - [x] Gate I / I2（事前調査: 外部仕様4ファイルの要点とSSOT整合／LOG-009・LOGS/INDEX・cf-log-index 入力ソースを read-only で確認）
 - [x] Gate I / I3（SPEC Phase 0: WORKFLOW/SPEC/gates/gate-g.yaml に STEP-G003 のみ定義（runbookを正として must_contain/invariants を最小化））
 - [x] Gate I / I4（cf-doctor Phase 0: tools/cf-doctor.sh 最小実装（Read-only／rg→grep／PASS/FAIL＋根拠＋次の1手））
-- [ ] Gate I / I5（運用統合: runbook/tracker に実行タイミング・失敗時の運用・Evidenceの残し方を追記。最小スモークで確認）
+- [x] Gate I / I5（運用統合: runbook/tracker に実行タイミング・失敗時の運用・Evidenceの残し方を追記。最小スモークで確認）
+- [ ] Gate J / J0（Gate J 入口定義: 目的/Done条件/最初の1手をSSOTに最小追記）
+
 ### 未完了のみ
-- [ ] Gate I / I5（運用統合: runbook/tracker に実行タイミング・失敗時の運用・Evidenceの残し方を追記。最小スモークで確認）
-- 追加ルール: 新規タスクは Gate H / Phase 1 に追記（詳細テンプレは runbook 付録を参照）
+- [ ] Gate J / J0（Gate J 入口定義: 目的/Done条件/最初の1手をSSOTに最小追記）
+
+- 追加ルール: 新規タスクは Gate J / J0 に追記（詳細テンプレは runbook 付録を参照）
 
 ## Gate H（完了：アーカイブ参照）
 - Gate H（完了）：詳細は runbook 付録「Gate H アーカイブ（完了済みチェックリスト）」を参照
 
 ## 4. 更新ログ（Progress Log/Updates）※直近のみ
+- 2026-01-31T13:35:37+09:00 | UPD-20260131-04 | Gate J: J0 追加（次にやる1手を Gate J へ移行） | Evidence: tracker に Gate J 行が無かったため入口J0を最小追加（この変更コミット参照）
+- 2026-01-31T10:50:39+09:00 | UPD-20260131-03 | Gate I: I4/I5 Done[x]（最小スモーク: ./tools/cf-doctor.sh step STEP-G003 => PASS / 運用統合runbook追記済み） | Evidence: doctor PASS（出力のrefs: runbook L818/L1191, LOGS/INDEX L47 ほか）
 - 2026-01-31T08:56:02+09:00 | UPD-20260131-02 | Gate I: I2（事前調査） Done[x]（外部仕様4ファイルの要点とSSOT整合／LOG-009・LOGS/INDEX・cf-log-index入力ソースを read-only 確認） | Evidence: cmd: rg(01-04) + rg LOG-009 + cf-log-index.sh 入力確認 / output: このチャットの貼付結果
 - 2026-01-31T00:05:20+0900 | UPD-20260131-01 | Gate I: I1（入口定義） Done[x]（SSOT文言を runbook最上位 / trackerは進捗 に統一） | Evidence: PR#99 (merged), commit:6a7b31d, merge_commit:df8a60f
 - 2026-01-30T20:27:00+0900 | UPD-20260130-01 | Gate I: I3/I4 Phase0 実装完了として一覧に反映 | Evidence: commit:0773431
