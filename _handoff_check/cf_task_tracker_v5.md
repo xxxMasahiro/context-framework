@@ -68,6 +68,7 @@
 - Gate H（完了）：詳細は runbook 付録「Gate H アーカイブ（完了済みチェックリスト）」を参照
 
 ## 4. 更新ログ（Progress Log/Updates）※直近のみ
+- 2026-02-02T00:33:11+09:00 | UPD-20260202-01 | Gate D REQ3 STRICT PASS | Evidence: ~/.cfctx_verify_root/.cfctx_verify/logs/evidence/20260201T150142Z_gateD_redo_req3_functional_strict.txt
 - 2026-01-31T13:35:37+09:00 | UPD-20260131-04 | Gate J: J0 追加（次にやる1手を Gate J へ移行） | Evidence: tracker に Gate J 行が無かったため入口J0を最小追加（この変更コミット参照）
 - 2026-01-31T10:50:39+09:00 | UPD-20260131-03 | Gate I: I4/I5 Done[x]（最小スモーク: ./tools/cf-doctor.sh step STEP-G003 => PASS / 運用統合runbook追記済み） | Evidence: doctor PASS（出力のrefs: runbook L818/L1191, LOGS/INDEX L47 ほか）
 - 2026-01-31T08:56:02+09:00 | UPD-20260131-02 | Gate I: I2（事前調査） Done[x]（外部仕様4ファイルの要点とSSOT整合／LOG-009・LOGS/INDEX・cf-log-index入力ソースを read-only 確認） | Evidence: cmd: rg(01-04) + rg LOG-009 + cf-log-index.sh 入力確認 / output: このチャットの貼付結果
