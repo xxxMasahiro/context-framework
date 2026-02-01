@@ -8,6 +8,8 @@
 - 日付: `2026-01-19`
 - Auditor: `ChatGPT (GPT-5.2 Thinking)`
 - Scope Summary: `監査ドキュメントの日本語化（テンプレ構造維持）を対象に監査。`
+- 要求 (request / action): 監査対象（Scope Summary）の内容について、テンプレ構造の維持と意味改変なしを確認する。
+- 根拠 (evidence): `git show bbca353 -- ARTIFACTS/AUDIT_REPORT.md` / `git show bbca353 -- ARTIFACTS/AUDIT_CHECKLIST.md`
 
 > Note: AuditorはPRへ監査結果を返す。修正はCrafter/Orchestratorが行う。
 
