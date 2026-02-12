@@ -64,7 +64,7 @@ cat > "$TMP_DIR/low.json" <<'JSON'
 }
 JSON
 set +e
-"$BIN" --classification-file "$TMP_DIR/low.json" --generated-text "rm -rf /" --dry-run --skip-adapter-check >/dev/null 2>&1
+"$BIN" --classification-file "$TMP_DIR/low.json" --generated-text "rm -rf /" --dry-run --skip-adapter-check >/dev/null 2>&1  # ciqa:allow
 code=$?
 set -e
 [ "$code" -eq 3 ] || fail "prohibited word did not request Go/NoGo"
