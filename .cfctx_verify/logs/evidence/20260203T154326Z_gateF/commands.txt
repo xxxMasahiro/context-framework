@@ -1,0 +1,3 @@
+[20260203T154326Z] req①: Check INITIAL_SETTINGS and role assignment files
+[20260203T154326Z] req②: Role assignment coherence across adapters and SSOT
+[20260203T154326Z] req③: Functional role assignment validation

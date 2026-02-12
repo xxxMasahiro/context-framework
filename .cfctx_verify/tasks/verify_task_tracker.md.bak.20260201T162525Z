@@ -1,0 +1,184 @@
+# 検証トラッカー（Temporary Verification Kit）
+対象：Gate A〜I（要件①②③を証跡付きで確認）
+更新ルール：このファイル内の [ ]→[x] 更新は例外として許容（Evidence と Progress Log を必ず併記）
+
+## 0. メタ情報（手動で埋める）
+- 開始日時（JST）: 2026-01-31 15:59 JST
+- Repo（パス）: /home/masahiro/projects/_cfctx/cf-context-framework
+- Repo Lock: OK
+- HEAD（git rev-parse --short HEAD）: 6c64aca
+- SSOT 参照コピー: `SSOT/`（_handoff_check の3ファイルを固定）
+
+## 1. Phase 2（最小スモーク）チェックリスト
+- [x] Repo Lock を Evidence 化（`./tools/cf-guard.sh --check`）
+  - Evidence: logs/evidence/20260131-154132_repo_lock.txt
+  - 判定: PASS
+- [x] doctor STEP-G003 を Evidence 化（`./tools/cf-doctor.sh step STEP-G003`）
+  - Evidence: logs/evidence/20260131-155343_doctor_step-g003.txt
+  - 判定: PASS
+- [x] Gate C（アダプタ参照整合）read-only 確認
+  - Evidence: logs/evidence/20260131-223116_ph2_gateC_adapter_ref_consistency.txt
+  - 判定: PASS
+- [x] Gate G（ログ導線：索引/ログ/ルールの存在）read-only 確認
+  - Evidence: logs/evidence/20260131-232522_ph2_gateG_log_navigation_presence.txt
+  - 判定: PASS
+
+## 2. Phase 3（Gate A〜I フル検証）チェックリスト
+> 各 Gate について：要件①（追加機能把握）/ 要件②（体系整合）/ 要件③（機能性 PASS/FAIL）を Evidence 付きで埋める
+
+### Gate A
+- [x] 要件①：追加/変更の要約（SSOT/ログ/差分）  - 判定: PASS
+  - Evidence: logs/evidence/20260131-201516_gateA_req1_summary.txt
+- [ x] 要件②：体系整合（参照切れ/定義衝突/SSOT↔実装矛盾なし）  - 判定: PASS
+  - Evidence: logs/evidence/20260131-202615_gateA_req2_consistency.txt
+- [x] 要件③：機能性（PASS/FAIL を伴う確認）  - 判定: PASS
+  - Evidence: logs/evidence/20260131T162045Z_gateA_req3_functional_files_check.txt
+
+### Gate B
+- [x] 要件①：追加/変更の要約（SSOT/ログ/差分）  - 判定: PASS
+  - Evidence: logs/evidence/20260131T163837Z_gateB_req1_summary.txt
+- [x] 要件②：体系整合（参照切れ/定義衝突/SSOT↔実装矛盾なし）  - 判定: PASS
+  - Evidence: logs/evidence/20260131T164210Z_gateB_req2_consistency.txt ; logs/evidence/20260131T164406Z_gateB_req2_verify_docs_scope.txt
+- [x] 要件③：機能性（PASS/FAIL を伴う確認）  - 判定: PASS
+  - Evidence: logs/evidence/20260131T164652Z_gateB_req3_functional_artifacts_check.txt
+
+### Gate C
+- [x] 要件①：追加/変更の要約（SSOT/ログ/差分）  - 判定: PASS
+  - Evidence: logs/evidence/20260201T043925Z_gateC_req1_summary.txt
+- [x] 要件②：体系整合（参照切れ/定義衝突/SSOT↔実装矛盾なし）  - 判定: PASS
+  - Evidence: logs/evidence/20260201T051231Z_gateC_req2_consistency.txt
+- [x] 要件③：機能性（PASS/FAIL を伴う確認）  - 判定: PASS
+  - Evidence: logs/evidence/20260201T051803Z_gateC_req3_functional_adapters_check.txt
+
+### Gate D
+- [x] 要件①： - 判定: PASS
+  - Evidence: logs/evidence/20260201T053357Z_gateD_req1_runbook_excerpts.txt
+  - Evidence: logs/evidence/20260201T055655Z_gateD_req1_ssot_search.txt
+- [x] 要件②： - 判定: PASS
+  - Evidence: logs/evidence/20260201T061602Z_gateD_req2_consistency.txt
+- [x] 要件③： - 判定: PASS
+  - Evidence: logs/evidence/20260201T071137Z_gateD_req3_functional_audit_gate_check.txt
+
+### Gate E
+- [x] 要件①： - 判定: PASS
+  - Evidence: logs/evidence/20260201T083659Z_gateE_req1_evidence.txt
+- [x] 要件②： - 判定: PASS
+  - Evidence: logs/evidence/20260201T084735Z_gateE_req2_evidence.txt
+- [ ] 要件③：
+  - Evidence:
+
+### Gate F
+- [ ] 要件①：
+  - Evidence:
+- [ ] 要件②：
+  - Evidence:
+- [ ] 要件③：
+  - Evidence:
+
+### Gate G
+- [ ] 要件①：
+  - Evidence:
+- [ ] 要件②：
+  - Evidence:
+- [ ] 要件③：
+  - Evidence:
+
+### Gate H
+- [ ] 要件①：
+  - Evidence:
+- [ ] 要件②：
+  - Evidence:
+- [ ] 要件③：
+  - Evidence:
+
+### Gate I
+- [ ] 要件①：
+  - Evidence:
+- [ ] 要件②：
+  - Evidence:
+- [ ] 要件③：
+  - Evidence:
+
+## 3. Evidence Index（追記式）
+| tsid | phase | what | path |
+|---|---|---|---|
+| 20260131-201516 | GateA | req1 summary | logs/evidence/20260131-201516_gateA_req1_summary.txt |
+| 20260131-200033 | GateA | runbook excerpts | logs/evidence/20260131-200033_gateA_req1_runbook_excerpts.txt |
+| 20260131T162045Z | GateA | req3 functional files check | logs/evidence/20260131T162045Z_gateA_req3_functional_files_check.txt |
+| 20260131T163513Z | GateB | req1 ssot search | logs/evidence/20260131T163513Z_gateB_req1_ssot_search.txt |
+| 20260131T163837Z | GateB | req1 runbook excerpts | logs/evidence/20260131T163837Z_gateB_req1_runbook_excerpts.txt |
+| 20260131T163837Z | GateB | req1 summary | logs/evidence/20260131T163837Z_gateB_req1_summary.txt |
+| 20260131T164210Z | GateB | req2 consistency | logs/evidence/20260131T164210Z_gateB_req2_consistency.txt |
+| 20260131T164406Z | GateB | req2 verify docs scope | logs/evidence/20260131T164406Z_gateB_req2_verify_docs_scope.txt |
+| 20260131T164652Z | GateB | req3 functional artifacts check | logs/evidence/20260131T164652Z_gateB_req3_functional_artifacts_check.txt |
+| 20260201T042113Z | GateC | req1 ssot search | logs/evidence/20260201T042113Z_gateC_req1_ssot_search.txt |
+| 20260201T043925Z | GateC | req1 runbook excerpts | logs/evidence/20260201T043925Z_gateC_req1_runbook_excerpts.txt |
+| 20260201T043925Z | GateC | req1 summary | logs/evidence/20260201T043925Z_gateC_req1_summary.txt |
+| 20260201T051231Z | GateC | req2 consistency | logs/evidence/20260201T051231Z_gateC_req2_consistency.txt |
+| 20260201T051803Z | GateC | req3 functional adapters check | logs/evidence/20260201T051803Z_gateC_req3_functional_adapters_check.txt |
+| ts | gate/phase | summary | path |
+|---|---|---|---|
+|  |  |  |  |
+| 20260131-195644 | GateA | ssot_search | logs/evidence/20260131-195644_gateA_req1_ssot_search.txt |
+| 20260131-223116 | PH2 | gateC adapter ref consistency | logs/evidence/20260131-223116_ph2_gateC_adapter_ref_consistency.txt |
+| 20260131-232522 | PH2 | gateG log navigation presence | logs/evidence/20260131-232522_ph2_gateG_log_navigation_presence.txt |
+| 20260201T053357Z | GateD | req1 runbook excerpts | logs/evidence/20260201T053357Z_gateD_req1_runbook_excerpts.txt |
+| 20260201T055655Z | GateD | req1 ssot search | logs/evidence/20260201T055655Z_gateD_req1_ssot_search.txt |
+| 20260201T064843Z | GateD | req2 tracker reflect | logs/evidence/20260201T064843Z_gateD_req2_tracker_reflect.txt |
+| 20260201T071456Z | GateD | req3 tracker reflect | logs/evidence/20260201T071456Z_gateD_req3_tracker_reflect.txt |
+| 20260201T071137Z | GateD | req3 functional check | logs/evidence/20260201T071137Z_gateD_req3_functional_audit_gate_check.txt |
+| 20260201T084418Z | GateE | req1 tracker reflect | logs/evidence/20260201T084418Z_gateE_req1_tracker_reflect.txt |
+## 4. Progress Log（追記式）
+| 20260131-202615 | GateA | req2_consistency | logs/evidence/20260131-202615_gateA_req2_consistency.txt |
+- YYYY-MM-DD HH:MM JST | INIT | tasks/verify_task_tracker.md 作成
+- 2026-01-31 15:59 JST | PH2 | Repo Lock / doctor(STEP-G003) を evidence 記録（[x]化）
+- 2026-01-31 20:06 JST | GateA | runbook excerpts | Evidence: logs/evidence/20260131-200033_gateA_req1_runbook_excerpts.txt
+- 2026-01-31 20:09 JST | GateA | ssot_search | Evidence: logs/evidence/20260131-195644_gateA_req1_ssot_search.txt
+- 2026-02-01 15:16 JST | GateD | req2 PASS | Evidence: logs/evidence/20260201T061602Z_gateD_req2_consistency.txt
+- 2026-02-01 16:11 JST | GateD | req3 PASS | Evidence: logs/evidence/20260201T071137Z_gateD_req3_functional_audit_gate_check.txt
+- 2026-02-01 17:44 JST | GateE | req1 PASS | Evidence: logs/evidence/20260201T083659Z_gateE_req1_evidence.txt ; Reflect: logs/evidence/20260201T084418Z_gateE_req1_tracker_reflect.txt
+## 3. Evidence Index
+
+| tsid | phase | what | path |
+|---|---|---|---|
+| 20260131-185303 | PH3 | codex_high_prompt sha256 | logs/evidence/20260131-185303_codex_high_prompt_sha256.txt |
+
+## 4. Progress Log
+
+- 2026-01-31 19:21 JST | PH3 | codex_high_prompt.md sha256 を evidence 化（logs/evidence/20260131-185303_codex_high_prompt_sha256.txt）
+- 2026-01-31 20:15 JST | GateA | req1 PASS | Evidence: logs/evidence/20260131-201516_gateA_req1_summary.txt
+- 2026-01-31 20:26:15 JST | GateA | req2_consistency | Evidence: logs/evidence/20260131-202615_gateA_req2_consistency.txt
+- 2026-01-31 23:15 JST | PH2 | Gate C PASS | Evidence: logs/evidence/20260131-223116_ph2_gateC_adapter_ref_consistency.txt
+- 2026-01-31 23:25 JST | PH2 | Gate G PASS | Evidence: logs/evidence/20260131-232522_ph2_gateG_log_navigation_presence.txt
+- 2026-02-01 01:14 JST | GateA | req1 PASS (redo確認) | Evidence: logs/evidence/20260131-201516_gateA_req1_summary.txt
+- 2026-02-01 01:20 JST | GateA | req3 PASS | Evidence: logs/evidence/20260131T162045Z_gateA_req3_functional_files_check.txt
+- 2026-02-01 01:35 JST | GateB | req1 ssot search | Evidence: logs/evidence/20260131T163513Z_gateB_req1_ssot_search.txt
+- 2026-02-01 01:40 JST | GateB | req1 PASS | Evidence: logs/evidence/20260131T163837Z_gateB_req1_summary.txt
+- 2026-02-01 01:44 JST | GateB | req2 PASS | Evidence: logs/evidence/20260131T164210Z_gateB_req2_consistency.txt; logs/evidence/20260131T164406Z_gateB_req2_verify_docs_scope.txt
+- 2026-02-01 01:46 JST | GateB | req3 PASS | Evidence: logs/evidence/20260131T164652Z_gateB_req3_functional_artifacts_check.txt
+- 2026-02-01 13:21 JST | GateC | req1 ssot search | Evidence: logs/evidence/20260201T042113Z_gateC_req1_ssot_search.txt
+- 2026-02-01 13:40 JST | GateC | req1 PASS | Evidence: logs/evidence/20260201T043925Z_gateC_req1_summary.txt
+- 2026-02-01 14:12 JST | GateC | req2 PASS | Evidence: logs/evidence/20260201T051231Z_gateC_req2_consistency.txt
+- 2026-02-01 14:18 JST | GateC | req3 PASS | Evidence: logs/evidence/20260201T051803Z_gateC_req3_functional_adapters_check.txt
+- 2026-02-01 14:33 JST | GateD | req1 PASS | Evidence: logs/evidence/20260201T053357Z_gateD_req1_runbook_excerpts.txt
+- 2026-02-01 14:56 JST | GateD | req1 ssot search | Evidence: logs/evidence/20260201T055655Z_gateD_req1_ssot_search.txt
+
+### Gate D（REDO 20260201T124626Z）
+- [ ] 要件①：追加/変更の要約（SSOT/ログ/差分）  - 判定: (TBD)
+  - Evidence: logs/evidence/20260201T124626Z_gateD_redo_req1_summary.txt
+- [ ] 要件②：体系整合（参照切れ/定義衝突/SSOT↔実装矛盾なし）  - 判定: (TBD)
+  - Evidence: logs/evidence/20260201T124626Z_gateD_redo_req2_consistency.txt
+- [ ] 要件③：機能性（PASS/FAIL を伴う確認）  - 判定: (TBD)
+  - Evidence: logs/evidence/20260201T124626Z_gateD_redo_req3_functional_audit_gate_check.txt
+
+### Gate D（REDO 20260201T132601Z）
+- [x] 要件①：追加/変更の要約（SSOT/ログ/差分）  - 判定: PASS
+  - Evidence: logs/evidence/20260201T132601Z_gateD_redo_req1_summary.txt
+- [x] 要件②：体系整合（参照切れ/定義衝突/SSOT↔実装矛盾なし）  - 判定: PASS
+  - Evidence: logs/evidence/20260201T132601Z_gateD_redo_req2_consistency.txt
+- [x] 要件③：機能性（PASS/FAIL を伴う確認）  - 判定: PASS
+  - Evidence: logs/evidence/20260201T132601Z_gateD_redo_req3_functional.txt
+
+### Gate D（REDO REQ3-STRICT SUPP 20260201T135044Z）
+- [x] 要件③：機械的PASS/FAIL（監査テンプレ必須要素チェック）  - 判定: FAIL
+  - Evidence: logs/evidence/20260201T135044Z_gateD_redo_req3_functional_strict.txt

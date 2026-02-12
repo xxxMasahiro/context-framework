@@ -1,0 +1,43 @@
+=== Gate G req②: Coherence Check ===
+
+--- LOG-009 reference chain ---
+In runbook:
+818:| STEP-G003 | 抽象ログ（索引）仕様合意（カテゴリ→パターン→具体ID、ID検索を正） | [x] | LOG-009 / LOGS/INDEX.md | Mod |
+1100:- 2026-01-24 | UPD-20260124-01 | Gate G: STEP-G003 抽象ログ（索引）仕様合意 | Done[x] | Evidence: LOG-009（L689）/ STEP-G003 [x]（L386）
+1191:### LOG-009｜Gate G（STEP-G003）抽象ログ（索引）仕様合意
+1200:    - まず runbook（LOG-009規定）を確認し、ID検索は tracker を `rg -n "<ID>" _handoff_check/cf_task_tracker_v5.md` で検索して到達する（INDEXは補助ナビ）
+1206:- 変更区分: Mod（STEP-G003 表行更新） / Add（本LOG-009節） / Mod（LOGS/INDEX.md 再生成）
+In LOGS/INDEX.md:
+47:- LOG-009 | Gate G（STEP-G003）抽象ログ（索引）仕様合意 | L694 | Ref: rg -n "LOG-009" _handoff_check/cf_task_tracker_v5.md
+In tracker:
+56:- [x] Gate I / I2（事前調査: 外部仕様4ファイルの要点とSSOT整合／LOG-009・LOGS/INDEX・cf-log-index 入力ソースを read-only で確認）
+74:- 2026-01-31T08:56:02+09:00 | UPD-20260131-02 | Gate I: I2（事前調査） Done[x]（外部仕様4ファイルの要点とSSOT整合／LOG-009・LOGS/INDEX・cf-log-index入力ソースを read-only 確認） | Evidence: cmd: rg(01-04) + rg LOG-009 + cf-log-index.sh 入力確認 / output: このチャットの貼付結果
+
+--- STEP-G003 reference chain ---
+In runbook:
+265:  - 主要作業前（またはPR前）: `./tools/cf-doctor.sh step STEP-G003`
+272:  - `./tools/cf-doctor.sh step STEP-G003`
+818:| STEP-G003 | 抽象ログ（索引）仕様合意（カテゴリ→パターン→具体ID、ID検索を正） | [x] | LOG-009 / LOGS/INDEX.md | Mod |
+1100:- 2026-01-24 | UPD-20260124-01 | Gate G: STEP-G003 抽象ログ（索引）仕様合意 | Done[x] | Evidence: LOG-009（L689）/ STEP-G003 [x]（L386）
+1191:### LOG-009｜Gate G（STEP-G003）抽象ログ（索引）仕様合意
+In gate-g.yaml:
+4:  - id: STEP-G003
+9:          - "STEP-G003.*\\[x\\]"
+18:      - 'rg -n "STEP-G003.*\\[x\\]" _handoff_check/cf_update_runbook.md 2>/dev/null || grep -nE "STEP-G003.*\\[x\\]" _handoff_check/cf_update_runbook.md 2>/dev/null || true'
+In cf-doctor.sh:
+9:  echo "Usage: $0 step STEP-G003" >&2
+13:if [ "$#" -ne 2 ] || [ "$1" != "step" ] || [ "$2" != "STEP-G003" ]; then
+64:echo "[cf-doctor] step=STEP-G003"
+65:check_pattern "$RUNBOOK" "STEP-G003.*\\[x\\]" "_handoff_check/cf_update_runbook.md"
+87:  next_action="./tools/cf-guard.sh -- rg -n \"STEP-G003|LOG-009\" _handoff_check/cf_update_runbook.md || true"
+
+--- Skills Integration log references ---
+100:- 入口の置き場（推奨）：`LOGS/INDEX.md` → Concrete/Skill へのリンク
+105:## 11. Skill昇格条件（STEP-G201確定）
+108:- 昇格時にやること：`SKILLS/_registry.md` 追加、必要ならログ/Artifactsへリンク追加
+115:## 13. 定義固定（Concrete→Abstract→Skills の最小ルール）（STEP-G006）
+116:- 成功/失敗（必要ならPartial/Unknown）定義：Concreteは「1回の試行＝1エントリ」
+117:- Signature仕様（Concreteに置く）：項目（例: error_code / message要約 / component）、短い固定文字列、例: `patch-apply/no-valid-patches` / `patch-apply/does-not-apply`
+118:- 同種2回目ルール：Signatureの件数>=2で Abstract に「入口のみ」作成（手順は書かず refs: [Concrete#...] と件数だけ）
+119:- Skills昇格（3回目）最小条件：3回成功 + 再現性（前提/手順/検証コマンド固定）+ 受入テスト + 安全弁（read-only確認/dry-run/ロールバック導線等）
+120:- 例外：重大事故/高頻度は1回目でも Abstract に入口のみ（手順は書かず Concrete 参照）

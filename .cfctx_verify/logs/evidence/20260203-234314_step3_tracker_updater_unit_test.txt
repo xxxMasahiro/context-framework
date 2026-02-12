@@ -1,0 +1,84 @@
+=== Step 3: tracker_updater.sh 単体テスト ===
+Timestamp (JST): 2026-02-03 23:43:14 JST
+Timestamp (UTC): 2026-02-03T14:43:14Z
+Command: source scripts/lib/tracker_updater.sh && unit tests on mock trackers
+VERDICT: PASS
+---
+
+=== Test Results Summary ===
+1. update_verify_tracker Gate A (2 unchecked → [x]): PASS
+2. update_verify_tracker Gate B (3 unchecked → [x]): PASS
+3. update_test_tracker Phase 1 (2 unchecked → [x]): PASS
+4. append_progress_log (entry appended): PASS
+5. idempotency (no double-update): PASS
+6. non-existent section (WARN + return 1): PASS
+
+=== Mock verify_tracker diff (before vs after) ===
+Before: Gate A had 2 unchecked, Gate B had 3 unchecked
+After:  All items [x] with 判定/Evidence/日時 metadata
+
+--- Final mock_verify_tracker.md ---
+# Mock Verify Tracker
+
+## 2. Phase 3（Gate A〜I フル検証）チェックリスト
+
+### Gate A
+- [x] 要件①：追加/変更の要約  - 判定: PASS
+  - Evidence: logs/evidence/existing.txt
+- [x] 要件②：体系整合
+  - 判定: PASS
+  - Evidence: logs/evidence/test_gateA.txt
+  - 日時: 2026-02-03 23:42 JST
+- [x] 要件③：機能性
+  - 判定: PASS
+  - Evidence: logs/evidence/test_gateA.txt
+  - 日時: 2026-02-03 23:42 JST
+
+### Gate B
+- [x] 要件①：追加/変更の要約
+  - 判定: PASS
+  - Evidence: logs/evidence/test_gateB.txt
+  - 日時: 2026-02-03 23:42 JST
+- [x] 要件②：体系整合
+  - 判定: PASS
+  - Evidence: logs/evidence/test_gateB.txt
+  - 日時: 2026-02-03 23:42 JST
+- [x] 要件③：機能性
+  - 判定: PASS
+  - Evidence: logs/evidence/test_gateB.txt
+  - 日時: 2026-02-03 23:42 JST
+
+## Progress Log
+
+- 2026-01-01 00:00 JST | initial
+- 2026-02-03 23:42 JST | Unit test complete | 判定: PASS | Evidence: logs/evidence/test.txt
+
+--- Final mock_test_tracker.md ---
+# Mock Test Tracker
+
+### Phase 1: 共通
+- [x] 環境前提の確認
+  - 判定: PASS
+  - Evidence: logs/evidence/test_phase1.txt
+  - 日時: 2026-02-03 23:42 JST
+- [x] 最小スモーク
+  - 判定: PASS
+  - Evidence: logs/evidence/test_phase1.txt
+  - 日時: 2026-02-03 23:42 JST
+
+### Phase 2: Gate固有
+- [ ] Gate C 個別
+- [ ] 他Gate
+
+## Progress Log
+
+- 2026-01-01 00:00 JST | initial
+
+=== Acceptance Criteria Check ===
+AC: update_verify_tracker marks unchecked items with verdict/evidence: PASS
+AC: update_test_tracker marks unchecked items with verdict/evidence: PASS
+AC: append_progress_log appends timestamped entry: PASS
+AC: idempotent (no-op on already checked): PASS
+AC: graceful handling of missing section: PASS
+
+=== OVERALL: PASS (6/6 tests OK) ===

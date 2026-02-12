@@ -1,0 +1,41 @@
+=== Gate E req①: Feature Summary ===
+
+--- CFCTX_LANG_POLICY_CANONICAL_V1 marker search ---
+_handoff_check/cf_update_runbook.md:
+1:<!-- CFCTX_LANG_POLICY_CANONICAL_V1 -->
+1029:      - `CFCTX_LANG_POLICY_CANONICAL_V1`
+_handoff_check/cf_task_tracker_v5.md:
+1:<!-- CFCTX_LANG_POLICY_CANONICAL_V1 -->
+_handoff_check/cf_handoff_prompt.md:
+  (not found)
+
+--- Runbook language policy section ---
+1:<!-- CFCTX_LANG_POLICY_CANONICAL_V1 -->
+6:- 規範文書（Charter/Mode/Workflow/Artifacts/Skills）は **日本語本文が正（SSOT）**。
+9:- 詳細は `_handoff_check/cf_update_runbook.md` の「言語ポリシー」記載を正とする（このブロックは要約）。
+417:## 追記（2026-01-17）｜言語ポリシー（層×言語）を先に確定してから進める
+419:ドキュメントの日本語/英語混在により、表現整合性の確認コストが増える懸念があるため、**next2/next3 着手前に言語ポリシーを確定**する。
+421:  - **規範（Charter/Mode/Workflow/Artifacts/Skills）は日本語を正**（Single Source of Truth）。
+422:  - `PROMPTS/` や各ツール入口は、日本語本文を正としつつ、必要なら英語要約を短く併記（規範の複製は禁止）。
+766:### Gate E | 言語ポリシー（日本語統一）
+770:| STEP-450 | 日本語表記ポリシー（用語・表記ゆれ）を確定 | [x] | `CFTX_LANG_POLICY_CANONICAL_V1` | Add |
+772:| STEP-452 | 対象ドキュメントを日本語へ修正（監査系を優先） | [x] | `git diff` | Mod |
+964:## 追記（2026-01-17）｜本チャットの追加進捗（文言統一の“実装反映”＋言語ポリシー検討）
+968:- **追加の論点**: ドキュメントが日本語/英語で混在しているため、今後の整合性コストを下げる目的で **言語ポリシー（層×言語）を確定してから次へ進める**方針。
+989:- **言語ポリシー（層×言語）を確定してから次工程へ進む**（日本語統一を基本案）
+1029:      - `CFCTX_LANG_POLICY_CANONICAL_V1`
+
+--- Runbook Gate E / STEP-45x references ---
+9:- 詳細は `_handoff_check/cf_update_runbook.md` の「言語ポリシー」記載を正とする（このブロックは要約）。
+417:## 追記（2026-01-17）｜言語ポリシー（層×言語）を先に確定してから進める
+419:ドキュメントの日本語/英語混在により、表現整合性の確認コストが増える懸念があるため、**next2/next3 着手前に言語ポリシーを確定**する。
+766:### Gate E | 言語ポリシー（日本語統一）
+770:| STEP-450 | 日本語表記ポリシー（用語・表記ゆれ）を確定 | [x] | `CFTX_LANG_POLICY_CANONICAL_V1` | Add |
+771:| STEP-451 | 英語混在ドキュメントを洗い出し（grep等） | [x] | `grep -RIn --include='*.md' -E '[A-Za-z]{3,}' ...` | Add |
+772:| STEP-452 | 対象ドキュメントを日本語へ修正（監査系を優先） | [x] | `git diff` | Mod |
+773:| STEP-453 | 再検出して英語混在が許容範囲内か確認 | [x] | `grep` 結果 | Add |
+774:| STEP-454 | Progress Log/Updates に完了記録（日時・タスクID・証跡） | [x] | `b1c32a2` | Add |
+964:## 追記（2026-01-17）｜本チャットの追加進捗（文言統一の“実装反映”＋言語ポリシー検討）
+968:- **追加の論点**: ドキュメントが日本語/英語で混在しているため、今後の整合性コストを下げる目的で **言語ポリシー（層×言語）を確定してから次へ進める**方針。
+989:- **言語ポリシー（層×言語）を確定してから次工程へ進む**（日本語統一を基本案）
+1153:- 2026-01-19 | UPD-20260119-02 | Gate E: STEP-450〜453 を Done[x] に更新（日本語ポリシー） | Evidence: commit 1990219 / push origin main

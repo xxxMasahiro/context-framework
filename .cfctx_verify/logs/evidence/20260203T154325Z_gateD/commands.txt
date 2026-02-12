@@ -1,0 +1,4 @@
+[20260203T154325Z] req①: Check audit framework artifacts exist
+[20260203T154326Z] EXISTS: WORKFLOW/AUDIT.md (WORKFLOW/AUDIT.md)
+[20260203T154326Z] req②: Audit protocol coherence — PASS/FAIL markers, evidence requirements
+[20260203T154326Z] req③: Functional audit artifact checks

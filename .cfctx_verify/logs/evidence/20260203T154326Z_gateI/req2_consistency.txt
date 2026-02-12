@@ -1,0 +1,54 @@
+=== Gate I req②: Coherence Check ===
+
+--- Tracker slimness check ---
+Tracker lines: 103
+
+--- Tracker runbook references ---
+8:- 詳細は `_handoff_check/cf_update_runbook.md` の「言語ポリシー」記載を正とする（このブロックは要約）。
+42:詳細テンプレ/完了済み一覧/旧ログは runbook 付録（tracker退避）を参照する。
+57:- [x] Gate I / I3（SPEC Phase 0: WORKFLOW/SPEC/gates/gate-g.yaml に STEP-G003 のみ定義（runbookを正として must_contain/invariants を最小化））
+65:- 追加ルール: 新規タスクは Gate J / J0 に追記（詳細テンプレは runbook 付録を参照）
+68:- Gate H（完了）：詳細は runbook 付録「Gate H アーカイブ（完了済みチェックリスト）」を参照
+75:- 2026-01-31T00:05:20+0900 | UPD-20260131-01 | Gate I: I1（入口定義） Done[x]（SSOT文言を runbook最上位 / trackerは進捗 に統一） | Evidence: PR#99 (merged), commit:6a7b31d, merge_commit:df8a60f
+103:- 旧ログは runbook 付録（tracker退避）へ移設
+
+--- Runbook Gate I definition ---
+## 付録：Gate H アーカイブ（完了済みチェックリスト）
+- 注記: これは履歴/退避。現行の次にやる1手は tracker の進捗サマリが正。
+- 次にやる1手: Gate I / I1（Gate I 入口定義: 目的/Done条件/最初の1手をSSOTに最小追記）
+### Gate I: 入口定義（I1）とSSOTスリム化（I0）
+- 補足（番号整理）: Gate I の入口定義は I1 から開始（旧 I2→I1、旧 I1→I0）
+- 定義:
+  - Gate I / I1: 入口定義（目的 / Done条件 / 最初の1手をSSOTへ最小追記）
+  - Gate I / I0: SSOTスリム化（旧 I1: Gate H 完了チェックリスト退避 + SSOTスリム化）
+- 意図: Gate Hの入口定義は維持しつつ、次フェーズ(Gate I)の入口定義を固める
+
+## Gate H（新規タスクの入口）
+### Phase 1（未着手タスク）
+- （新規タスクをここへ追記：1行1タスク、Evidenceは必要に応じて）
+- [x] H1: 昇格/分類ルール（STEP-G006）確定再確認
+- [x] H2: workspace_tracker 非SSOT扱い確定再確認
+- [x] H3: Phase 0 — `bin/ctx-run`（SSOT束注入）＋ `rules/ssot_manifest.yaml`（最小）
+- [x] H4: Phase 1 — ルール設計（`routes.yaml` / `policy.json` / `ssot_manifest.yaml`）
+- [x] H5: Phase 1 — Controller骨格（分類JSON→検証→束生成→生成→検証→ログ）
+- [x] H6: Phase 1 — 危険操作ゲート（Go/NoGo）＋危険フラグ/禁止語の検知
+
+--- Handoff Gate I references ---
+23:- 最新の次タスク: Gate I / I1（Gate I 入口定義: 目的/Done条件/最初の1手をSSOTに最小追記）
+60:## 追記（2026-01-28）| Gate I: I1 開始（入口定義）
+63:  - I0 を完了扱いで閉じ、I1 を未完了として開始
+66:- 次にやる1手: Gate I / I1（Gate I 入口定義: 目的/Done条件/最初の1手をSSOTに最小追記）
+69:## 追記（2026-01-28）｜Gate I 開始（I0: SSOTスリム化）
+72:  - tracker: Gate H 完了チェックリストを runbook 付録へ退避し、未完了を Gate I / I0 に移行
+74:  - handoff: 最新の次タスクを Gate I / I0 に統一
+76:- 次にやる1手: Gate I / I1（Gate I 入口定義: 目的/Done条件/最初の1手をSSOTに最小追記）
+85:- 次にやる1手: Gate I / I1（Gate I 入口定義: 目的/Done条件/最初の1手をSSOTに最小追記）
+94:  - - 次にやる1手: Gate I / I1（Gate I 入口定義: 目的/Done条件/最初の1手をSSOTに最小追記）
+
+--- SSOT priority chain ---
+21:- SSOTは _handoff_check の3ファイル（**運用規範の最上位は runbook**／trackerは進捗／handoff_promptは便宜）
+22:- 注記: rules/ssot_manifest.yaml の `ssot` は「3ファイル集合（bundle）」の意味であり、SSOT最上位の意味ではない。
+351:- **SSOT優先順位**: runbook（最上位） > tracker（進捗） > handoff_prompt（便宜）
+1134:- 変更点: 新チャット添付は3ファイルのみ / SSOT最上位はrunbook・trackerは進捗 / 引継ぎテンプレ統一
+20:- SSOTは _handoff_check の3ファイル（**運用規範の最上位は runbook**／trackerは進捗／handoff_promptは便宜）
+75:- 2026-01-31T00:05:20+0900 | UPD-20260131-01 | Gate I: I1（入口定義） Done[x]（SSOT文言を runbook最上位 / trackerは進捗 に統一） | Evidence: PR#99 (merged), commit:6a7b31d, merge_commit:df8a60f

@@ -1,0 +1,26 @@
+=== JUDGEMENT (req①) ===
+RESULT: PASS
+REASON: LOGS/INDEX.md + cf-log-index.sh exist; log infrastructure established
+TIMESTAMP: 20260203T154326Z
+EVIDENCE_DIR: /home/masahiro/.cfctx_verify_root/.cfctx_verify/logs/evidence/20260203T154326Z_gateG
+
+=== JUDGEMENT (req②) ===
+RESULT: PASS
+REASON: LOG-009 reference chain intact (runbook + INDEX); STEP-G003 cross-referenced
+TIMESTAMP: 20260203T154326Z
+EVIDENCE_DIR: /home/masahiro/.cfctx_verify_root/.cfctx_verify/logs/evidence/20260203T154326Z_gateG
+
+=== JUDGEMENT (req③) ===
+RESULT: PASS
+REASON: Log tools operational: cf-doctor + cf-guard + cf-log-index present; INDEX non-empty
+TIMESTAMP: 20260203T154326Z
+EVIDENCE_DIR: /home/masahiro/.cfctx_verify_root/.cfctx_verify/logs/evidence/20260203T154326Z_gateG
+
+=== Gate Summary ===
+Gate: Gate G
+PASS: 3/3
+FAIL: 0/3
+CHECKSUM_INTEGRITY: true
+OVERALL: PASS
+EVIDENCE_DIR: /home/masahiro/.cfctx_verify_root/.cfctx_verify/logs/evidence/20260203T154326Z_gateG
+TIMESTAMP: 20260203T154326Z

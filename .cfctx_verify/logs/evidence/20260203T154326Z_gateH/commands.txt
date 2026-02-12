@@ -1,0 +1,3 @@
+[20260203T154326Z] req①: Check controller infrastructure additions
+[20260203T154326Z] req②: Controller coherence — routes/policy/manifest alignment
+[20260203T154326Z] req③: Functional controller checks

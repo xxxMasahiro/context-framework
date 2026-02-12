@@ -1,0 +1,10 @@
+=== Gate G req③: Functional Check ===
+CHECK: tools/cf-doctor.sh exists — PASS
+CHECK: tools/cf-guard.sh exists — PASS
+CHECK: tools/cf-log-index.sh exists — PASS
+CHECK: tools/cf-signature-report.sh exists — PASS
+CHECK: LOGS/INDEX.md non-empty — PASS
+CHECK: WORKFLOW/SPEC/gates/gate-g.yaml exists — PASS
+CHECK: cf-doctor.sh syntax valid — PASS
+
+Functional checks: 7/7 passed

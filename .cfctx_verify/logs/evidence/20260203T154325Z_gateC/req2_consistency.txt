@@ -1,0 +1,43 @@
+=== Gate C req②: Coherence Check ===
+
+--- CLAUDE.md references ---
+11:  - WORKFLOW/TOOLING/INITIAL_SETTINGS.md
+13:- 役割の行動規範は SSOT（Charter → Mode → Artifacts → Skills）に従う
+23:- Charter → Mode → Artifacts → Skills
+25:  - `WORKFLOW/MODES_AND_TRIGGERS.md`
+26:  - `WORKFLOW/GATES.md`
+27:  - `WORKFLOW/AUDIT.md`
+28:  - `WORKFLOW/BRANCHING.md`
+29:  - `ARTIFACTS/TASK_LISTS.md`
+30:  - `ARTIFACTS/IMPLEMENTATION_PLAN.md`
+31:  - `ARTIFACTS/WALKTHROUGH.md`
+
+--- AGENTS.md references ---
+11:  - WORKFLOW/TOOLING/INITIAL_SETTINGS.md
+13:- 役割の行動規範は SSOT（Charter → Mode → Artifacts → Skills）に従う
+23:- Charter → Mode → Artifacts → Skills
+25:  - `WORKFLOW/MODES_AND_TRIGGERS.md`
+26:  - `WORKFLOW/GATES.md`
+27:  - `WORKFLOW/AUDIT.md`
+28:  - `WORKFLOW/BRANCHING.md`
+29:  - `ARTIFACTS/TASK_LISTS.md`
+30:  - `ARTIFACTS/IMPLEMENTATION_PLAN.md`
+31:  - `ARTIFACTS/WALKTHROUGH.md`
+
+--- GEMINI.md references ---
+11:  - WORKFLOW/TOOLING/INITIAL_SETTINGS.md
+13:- 役割の行動規範は SSOT（Charter → Mode → Artifacts → Skills）に従う
+23:- Charter → Mode → Artifacts → Skills
+25:  - `WORKFLOW/MODES_AND_TRIGGERS.md`
+26:  - `WORKFLOW/GATES.md`
+27:  - `WORKFLOW/AUDIT.md`
+28:  - `WORKFLOW/BRANCHING.md`
+29:  - `ARTIFACTS/TASK_LISTS.md`
+30:  - `ARTIFACTS/IMPLEMENTATION_PLAN.md`
+31:  - `ARTIFACTS/WALKTHROUGH.md`
+
+--- LOGS/ content count ---
+Files in LOGS/: 5
+
+--- LOGS/INDEX.md ---
+EXISTS

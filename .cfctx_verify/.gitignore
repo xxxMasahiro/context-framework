@@ -1,0 +1,22 @@
+# Temporary Verification Kit: generated / transient artifacts
+
+# runs & evidence
+logs/
+
+# generated handoff output
+handoff/latest.md
+handoff/latest.txt
+
+# quarantine / lockdown artifacts (if used)
+.cfctx_quarantine/
+LOCKED.flag
+README_LOCKED.md
+
+# prevent recursive self-nesting (absolute path bugs)
+home/
+.cfctx_verify/
+
+# editor / OS noise
+.DS_Store
+*~
+*.swp
