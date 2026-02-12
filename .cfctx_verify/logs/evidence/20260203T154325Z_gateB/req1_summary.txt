@@ -1,0 +1,78 @@
+=== Gate B req①: Feature Summary ===
+ARTIFACTS/IMPLEMENTATION_PLAN.md: EXISTS
+
+--- Excerpt (first 50 lines) ---
+# Implementation Plan（実装計画 / Antigravity準拠）
+> 対象：`cf-dist_v0.1.3_complete.zip` を入力として、最終的に `cf-dist_v0.1.4_complete.zip` を生成する。
+> ここでは「どのファイルをどう変えるか」を **ファイル単位**で明確化し、レビュー可能にする。
+
+## Profile / Triggers
+- 定義：`../WORKFLOW/MODES_AND_TRIGGERS.md`
+- Profile:
+- Triggers: Yes | No
+- Reason:
+
+## 0. 変更方針（最重要）
+- **追加 + 最小修正**で完結させる（既存のPLAN/DESIGN_NOTE/RISK_ASSESSMENTは残す）
+- Antigravity 3点セットは **新テンプレとして標準搭載**し、参照ドキュメントと役割定義で “公式成果物” にする
+- Gate D（監査）の成果物は `ARTIFACTS/AUDIT_REPORT.md` / `ARTIFACTS/AUDIT_CHECKLIST.md` を参照
+
+---
+
+## 1. 変更対象（コンポーネント）
+### A) Core（正本）
+- 入力：`cf-core_v0.1.3.zip`
+- 出力：`cf-core_v0.1.4.zip`
+
+### B) Sample Product（workframe）
+- 入力：`cf-wf-sample-product_v0.1.1.zip`
+- 出力：`cf-wf-sample-product_v0.1.2.zip`
+- 変更対象：`workframe/core`（vendored core）
+
+### C) Dist（封筒）
+- 入力：`cf-dist_v0.1.3_complete.zip`
+- 出力：`cf-dist_v0.1.4_complete.zip`
+
+---
+
+## 2. 追加（Add）
+### Core / workframe-core 共通で追加するテンプレ（3点セット）
+追加先：
+- `artifacts/templates/`
+
+追加ファイル：
+- `TASK_LISTS.md`（Task Lists：タスク分割）
+- `IMPLEMENTATION_PLAN.md`（Implementation Plan：実装計画）
+- `WALKTHROUGH.md`（Walkthrough：検証）
+
+> これらの“ファイル内容（ひな形）”は `support/templates/` に同梱。  
+> 作業時は **同一内容を core と vendored core にコピー**する。
+
+---
+
+## 3. 修正（Modify）
+### Core / workframe-core 共通
+
+--- GATES.md Gate B section ---
+- コミット例：`gate(A): scope + done definition`
+
+### Gate B：Implementation Plan 合意
+- 目的：ファイル単位の差分計画を固定
+- 成果物：`ARTIFACTS/IMPLEMENTATION_PLAN.md` が埋まっている
+  - Profile/Triggers を確認（定義：`./MODES_AND_TRIGGERS.md`）
+- コミット例：`gate(B): implementation plan locked`
+
+### Gate C：Walkthrough 完走
+- 目的：再現性のある検証＋証跡を残す
+- 成果物：
+  - `ARTIFACTS/WALKTHROUGH.md` が更新されている
+  - `LOGS/` に実行ログが置かれている
+  - Profile/Triggers と証跡が整合（定義：`./MODES_AND_TRIGGERS.md`）
+- コミット例：`gate(C): walkthrough passed (logs attached)`
+
+### Gate D：Audit 完了
+- 目的：第三者視点でEvidenceの整合性を監査する
+- 成果物：
+  - `ARTIFACTS/AUDIT_REPORT.md` が更新されている
+  - `ARTIFACTS/AUDIT_CHECKLIST.md` が更新されている
+  - 監査運用の定義は `./AUDIT.md`

@@ -1,0 +1,8 @@
+=== Gate D req③: Functional Check ===
+CHECK: WORKFLOW/AUDIT.md exists and non-empty — PASS
+CHECK: AUDIT_REPORT.md exists — PASS
+CHECK: AUDIT_CHECKLIST.md exists — PASS
+CHECK: PROMPTS/AUDITOR.md exists — PASS
+CHECK: AUDIT.md contains PASS/FAIL markers — PASS
+
+Functional checks: 5/5 passed

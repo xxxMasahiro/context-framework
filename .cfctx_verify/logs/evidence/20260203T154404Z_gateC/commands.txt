@@ -1,0 +1,5 @@
+[20260203T154404Z] req①: Check WALKTHROUGH.md and LOGS/ exist
+[20260203T154404Z] EXISTS: Walkthrough artifact (ARTIFACTS/WALKTHROUGH.md)
+[20260203T154404Z] req②: Adapter reference consistency and LOGS/ presence
+[20260203T154404Z] EXISTS: WORKFLOW/GATES.md (WORKFLOW/GATES.md)
+[20260203T154404Z] req③: Functional adapter reference check

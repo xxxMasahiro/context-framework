@@ -1,0 +1,7 @@
+=== Gate A req③: Functional Check ===
+
+CHECK: ARTIFACTS/TASK_LISTS.md exists — PASS
+CHECK: WORKFLOW/GATES.md exists — PASS
+CHECK: TASK_LISTS.md is non-empty — PASS
+
+Functional checks: 3/3 passed

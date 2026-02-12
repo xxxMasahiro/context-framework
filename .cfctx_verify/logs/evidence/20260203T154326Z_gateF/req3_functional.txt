@@ -1,0 +1,10 @@
+=== Gate F req③: Functional Check ===
+CHECK: INITIAL_SETTINGS.md exists and non-empty — PASS
+CHECK: agent_role_assignment.example.yaml exists — PASS
+CHECK: COEXIST_3FILES.md exists — PASS
+CHECK: CLAUDE.md exists — PASS
+CHECK: AGENTS.md exists — PASS
+CHECK: GEMINI.md exists — PASS
+CHECK: .gitignore protects local role files — PASS
+
+Functional checks: 7/7 passed

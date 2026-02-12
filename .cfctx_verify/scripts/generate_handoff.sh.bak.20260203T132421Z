@@ -1,0 +1,76 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Temporary Verification Kit: unified handoff generator
+# Output source of truth: handoff/latest.md (and latest.txt)
+
+if [[ -z "${CFCTX_VERIFY_ROOT:-}" ]]; then
+  echo "FAIL: CFCTX_VERIFY_ROOT is not set" >&2
+  exit 1
+fi
+
+BASE="${CFCTX_VERIFY_ROOT}/.cfctx_verify"
+OUT_MD="${BASE}/handoff/latest.md"
+OUT_TXT="${BASE}/handoff/latest.txt"
+
+mkdir -p "${BASE}/handoff"
+
+# Collect minimal, reproducible context for Codex high
+# NOTE: Keep this script read-only for the repo.
+
+{
+  echo "# Handoff (Temporary Verification Kit)"
+  echo
+  echo "## Meta"
+  echo "- ts (UTC): $(date -u '+%Y-%m-%dT%H:%M:%SZ')"
+  echo "- ts (JST): $(TZ=Asia/Tokyo date '+%Y-%m-%d %H:%M:%S %Z')"
+  echo "- CFCTX_VERIFY_ROOT: ${CFCTX_VERIFY_ROOT}"
+  echo "- kit root: ${BASE}"
+  echo
+  echo "## SSOT snapshot (copied)"
+  echo "- SSOT/cf_handoff_prompt.md"
+  echo "- SSOT/cf_update_runbook.md"
+  echo "- SSOT/cf_task_tracker_v5.md"
+  echo
+  echo "## Run rules"
+  echo "- context/run_rules.md"
+  echo
+  echo "## Verification tracker"
+  echo "- tasks/verify_task_tracker.md"
+  echo
+  echo "## Testing tracker"
+  echo "- tasks/test_task_tracker.md"
+  echo
+  echo "## As-built tracker"
+  echo "- tasks/as_built_task_tracker.md"
+  echo
+  echo "## Verification docs (canonical, in-kit)"
+  echo "- verify/verify_requirements.md"
+  echo "- verify/verify_spec.md"
+  echo "- verify/verify_implementation_plan.md"
+  echo
+echo ""
+echo "## Codex high prompt"
+echo "- context/codex_high_prompt.md"
+
+echo ""
+echo "## Evidence (latest additions)"
+EVIDENCE_DIR="$BASE/logs/evidence"
+if [ -d "$EVIDENCE_DIR" ] && ls "$EVIDENCE_DIR"/*.txt >/dev/null 2>&1; then
+  ls -1t "$EVIDENCE_DIR"/*.txt | head -n 10 | while read -r f; do
+    echo "- ${f#$BASE/}"
+  done
+else
+  echo "- (none)"
+fi
+
+  echo "## Notes"
+  echo "- This kit is generated outside repo by default (safety)."
+  echo "- Evidence should be saved under logs/evidence/ and referenced from the tracker."
+} > "${OUT_MD}"
+
+# Also provide plain text version for tools that prefer txt
+cp -f "${OUT_MD}" "${OUT_TXT}"
+
+echo "OK: wrote ${OUT_MD}"
+echo "OK: wrote ${OUT_TXT}"
