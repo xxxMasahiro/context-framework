@@ -1,7 +1,7 @@
 # Context Framework (Bootstrap) for cf-dist v0.1.4
 
 このZIPは **`cf-dist_v0.1.4_procedure_antigravity-3artifacts`（手順書ZIP）** を“唯一の拠り所”として、
-**PR無し（ただしブランチ運用＋Gateコミット）**で安全に作業を進めるための **コンテキストフレームワーク一式**です。
+**PR経由（Gateコミット＋レビュー）**で安全に作業を進めるための **コンテキストフレームワーク一式**です。
 
 - 想定：あなた（開発者）が **GO/STOP**、ChatGPTが **Architect + Orchestrator**、Codexが **Crafter + CI/QA**
 - 主作業：Markdown（追加/修正/削除）

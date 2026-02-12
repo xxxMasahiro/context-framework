@@ -2,7 +2,7 @@
 関連: [MODES_AND_TRIGGERS.md](./MODES_AND_TRIGGERS.md)  # Profile/Triggersの定義
 
 ## 目的
-PRを使わない代わりに、ブランチとコミット規律で “レビュー可能性” を確保します。
+PR経由でのマージとブランチ・コミット規律で "レビュー可能性" を確保します。
 
 ## ルール
 - main直コミット禁止

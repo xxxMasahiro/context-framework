@@ -1,0 +1,557 @@
+name: CI/CQ
+on: [push, pull_request]
+permissions:
+  contents: read
+
+env:
+  CIQA_REF: "<full-commit-sha>"
+  CIQA_RETENTION: ${{ vars.CIQA_RETENTION_DAYS || 30 }}
+
+jobs:
+  phase0:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+        with:
+          path: target
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+        with:
+          repository: xxxMasahiro/ciqa
+          ref: ${{ env.CIQA_REF }}
+          token: ${{ secrets.CIQA_READ_TOKEN || github.token }}
+          path: ciqa
+      - name: Verify CIQA_REF checkout integrity
+        run: |
+          ACTUAL_SHA=$(git -C ciqa rev-parse HEAD)
+          if [[ "$ACTUAL_SHA" != "${{ env.CIQA_REF }}" ]]; then
+            echo "::error::CIQA_REF mismatch: expected=${{ env.CIQA_REF }}, actual=${ACTUAL_SHA}"
+            exit 1
+          fi
+          echo "CIQA_REF verified: ${ACTUAL_SHA}"
+      - name: Validate no unresolved placeholders
+        run: |
+          WF_DIR="target/.github/workflows"
+          WF_CIQA="${WF_DIR}/ciqa.yml"
+          if [[ ! -f "$WF_CIQA" ]]; then
+            echo "::error::Workflow file not found: ${WF_CIQA}"
+            exit 1
+          fi
+          if grep -rqE '<full-sha>|<full-commit-sha>|\{owner\}|\{repo\}|\{sha\}' "$WF_DIR"; then
+            echo "::error::Unresolved placeholders found in ${WF_DIR}/:"
+            grep -rnE '<full-sha>|<full-commit-sha>|\{owner\}|\{repo\}|\{sha\}' "$WF_DIR"
+            exit 1
+          fi
+          echo "Placeholder validation PASSED: no unresolved tokens in ${WF_DIR}/"
+      - name: Install dependencies
+        run: |
+          sudo apt-get update -q
+          sudo apt-get install -y -q jq uuid-runtime
+          SC_SHA256=$(grep -A3 'shellcheck:' ciqa/config/tool_checksums.yml | grep 'sha256:' | head -1 | awk '{print $2}' | tr -d '"')
+          curl -fsSL "https://github.com/koalaman/shellcheck/releases/download/v0.10.0/shellcheck-v0.10.0.linux.x86_64.tar.xz" -o /tmp/shellcheck.tar.xz
+          echo "${SC_SHA256}  /tmp/shellcheck.tar.xz" | sha256sum -c -
+          tar -xJ -C /tmp -f /tmp/shellcheck.tar.xz
+          sudo cp /tmp/shellcheck-v0.10.0/shellcheck /usr/local/bin/shellcheck
+          YQ_SHA256=$(grep -A3 '  yq:' ciqa/config/tool_checksums.yml | grep 'sha256:' | head -1 | awk '{print $2}' | tr -d '"')
+          curl -fsSL "https://github.com/mikefarah/yq/releases/download/v4.44.1/yq_linux_amd64" -o /tmp/yq_binary
+          echo "${YQ_SHA256}  /tmp/yq_binary" | sha256sum -c -
+          sudo cp /tmp/yq_binary /usr/local/bin/yq && sudo chmod +x /usr/local/bin/yq
+          cd ciqa && npm ci
+          echo "$PWD/node_modules/.bin" >> "$GITHUB_PATH"
+      - name: Verify CF profile exists
+        run: |
+          if [[ ! -f ciqa/profiles/cf-context-framework/profile.yml ]]; then
+            echo "::error::CF profile not found: ciqa/profiles/cf-context-framework/profile.yml"
+            exit 1
+          fi
+      - name: Run phase0
+        id: ciqa_run
+        run: |
+          cd ciqa
+          ./ciqa phase0 --repo "${{ github.workspace }}/target" \
+            --profile cf-context-framework
+      - name: Scan secrets before upload
+        if: always()
+        id: secrets_check
+        run: |
+          log_error() { echo "[ERROR] $*" >&2; }
+          log_info() { echo "[INFO] $*"; }
+          log_warn() { echo "[WARN] $*"; }
+          source ciqa/core/evidence.sh
+          SECRETS_BLOCKED=false
+          if [[ -d ciqa/evidence/ ]] && ! scan_secrets ciqa/evidence/; then
+            echo "::error::Secrets detected in evidence — upload BLOCKED"
+            SECRETS_BLOCKED=true
+            echo "**EXIT 2**: reason=E_INTERNAL (secrets detected in evidence)" >> "$GITHUB_STEP_SUMMARY"
+          fi
+          echo "blocked=${SECRETS_BLOCKED}" >> "$GITHUB_OUTPUT"
+          if [[ "$SECRETS_BLOCKED" == "true" ]]; then
+            exit 2
+          fi
+      - name: Upload evidence
+        if: always() && steps.secrets_check.outputs.blocked != 'true'
+        uses: actions/upload-artifact@5d5d22a31266ced268874388b861e4b58bb5c2f3
+        with:
+          name: evidence-phase0-${{ github.run_id }}
+          path: ciqa/evidence/
+          retention-days: ${{ steps.ciqa_run.outputs.retention_days || env.CIQA_RETENTION }}
+
+  lint:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    needs: [phase0]
+    steps:
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+        with:
+          path: target
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+        with:
+          repository: xxxMasahiro/ciqa
+          ref: ${{ env.CIQA_REF }}
+          token: ${{ secrets.CIQA_READ_TOKEN || github.token }}
+          path: ciqa
+      - name: Verify CIQA_REF checkout integrity
+        run: |
+          ACTUAL_SHA=$(git -C ciqa rev-parse HEAD)
+          if [[ "$ACTUAL_SHA" != "${{ env.CIQA_REF }}" ]]; then
+            echo "::error::CIQA_REF mismatch: expected=${{ env.CIQA_REF }}, actual=${ACTUAL_SHA}"
+            exit 1
+          fi
+      - name: Install dependencies
+        run: |
+          sudo apt-get update -q
+          sudo apt-get install -y -q jq uuid-runtime
+          SC_SHA256=$(grep -A3 'shellcheck:' ciqa/config/tool_checksums.yml | grep 'sha256:' | head -1 | awk '{print $2}' | tr -d '"')
+          curl -fsSL "https://github.com/koalaman/shellcheck/releases/download/v0.10.0/shellcheck-v0.10.0.linux.x86_64.tar.xz" -o /tmp/shellcheck.tar.xz
+          echo "${SC_SHA256}  /tmp/shellcheck.tar.xz" | sha256sum -c -
+          tar -xJ -C /tmp -f /tmp/shellcheck.tar.xz
+          sudo cp /tmp/shellcheck-v0.10.0/shellcheck /usr/local/bin/shellcheck
+          YQ_SHA256=$(grep -A3 '  yq:' ciqa/config/tool_checksums.yml | grep 'sha256:' | head -1 | awk '{print $2}' | tr -d '"')
+          curl -fsSL "https://github.com/mikefarah/yq/releases/download/v4.44.1/yq_linux_amd64" -o /tmp/yq_binary
+          echo "${YQ_SHA256}  /tmp/yq_binary" | sha256sum -c -
+          sudo cp /tmp/yq_binary /usr/local/bin/yq && sudo chmod +x /usr/local/bin/yq
+          cd ciqa && npm ci
+          echo "$PWD/node_modules/.bin" >> "$GITHUB_PATH"
+      - name: Verify CF profile exists
+        run: |
+          if [[ ! -f ciqa/profiles/cf-context-framework/profile.yml ]]; then
+            echo "::error::CF profile not found: ciqa/profiles/cf-context-framework/profile.yml"
+            exit 1
+          fi
+      - name: Run lint
+        id: ciqa_run
+        run: |
+          cd ciqa
+          ./ciqa lint --repo "${{ github.workspace }}/target" \
+            --profile cf-context-framework
+      - name: Scan secrets before upload
+        if: always()
+        id: secrets_check
+        run: |
+          log_error() { echo "[ERROR] $*" >&2; }
+          log_info() { echo "[INFO] $*"; }
+          log_warn() { echo "[WARN] $*"; }
+          source ciqa/core/evidence.sh
+          SECRETS_BLOCKED=false
+          if [[ -d ciqa/evidence/ ]] && ! scan_secrets ciqa/evidence/; then
+            echo "::error::Secrets detected in evidence — upload BLOCKED"
+            SECRETS_BLOCKED=true
+            echo "**EXIT 2**: reason=E_INTERNAL (secrets detected in evidence)" >> "$GITHUB_STEP_SUMMARY"
+          fi
+          echo "blocked=${SECRETS_BLOCKED}" >> "$GITHUB_OUTPUT"
+          if [[ "$SECRETS_BLOCKED" == "true" ]]; then
+            exit 2
+          fi
+      - name: Upload evidence
+        if: always() && steps.secrets_check.outputs.blocked != 'true'
+        uses: actions/upload-artifact@5d5d22a31266ced268874388b861e4b58bb5c2f3
+        with:
+          name: evidence-lint-${{ github.run_id }}
+          path: ciqa/evidence/
+          retention-days: ${{ steps.ciqa_run.outputs.retention_days || env.CIQA_RETENTION }}
+
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    needs: [lint]
+    steps:
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+        with:
+          path: target
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+        with:
+          repository: xxxMasahiro/ciqa
+          ref: ${{ env.CIQA_REF }}
+          token: ${{ secrets.CIQA_READ_TOKEN || github.token }}
+          path: ciqa
+      - name: Verify CIQA_REF checkout integrity
+        run: |
+          ACTUAL_SHA=$(git -C ciqa rev-parse HEAD)
+          if [[ "$ACTUAL_SHA" != "${{ env.CIQA_REF }}" ]]; then
+            echo "::error::CIQA_REF mismatch: expected=${{ env.CIQA_REF }}, actual=${ACTUAL_SHA}"
+            exit 1
+          fi
+      - name: Install dependencies
+        run: |
+          sudo apt-get update -q
+          sudo apt-get install -y -q jq uuid-runtime
+          SC_SHA256=$(grep -A3 'shellcheck:' ciqa/config/tool_checksums.yml | grep 'sha256:' | head -1 | awk '{print $2}' | tr -d '"')
+          curl -fsSL "https://github.com/koalaman/shellcheck/releases/download/v0.10.0/shellcheck-v0.10.0.linux.x86_64.tar.xz" -o /tmp/shellcheck.tar.xz
+          echo "${SC_SHA256}  /tmp/shellcheck.tar.xz" | sha256sum -c -
+          tar -xJ -C /tmp -f /tmp/shellcheck.tar.xz
+          sudo cp /tmp/shellcheck-v0.10.0/shellcheck /usr/local/bin/shellcheck
+          YQ_SHA256=$(grep -A3 '  yq:' ciqa/config/tool_checksums.yml | grep 'sha256:' | head -1 | awk '{print $2}' | tr -d '"')
+          curl -fsSL "https://github.com/mikefarah/yq/releases/download/v4.44.1/yq_linux_amd64" -o /tmp/yq_binary
+          echo "${YQ_SHA256}  /tmp/yq_binary" | sha256sum -c -
+          sudo cp /tmp/yq_binary /usr/local/bin/yq && sudo chmod +x /usr/local/bin/yq
+          cd ciqa && npm ci
+          echo "$PWD/node_modules/.bin" >> "$GITHUB_PATH"
+      - name: Verify CF profile exists
+        run: |
+          if [[ ! -f ciqa/profiles/cf-context-framework/profile.yml ]]; then
+            echo "::error::CF profile not found: ciqa/profiles/cf-context-framework/profile.yml"
+            exit 1
+          fi
+      - name: Run build
+        id: ciqa_run
+        run: |
+          cd ciqa
+          ./ciqa build --repo "${{ github.workspace }}/target" \
+            --profile cf-context-framework
+      - name: Scan secrets before upload
+        if: always()
+        id: secrets_check
+        run: |
+          log_error() { echo "[ERROR] $*" >&2; }
+          log_info() { echo "[INFO] $*"; }
+          log_warn() { echo "[WARN] $*"; }
+          source ciqa/core/evidence.sh
+          SECRETS_BLOCKED=false
+          if [[ -d ciqa/evidence/ ]] && ! scan_secrets ciqa/evidence/; then
+            echo "::error::Secrets detected in evidence — upload BLOCKED"
+            SECRETS_BLOCKED=true
+            echo "**EXIT 2**: reason=E_INTERNAL (secrets detected in evidence)" >> "$GITHUB_STEP_SUMMARY"
+          fi
+          echo "blocked=${SECRETS_BLOCKED}" >> "$GITHUB_OUTPUT"
+          if [[ "$SECRETS_BLOCKED" == "true" ]]; then
+            exit 2
+          fi
+      - name: Upload evidence
+        if: always() && steps.secrets_check.outputs.blocked != 'true'
+        uses: actions/upload-artifact@5d5d22a31266ced268874388b861e4b58bb5c2f3
+        with:
+          name: evidence-build-${{ github.run_id }}
+          path: ciqa/evidence/
+          retention-days: ${{ steps.ciqa_run.outputs.retention_days || env.CIQA_RETENTION }}
+
+  unit_test:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    needs: [build]
+    steps:
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+        with:
+          path: target
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+        with:
+          repository: xxxMasahiro/ciqa
+          ref: ${{ env.CIQA_REF }}
+          token: ${{ secrets.CIQA_READ_TOKEN || github.token }}
+          path: ciqa
+      - name: Verify CIQA_REF checkout integrity
+        run: |
+          ACTUAL_SHA=$(git -C ciqa rev-parse HEAD)
+          if [[ "$ACTUAL_SHA" != "${{ env.CIQA_REF }}" ]]; then
+            echo "::error::CIQA_REF mismatch: expected=${{ env.CIQA_REF }}, actual=${ACTUAL_SHA}"
+            exit 1
+          fi
+      - name: Install dependencies
+        run: |
+          sudo apt-get update -q
+          sudo apt-get install -y -q jq uuid-runtime
+          SC_SHA256=$(grep -A3 'shellcheck:' ciqa/config/tool_checksums.yml | grep 'sha256:' | head -1 | awk '{print $2}' | tr -d '"')
+          curl -fsSL "https://github.com/koalaman/shellcheck/releases/download/v0.10.0/shellcheck-v0.10.0.linux.x86_64.tar.xz" -o /tmp/shellcheck.tar.xz
+          echo "${SC_SHA256}  /tmp/shellcheck.tar.xz" | sha256sum -c -
+          tar -xJ -C /tmp -f /tmp/shellcheck.tar.xz
+          sudo cp /tmp/shellcheck-v0.10.0/shellcheck /usr/local/bin/shellcheck
+          YQ_SHA256=$(grep -A3 '  yq:' ciqa/config/tool_checksums.yml | grep 'sha256:' | head -1 | awk '{print $2}' | tr -d '"')
+          curl -fsSL "https://github.com/mikefarah/yq/releases/download/v4.44.1/yq_linux_amd64" -o /tmp/yq_binary
+          echo "${YQ_SHA256}  /tmp/yq_binary" | sha256sum -c -
+          sudo cp /tmp/yq_binary /usr/local/bin/yq && sudo chmod +x /usr/local/bin/yq
+          cd ciqa && npm ci
+          echo "$PWD/node_modules/.bin" >> "$GITHUB_PATH"
+      - name: Verify CF profile exists
+        run: |
+          if [[ ! -f ciqa/profiles/cf-context-framework/profile.yml ]]; then
+            echo "::error::CF profile not found: ciqa/profiles/cf-context-framework/profile.yml"
+            exit 1
+          fi
+      - name: Run unit_test
+        id: ciqa_run
+        run: |
+          cd ciqa
+          ./ciqa test --repo "${{ github.workspace }}/target" \
+            --profile cf-context-framework
+      - name: Scan secrets before upload
+        if: always()
+        id: secrets_check
+        run: |
+          log_error() { echo "[ERROR] $*" >&2; }
+          log_info() { echo "[INFO] $*"; }
+          log_warn() { echo "[WARN] $*"; }
+          source ciqa/core/evidence.sh
+          SECRETS_BLOCKED=false
+          if [[ -d ciqa/evidence/ ]] && ! scan_secrets ciqa/evidence/; then
+            echo "::error::Secrets detected in evidence — upload BLOCKED"
+            SECRETS_BLOCKED=true
+            echo "**EXIT 2**: reason=E_INTERNAL (secrets detected in evidence)" >> "$GITHUB_STEP_SUMMARY"
+          fi
+          echo "blocked=${SECRETS_BLOCKED}" >> "$GITHUB_OUTPUT"
+          if [[ "$SECRETS_BLOCKED" == "true" ]]; then
+            exit 2
+          fi
+      - name: Upload evidence
+        if: always() && steps.secrets_check.outputs.blocked != 'true'
+        uses: actions/upload-artifact@5d5d22a31266ced268874388b861e4b58bb5c2f3
+        with:
+          name: evidence-test-${{ github.run_id }}
+          path: ciqa/evidence/
+          retention-days: ${{ steps.ciqa_run.outputs.retention_days || env.CIQA_RETENTION }}
+
+  cq:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    needs: [unit_test]
+    steps:
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+        with:
+          path: target
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+        with:
+          repository: xxxMasahiro/ciqa
+          ref: ${{ env.CIQA_REF }}
+          token: ${{ secrets.CIQA_READ_TOKEN || github.token }}
+          path: ciqa
+      - name: Verify CIQA_REF checkout integrity
+        run: |
+          ACTUAL_SHA=$(git -C ciqa rev-parse HEAD)
+          if [[ "$ACTUAL_SHA" != "${{ env.CIQA_REF }}" ]]; then
+            echo "::error::CIQA_REF mismatch: expected=${{ env.CIQA_REF }}, actual=${ACTUAL_SHA}"
+            exit 1
+          fi
+      - name: Install dependencies
+        run: |
+          sudo apt-get update -q
+          sudo apt-get install -y -q jq uuid-runtime
+          SC_SHA256=$(grep -A3 'shellcheck:' ciqa/config/tool_checksums.yml | grep 'sha256:' | head -1 | awk '{print $2}' | tr -d '"')
+          curl -fsSL "https://github.com/koalaman/shellcheck/releases/download/v0.10.0/shellcheck-v0.10.0.linux.x86_64.tar.xz" -o /tmp/shellcheck.tar.xz
+          echo "${SC_SHA256}  /tmp/shellcheck.tar.xz" | sha256sum -c -
+          tar -xJ -C /tmp -f /tmp/shellcheck.tar.xz
+          sudo cp /tmp/shellcheck-v0.10.0/shellcheck /usr/local/bin/shellcheck
+          YQ_SHA256=$(grep -A3 '  yq:' ciqa/config/tool_checksums.yml | grep 'sha256:' | head -1 | awk '{print $2}' | tr -d '"')
+          curl -fsSL "https://github.com/mikefarah/yq/releases/download/v4.44.1/yq_linux_amd64" -o /tmp/yq_binary
+          echo "${YQ_SHA256}  /tmp/yq_binary" | sha256sum -c -
+          sudo cp /tmp/yq_binary /usr/local/bin/yq && sudo chmod +x /usr/local/bin/yq
+          cd ciqa && npm ci
+          echo "$PWD/node_modules/.bin" >> "$GITHUB_PATH"
+      - name: Verify CF profile exists
+        run: |
+          if [[ ! -f ciqa/profiles/cf-context-framework/profile.yml ]]; then
+            echo "::error::CF profile not found: ciqa/profiles/cf-context-framework/profile.yml"
+            exit 1
+          fi
+      - name: Run cq
+        id: cq_run
+        run: |
+          cd ciqa
+          ./ciqa cq --repo "${{ github.workspace }}/target" \
+            --profile cf-context-framework
+      - name: Scan secrets before upload
+        if: always()
+        id: secrets_check
+        run: |
+          log_error() { echo "[ERROR] $*" >&2; }
+          log_info() { echo "[INFO] $*"; }
+          log_warn() { echo "[WARN] $*"; }
+          source ciqa/core/evidence.sh
+          SECRETS_BLOCKED=false
+          if [[ -d ciqa/evidence/ ]] && ! scan_secrets ciqa/evidence/; then
+            echo "::error::Secrets detected in evidence — upload BLOCKED"
+            SECRETS_BLOCKED=true
+            echo "**EXIT 2**: reason=E_INTERNAL (secrets detected in evidence)" >> "$GITHUB_STEP_SUMMARY"
+          fi
+          echo "blocked=${SECRETS_BLOCKED}" >> "$GITHUB_OUTPUT"
+          if [[ "$SECRETS_BLOCKED" == "true" ]]; then
+            exit 2
+          fi
+      - name: Upload evidence
+        if: always() && steps.secrets_check.outputs.blocked != 'true'
+        uses: actions/upload-artifact@5d5d22a31266ced268874388b861e4b58bb5c2f3
+        with:
+          name: evidence-cq-${{ github.run_id }}
+          path: ciqa/evidence/
+          retention-days: ${{ steps.cq_run.outputs.retention_days || env.CIQA_RETENTION }}
+
+  report:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    needs: [cq]
+    steps:
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+        with:
+          path: target
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+        with:
+          repository: xxxMasahiro/ciqa
+          ref: ${{ env.CIQA_REF }}
+          token: ${{ secrets.CIQA_READ_TOKEN || github.token }}
+          path: ciqa
+      - name: Verify CIQA_REF checkout integrity
+        run: |
+          ACTUAL_SHA=$(git -C ciqa rev-parse HEAD)
+          if [[ "$ACTUAL_SHA" != "${{ env.CIQA_REF }}" ]]; then
+            echo "::error::CIQA_REF mismatch: expected=${{ env.CIQA_REF }}, actual=${ACTUAL_SHA}"
+            exit 1
+          fi
+      - name: Install dependencies
+        run: |
+          sudo apt-get update -q
+          sudo apt-get install -y -q jq uuid-runtime
+          SC_SHA256=$(grep -A3 'shellcheck:' ciqa/config/tool_checksums.yml | grep 'sha256:' | head -1 | awk '{print $2}' | tr -d '"')
+          curl -fsSL "https://github.com/koalaman/shellcheck/releases/download/v0.10.0/shellcheck-v0.10.0.linux.x86_64.tar.xz" -o /tmp/shellcheck.tar.xz
+          echo "${SC_SHA256}  /tmp/shellcheck.tar.xz" | sha256sum -c -
+          tar -xJ -C /tmp -f /tmp/shellcheck.tar.xz
+          sudo cp /tmp/shellcheck-v0.10.0/shellcheck /usr/local/bin/shellcheck
+          YQ_SHA256=$(grep -A3 '  yq:' ciqa/config/tool_checksums.yml | grep 'sha256:' | head -1 | awk '{print $2}' | tr -d '"')
+          curl -fsSL "https://github.com/mikefarah/yq/releases/download/v4.44.1/yq_linux_amd64" -o /tmp/yq_binary
+          echo "${YQ_SHA256}  /tmp/yq_binary" | sha256sum -c -
+          sudo cp /tmp/yq_binary /usr/local/bin/yq && sudo chmod +x /usr/local/bin/yq
+          cd ciqa && npm ci
+          echo "$PWD/node_modules/.bin" >> "$GITHUB_PATH"
+      - name: Verify CF profile exists
+        run: |
+          if [[ ! -f ciqa/profiles/cf-context-framework/profile.yml ]]; then
+            echo "::error::CF profile not found: ciqa/profiles/cf-context-framework/profile.yml"
+            exit 1
+          fi
+      - name: Run full pipeline + report
+        id: pipeline
+        run: |
+          cd ciqa
+          PIPELINE_EXIT=0
+          ./ciqa all --repo "${{ github.workspace }}/target" \
+            --profile cf-context-framework \
+            --retention-days "${{ env.CIQA_RETENTION }}" || PIPELINE_EXIT=$?
+          echo "pipeline_exit=${PIPELINE_EXIT}" >> "$GITHUB_OUTPUT"
+          ./ciqa report || true
+          exit "$PIPELINE_EXIT"
+      - name: Scan secrets before upload
+        if: always()
+        id: secrets_check
+        run: |
+          log_error() { echo "[ERROR] $*" >&2; }
+          log_info() { echo "[INFO] $*"; }
+          log_warn() { echo "[WARN] $*"; }
+          source ciqa/core/evidence.sh
+          SECRETS_BLOCKED=false
+          if [[ -d ciqa/evidence/ ]] && ! scan_secrets ciqa/evidence/; then
+            echo "::error::Secrets detected in evidence — upload BLOCKED"
+            SECRETS_BLOCKED=true
+            echo "**EXIT 2**: reason=E_INTERNAL (secrets detected in evidence)" >> "$GITHUB_STEP_SUMMARY"
+          fi
+          echo "blocked=${SECRETS_BLOCKED}" >> "$GITHUB_OUTPUT"
+          if [[ "$SECRETS_BLOCKED" == "true" ]]; then
+            exit 2
+          fi
+      - name: Upload evidence
+        if: always() && steps.secrets_check.outputs.blocked != 'true'
+        uses: actions/upload-artifact@5d5d22a31266ced268874388b861e4b58bb5c2f3
+        with:
+          name: evidence-${{ github.run_id }}
+          path: ciqa/evidence/
+          retention-days: ${{ steps.pipeline.outputs.retention_days || env.CIQA_RETENTION }}
+
+  notify_failure:
+    needs: [phase0, lint, build, unit_test, cq, report]
+    if: failure() && github.event_name == 'pull_request'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+      - name: Install dependencies
+        run: |
+          sudo apt-get update -q
+          sudo apt-get install -y -q jq
+      - name: Download evidence
+        uses: actions/download-artifact@c850b930e6ba138125429b7e5c93fc707a7f8427
+        with:
+          pattern: evidence-*
+          path: evidence/
+          merge-multiple: true
+        continue-on-error: true
+      - name: Post failure comment
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          EXIT_CODE="unknown"
+          REASON_CODE="unknown"
+          META_FILE=""
+          if [[ -f evidence/meta.json ]]; then
+            META_FILE="evidence/meta.json"
+          else
+            META_FILE=$(find evidence -name meta.json -type f 2>/dev/null | head -1)
+          fi
+          if [[ -n "$META_FILE" && -f "$META_FILE" ]]; then
+            EXIT_CODE=$(jq -r '.exit_code // "unknown"' "$META_FILE" 2>/dev/null || echo "unknown")
+            REASON_CODE=$(jq -r '.reason_code // "null"' "$META_FILE" 2>/dev/null || echo "null")
+          fi
+          FAIL_TABLE="| チェック | 結果 | 詳細 |\n|----------|------|------|\n"
+          EVIDENCE_FOUND=false
+          while IFS= read -r result_file; do
+            [[ ! -f "$result_file" ]] && continue
+            EVIDENCE_FOUND=true
+            check_dir=$(dirname "$result_file")
+            check_name=$(basename "$check_dir")
+            c_exit=$(jq -r '.exit_code' "$result_file" 2>/dev/null || echo "unknown")
+            c_summary=$(jq -r '.summary' "$result_file" 2>/dev/null || echo "")
+            if [[ "$c_exit" != "0" ]]; then
+              FAIL_TABLE+="| ${check_name} | FAIL | ${c_summary} |\n"
+            fi
+          done < <(find evidence -path '*/result.json' -type f 2>/dev/null)
+          if [[ "$EVIDENCE_FOUND" == "false" ]]; then
+            FAIL_TABLE+="| (証跡取得失敗) | - | Evidence artifacts unavailable — 失敗ジョブ: "
+            for job_result in \
+              "phase0=${{ needs.phase0.result }}" \
+              "lint=${{ needs.lint.result }}" \
+              "build=${{ needs.build.result }}" \
+              "unit_test=${{ needs.unit_test.result }}" \
+              "cq=${{ needs.cq.result }}" \
+              "report=${{ needs.report.result }}"; do
+              job_name="${job_result%%=*}"
+              job_status="${job_result##*=}"
+              if [[ "$job_status" == "failure" ]]; then
+                FAIL_TABLE+="${job_name} "
+              fi
+            done
+            FAIL_TABLE+="|\n"
+          fi
+          REASON_LABEL="${REASON_CODE}"
+          [[ "$REASON_CODE" == "null" ]] && REASON_LABEL="検査失敗"
+          COMMENT_BODY="## CI/CQ 失敗レポート
+
+          **Run ID**: ${{ github.run_id }}
+          **Exit Code**: ${EXIT_CODE}
+          **Reason**: ${REASON_LABEL}
+
+          ### 失敗チェック
+          $(echo -e "$FAIL_TABLE")
+
+          ### 証跡
+          [Evidence artifact](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts)"
+
+          gh pr comment "${{ github.event.pull_request.number }}" \
+            --repo "${{ github.repository }}" \
+            --body "$COMMENT_BODY"

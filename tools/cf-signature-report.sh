@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-REPO="/home/masahiro/projects/_cfctx/cf-context-framework"
 MIN=2
 SCOPE="."
 

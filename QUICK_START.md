@@ -2,7 +2,7 @@
 
 このフレームワークをそのまま **新規リポジトリ**として使う前提です。
 
-## 1) リポジトリ作成（PR無し運用）
+## 1) リポジトリ作成（PR経由運用）
 
 ```bash
 mkdir cf-dist-v0.1.4-work
@@ -22,7 +22,7 @@ git checkout -b wip/v0.1.4
 3. あなた（Developer）が GO  
 4. `PROMPTS/CODEX_CRAFTER.md` を Codex に貼って実装開始  
 5. `PROMPTS/CODEX_CIQA.md` を Codex に貼って検証  
-6. Gate C が通ったら main に反映（FF merge推奨）
+6. Gate C が通ったら main に反映（PR経由でマージ）
 
 ## 3) 入力ZIP（v0.1.3）について
 

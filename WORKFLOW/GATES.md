@@ -1,6 +1,6 @@
 # WORKFLOW / GATES
 
-PR無し運用の代わりに **Gateコミット**でレビューと証跡を残します。
+PR経由の運用で **Gateコミット**によるレビューと証跡を残します。
 
 ## ブランチ規約
 - `main`：常に安定。GOの無い変更は入れない
@@ -36,9 +36,7 @@ PR無し運用の代わりに **Gateコミット**でレビューと証跡を残
   - 監査運用の定義は `./AUDIT.md`
 - コミット例：`gate(D): audit passed`
 
-## main への反映（PR無し）
-- Developer GO 後に以下のいずれか
-  - Fast-forward merge
-  - squash merge（小さくまとめたい場合）
+## main への反映（PR経由）
+- Developer GO 後に PR を作成し、レビュー＋CI/CQ PASS を経てマージする
 
 > 重要：main反映後にタグを打つ（例：`v0.1.4-alpha.1`）
