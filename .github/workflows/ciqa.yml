@@ -37,9 +37,10 @@ jobs:
             echo "::error::Workflow file not found: ${WF_CIQA}"
             exit 1
           fi
-          if grep -rqE '<full-sha>|<full-commit-sha>|\{owner\}|\{repo\}|\{sha\}' "$WF_DIR"; then
+          PLACEHOLDER_RE='<full-sh[a]>|<full-commit-sh[a]>|\{owne[r]\}|\{rep[o]\}|\{sh[a]\}'
+          if grep -rqE "$PLACEHOLDER_RE" "$WF_DIR"; then
             echo "::error::Unresolved placeholders found in ${WF_DIR}/:"
-            grep -rnE '<full-sha>|<full-commit-sha>|\{owner\}|\{repo\}|\{sha\}' "$WF_DIR"
+            grep -rnE "$PLACEHOLDER_RE" "$WF_DIR"
             exit 1
           fi
           echo "Placeholder validation PASSED: no unresolved tokens in ${WF_DIR}/"
