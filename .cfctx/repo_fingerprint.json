@@ -1,8 +1,10 @@
 {
   "repo_id": "11e31a85-8982-441e-9c09-f70ea80c5feb",
-  "repo_name": "cf-context-framework",
+  "repo_name": "context-framework",
   "created_at": "2026-01-20T17:49:53+00:00",
   "expected_remotes": [
+    "github-masahiro:xxxMasahiro/context-framework",
+    "https://github.com/xxxMasahiro/context-framework",
     "github-masahiro:xxxMasahiro/cf-context-framework",
     "https://github.com/xxxMasahiro/cf-context-framework"
   ],
