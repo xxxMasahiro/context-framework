@@ -1,7 +1,7 @@
-# 実装計画書 — cf-context-framework
+# 実装計画書 — context-framework
 
-version: 0.3
-date: 2026-02-12
+version: 0.5
+date: 2026-02-13
 status: as-built
 
 ---
@@ -227,7 +227,7 @@ status: as-built
   - notify_failure: 失敗時 PR コメント投稿
   - permissions: `contents: read`, `pull-requests: write`
 - **完了条件**: ciqa.yml が `.github/workflows/` に存在し、全ジョブが定義されている
-- **注記**: CIQA_REF はプレースホルダ（ciqa リポジトリ初回コミット後に確定）
+- **注記**: CIQA_REF は ciqa リポジトリ初回コミット SHA `954af284ebe1cda8ffe0d5e85a2e86f9aee54fc7` に確定済み
 - **状態**: 実装済み
 
 ---
@@ -330,6 +330,8 @@ P10 (as-built 文書) ← P1-P9 全完了後
 
 ## 14. 変更履歴
 
+- v0.5（2026-02-13 JST）: CODEX H-03 解消。IMPL-CF-P8-01 の CIQA_REF 注記をプレースホルダから確定済み SHA に更新。
+- v0.4（2026-02-13 JST）: リポジトリ名ドリフト修正。タイトルの旧名 `cf-context-framework` を `context-framework` に統一（CODEX H-02/M-01 対応）。
 - v0.3（2026-02-12 JST）: CODEX 再検証 F-04 修正。冒頭の参照仕様書バージョンを v0.1 → v0.3 に更新（実態と整合）。
 - v0.2（2026-02-12 JST）: CODEX 調査報告 F2 修正。IMPL-CF-P10-01 成果物パスを実態と整合（`as_built/` プレフィックス追加）。
 - v0.1（2026-02-12 JST）: 初版作成。cf-context-framework の実装計画を as-built として記述。10 フェーズ・15 実装タスクを策定。REQ↔SPEC↔IMPL の完全トレーサビリティを確保。
