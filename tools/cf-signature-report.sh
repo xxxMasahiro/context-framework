@@ -55,7 +55,7 @@ if ! ./tools/cf-guard.sh -- rg --version >/dev/null 2>&1; then
 fi
 
 ./tools/cf-guard.sh -- rg -n --no-heading --glob '*.md' '^\\s*Signature:' "$SCOPE" | \
-python3 - "$MIN" <<'PY'
+python3 <(cat <<'PY'
 import sys
 from collections import defaultdict
 
@@ -90,5 +90,6 @@ for sig, cnt in items:
   suffix = ""
   if cnt > len(r):
     suffix = f" +{cnt - len(r)}"
-  print(f\"{cnt} | {sig} | {', '.join(r)}{suffix}\")
+  print(f"{cnt} | {sig} | {', '.join(r)}{suffix}")
 PY
+) "$MIN"
