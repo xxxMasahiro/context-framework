@@ -4,7 +4,7 @@ permissions:
   contents: read
 
 env:
-  CIQA_REF: "32eb05e5dc06bcbdad30032a009de7709d4354e3"
+  CIQA_REF: "4d31f397a44cb1bfb3f69631eacb9e17c636e907"
   CIQA_RETENTION: ${{ vars.CIQA_RETENTION_DAYS || 30 }}
 
 jobs:
