@@ -683,7 +683,7 @@ Gate G / Phase 3（STEP-G201〜G204）を、Skills統合の本文へ反映して
 <!-- CFCTX_HANDOFF_NOTE_20260130_GATEI_SPEC_DOCTOR_V1 -->
 ## 追記（2026-01-30）｜Gate I: SPEC（宣言的仕様）+ cf-doctor（検証ツール）方針整理（実装前準備を含む）
 
-- 背景: 外部仕様 4ファイル（01_説明 / 02_要件定義 / 03_仕様書 / 04_実装計画）に基づき、cf-context-framework に「SPEC + cf-doctor」を段階導入する提案を比較（Codex vs Claude Code）。
+- 背景: 外部仕様 4ファイル（01_説明 / 02_要件定義 / 03_仕様書 / 04_実装計画）に基づき、cf-context-framework（当時名称。現リポジトリ名は context-framework）に「SPEC + cf-doctor」を段階導入する提案を比較（Codex vs Claude Code）。
   - Windows: `C:\Users\MASAHIRO\Desktop\作業ファイル\メモ\UPDATE\_Script`
   - WSL: `/mnt/c/Users/MASAHIRO/Desktop/作業ファイル/メモ/UPDATE/_Script`
 - 判定（採用方針）:
