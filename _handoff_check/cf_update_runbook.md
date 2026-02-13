@@ -72,10 +72,10 @@
 - 完了時は Progress Log/Updates に「日時・タスクID・証跡（tag名/パス）」を追記する
 
 
-# cf-context-framework アップデート手順書（統合版 + Skills運用統合）
+# context-framework アップデート手順書（統合版 + Skills運用統合）
 Version: draft-2026-01-16+skills
 
-この手順書は、このチャットで確定した方針と、_handoff_check の3ファイルの内容を統合し、**cf-context-framework 全体の整合性（Charter→Mode→Artifacts→Skills）を保ったままアップデートする**ための実行ランブックです。
+この手順書は、このチャットで確定した方針と、_handoff_check の3ファイルの内容を統合し、**context-framework 全体の整合性（Charter→Mode→Artifacts→Skills）を保ったままアップデートする**ための実行ランブックです。
 
 > 進捗管理・証跡（Evidence）記録は、併設のタスク管理票 `cf_task_tracker_vN.md`（最新版） を使用します。
 
@@ -87,7 +87,7 @@ Version: draft-2026-01-16+skills
 
 ### 1.1 目的
 - **独立監査（Auditor）**を追加し、既存の Gate A/B/C に自然に接続（推奨：**Gate D**）。
-- **3つの常駐指示ファイル（CLAUDE.md / AGENTS.md / GEMINI.md）**を、単なる入口ではなく「各AIエージェントに直接渡せる運用アダプタ」として整備し、cf-context-framework と各エージェントの連携精度を上げる。
+- **3つの常駐指示ファイル（CLAUDE.md / AGENTS.md / GEMINI.md）**を、単なる入口ではなく「各AIエージェントに直接渡せる運用アダプタ」として整備し、context-framework と各エージェントの連携精度を上げる。
 - **Skills（ツール非依存の再利用可能ワークフローモジュール）**の統合方針をフレームワーク側で固定し、上位レイヤに従属させて再現性を上げる。
 
 ### 1.2 絶対に崩さない優先順位（Single Source of Truth）
@@ -1041,8 +1041,8 @@ git status -sb
   - タスクID: STEP-004
   - 証跡: `git remote -v`
     ```
-    origin  github-masahiro:xxxMasahiro/cf-context-framework (fetch)
-    origin  github-masahiro:xxxMasahiro/cf-context-framework (push)
+    origin  github-masahiro:xxxMasahiro/cf-context-framework (fetch)  ← 当時名称（2026-01-18 時点の歴史的記録）
+    origin  github-masahiro:xxxMasahiro/cf-context-framework (push)   ← 当時名称（2026-01-18 時点の歴史的記録）
     ```
   - 変更点: STEP-004 の Done を [ ]→[x] / 更新ログに本エントリを追記
 
