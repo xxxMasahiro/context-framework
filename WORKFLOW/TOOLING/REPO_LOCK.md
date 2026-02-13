@@ -5,7 +5,7 @@
 - パス固定ではなく、Repo Fingerprint と Guard による同一性判定で確認する。
 
 ## Repo Fingerprint
-- ルート直下の `.cfctx/repo_fingerprint.json` を正とする。
+- ルート直下の `.repo-id/repo_fingerprint.json` を正とする。
 - パスに依存しない識別子（`repo_id`）と、`expected_remotes` の一致で同一性を判定する。
 - `expected_remotes` は運用で更新してよい（リモート変更時のみ）。
 

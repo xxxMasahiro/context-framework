@@ -5,14 +5,14 @@
 - 3ファイル（CLAUDE/AGENTS/GEMINI）は、この初期設定を参照する入口とする（固定ロールにしない）。
 
 ## 初期設定ファイル
-- 設定例: `.cfctx/agent_role_assignment.example.yaml`
-- 実運用の配置候補: `.cfctx/agent_role_assignment.yaml`（名称は運用で決めてよい）
+- 設定例: `.repo-id/agent_role_assignment.example.yaml`
+- 実運用の配置候補: `.repo-id/agent_role_assignment.yaml`（名称は運用で決めてよい）
 
 ## 参照関係（簡易図）
 
 ```
 Developer 設定
-  └─ .cfctx/agent_role_assignment*.yaml
+  └─ .repo-id/agent_role_assignment*.yaml
         └─ CLAUDE.md / AGENTS.md / GEMINI.md
               └─ SSOT: Charter → Mode → Artifacts → Skills
 ```

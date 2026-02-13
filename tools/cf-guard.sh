@@ -28,7 +28,7 @@ fi
 
 if ! command -v python3 >/dev/null 2>&1; then
   echo "Repo Lock: NG"
-  echo "reason: python3 is required to read .cfctx/repo_fingerprint.json"
+  echo "reason: python3 is required to read .repo-id/repo_fingerprint.json"
   exit 1
 fi
 
@@ -42,11 +42,11 @@ if [ -z "$root" ]; then
 fi
 
 if [ -z "$reason" ]; then
-  fingerprint="$root/.cfctx/repo_fingerprint.json"
+  fingerprint="$root/.repo-id/repo_fingerprint.json"
   runbook="$root/_handoff_check/cf_update_runbook.md"
 
   if [ ! -f "$fingerprint" ]; then
-    reason="missing .cfctx/repo_fingerprint.json"
+    reason="missing .repo-id/repo_fingerprint.json"
   elif [ ! -f "$runbook" ]; then
     reason="missing _handoff_check/cf_update_runbook.md"
   elif [ -z "$origin_url" ]; then

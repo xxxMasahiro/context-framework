@@ -1,14 +1,14 @@
 # 仕様書 — context-framework
 
-version: 0.6
-date: 2026-02-13
+version: 0.7
+date: 2026-02-14
 status: as-built
 
 ---
 
 ## 0. 目的・位置づけ
 
-本書は `as_built/as_built_requirements.md`（要件定義書 v0.3）に定義された全要件に対する **技術仕様** を記述する。
+本書は `as_built/as_built_requirements.md`（要件定義書 v0.4）に定義された全要件に対する **技術仕様** を記述する。
 
 - 本書は **as-built（実態記述）** である。
 - 要件定義書（`as_built/as_built_requirements.md`）・実装計画書（`as_built/as_built_implementation_plan.md`）とトレーサブルである。
@@ -328,7 +328,7 @@ context-framework/
   2. 「Auditor は PR へ監査結果を返す。修正は Crafter/Orchestrator が行う。」（統一必須文言）
   3. 役割は Developer が初期設定ファイルで割り当てる:
      - `WORKFLOW/TOOLING/INITIAL_SETTINGS.md`
-     - `.cfctx/agent_role_assignment.example.yaml`
+     - `.repo-id/agent_role_assignment.example.yaml`
 - **実装状態**: 実装済み
 
 ### SPEC-CF-O03: Mode 運用仕様
@@ -556,6 +556,7 @@ context-framework/
 
 ## 8. 変更履歴
 
+- v0.7（2026-02-14 JST）: `.cfctx/` → `.repo-id/` リネーム。SPEC-CF-O02 の初期設定パス参照を更新。
 - v0.6（2026-02-13 JST）: CODEX 三者整合監査 H-03/L-01 修正。SPEC-CF-D02: CIQA_REF を最終コミット SHA（`4d31f39`）に更新。参照要件定義書バージョンを v0.1→v0.3 に修正。
 - v0.5（2026-02-13 JST）: CODEX H-03/H-04 解消。SPEC-CF-D01: ciqa プロファイル作成済みに更新。SPEC-CF-D02: CIQA_REF 確定済み（`954af28`）に更新。
 - v0.4（2026-02-13 JST）: リポジトリ名ドリフト修正。タイトル・ディレクトリ構造図ルート・プロファイルパスの旧名 `cf-context-framework` を `context-framework` に統一（CODEX H-02/M-01 対応）。

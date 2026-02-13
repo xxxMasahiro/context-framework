@@ -9,7 +9,7 @@
 - 役割は Developer が初期設定ファイルで割り当てる
 - 初期設定（共通参照先）:
   - WORKFLOW/TOOLING/INITIAL_SETTINGS.md
-  - .cfctx/agent_role_assignment.example.yaml
+  - .repo-id/agent_role_assignment.example.yaml
 - 役割の行動規範は SSOT（Charter → Mode → Artifacts → Skills）に従う
 
 ### 役割一覧（一般的な説明）

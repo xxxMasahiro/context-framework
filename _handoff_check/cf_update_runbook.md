@@ -1,4 +1,4 @@
-<!-- CFCTX_LANG_POLICY_CANONICAL_V1 -->
+<!-- GATE_AUDIT_LANG_POLICY_V1 -->
 ## 表記ポリシー（日本語統一 / SSOT）
 
 - 新しいチャットへ引き継ぐ場合は、**_handoff_check の3ファイル（cf_update_runbook.md / cf_task_tracker_v5.md / cf_handoff_prompt.md）を必ず添付**する（新運用の固定）。
@@ -32,7 +32,7 @@
 ## Repo Lock（作業開始前の必須チェック）
 
 - 目的: リポジトリ取り違え防止（パス固定ではなく、Repo Fingerprint + Guard で判定する）。
-- Repo Fingerprint: `.cfctx/repo_fingerprint.json` を同一性の正とする。
+- Repo Fingerprint: `.repo-id/repo_fingerprint.json` を同一性の正とする。
 - Guard: `./tools/cf-guard.sh --check` で事前確認し、NGなら中止する。
 - 破壊的操作（restore/reset/clean/rm など）は Guard 経由を推奨する。
 - 詳細: `WORKFLOW/TOOLING/REPO_LOCK.md`
@@ -47,8 +47,8 @@
 
 - 役割は Developer が初期設定ファイルで割り当てる（3ファイルは入口であり固定しない）。
 - 参照: `WORKFLOW/TOOLING/INITIAL_SETTINGS.md`
-- 設定例: `.cfctx/agent_role_assignment.example.yaml`
-- 実運用ファイル（例: `.cfctx/agent_role_assignment.yaml`）はローカル専用のため Git 管理しない（`.gitignore` 推奨）。
+- 設定例: `.repo-id/agent_role_assignment.example.yaml`
+- 実運用ファイル（例: `.repo-id/agent_role_assignment.yaml`）はローカル専用のため Git 管理しない（`.gitignore` 推奨）。
 
 ### バックアップ（STEP-006）作成の判断基準（運用ルール）
 
@@ -792,7 +792,7 @@ git status -sb
 
 | ID | タスク | Done | 証跡（Evidence） | 変更点（Add/Del/Mod） |
 |---|---|---:|---|---|
-| STEP-507 | 初期設定ファイルの設計と置き場を追加（例: .cfctx/agent_role_assignment.example.yaml） | [x] | `.cfctx/agent_role_assignment.example.yaml` / `WORKFLOW/TOOLING/INITIAL_SETTINGS.md` / PR#28（merge: 18edacb / commit: 463b277） | Add |
+| STEP-507 | 初期設定ファイルの設計と置き場を追加（例: .repo-id/agent_role_assignment.example.yaml） | [x] | `.repo-id/agent_role_assignment.example.yaml` / `WORKFLOW/TOOLING/INITIAL_SETTINGS.md` / PR#28（merge: 18edacb / commit: 463b277） | Add |
 | STEP-508 | 3ファイルの「役割固定」撤廃と役割一覧の共通化 | [x] | `CLAUDE.md` / `AGENTS.md` / `GEMINI.md` / PR#28（merge: 18edacb / commit: 463b277） | Mod |
 | STEP-509 | templates（TOOLING/ADAPTERS）を初期設定参照へ整合 | [x] | `TOOLING/ADAPTERS/CLAUDE.template.md` / `TOOLING/ADAPTERS/AGENTS.template.md` / `TOOLING/ADAPTERS/GEMINI.template.md` / PR#28（merge: 18edacb / commit: 463b277） | Mod |
 | STEP-510 | COEXIST_3FILES に初期設定ファイル導線を追記 | [x] | `WORKFLOW/TOOLING/COEXIST_3FILES.md` / PR#28（merge: 18edacb / commit: 463b277） | Mod |
@@ -1026,7 +1026,7 @@ git status -sb
     - 表記ルール確認: `grep -nE '日本語|表記|英語表記|日本語に統一|日本語表記' _handoff_check/*.md`（該当行ヒット）
     - 追記マーカー:
       - `CFCTX_UPDATE_ZIP_DEPRECATED_V1`
-      - `CFCTX_LANG_POLICY_CANONICAL_V1`
+      - `GATE_AUDIT_LANG_POLICY_V1`
 
 
 - 2026-01-17 | UPD-20260117-02 | 3ファイル共存アダプタ導入をPR#8でmainへ反映し、Gate C（STEP-301〜305）を完了記録
@@ -1124,10 +1124,10 @@ git status -sb
   - 対象: _handoff_check/cf_handoff_prompt.md / _handoff_check/cf_update_runbook.md / _handoff_check/cf_task_tracker_v5.md
   - Evidence: PR#28（merge: 18edacb / commit: 463b277）
 - 2026-01-21 | UPD-20260121-02 | Gate F: 役割固定の撤廃と初期設定導入（STEP-507〜512） | Done[x]
-  - 対象: `CLAUDE.md` / `AGENTS.md` / `GEMINI.md` / `TOOLING/ADAPTERS/*.template.md` / `.cfctx/agent_role_assignment.example.yaml` / `WORKFLOW/TOOLING/INITIAL_SETTINGS.md` / `WORKFLOW/TOOLING/COEXIST_3FILES.md` / `_handoff_check/cf_update_runbook.md` / `_handoff_check/cf_handoff_prompt.md`
+  - 対象: `CLAUDE.md` / `AGENTS.md` / `GEMINI.md` / `TOOLING/ADAPTERS/*.template.md` / `.repo-id/agent_role_assignment.example.yaml` / `WORKFLOW/TOOLING/INITIAL_SETTINGS.md` / `WORKFLOW/TOOLING/COEXIST_3FILES.md` / `_handoff_check/cf_update_runbook.md` / `_handoff_check/cf_handoff_prompt.md`
   - Evidence: `rg -n "INITIAL_SETTINGS.md" CLAUDE.md AGENTS.md GEMINI.md` / `rg -n "Repo Lock" _handoff_check/cf_update_runbook.md`
 - 2026-01-21 | UPD-20260121-01 | Repo Lock 導入（fingerprint/guard/runbook/handoff prompt） | Done[x]
-  - 対象: `.cfctx/repo_fingerprint.json` / `tools/cf-guard.sh` / `WORKFLOW/TOOLING/REPO_LOCK.md` / `_handoff_check/cf_update_runbook.md` / `_handoff_check/cf_handoff_prompt.md`
+  - 対象: `.repo-id/repo_fingerprint.json` / `tools/cf-guard.sh` / `WORKFLOW/TOOLING/REPO_LOCK.md` / `_handoff_check/cf_update_runbook.md` / `_handoff_check/cf_handoff_prompt.md`
   - Evidence: `./tools/cf-guard.sh --check`
 - 2026-01-20 | UPD-20260120-01 | 引継ぎ簡略運用へ切替（旧引継ぎ文書不使用） | Done[x]
   - 対象: _handoff_check/cf_update_runbook.md / _handoff_check/cf_task_tracker_v5.md
