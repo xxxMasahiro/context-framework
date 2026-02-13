@@ -3,7 +3,7 @@
 ## 0. メタ
 - Audit Gate: **D (Audit)**
 - Decision: **PASS**
-- 対象: `xxxMasahiro/cf-context-framework / main / bbca353`
+- 対象: `xxxMasahiro/cf-context-framework / main / bbca353`（当時名称: 2026-01-19 時点の歴史的記録。現リポジトリ名は `context-framework`）
 - Mode: `standard`
 - 日付: `2026-01-19`
 - Auditor: `ChatGPT (GPT-5.2 Thinking)`
