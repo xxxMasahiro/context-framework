@@ -60,7 +60,7 @@ rebuild_requirements.md（REQ-R01〜R07）と rebuild_spec.md に従い、検証
   - `emit_kit_files()` — Kit Files 固定リスト
   - `emit_commands()` — Commands 固定テキスト
   - `emit_notes()` — Notes
-- 本体repoパスは `MAIN_REPO` 環境変数 or 既知パス（`~/projects/_cfctx/cf-context-framework`）
+- 本体repoパスは `MAIN_REPO` 環境変数 or 既知パス（`~/projects/context-framework`）
 
 **受け入れ条件**:
 - `source scripts/lib/handoff_builder.sh && emit_meta` が正常出力される

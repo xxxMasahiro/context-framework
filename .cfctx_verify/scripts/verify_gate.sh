@@ -50,12 +50,12 @@ MAIN_REPO=$(discover_main_repo) || true
 export MAIN_REPO
 
 if [[ -z "$MAIN_REPO" ]]; then
-  echo "FATAL: Cannot locate main repo (cf-context-framework)." >&2
+  echo "FATAL: Cannot locate main repo (context-framework)." >&2
   exit 1
 fi
 
 echo "=============================================="
-echo " cf-context-framework Gate Verification"
+echo " context-framework Gate Verification"
 echo " Target: $*"
 echo "=============================================="
 echo ""

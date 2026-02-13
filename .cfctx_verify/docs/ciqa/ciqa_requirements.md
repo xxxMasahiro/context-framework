@@ -17,7 +17,7 @@
 
 ### 非目的（Non-goals）
 
-- 本体repo（~/projects/_cfctx/cf-context-framework）の変更（read-only 厳守）
+- 本体repo（~/projects/context-framework）の変更（read-only 厳守）
 - 既存の `./kit verify` / `./kit test` のロジック変更（CI/QA はそれらの上位レイヤー）
 - 外部 CI サービス（GitHub Actions 等）への統合（将来拡張として設計のみ）
 - パフォーマンス測定やベンチマーク

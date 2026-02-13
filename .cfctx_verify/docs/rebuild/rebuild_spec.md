@@ -20,7 +20,7 @@
 - kit_HEAD: <short_hash>
 
 ## 2. Main Repo Snapshot
-- path: /home/masahiro/projects/_cfctx/cf-context-framework
+- path: /home/masahiro/projects/context-framework
 - HEAD: <short> (<full>)
 - branch: <branch_name>
 - status: clean | dirty (<dirty_count> files)
