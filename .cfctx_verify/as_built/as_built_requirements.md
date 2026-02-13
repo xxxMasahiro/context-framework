@@ -1,8 +1,8 @@
 # as-built 要件定義書（正式版）— Temporary Verification Kit
 
-version: 1.9
-date: 2026-02-07
-status: 正式版（v1.9: Phase 5 lockdown/unlock 実装 + MAIN_REPO バリデーション強化 — SSOT fingerprint 照合で誤 repo 接続防止）
+version: 2.0
+date: 2026-02-14
+status: 正式版（v2.0: 用語定義・対象定義のリポジトリ名を現行名 context-framework に統一）
 
 ---
 
@@ -27,7 +27,7 @@ status: 正式版（v1.9: Phase 5 lockdown/unlock 実装 + MAIN_REPO バリデ�
 
 ### 1.2 非対象（Non-goals）
 
-- 本体 repo（cf-context-framework）のファイル変更・コミット・PR 作成
+- 本体 repo（context-framework）のファイル変更・コミット・PR 作成
 - SSOT 3 ファイル（`_handoff_check/`）の内容変更（検証キットでは参照コピーとして固定）
 - 外部 CI サービス（GitHub Actions 等）への統合
 
@@ -38,7 +38,7 @@ status: 正式版（v1.9: Phase 5 lockdown/unlock 実装 + MAIN_REPO バリデ�
 | 用語 | 定義 | 根拠 |
 |------|------|------|
 | **KIT_ROOT** | 検証キットのルートディレクトリ。`SCRIPT_DIR` から自動解決される。 | kit:18-20, verify_all.sh:17-19 |
-| **MAIN_REPO** | 本体 repo（cf-context-framework）のパス。`discover_main_repo()` で自動解決。 | evidence.sh:18-38 |
+| **MAIN_REPO** | 本体 repo（context-framework）のパス。`discover_main_repo()` で自動解決。 | evidence.sh:18-38 |
 | **CFCTX_VERIFY_ROOT** | 環境変数。`generate_handoff.sh` が参照するが、他スクリプトでは不要。 | generate_handoff.sh:15-21 |
 | **SSOT** | Single Source of Truth。本体 repo の `_handoff_check/` 3 ファイル。Kit では `SSOT/` にスナップショットを保持。 | ssot_check.sh:9-10 |
 | **Evidence** | 検証コマンド結果の証跡。`logs/evidence/<timestamp>_<label>/` に保存。 | evidence.sh:47-92 |
@@ -298,7 +298,7 @@ status: 正式版（v1.9: Phase 5 lockdown/unlock 実装 + MAIN_REPO バリデ�
   2. `_handoff_check/` ディレクトリ存在確認
   3. 構造マーカー（WORKFLOW/controller/rules のいずれか）存在確認
   4. Kit SSOT/ と候補 repo `_handoff_check/` の sha256 照合（3 ファイル全一致必須）
-- **実効性**: 同一検索パス配下に複数の cf-context-framework が存在する環境でも、SSOT 版と一致する repo のみが選択される。
+- **実効性**: 同一検索パス配下に複数の context-framework が存在する環境でも、SSOT 版と一致する repo のみが選択される。
 - **根拠**: evidence.sh:17-52（`_validate_main_repo`）, evidence.sh:60-97（`discover_main_repo` 内 4 段階呼出）
 - **対応 SPEC**: SPEC-S16
 
@@ -425,3 +425,4 @@ status: 正式版（v1.9: Phase 5 lockdown/unlock 実装 + MAIN_REPO バリデ�
 - v1.7（2026-02-07 JST）: run_tests.sh Phase 2 Gate 0 件ガード追加（REQ-F03: プロセス置換 `< <(gr_list_gate_ids)` の exit code 非伝播による偽 PASS 防止）
 - v1.8（2026-02-07 JST）: gate_a.sh/gate_b.sh req② の `repo_grep` 呼び出しバグ修正（`-i` フラグが `repo_grep` 非対応のため、パターンとファイルパスが 1 つずれて常に FAIL していた。`-i` 除去で解消。パターン自体に大小文字両方含むため動作変更なし）
 - v1.9（2026-02-07 JST）: Phase 5 lockdown/unlock 実装（REQ-D02 解消）+ MAIN_REPO バリデーション強化（REQ-F16: _validate_main_repo() 4 段階検証 — .git + _handoff_check/ + 構造マーカー + SSOT sha256 照合。find 結果を全候補走査に変更し、誤 repo 接続を防止）+ `./kit lockdown` / `./kit unlock` サブコマンド追加（REQ-F01 更新）
+- v2.0（2026-02-14 JST）: 用語定義・対象定義のリポジトリ名を旧名 cf-context-framework から現行名 context-framework に統一（CODEX F-02 対応、3 箇所修正: §1.2, §2 MAIN_REPO, §6 REQ-F16 実効性）

@@ -1,8 +1,8 @@
 # as-built Gate Map & 操作ガイド（Temporary Verification Kit）
 
-version: 1.9
-date: 2026-02-07
-status: 正式版（v1.9: Phase 5 lockdown/unlock 実装 + MAIN_REPO バリデーション強化、as-built v1.9 準拠）
+version: 2.0
+date: 2026-02-14
+status: 正式版（v2.0: 用語定義・対象定義のリポジトリ名を現行名 context-framework に統一）
 
 ---
 
@@ -27,7 +27,7 @@ status: 正式版（v1.9: Phase 5 lockdown/unlock 実装 + MAIN_REPO バリデ�
 
 ### 1.1 一言で言うと
 
-本体リポジトリ（`cf-context-framework`）の品質を **外部から壊さずに検証する** ためのツールセットである。
+本体リポジトリ（`context-framework`）の品質を **外部から壊さずに検証する** ためのツールセットである。
 
 ### 1.2 なぜ必要か
 
@@ -43,7 +43,7 @@ status: 正式版（v1.9: Phase 5 lockdown/unlock 実装 + MAIN_REPO バリデ�
 
 ```
 ┌──────────────────────────────────────────────────────┐
-│  本体 repo (cf-context-framework)                     │
+│  本体 repo (context-framework)                        │
 │  ※ read-only: 参照のみ、書き込み禁止                    │
 └──────────────────────┬───────────────────────────────┘
                        │ 参照（git status, grep, sha256sum 等）
@@ -392,7 +392,7 @@ MAIN_REPO=/path/to/context-framework ./kit handoff
 3. 構造マーカー（WORKFLOW/controller/rules のいずれか）
 4. **SSOT sha256 照合**: Kit SSOT/ と候補 repo の `_handoff_check/` 3 ファイルの sha256 が完全一致
 
-これにより、同一検索パスに複数の cf-context-framework クローンが存在する場合でも、**Kit の SSOT スナップショットと一致する正しい repo のみ**が自動選択される。「正しい患者ではなく、別の患者を診断してしまう」リスクが排除される。
+これにより、同一検索パスに複数の context-framework クローンが存在する場合でも、**Kit の SSOT スナップショットと一致する正しい repo のみ**が自動選択される。「正しい患者ではなく、別の患者を診断してしまう」リスクが排除される。
 
 ---
 
@@ -810,3 +810,4 @@ cp ~/projects/context-framework/_handoff_check/*.md SSOT/
 - v1.7（2026-02-07 JST）: run_tests.sh Phase 2 Gate 0 件ガード追加（プロセス置換の偽 PASS 防止）、as-built v1.7 準拠
 - v1.8（2026-02-07 JST）: gate_a.sh/gate_b.sh req② の `repo_grep` 引数バグ修正（`-i` フラグ誤渡し解消→Gate A/B PASS 復帰）、9 PASS / 0 FAIL + SSOT MATCH 達成、as-built v1.8 準拠
 - v1.9（2026-02-07 JST）: Phase 5 lockdown/unlock 実装（§3.7/3.8 追加）+ MAIN_REPO バリデーション強化（SSOT sha256 照合で誤 repo 接続防止、§3.5 更新）+ ディレクトリ構造・Exit code テーブル・コマンド一覧更新、as-built v1.9 準拠
+- v2.0（2026-02-14 JST）: 用語定義・対象定義のリポジトリ名を旧名 cf-context-framework から現行名 context-framework に統一（CODEX F-02 対応、3 箇所修正: §1.1, §1.3 図, §3.5 バリデーション説明）
