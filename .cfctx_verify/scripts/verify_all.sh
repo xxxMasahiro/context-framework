@@ -29,8 +29,8 @@ MAIN_REPO=$(discover_main_repo) || true
 export MAIN_REPO
 
 if [[ -z "$MAIN_REPO" ]]; then
-  echo "FATAL: Cannot locate main repo (cf-context-framework)." >&2
-  echo "Set CFCTX_MAIN_REPO=/path/to/cf-context-framework or CFCTX_SEARCH_PATH=dir1:dir2" >&2
+  echo "FATAL: Cannot locate main repo (context-framework)." >&2
+  echo "Set CFCTX_MAIN_REPO=/path/to/context-framework or CFCTX_SEARCH_PATH=dir1:dir2" >&2
   exit 1
 fi
 
@@ -44,7 +44,7 @@ fi
 GATE_LIST_STR=$(IFS=','; echo "${GATES[*]}")
 
 echo "=============================================="
-echo " cf-context-framework Gate Verification"
+echo " context-framework Gate Verification"
 echo " Gates: ${GATE_LIST_STR}"
 echo "=============================================="
 echo ""

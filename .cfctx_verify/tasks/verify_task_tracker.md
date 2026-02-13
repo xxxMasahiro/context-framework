@@ -4,7 +4,7 @@
 
 ## 0. メタ情報（手動で埋める）
 - 開始日時（JST）: 2026-01-31 15:59 JST
-- Repo（パス）: /home/masahiro/projects/_cfctx/cf-context-framework
+- Repo（パス）: /home/masahiro/projects/context-framework
 - Repo Lock: OK
 - HEAD（git rev-parse --short HEAD）: 6c64aca
 - SSOT 参照コピー: `SSOT/`（_handoff_check の3ファイルを固定）

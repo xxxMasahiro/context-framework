@@ -22,7 +22,7 @@
 - トラッカー更新ルールの明確化
 
 ### 1.2 非対象（Non-goals）
-- 本体repo（~/projects/_cfctx/cf-context-framework）のファイル変更
+- 本体repo（~/projects/context-framework）のファイル変更
 - verify/ 配下の検証ドキュメント（verify_requirements.md / verify_spec.md / verify_implementation_plan.md）の内容変更（運用の正として尊重）
 - Gate A〜I の検証ロジック自体の変更（scripts/lib/gate_*.sh）
 

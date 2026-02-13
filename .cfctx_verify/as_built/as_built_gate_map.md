@@ -371,7 +371,7 @@ Step 4/4: handoff（引継ぎ文書の最終生成）
 ./kit handoff
 
 # MAIN_REPO が自動発見できない環境では環境変数を指定する
-MAIN_REPO=/path/to/cf-context-framework ./kit handoff
+MAIN_REPO=/path/to/context-framework ./kit handoff
 ```
 
 #### MAIN_REPO の自動発見ロジック
@@ -717,11 +717,11 @@ sudo -n -k /usr/bin/id -u
 
 ```bash
 # CORE（本体 repo のパス）を指定して実行
-CORE=/home/masahiro/projects/_cfctx/cf-context-framework \
+CORE=/home/masahiro/projects/context-framework \
   bash tools/verify_ro_mount_nopasswd_template_v5.sh
 
 # または CFCTX_MAIN_REPO 環境変数を使用
-CFCTX_MAIN_REPO=/home/masahiro/projects/_cfctx/cf-context-framework \
+CFCTX_MAIN_REPO=/home/masahiro/projects/context-framework \
   bash tools/verify_ro_mount_nopasswd_template_v5.sh
 ```
 
@@ -771,7 +771,7 @@ CFCTX_MAIN_REPO=/home/masahiro/projects/_cfctx/cf-context-framework \
 `MAIN_REPO` 環境変数を設定してからコマンドを実行してください:
 
 ```bash
-MAIN_REPO=/path/to/cf-context-framework ./kit verify
+MAIN_REPO=/path/to/context-framework ./kit verify
 ```
 
 ### Q2: 新しい Gate を追加するにはどうすればよいですか？
@@ -786,7 +786,7 @@ MAIN_REPO=/path/to/cf-context-framework ./kit verify
 
 ```bash
 # 1. SSOT を更新
-cp ~/projects/_cfctx/cf-context-framework/_handoff_check/*.md SSOT/
+cp ~/projects/context-framework/_handoff_check/*.md SSOT/
 
 # 2. SSOT 一致を確認
 ./kit ciqa ssot

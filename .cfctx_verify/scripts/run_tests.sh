@@ -64,9 +64,9 @@ run_phase1() {
     fail=1
   fi
 
-  if [[ -n "$kit_git_top" && "$kit_git_top" != *"cf-context-framework"* ]]; then
+  if [[ -n "$kit_git_top" && "$kit_git_top" != *"context-framework"* ]]; then
     output+="Kit location: $KIT_ROOT (repo-external): PASS"$'\n'
-  elif [[ -n "$kit_git_top" && "$kit_git_top" == *"cf-context-framework"* ]]; then
+  elif [[ -n "$kit_git_top" && "$kit_git_top" == *"context-framework"* ]]; then
     output+="Kit location: FAIL (inside main repo!)"$'\n'
     fail=1
   else

@@ -290,7 +290,7 @@ Skillsは単体で完結させず、必ずArtifactsへ“書き戻し”ます�
 ```bash
 set -euo pipefail
 
-REPO="/home/masahiro/projects/_cfctx/cf-context-framework"
+REPO="/home/masahiro/projects/context-framework"
 cd "$REPO"
 
 # Guard（安全確認：想定リポジトリ以外なら中止）
@@ -471,8 +471,8 @@ git status -sb
 
 - 作業日: 2026-01-17（JST）
 - 作業者: Masahiro
-- 作業リポジトリ: `/home/masahiro/projects/_cfctx/cf-context-framework`
-- 追従リポジトリ: `/home/masahiro/projects/cf-context-framework`
+- 作業リポジトリ: `/home/masahiro/projects/context-framework`
+- 追従リポジトリ: `/home/masahiro/projects/context-framework`
 - 作業ブランチ: `wip/v0.1.5`（PR#1でmainへマージ後、ローカル/リモートとも削除済）
 - 対象ZIP:
   - [x] next1_work.zip（Auditor / Gate D）
@@ -537,8 +537,8 @@ Developerが**一括処理を明示要求**した場合のみ利用可（詳細�
 set -euo pipefail
 
 # guard: Repo Lock（想定リポジトリ以外なら中止）
-cd /home/masahiro/projects/_cfctx/cf-context-framework
-test "$(git rev-parse --show-toplevel)" = "/home/masahiro/projects/_cfctx/cf-context-framework"
+cd /home/masahiro/projects/context-framework
+test "$(git rev-parse --show-toplevel)" = "/home/masahiro/projects/context-framework"
 ./tools/cf-guard.sh --check
 git remote get-url origin
 git status -sb
@@ -550,8 +550,8 @@ git status -sb
 ### LOG-001｜Gate D（Audit）テンプレ/運用ドキュメント追加
 - 日時: 2026-01-17
 - Guard（安全確認）:
-  - `cd /home/masahiro/projects/_cfctx/cf-context-framework`
-  - `test "$(git rev-parse --show-toplevel)" = "/home/masahiro/projects/_cfctx/cf-context-framework"`
+  - `cd /home/masahiro/projects/context-framework`
+  - `test "$(git rev-parse --show-toplevel)" = "/home/masahiro/projects/context-framework"`
   - `./tools/cf-guard.sh --check`（Repo Lock: OK）
   - `git remote get-url origin`
   - `git status -sb`
@@ -571,8 +571,8 @@ git status -sb
 ### LOG-002｜追加ファイルをステージング→コミット→push
 - 日時: 2026-01-17
 - Guard（安全確認）:
-  - `cd /home/masahiro/projects/_cfctx/cf-context-framework`
-  - `test "$(git rev-parse --show-toplevel)" = "/home/masahiro/projects/_cfctx/cf-context-framework"`
+  - `cd /home/masahiro/projects/context-framework`
+  - `test "$(git rev-parse --show-toplevel)" = "/home/masahiro/projects/context-framework"`
   - `./tools/cf-guard.sh --check`（Repo Lock: OK）
   - `git remote get-url origin`
   - `git status -sb`
@@ -594,8 +594,8 @@ git status -sb
 ### LOG-003｜PR作成→マージ→ブランチ削除
 - 日時: 2026-01-17
 - Guard（安全確認）:
-  - `cd /home/masahiro/projects/_cfctx/cf-context-framework`
-  - `test "$(git rev-parse --show-toplevel)" = "/home/masahiro/projects/_cfctx/cf-context-framework"`
+  - `cd /home/masahiro/projects/context-framework`
+  - `test "$(git rev-parse --show-toplevel)" = "/home/masahiro/projects/context-framework"`
   - `./tools/cf-guard.sh --check`（Repo Lock: OK）
   - `git remote get-url origin`
   - `git status -sb`
@@ -614,8 +614,8 @@ git status -sb
 ### LOG-004｜ローカル main へ取り込み→ローカルブランチ削除
 - 日時: 2026-01-17
 - Guard（安全確認）:
-  - `cd /home/masahiro/projects/_cfctx/cf-context-framework`
-  - `test "$(git rev-parse --show-toplevel)" = "/home/masahiro/projects/_cfctx/cf-context-framework"`
+  - `cd /home/masahiro/projects/context-framework`
+  - `test "$(git rev-parse --show-toplevel)" = "/home/masahiro/projects/context-framework"`
   - `./tools/cf-guard.sh --check`（Repo Lock: OK）
   - `git remote get-url origin`
   - `git status -sb`
@@ -640,8 +640,8 @@ git status -sb
 ### LOG-005｜remote.origin.fetch のrefspec修正→fetch --prune
 - 日時: 2026-01-17
 - Guard（安全確認）:
-  - `cd /home/masahiro/projects/_cfctx/cf-context-framework`
-  - `test "$(git rev-parse --show-toplevel)" = "/home/masahiro/projects/_cfctx/cf-context-framework"`
+  - `cd /home/masahiro/projects/context-framework`
+  - `test "$(git rev-parse --show-toplevel)" = "/home/masahiro/projects/context-framework"`
   - `./tools/cf-guard.sh --check`（Repo Lock: OK）
   - `git remote get-url origin`
   - `git status -sb`
@@ -697,7 +697,7 @@ git status -sb
 
 | ID | タスク | Done | 証跡（Evidence） | 変更点（Add/Del/Mod） |
 |---|---|---:|---|---|
-| STEP-001 | 作業/追従リポジトリのパス確認 | [x] | `pwd` → `/home/masahiro/projects/_cfctx/cf-context-framework` | - |
+| STEP-001 | 作業/追従リポジトリのパス確認 | [x] | `pwd` → `/home/masahiro/projects/context-framework` | - |
 | STEP-002 | ブランチ確認（wip/<version>） | [x] | `git branch`（作業時: `wip/v0.1.5` / 現在: `main`） | - |
 | STEP-003 | clean確認 | [x] | `git status` → working tree clean | - |
 | STEP-004 | リモート確認 | [x] | `git remote -v` | - |
@@ -1051,7 +1051,7 @@ git status -sb
   - タスクID: STEP-005
   - 証跡: UNPACK_DIR + `ls -la _handoff_check`
     ```
-    UNPACK_DIR=/home/masahiro/projects/_cfctx/cf-context-framework/_handoff_check
+    UNPACK_DIR=/home/masahiro/projects/context-framework/_handoff_check
     total 56
     drwxr-xr-x  2 masahiro masahiro  4096 Jan 17 22:10 .
     drwxr-xr-x 10 masahiro masahiro  4096 Jan 18 05:52 ..

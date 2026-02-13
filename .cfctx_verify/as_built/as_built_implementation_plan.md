@@ -269,7 +269,7 @@ FAIL があっても最後の handoff まで実行する。
 ### PLAN-FAIL04: 本体 repo 発見失敗
 
 ```
-FATAL: Cannot locate main repo (cf-context-framework).
+FATAL: Cannot locate main repo (context-framework).
 ```
 
 - 原因: `discover_main_repo()` のハードコード候補リスト（evidence.sh:19-22）に本体 repo パスが含まれていない。
@@ -372,7 +372,7 @@ FATAL: Cannot locate main repo (cf-context-framework).
 
 - Kit `SSOT/` と本体 `_handoff_check/` が不一致の場合（CQ-SSOT: FAIL）:
   ```bash
-  cp ~/projects/_cfctx/cf-context-framework/_handoff_check/*.md SSOT/
+  cp ~/projects/context-framework/_handoff_check/*.md SSOT/
   ```
 - 同期後に `./kit ciqa ssot` で MATCH を確認。
 

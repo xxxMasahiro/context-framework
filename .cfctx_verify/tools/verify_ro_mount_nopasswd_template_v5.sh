@@ -19,7 +19,7 @@ set -euo pipefail
 
 CORE="${CORE:-${CFCTX_MAIN_REPO:-}}"
 if [[ -z "$CORE" ]]; then
-  echo "ERROR: Set CORE or CFCTX_MAIN_REPO to the cf-context-framework path." >&2
+  echo "ERROR: Set CORE or CFCTX_MAIN_REPO to the context-framework path." >&2
   exit 1
 fi
 

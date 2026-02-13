@@ -15,7 +15,7 @@ MAIN_REPO="${MAIN_REPO:-}"
 KIT_ROOT="${KIT_ROOT:-}"
 
 # ── Validate main repo ──────────────────────────────────────────
-# Validates that a candidate path is actually cf-context-framework.
+# Validates that a candidate path is actually context-framework.
 # Checks:
 #   1. .git directory exists (git repository)
 #   2. _handoff_check/ directory exists (SSOT source — definitive marker)
@@ -29,7 +29,7 @@ _validate_main_repo() {
   # Must be a git repository
   [[ -d "${candidate}/.git" ]] || return 1
 
-  # Must have _handoff_check/ (SSOT source — unique to cf-context-framework)
+  # Must have _handoff_check/ (SSOT source — unique to context-framework)
   if [[ ! -d "${candidate}/_handoff_check" ]]; then
     echo "WARN: Candidate repo missing _handoff_check/: ${candidate}" >&2
     return 1
@@ -68,7 +68,7 @@ _validate_main_repo() {
 # Resolution order:
 #   1. CFCTX_MAIN_REPO env var (explicit override)
 #   2. MAIN_REPO env var (if already set by caller)
-#   3. Sibling directory: KIT_ROOT/../cf-context-framework
+#   3. Sibling directory: KIT_ROOT/../context-framework
 #   4. CFCTX_SEARCH_PATH entries (colon-separated, default: $HOME/projects)
 # All candidates are validated via _validate_main_repo() before acceptance.
 # Returns: absolute path to main repo on stdout; exit 1 if not found.
@@ -93,10 +93,10 @@ discover_main_repo() {
     fi
   fi
 
-  # 3. Sibling of kit's parent (common layout: parent/cf-context-framework + parent/.cfctx_verify)
+  # 3. Sibling of kit's parent (common layout: parent/context-framework + parent/.cfctx_verify)
   local kit="${KIT_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)}"
   local sibling
-  sibling="$(cd "$kit/.." 2>/dev/null && pwd)/cf-context-framework" || true
+  sibling="$(cd "$kit/.." 2>/dev/null && pwd)/context-framework" || true
   if _validate_main_repo "$sibling" 2>/dev/null; then
     echo "$sibling"
     return 0
@@ -114,7 +114,7 @@ discover_main_repo() {
         echo "$found_line"
         return 0
       fi
-    done < <(find "$base_dir" -maxdepth 3 -type d -name "cf-context-framework" 2>/dev/null || true)
+    done < <(find "$base_dir" -maxdepth 3 -type d -name "context-framework" 2>/dev/null || true)
   done
 
   echo ""
