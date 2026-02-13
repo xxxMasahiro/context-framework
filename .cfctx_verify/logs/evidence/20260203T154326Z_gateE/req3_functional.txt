@@ -1,0 +1,6 @@
+=== Gate E req③: Functional Check ===
+CHECK: Runbook contains language policy — PASS
+CHECK: Tracker has language policy marker — PASS
+CHECK: Gate E steps in runbook — PASS
+
+Functional checks: 3/3 passed

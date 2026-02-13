@@ -1,0 +1,53 @@
+=== Gate D req①: Feature Summary ===
+
+--- WORKFLOW/AUDIT.md ---
+EXISTS (62 lines)
+--- ARTIFACTS/AUDIT_REPORT.md ---
+EXISTS (96 lines)
+--- ARTIFACTS/AUDIT_CHECKLIST.md ---
+EXISTS (100 lines)
+--- PROMPTS/AUDITOR.md ---
+EXISTS (33 lines)
+--- ARTIFACTS/EXCEPTIONS.md ---
+EXISTS (34 lines)
+
+--- GATES.md Gate D section ---
+- コミット例：`gate(C): walkthrough passed (logs attached)`
+
+### Gate D：Audit 完了
+- 目的：第三者視点でEvidenceの整合性を監査する
+- 成果物：
+  - `ARTIFACTS/AUDIT_REPORT.md` が更新されている
+  - `ARTIFACTS/AUDIT_CHECKLIST.md` が更新されている
+  - 監査運用の定義は `./AUDIT.md`
+- コミット例：`gate(D): audit passed`
+
+## main への反映（PR無し）
+- Developer GO 後に以下のいずれか
+  - Fast-forward merge
+  - squash merge（小さくまとめたい場合）
+
+> 重要：main反映後にタグを打つ（例：`v0.1.4-alpha.1`）
+
+--- Runbook Gate D references ---
+89:- **独立監査（Auditor）**を追加し、既存の Gate A/B/C に自然に接続（推奨：**Gate D**）。
+100:> **AuditorはPRへ監査結果を返す。修正はCrafter/Orchestratorが行う。**
+102:- 「Auditorが図やフローに登場する」ことと「実装しない（指摘のみ）」は矛盾しません。
+103:- Auditorは **判断（PASS/FAIL）と根拠（Evidence）と指摘（Action Items）**を返し、修正は実装担当（Crafter/Orchestrator）が行います。
+125:- **Auditor**：整合性・証跡・リスク監査・Gate D 判定（実装はしない）
+140:**監査（Auditor）導入**
+141:- `ARTIFACTS/AUDIT_REPORT.md`
+142:- `ARTIFACTS/AUDIT_CHECKLIST.md`
+144:- `PROMPTS/AUDITOR.md`
+145:- `WORKFLOW/AUDIT.md`（任意）
+163:- `WORKFLOW/GATES.md`：**Gate D（Audit Gate）** を追加
+164:- `WORKFLOW/MODES_AND_TRIGGERS.md`：Strict（推奨）に **Gate D必須**として接続
+165:- `ARTIFACTS/TASK_LISTS.md`：Done条件/GO-NO-GOに Gate D（監査成果物が揃う）を接続
+166:- `ARTIFACTS/IMPLEMENTATION_PLAN.md`：工程に Gate D を追加（Gate Cの後）
+167:- `ARTIFACTS/WALKTHROUGH.md`：Evidence（LOGS/diff/checksums）の定義を明記し、Gate Dに導線
+168:- （存在する場合）`README.md` / `PROMPTS/*`：ロール一覧、進行にAuditorを追加
+174:### 6.1 Gate D（監査）をどのModeで必須にするか
+178:- Strict：監査・証跡を最重視。**Gate D必須**。
+246:監査（Gate D）では、Skill適用のEvidence（ログ/差分/チェック結果）が揃っているかを見ます。
+355:- **GO/NO-GO契約（Architect/Auditor）**:
+(none)

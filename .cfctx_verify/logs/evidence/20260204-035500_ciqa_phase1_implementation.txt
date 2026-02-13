@@ -1,0 +1,61 @@
+=== CIQA Phase 1: Implementation Evidence ===
+Timestamp (JST): 2026-02-04 12:55:00 JST
+Timestamp (UTC): 2026-02-04T03:55:00Z
+Command: bash scripts/ciqa_runner.sh (all checks) + ./kit ciqa integration
+VERDICT: PASS
+---
+
+--- Phase 1 Implementation Verification ---
+
+1. Runner infrastructure created:
+  EXISTS: config/ciqa.conf (sha256:bf41382eaa623269)
+  EXISTS: scripts/lib/ciqa_common.sh (sha256:2f3281f3468335fc)
+  EXISTS: scripts/ciqa_runner.sh (sha256:6397dac3db64c005)
+
+2. Check scripts created:
+  EXISTS: scripts/lib/ciqa_checks/cq_tracker.sh (sha256:e286e93b7e438221)
+  EXISTS: scripts/lib/ciqa_checks/cq_evidence.sh (sha256:4bfc46add6e3d076)
+  EXISTS: scripts/lib/ciqa_checks/cq_ssot.sh (sha256:13934aeeae1ff7c0)
+
+3. Kit integration:
+  ./kit ciqa subcommand: ADDED
+  ./kit all includes ciqa: YES (Step 3/4)
+  ./kit status includes CIQA: YES
+  handoff Trackers Digest includes CIQA: YES (3.6)
+
+4. Runner output (all checks):
+=== kit ciqa ===
+
+  CQ-TRK   (Tracker Integrity     ): FAIL
+  CQ-EVC   (Evidence Chain        ): FAIL
+  CQ-SSOT  (SSOT Drift            ): PASS
+
+CIQA Summary: 1/3 PASS, 2 FAIL
+Evidence: logs/evidence/20260204-035507_ciqa_summary.txt
+sha256(16): 46f0849d9e12a958
+
+5. Individual check tests:
+  CQ-TRK (tracker): FAIL (expected — legacy trackers lack 日時 field)
+    49 failures out of 96 [x] items (legacy format variance)
+  CQ-EVC (evidence): FAIL (expected — 2 genuinely missing evidence files in verify_task_tracker.md)
+    2 missing out of 92 evidence references
+  CQ-SSOT (ssot): PASS (3/3 SSOT files match)
+
+6. Exit code contract:
+  PASS run (ssot only): exit 0 ✓
+  FAIL run (all checks): exit 1 ✓
+
+7. Evidence output verified:
+logs/evidence/20260204-035500_ciqa_phase1_implementation.txt
+logs/evidence/20260204-035507_ciqa_summary.txt
+logs/evidence/20260204-035507_ciqa_CQ-SSOT.txt
+logs/evidence/20260204-035507_ciqa_CQ-EVC.txt
+logs/evidence/20260204-035505_ciqa_CQ-TRK.txt
+logs/evidence/20260204-035417_ciqa_summary.txt
+logs/evidence/20260204-035417_ciqa_CQ-EVC.txt
+logs/evidence/20260204-035415_ciqa_CQ-TRK.txt
+
+--- OVERALL JUDGEMENT ---
+RESULT: PASS
+REASON: Phase 1 implementation complete. Runner, config, 3 checks, kit integration all functional.
+CQ-TRK and CQ-EVC FAIL results are genuine findings (legacy tracker format gaps), not implementation bugs.

@@ -1,0 +1,106 @@
+=== CIQA Phase 0: Design Documents ===
+Timestamp (JST): 2026-02-04 03:46:49 JST
+Timestamp (UTC): 2026-02-03T18:46:49Z
+Command: create docs/ciqa/{requirements,spec,implementation_plan}.md + tasks/ciqa_task_tracker.md
+VERDICT: PASS
+---
+
+--- File Existence Check ---
+  EXISTS: docs/ciqa/ciqa_requirements.md (sha256:3a415269f88c1bc7)
+  EXISTS: docs/ciqa/ciqa_spec.md (sha256:859d4806b9fd1677)
+  EXISTS: docs/ciqa/ciqa_implementation_plan.md (sha256:76b74a0d56440cd1)
+  EXISTS: tasks/ciqa_task_tracker.md (sha256:0ce0313acb9ba3aa)
+
+--- Requirements Doc Sections ---
+## 0. 目的
+## 1. スコープ
+## 2. 成功条件（Acceptance Criteria）
+## 3. 運用要件
+## 4. 将来拡張
+## 5. 変更履歴
+
+--- Spec Doc Sections ---
+## 0. 概要
+## 1. コマンド設計
+## 2. チェック一覧（Check ID）
+## 3. 入力（Config）
+## 4. 出力
+## 5. ディレクトリ規約
+## 6. Runner API（チェックスクリプトのインタフェース）
+## 7. 失敗分類（Failure Signature）
+## 8. `./kit status` への統合
+## 9. latest.md への統合
+## 10. 変更履歴
+
+--- Implementation Plan Sections ---
+## 0. 目的
+## 1. 変更ファイル一覧
+## 2. フェーズ分割
+## 3. 実装順序と依存関係
+## 4. リスクと対策
+## 5. 変更履歴
+
+--- Task Tracker Phases ---
+## Phase 0: 設計（要件・仕様・計画策定）
+## Phase 1: 最小 Runner + コアチェック
+## Phase 2: kit 統合 + 追加チェック
+## Phase 3: 回帰検出 + 受け入れ検証
+## Phase 4: 拡張（プラグイン方式）
+
+--- Cross-Reference: Check IDs in req vs spec ---
+Req Check IDs:
+
+Spec Check IDs:
+CQ-DOC
+CQ-EVC
+CQ-LINT
+CQ-NAME
+CQ-REG
+CQ-SSOT
+CQ-TRK
+CQ-XXX
+Plan Check IDs:
+CQ-DOC
+CQ-EVC
+CQ-LINT
+CQ-NAME
+CQ-REG
+CQ-SSOT
+CQ-TRK
+
+--- Cross-Reference: AC numbers in req vs plan ---
+Req ACs:
+AC-CQ01
+AC-CQ02
+AC-CQ03
+AC-CQ04
+AC-CQ05
+AC-CQ06
+AC-CQ07
+AC-CQ08
+Plan/Tracker ACs:
+docs/ciqa/ciqa_implementation_plan.md:AC-CQ01
+tasks/ciqa_task_tracker.md:AC-CQ01
+tasks/ciqa_task_tracker.md:AC-CQ02
+tasks/ciqa_task_tracker.md:AC-CQ03
+tasks/ciqa_task_tracker.md:AC-CQ04
+tasks/ciqa_task_tracker.md:AC-CQ05
+tasks/ciqa_task_tracker.md:AC-CQ06
+tasks/ciqa_task_tracker.md:AC-CQ07
+tasks/ciqa_task_tracker.md:AC-CQ08
+
+--- Exit Code Contract Consistency ---
+Req exit code: 1 mentions
+Spec exit code: 2 mentions
+Kit exit code contract: 0=PASS / 1=FAIL (consistent with verify/test)
+
+--- Evidence Format Consistency ---
+Req evidence format matches existing: YES (YYYYMMDD-HHMMSS_<purpose>.txt)
+Spec evidence format matches existing: YES (YYYYMMDD-HHMMSS_ciqa_<check_id>.txt)
+
+--- Tracker Format Consistency ---
+Task tracker follows existing pattern: YES ([ ]/[x] + 判定/Evidence/日時 + Progress Log)
+
+--- OVERALL JUDGEMENT ---
+RESULT: PASS
+REASON: All 4 Phase 0 documents created successfully. Cross-references (Check IDs, ACs) are consistent across documents. Exit code contract, evidence format, and tracker format are consistent with existing kit conventions.

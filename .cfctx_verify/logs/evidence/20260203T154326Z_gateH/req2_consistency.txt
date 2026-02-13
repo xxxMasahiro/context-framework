@@ -1,0 +1,93 @@
+=== Gate H req②: Coherence Check ===
+
+--- rules/routes.yaml ---
+EXISTS (58 lines)
+version: 1
+routes:
+  - id: verify_readonly
+    match:
+      intent: verify
+    action:
+      actor: codex
+      risk: low
+      needs_gonogo: false
+      context_profile: ssot_only
+      output_format: checklist
+
+  - id: edit_docs
+    match:
+      intent: edit
+    action:
+      actor: codex
+      risk: low
+      needs_gonogo: false
+      context_profile: ssot_charter
+
+--- rules/policy.json ---
+EXISTS (157 lines)
+{
+  "version": 1,
+  "classification_schema": {
+    "type": "object",
+    "required": [
+      "intent",
+      "actor",
+      "risk",
+      "needs_gonogo",
+      "context_profile",
+      "output_format"
+    ],
+    "additionalProperties": false,
+    "properties": {
+      "intent": {
+        "type": "string",
+        "enum": [
+          "verify",
+          "edit",
+          "add",
+
+--- rules/ssot_manifest.yaml ---
+EXISTS (26 lines)
+# ssot は「_handoff_check の3ファイル集合（bundle）」の意味。SSOT最上位の意味ではない。
+ssot:
+  - "_handoff_check/cf_handoff_prompt.md"
+  - "_handoff_check/cf_update_runbook.md"
+  - "_handoff_check/cf_task_tracker_v5.md"
+# 将来用の明示キー（ssot と同値、誤解防止）
+handoff_check_files:
+  - "_handoff_check/cf_handoff_prompt.md"
+  - "_handoff_check/cf_update_runbook.md"
+  - "_handoff_check/cf_task_tracker_v5.md"
+charter:
+  - "CHARTER/*.md"
+architect:
+  - "WORKFLOW/*.md"
+skills:
+  - "SKILLS/**/*.md"
+projection:
+  - "CLAUDE.md"
+  - "AGENTS.md"
+  - "GEMINI.md"
+
+--- CI workflow ---
+EXISTS
+
+--- Tracker Gate H completion ---
+54:- [x] Gate I / I0（Gate H完了チェックリスト退避＋SSOTスリム化）
+67:## Gate H（完了：アーカイブ参照）
+68:- Gate H（完了）：詳細は runbook 付録「Gate H アーカイブ（完了済みチェックリスト）」を参照
+78:- 2026-01-28T16:36:42+0900 | UPD-20260128-02 | Gate I: I0（Gate H完了チェックリスト退避＋SSOTスリム化） | Evidence: commit:54a6bae
+79:- 2026-01-28T14:43:17+0900 | UPD-20260128-01 | Gate H: H12 運用成熟（CI/ログ整備）完了 | Evidence: commit:9626c12 / cmd: ./tools/cf-ci-validate.sh
+80:- 2026-01-27T18:53:51+0900 | UPD-20260127-11 | Gate H: H11 用途別ツールMCP（STDIO）設計完了 | Evidence: commit:40f33ad
+81:- 2026-01-27T17:59:36+0900 | UPD-20260127-10 | Gate H: H10 Docs MCP（読み取り専用）手順整備完了 | Evidence: commit:904b79a
+82:- 2026-01-27T14:57:33+0900 | UPD-20260127-09 | Gate H: H9 Gate C 検証組込み完了 | Evidence: commit:6b5cd88 / cmd: ./tools/cf-controller-smoke.sh
+83:- 2026-01-27T14:03:15+0900 | UPD-20260127-08 | Gate H: H8 テスト（不一致/高risk/JSON破損）完了 | Evidence: commit:4a4c86f / cmd: ./tools/cf-controller-smoke.sh
+84:- 2026-01-27T13:31:37+0900 | UPD-20260127-07 | Gate H: H7 2段階出力（分類→生成）整備完了 | Evidence: commit:b4b9295 / cmd: ./tools/cf-controller-smoke.sh
+85:- 2026-01-27T13:14:47+0900 | UPD-20260127-06 | Gate H: H6 危険操作ゲート（Go/NoGo + 検知）完了 | Evidence: commit:8a1dba1 / cmd: ./tools/cf-controller-smoke.sh
+86:- 2026-01-27T13:04:12+0900 | UPD-20260127-05 | Gate H: H3実装済みのためサマリをH6へ更新 | Evidence: cmd: ./bin/ctx-run --out /tmp/ssot_bundle.txt && test -s /tmp/ssot_bundle.txt
+87:- 2026-01-27T12:45:21+0900 | UPD-20260127-04 | Gate H: H5 Controller骨格（分類/検証/束/ログ）完了 | Evidence: commit:06261ac
+88:- 2026-01-27T11:30:30+0900 | UPD-20260127-03 | Gate H: H4 ルール設計（routes/policy/manifest）完了 | Evidence: commit:0fd03cf
+89:- 2026-01-27T09:55:49+0900 | UPD-20260127-02 | Gate H: H3 Phase0 ctx-run + ssot_manifest 最小 | Evidence: commit:1f8fa30
+90:- 2026-01-27T02:28:23+0900 | UPD-20260127-01 | Gate H: Controller新規タスク（Phase 0〜3）を追加 | Evidence: PR#74 (merge: 23f03dd, commit: 9c5624e)
+91:- 2026-01-27T01:57:13+0900 | UPD-20260126-04 | Gate H: T1/T2 確定再確認（調査証跡をSSOTへ追記） | Evidence: commit 6b009c1 / PR予定 wip/ssot-confirm-t1-t2
+92:- 2026-01-26T22:01:33+0900 | UPD-20260126-03 | Gate H を新規タスク入口へ統一（Gate G 完了扱い） | Evidence: PR #70 / merge e9105da

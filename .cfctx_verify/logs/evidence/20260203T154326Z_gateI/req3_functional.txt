@@ -1,0 +1,10 @@
+=== Gate I req③: Functional Check ===
+CHECK: tools/cf-doctor.sh exists (I4) — PASS
+CHECK: gate-g.yaml exists (I3) — PASS
+CHECK: cf-doctor.sh syntax valid — PASS
+CHECK: _handoff_check/cf_update_runbook.md exists — PASS
+CHECK: _handoff_check/cf_task_tracker_v5.md exists — PASS
+CHECK: _handoff_check/cf_handoff_prompt.md exists — PASS
+CHECK: Gate J entry in tracker (I5→next) — PASS
+
+Functional checks: 7/7 passed

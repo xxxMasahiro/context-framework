@@ -1,0 +1,26 @@
+# ssot は「_handoff_check の3ファイル集合（bundle）」の意味。SSOT最上位の意味ではない。
+ssot:
+  - "_handoff_check/cf_handoff_prompt.md"
+  - "_handoff_check/cf_update_runbook.md"
+  - "_handoff_check/cf_task_tracker_v5.md"
+# 将来用の明示キー（ssot と同値、誤解防止）
+handoff_check_files:
+  - "_handoff_check/cf_handoff_prompt.md"
+  - "_handoff_check/cf_update_runbook.md"
+  - "_handoff_check/cf_task_tracker_v5.md"
+charter:
+  - "CHARTER/*.md"
+architect:
+  - "WORKFLOW/*.md"
+skills:
+  - "SKILLS/**/*.md"
+projection:
+  - "CLAUDE.md"
+  - "AGENTS.md"
+  - "GEMINI.md"
+allow_read_prefix:
+  - "_handoff_check/"
+  - "CHARTER/"
+  - "WORKFLOW/"
+  - "SKILLS/"
+  - "LOGS/"
