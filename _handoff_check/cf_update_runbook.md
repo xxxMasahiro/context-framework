@@ -55,7 +55,7 @@
 原則:
 - バックアップは「上書き更新」しない。常に新規作成（証跡固定のため）。
 - 標準は `git tag`（作業前タグ）。※zipバックアップは廃止。
-- ディレクトリバックアップ（例: `../cf-context-framework_backup_YYYYMMDD[-HHMM]`）は、必要に応じて補助として併用してよい（証跡を残すこと）。
+- ディレクトリバックアップ（例: `../context-framework_backup_YYYYMMDD[-HHMM]`）は、必要に応じて補助として併用してよい（証跡を残すこと）。
 
 バックアップ作成を必須とするタイミング（いずれか該当で実施）:
 - 広範囲の変更に入る前（大量編集/移動/削除、SSOT更新など）
@@ -65,7 +65,7 @@
 
 命名規則（例）:
 - git tag: `backup/YYYYMMDD-HHMM`（または `backup/YYYYMMDD`）
-- directory: `../cf-context-framework_backup_YYYYMMDD-HHMM`
+- directory: `../context-framework_backup_YYYYMMDD-HHMM`
 
 証跡（Evidence）:
 - `cf_task_tracker_v5.md` の STEP-006 の Evidence に「tag名（またはバックアップ先パス）」を記録する
@@ -179,7 +179,7 @@ Version: draft-2026-01-16+skills
 
 ### 6.2 3ファイル（CLAUDE/AGENTS/GEMINI）の役割
 - 3ファイルは **エージェントに直接渡せる**内容にしてよい。
-- ただし「唯一の正」は cf-context-framework 側（Charter/Mode/Artifacts/Skills）。
+- ただし「唯一の正」は context-framework 側（Charter/Mode/Artifacts/Skills）。
 - 3ファイルには **リンク・I/O契約・禁止事項・起動チェック**を中心に置き、詳細本文の複製は避ける。
 
 ---
