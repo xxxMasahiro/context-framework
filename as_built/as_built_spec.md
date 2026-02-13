@@ -1,6 +1,6 @@
 # 仕様書 — context-framework
 
-version: 0.5
+version: 0.6
 date: 2026-02-13
 status: as-built
 
@@ -8,7 +8,7 @@ status: as-built
 
 ## 0. 目的・位置づけ
 
-本書は `as_built/as_built_requirements.md`（要件定義書 v0.1）に定義された全要件に対する **技術仕様** を記述する。
+本書は `as_built/as_built_requirements.md`（要件定義書 v0.3）に定義された全要件に対する **技術仕様** を記述する。
 
 - 本書は **as-built（実態記述）** である。
 - 要件定義書（`as_built/as_built_requirements.md`）・実装計画書（`as_built/as_built_implementation_plan.md`）とトレーサブルである。
@@ -549,13 +549,14 @@ context-framework/
 ### SPEC-CF-D02: CIQA_REF 確定
 
 - **対応**: —
-- **状況**: ciqa.yml の `CIQA_REF` を ciqa リポジトリ初回コミット SHA（`954af284ebe1cda8ffe0d5e85a2e86f9aee54fc7`）に確定済み。プレースホルダ検証ステップを通過可能。
+- **状況**: ciqa.yml の `CIQA_REF` を ciqa リポジトリ最終コミット SHA（`4d31f397a44cb1bfb3f69631eacb9e17c636e907`）に確定済み。プレースホルダ検証ステップを通過可能。
 - **影響度**: 解消済み
 
 ---
 
 ## 8. 変更履歴
 
+- v0.6（2026-02-13 JST）: CODEX 三者整合監査 H-03/L-01 修正。SPEC-CF-D02: CIQA_REF を最終コミット SHA（`4d31f39`）に更新。参照要件定義書バージョンを v0.1→v0.3 に修正。
 - v0.5（2026-02-13 JST）: CODEX H-03/H-04 解消。SPEC-CF-D01: ciqa プロファイル作成済みに更新。SPEC-CF-D02: CIQA_REF 確定済み（`954af28`）に更新。
 - v0.4（2026-02-13 JST）: リポジトリ名ドリフト修正。タイトル・ディレクトリ構造図ルート・プロファイルパスの旧名 `cf-context-framework` を `context-framework` に統一（CODEX H-02/M-01 対応）。
 - v0.3（2026-02-12 JST）: CODEX 再検証 F-05 修正。SPEC-CF-D01 のプロファイルパスを SPEC-CF-T04 と統一（`ciqa/profiles/cf-context-framework/profile.yml`）。

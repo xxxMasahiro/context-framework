@@ -1,4 +1,4 @@
-# CODEOWNERS — cf-context-framework
+# CODEOWNERS — context-framework
 # SSOT path およびルール変更を保護する (REQ-O04 準拠)
 
 /rules/ssot_manifest.yaml  @xxxMasahiro

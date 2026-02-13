@@ -2,7 +2,7 @@
 
 ## 目的
 - OpenAI Codex に **直接渡す運用アダプタ**として使う
-- SSOT（唯一の正）は cf-context-framework 側に固定する
+- SSOT（唯一の正）は context-framework 側に固定する
 
 ## 役割（固定しない）
 - このmdは Codex 向けの入口（読み込み必須）であり、役割は固定しない
