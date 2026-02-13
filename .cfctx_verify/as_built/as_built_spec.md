@@ -1,8 +1,8 @@
 # as-built 仕様書（正式版）— Temporary Verification Kit
 
-version: 1.9
-date: 2026-02-07
-status: 正式版（v1.9: Phase 5 lockdown/unlock 実装 + MAIN_REPO バリデーション強化 — SSOT fingerprint 照合で誤 repo 接続防止）
+version: 2.0
+date: 2026-02-14
+status: 正式版（v2.0: 用語定義・対象定義のリポジトリ名を現行名 context-framework に統一）
 
 ---
 
@@ -437,14 +437,14 @@ status: 正式版（v1.9: Phase 5 lockdown/unlock 実装 + MAIN_REPO バリデ�
 
 ### SPEC-S16: MAIN_REPO バリデーション（_validate_main_repo）
 
-- **目的**: `discover_main_repo()` の候補 repo が実際に cf-context-framework であることを検証し、誤った repo への接続を防止する。
+- **目的**: `discover_main_repo()` の候補 repo が実際に context-framework であることを検証し、誤った repo への接続を防止する。
 - **バリデーション手順**（evidence.sh:17-52）:
   1. `.git` ディレクトリ存在確認（git リポジトリであること）
   2. `_handoff_check/` ディレクトリ存在確認（SSOT ソースの存在）
   3. 構造マーカー確認（`WORKFLOW/`、`controller/`、`rules/` のいずれか存在）
   4. **SSOT fingerprint 照合**: Kit `SSOT/` の 3 ファイル（cf_handoff_prompt.md, cf_update_runbook.md, cf_task_tracker_v5.md）の sha256 と候補 repo `_handoff_check/` の sha256 を比較。全ファイル一致で PASS、1 ファイルでも不一致なら候補を棄却。
 - **候補走査**: `discover_main_repo()` のステップ 4（CFCTX_SEARCH_PATH 検索）は `find` の全結果を走査し、最初にバリデーションを通過した候補を採用（`head -1` → `while read` ループに変更）。
-- **リスク緩和効果**: 同一検索パス配下に複数の cf-context-framework クローンが存在する場合でも、Kit の SSOT スナップショットと SHA が一致する repo のみが選択される。
+- **リスク緩和効果**: 同一検索パス配下に複数の context-framework クローンが存在する場合でも、Kit の SSOT スナップショットと SHA が一致する repo のみが選択される。
 - **対応 REQ**: REQ-F16
 - **根拠**: evidence.sh:17-97
 
@@ -658,3 +658,4 @@ latest.md は以下の 7 セクションで構成される（handoff_builder.sh 
 - v1.7（2026-02-07 JST）: run_tests.sh Phase 2 Gate 0 件ガード追加（SPEC-S04: プロセス置換 `< <(gr_list_gate_ids)` の exit code 非伝播による偽 PASS を防止。Gate 配列が空の場合は即 FAIL）
 - v1.8（2026-02-07 JST）: gate_a.sh:90/gate_b.sh:57 の `repo_grep` 呼び出しバグ修正（SPEC-S06/S07: `-i` フラグが `repo_grep` 非対応のため引数が 1 つずれ常に FAIL。`-i` 除去で解消）
 - v1.9（2026-02-07 JST）: Phase 5 lockdown/unlock 実装（SPEC-S17/S18: quarantine 移動 + 二段階解除、SSOT 準拠）+ MAIN_REPO バリデーション強化（SPEC-S16: _validate_main_repo 4 段階検証 — SSOT sha256 照合で誤 repo 接続防止、find 全候補走査化）+ SPEC-D01 ディレクトリ構造に lockdown.sh/unlock.sh 追加 + SSOT 差分テーブル更新（lockdown 行を「実装済み」に変更）
+- v2.0（2026-02-14 JST）: 用語定義・対象定義のリポジトリ名を旧名 cf-context-framework から現行名 context-framework に統一（CODEX F-02 対応、2 箇所修正: SPEC-S16 目的・リスク緩和効果）

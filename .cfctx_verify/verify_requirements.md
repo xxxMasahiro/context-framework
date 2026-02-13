@@ -20,7 +20,7 @@
 ---
 
 ## 2. 用語
-- **本体repo**: cf-context-framework のGitリポジトリ（read-only 対象）
+- **本体repo**: context-framework のGitリポジトリ（read-only 対象）
 - **検証キット**: $CFCTX_VERIFY_ROOT/.cfctx_verify（既定・推奨）
 - **SSOT snapshot**: 本体repoの `_handoff_check/` 3ファイルを “そのままコピー” したもの
 - **Evidence**: 実行コマンド結果・確認結果を保存したログ（logs/evidence/）
