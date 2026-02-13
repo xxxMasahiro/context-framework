@@ -1,6 +1,6 @@
 # 実装計画書 — context-framework
 
-version: 0.6
+version: 0.7
 date: 2026-02-13
 status: as-built
 
@@ -8,7 +8,7 @@ status: as-built
 
 ## 0. 目的・位置づけ
 
-本書は `as_built/as_built_requirements.md`（要件定義書 v0.3）および `as_built/as_built_spec.md`（仕様書 v0.5）に完全準拠した **実装計画** を記述する。
+本書は `as_built/as_built_requirements.md`（要件定義書 v0.3）および `as_built/as_built_spec.md`（仕様書 v0.6）に完全準拠した **実装計画** を記述する。
 
 - 本書は **as-built（実態記述）** である。
 - 要件定義書（`as_built/as_built_requirements.md`）・仕様書（`as_built/as_built_spec.md`）とトレーサブルである。
@@ -330,6 +330,7 @@ P10 (as-built 文書) ← P1-P9 全完了後
 
 ## 14. 変更履歴
 
+- v0.7（2026-02-13 JST）: CODEX 再監査 M-01 修正。参照仕様書バージョンを v0.5→v0.6 に更新（仕様書と同期）。
 - v0.6（2026-02-13 JST）: CODEX 三者整合監査 H-03/L-01 修正。CIQA_REF を最終コミット SHA（`4d31f39`）に更新。参照要件定義書/仕様書バージョンを v0.1→v0.3 / v0.3→v0.5 に修正。
 - v0.5（2026-02-13 JST）: CODEX H-03 解消。IMPL-CF-P8-01 の CIQA_REF 注記をプレースホルダから確定済み SHA に更新。
 - v0.4（2026-02-13 JST）: リポジトリ名ドリフト修正。タイトルの旧名 `cf-context-framework` を `context-framework` に統一（CODEX H-02/M-01 対応）。
