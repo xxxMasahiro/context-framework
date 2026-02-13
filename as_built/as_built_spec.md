@@ -1,14 +1,14 @@
-# 仕様書 — cf-context-framework
+# 仕様書 — context-framework
 
-version: 0.3
-date: 2026-02-12
+version: 0.6
+date: 2026-02-13
 status: as-built
 
 ---
 
 ## 0. 目的・位置づけ
 
-本書は `as_built/as_built_requirements.md`（要件定義書 v0.1）に定義された全要件に対する **技術仕様** を記述する。
+本書は `as_built/as_built_requirements.md`（要件定義書 v0.3）に定義された全要件に対する **技術仕様** を記述する。
 
 - 本書は **as-built（実態記述）** である。
 - 要件定義書（`as_built/as_built_requirements.md`）・実装計画書（`as_built/as_built_implementation_plan.md`）とトレーサブルである。
@@ -21,7 +21,7 @@ status: as-built
 ### SPEC-CF-DIR01: リポジトリレイアウト
 
 ```
-cf-context-framework/
+context-framework/
 ├── .github/
 │   └── workflows/
 │       ├── ci-validate.yml      # 既存 CI バリデーション (REQ-CF-T04)
@@ -268,7 +268,7 @@ cf-context-framework/
      - トリガー: `on: [push, pull_request]`（ブランチフィルタなし）
      - ジョブ順序: phase0 → lint → build → unit_test → cq → report + notify_failure
      - ciqa リポジトリを `CIQA_REF`（SHA pin）でチェックアウト
-     - CF プロファイル存在確認（`ciqa/profiles/cf-context-framework/profile.yml`）
+     - CF プロファイル存在確認（`ciqa/profiles/context-framework/profile.yml`）
      - 各ジョブで secrets スキャン + evidence アップロード
      - notify_failure: 失敗時に PR コメント投稿
 - **実装状態**: 実装済み
@@ -543,19 +543,22 @@ cf-context-framework/
 ### SPEC-CF-D01: ciqa プロファイル詳細
 
 - **対応**: REQ-CF-D01
-- **状況**: ciqa.yml は CF 用プロファイル（`ciqa/profiles/cf-context-framework/profile.yml`）の存在を前提とする。プロファイルの詳細定義は ciqa リポジトリ側で管理。
-- **影響度**: 低（ciqa 側の管理事項）
+- **状況**: ciqa リポジトリに `profiles/context-framework/profile.yml` を作成済み（strict モード、SSOT required、Gate 5 件）。ciqa.yml の各ジョブが参照するプロファイル存在確認ステップを通過可能。
+- **影響度**: 解消済み
 
 ### SPEC-CF-D02: CIQA_REF 確定
 
 - **対応**: —
-- **状況**: ciqa.yml の `CIQA_REF` はプレースホルダ（`"<full-commit-sha>"`）のまま。ciqa リポジトリの初回コミット後に確定する。
-- **影響度**: 中（ciqa.yml が動作するためには確定が必要）
+- **状況**: ciqa.yml の `CIQA_REF` を ciqa リポジトリ最終コミット SHA（`4d31f397a44cb1bfb3f69631eacb9e17c636e907`）に確定済み。プレースホルダ検証ステップを通過可能。
+- **影響度**: 解消済み
 
 ---
 
 ## 8. 変更履歴
 
+- v0.6（2026-02-13 JST）: CODEX 三者整合監査 H-03/L-01 修正。SPEC-CF-D02: CIQA_REF を最終コミット SHA（`4d31f39`）に更新。参照要件定義書バージョンを v0.1→v0.3 に修正。
+- v0.5（2026-02-13 JST）: CODEX H-03/H-04 解消。SPEC-CF-D01: ciqa プロファイル作成済みに更新。SPEC-CF-D02: CIQA_REF 確定済み（`954af28`）に更新。
+- v0.4（2026-02-13 JST）: リポジトリ名ドリフト修正。タイトル・ディレクトリ構造図ルート・プロファイルパスの旧名 `cf-context-framework` を `context-framework` に統一（CODEX H-02/M-01 対応）。
 - v0.3（2026-02-12 JST）: CODEX 再検証 F-05 修正。SPEC-CF-D01 のプロファイルパスを SPEC-CF-T04 と統一（`ciqa/profiles/cf-context-framework/profile.yml`）。
 - v0.2（2026-02-12 JST）: CODEX 調査報告 F3/F4 修正。SPEC-CF-DIR01: _handoff_check/ 配下の存在しないサブディレクトリ（SPEC/, TOOLING/）を削除。SPEC-CF-T04/F07: ciqa.yml トリガー記述を実装と整合（`on: [push, pull_request]`）。SPEC-CF-T04: プロファイル確認パスを実装と整合（`ciqa/profiles/cf-context-framework/profile.yml`）。
 - v0.1（2026-02-12 JST）: 初版作成。cf-context-framework の実装済み仕様を as-built として記述。ディレクトリ構造 1 件、安全性 7 件、追跡性 5 件、運用 3 件、機能 8 件、差分 2 件を策定。

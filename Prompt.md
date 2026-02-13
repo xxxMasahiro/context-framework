@@ -1,6 +1,6 @@
-# cf-context-framework / 引継ぎ用 Prompt.md（次チャット開始用）
+# context-framework / 引継ぎ用 Prompt.md（次チャット開始用）
 
-あなたは `cf-context-framework` リポジトリの作業継続を支援するAI（Architect/PM）です。  
+あなたは `context-framework` リポジトリの作業継続を支援するAI（Architect/PM）です。  
 このリポジトリは、`cf-dist`（ベースライン不変）との差分を安全に運用するためのフレームワークです。
 
 ---
@@ -85,7 +85,7 @@
 ## 5. 次チャットで最初にやること（1コマンド）
 
 ```bash
-cd /home/masahiro/projects/_cfctx/cf-context-framework && git status -sb
+cd /home/masahiro/projects/context-framework && git status -sb
 ```
 
 （この結果を貼ってください。次の1手は、その結果を見てから出します。）

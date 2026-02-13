@@ -4,7 +4,7 @@ permissions:
   contents: read
 
 env:
-  CIQA_REF: "<full-commit-sha>"
+  CIQA_REF: "4d31f397a44cb1bfb3f69631eacb9e17c636e907"
   CIQA_RETENTION: ${{ vars.CIQA_RETENTION_DAYS || 30 }}
 
 jobs:
@@ -37,9 +37,10 @@ jobs:
             echo "::error::Workflow file not found: ${WF_CIQA}"
             exit 1
           fi
-          if grep -rqE '<full-sha>|<full-commit-sha>|\{owner\}|\{repo\}|\{sha\}' "$WF_DIR"; then
+          PLACEHOLDER_RE='<full-sh[a]>|<full-commit-sh[a]>|\{owne[r]\}|\{rep[o]\}|\{sh[a]\}'
+          if grep -rqE "$PLACEHOLDER_RE" "$WF_DIR"; then
             echo "::error::Unresolved placeholders found in ${WF_DIR}/:"
-            grep -rnE '<full-sha>|<full-commit-sha>|\{owner\}|\{repo\}|\{sha\}' "$WF_DIR"
+            grep -rnE "$PLACEHOLDER_RE" "$WF_DIR"
             exit 1
           fi
           echo "Placeholder validation PASSED: no unresolved tokens in ${WF_DIR}/"
@@ -60,8 +61,8 @@ jobs:
           echo "$PWD/node_modules/.bin" >> "$GITHUB_PATH"
       - name: Verify CF profile exists
         run: |
-          if [[ ! -f ciqa/profiles/cf-context-framework/profile.yml ]]; then
-            echo "::error::CF profile not found: ciqa/profiles/cf-context-framework/profile.yml"
+          if [[ ! -f ciqa/profiles/context-framework/profile.yml ]]; then
+            echo "::error::CF profile not found: ciqa/profiles/context-framework/profile.yml"
             exit 1
           fi
       - name: Run phase0
@@ -69,7 +70,7 @@ jobs:
         run: |
           cd ciqa
           ./ciqa phase0 --repo "${{ github.workspace }}/target" \
-            --profile cf-context-framework
+            --profile context-framework
       - name: Scan secrets before upload
         if: always()
         id: secrets_check
@@ -134,8 +135,8 @@ jobs:
           echo "$PWD/node_modules/.bin" >> "$GITHUB_PATH"
       - name: Verify CF profile exists
         run: |
-          if [[ ! -f ciqa/profiles/cf-context-framework/profile.yml ]]; then
-            echo "::error::CF profile not found: ciqa/profiles/cf-context-framework/profile.yml"
+          if [[ ! -f ciqa/profiles/context-framework/profile.yml ]]; then
+            echo "::error::CF profile not found: ciqa/profiles/context-framework/profile.yml"
             exit 1
           fi
       - name: Run lint
@@ -143,7 +144,7 @@ jobs:
         run: |
           cd ciqa
           ./ciqa lint --repo "${{ github.workspace }}/target" \
-            --profile cf-context-framework
+            --profile context-framework
       - name: Scan secrets before upload
         if: always()
         id: secrets_check
@@ -208,8 +209,8 @@ jobs:
           echo "$PWD/node_modules/.bin" >> "$GITHUB_PATH"
       - name: Verify CF profile exists
         run: |
-          if [[ ! -f ciqa/profiles/cf-context-framework/profile.yml ]]; then
-            echo "::error::CF profile not found: ciqa/profiles/cf-context-framework/profile.yml"
+          if [[ ! -f ciqa/profiles/context-framework/profile.yml ]]; then
+            echo "::error::CF profile not found: ciqa/profiles/context-framework/profile.yml"
             exit 1
           fi
       - name: Run build
@@ -217,7 +218,7 @@ jobs:
         run: |
           cd ciqa
           ./ciqa build --repo "${{ github.workspace }}/target" \
-            --profile cf-context-framework
+            --profile context-framework
       - name: Scan secrets before upload
         if: always()
         id: secrets_check
@@ -282,8 +283,8 @@ jobs:
           echo "$PWD/node_modules/.bin" >> "$GITHUB_PATH"
       - name: Verify CF profile exists
         run: |
-          if [[ ! -f ciqa/profiles/cf-context-framework/profile.yml ]]; then
-            echo "::error::CF profile not found: ciqa/profiles/cf-context-framework/profile.yml"
+          if [[ ! -f ciqa/profiles/context-framework/profile.yml ]]; then
+            echo "::error::CF profile not found: ciqa/profiles/context-framework/profile.yml"
             exit 1
           fi
       - name: Run unit_test
@@ -291,7 +292,7 @@ jobs:
         run: |
           cd ciqa
           ./ciqa test --repo "${{ github.workspace }}/target" \
-            --profile cf-context-framework
+            --profile context-framework
       - name: Scan secrets before upload
         if: always()
         id: secrets_check
@@ -356,8 +357,8 @@ jobs:
           echo "$PWD/node_modules/.bin" >> "$GITHUB_PATH"
       - name: Verify CF profile exists
         run: |
-          if [[ ! -f ciqa/profiles/cf-context-framework/profile.yml ]]; then
-            echo "::error::CF profile not found: ciqa/profiles/cf-context-framework/profile.yml"
+          if [[ ! -f ciqa/profiles/context-framework/profile.yml ]]; then
+            echo "::error::CF profile not found: ciqa/profiles/context-framework/profile.yml"
             exit 1
           fi
       - name: Run cq
@@ -365,7 +366,7 @@ jobs:
         run: |
           cd ciqa
           ./ciqa cq --repo "${{ github.workspace }}/target" \
-            --profile cf-context-framework
+            --profile context-framework
       - name: Scan secrets before upload
         if: always()
         id: secrets_check
@@ -430,8 +431,8 @@ jobs:
           echo "$PWD/node_modules/.bin" >> "$GITHUB_PATH"
       - name: Verify CF profile exists
         run: |
-          if [[ ! -f ciqa/profiles/cf-context-framework/profile.yml ]]; then
-            echo "::error::CF profile not found: ciqa/profiles/cf-context-framework/profile.yml"
+          if [[ ! -f ciqa/profiles/context-framework/profile.yml ]]; then
+            echo "::error::CF profile not found: ciqa/profiles/context-framework/profile.yml"
             exit 1
           fi
       - name: Run full pipeline + report
@@ -440,7 +441,7 @@ jobs:
           cd ciqa
           PIPELINE_EXIT=0
           ./ciqa all --repo "${{ github.workspace }}/target" \
-            --profile cf-context-framework \
+            --profile context-framework \
             --retention-days "${{ env.CIQA_RETENTION }}" || PIPELINE_EXIT=$?
           echo "pipeline_exit=${PIPELINE_EXIT}" >> "$GITHUB_OUTPUT"
           ./ciqa report || true

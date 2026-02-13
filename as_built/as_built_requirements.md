@@ -1,14 +1,14 @@
-# 要件定義書 — cf-context-framework
+# 要件定義書 — context-framework
 
-version: 0.1
-date: 2026-02-12
+version: 0.3
+date: 2026-02-13
 status: as-built
 
 ---
 
 ## 0. 目的・位置づけ
 
-本書は cf-context-framework の **実装済み要件（as-built requirements）** を記述する。
+本書は context-framework の **実装済み要件（as-built requirements）** を記述する。
 
 - 本書は **as-built（実態記述）** である。
 - 対応する仕様書（`as_built/as_built_spec.md`）・実装計画書（`as_built/as_built_implementation_plan.md`）とトレーサブルである。
@@ -20,7 +20,7 @@ status: as-built
 
 ### 1.1 対象
 
-- cf-context-framework リポジトリの構成・運用・CI/CQ 統合に関する要件
+- context-framework リポジトリの構成・運用・CI/CQ 統合に関する要件
 - Gate 進行管理（A → B → C → D）による品質保証プロセス
 - SSOT 3 ファイルバンドル（`_handoff_check/`）による引継ぎ管理
 - controller / policy / routes による分類・ルーティング
@@ -331,8 +331,8 @@ status: as-built
 ### REQ-CF-D01: ciqa プロファイル
 
 - **内容**: ciqa.yml で参照する CF 用プロファイルは ciqa リポジトリ側で管理される。CF リポジトリ側での定義は不要。
-- **影響度**: 低
-- **提案**: ciqa リポジトリで `profiles/cf-context-framework/` を作成する。
+- **影響度**: 解消済み
+- **対応**: ciqa リポジトリに `profiles/context-framework/profile.yml` を作成済み（strict モード、SSOT required、Gate 5 件、timeouts: check=300/job=900）。
 
 ### REQ-CF-D02: ブランチ保護ルール
 
@@ -344,4 +344,6 @@ status: as-built
 
 ## 9. 変更履歴
 
+- v0.3（2026-02-13 JST）: CODEX H-04 解消。REQ-CF-D01: ciqa プロファイル作成済みに更新（影響度: 解消済み）。
+- v0.2（2026-02-13 JST）: リポジトリ名ドリフト修正。タイトル・目的・スコープ・プロファイルパスの旧名 `cf-context-framework` を `context-framework` に統一（CODEX H-02/M-01 対応）。
 - v0.1（2026-02-12 JST）: 初版作成。cf-context-framework の実装済み要件を as-built として記述。安全性 7 件、追跡性 5 件、運用 3 件、機能 8 件、差分 2 件を策定。
