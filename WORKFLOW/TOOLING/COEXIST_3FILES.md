@@ -2,7 +2,7 @@
 
 ## 目的
 - `CLAUDE.md` / `AGENTS.md` / `GEMINI.md` の共存ルールを明確化し、運用アダプタとして扱う
-- SSOT（唯一の正）を **cf-context-framework 側**に固定し、重複記述を避ける
+- SSOT（唯一の正）を **context-framework 側**に固定し、重複記述を避ける
 
 ## SSOT（唯一の正）
 - 優先順位: **Charter → Mode → Artifacts → Skills**
