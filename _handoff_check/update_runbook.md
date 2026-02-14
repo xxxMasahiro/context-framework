@@ -1,12 +1,12 @@
 <!-- GATE_AUDIT_LANG_POLICY_V1 -->
 ## 表記ポリシー（日本語統一 / SSOT）
 
-- 新しいチャットへ引き継ぐ場合は、**_handoff_check の3ファイル（cf_update_runbook.md / cf_task_tracker_v5.md / cf_handoff_prompt.md）を必ず添付**する（新運用の固定）。
-- 添付できない場合は `cf_handoff_prompt.md` の「SSOT 3ファイルを添付できない場合の代替手順」に従う。
+- 新しいチャットへ引き継ぐ場合は、**_handoff_check の3ファイル（update_runbook.md / task_tracker.md / handoff_prompt.md）を必ず添付**する（新運用の固定）。
+- 添付できない場合は `handoff_prompt.md` の「SSOT 3ファイルを添付できない場合の代替手順」に従う。
 - 規範文書（Charter/Mode/Workflow/Artifacts/Skills）は **日本語本文が正（SSOT）**。
 - `PROMPTS/` や各ツール入口（`CLAUDE.md` / `AGENTS.md` / `GEMINI.md`）は、**日本語本文＋必要最小限の英語要約を併記可**（規範は日本語側）。
 - 固有名詞（パス/コマンド/ファイル名/GitHub用語）は **英語表記のまま固定**（無理に日本語化しない）。
-- 詳細は `_handoff_check/cf_update_runbook.md` の「言語ポリシー」記載を正とする（このブロックは要約）。
+- 詳細は `_handoff_check/update_runbook.md` の「言語ポリシー」記載を正とする（このブロックは要約）。
 
 
 <!-- CFCTX_UPDATE_ZIP_DEPRECATED_V1 -->
@@ -15,13 +15,13 @@
 ## 引継ぎ簡略運用（旧引継ぎ文書不使用）
 
 - 新チャット添付は次の3ファイルのみ（整合性対象は3ファイル）:
-  - `_handoff_check/cf_update_runbook.md`
-  - `_handoff_check/cf_task_tracker_v5.md`
-  - `_handoff_check/cf_handoff_prompt.md`（都度更新の運用メモだが、SSOTパックに含める）
+  - `_handoff_check/update_runbook.md`
+  - `_handoff_check/task_tracker.md`
+  - `_handoff_check/handoff_prompt.md`（都度更新の運用メモだが、SSOTパックに含める）
 - SSOTは _handoff_check の3ファイル（**運用規範の最上位は runbook**／trackerは進捗／handoff_promptは便宜）
 - 注記: rules/ssot_manifest.yaml の `ssot` は「3ファイル集合（bundle）」の意味であり、SSOT最上位の意味ではない。
 - 引継ぎプロンプト（テンプレ・表記固定）:
-  > 前回のチャットからの引継ぎを行います。まずは、添付した3つのファイル（cf_handoff_prompt.md / cf_update_runbook.md / cf_task_tracker_v5.md）をすべて読み込んで確認し、整合性の取れた適切な引継ぎ構成を構築してください。cf_update_runbook.md と cf_task_tracker_v5.md に完全準拠し、cf_handoff_prompt.md を参照してこれまでの経緯と次の指示（次にやること1つ）を提示してください。
+  > 前回のチャットからの引継ぎを行います。まずは、添付した3つのファイル（handoff_prompt.md / update_runbook.md / task_tracker.md）をすべて読み込んで確認し、整合性の取れた適切な引継ぎ構成を構築してください。update_runbook.md と task_tracker.md に完全準拠し、handoff_prompt.md を参照してこれまでの経緯と次の指示（次にやること1つ）を提示してください。
 
 - 今後の引継ぎはZIPを作らない。SSOTはリポジトリ直下 `_handoff_check/` の3ファイル。
 - `_handoff_cache/` は過去の証跡・互換用（原則参照しない）。
@@ -33,14 +33,14 @@
 
 - 目的: リポジトリ取り違え防止（パス固定ではなく、Repo Fingerprint + Guard で判定する）。
 - Repo Fingerprint: `.repo-id/repo_fingerprint.json` を同一性の正とする。
-- Guard: `./tools/cf-guard.sh --check` で事前確認し、NGなら中止する。
+- Guard: `./tools/guard.sh --check` で事前確認し、NGなら中止する。
 - 破壊的操作（restore/reset/clean/rm など）は Guard 経由を推奨する。
 - 詳細: `WORKFLOW/TOOLING/REPO_LOCK.md`
 
 例:
 ```
-./tools/cf-guard.sh --check
-./tools/cf-guard.sh -- git status -sb
+./tools/guard.sh --check
+./tools/guard.sh -- git status -sb
 ```
 
 ## 初期設定（役割割当）
@@ -68,7 +68,7 @@
 - directory: `../context-framework_backup_YYYYMMDD-HHMM`
 
 証跡（Evidence）:
-- `cf_task_tracker_v5.md` の STEP-006 の Evidence に「tag名（またはバックアップ先パス）」を記録する
+- `task_tracker.md` の STEP-006 の Evidence に「tag名（またはバックアップ先パス）」を記録する
 - 完了時は Progress Log/Updates に「日時・タスクID・証跡（tag名/パス）」を追記する
 
 
@@ -77,10 +77,10 @@ Version: draft-2026-01-16+skills
 
 この手順書は、このチャットで確定した方針と、_handoff_check の3ファイルの内容を統合し、**context-framework 全体の整合性（Charter→Mode→Artifacts→Skills）を保ったままアップデートする**ための実行ランブックです。
 
-> 進捗管理・証跡（Evidence）記録は、併設のタスク管理票 `cf_task_tracker_vN.md`（最新版） を使用します。
+> 進捗管理・証跡（Evidence）記録は、併設のタスク管理票 `task_tracker.md`（最新版） を使用します。
 
-- ログ索引（`LOGS/INDEX.md`）は生成物。trackerの LOG/UPD/SKILL-LOG を更新したPRでは `tools/cf-log-index.sh` を再実行し、同一PRで更新する。
-※最新版の判定: 作業フォルダ内の `cf_task_tracker_v*.md` のうち番号 N が最大のもの。新規作成時はその N+1 で作成します。
+- ログ索引（`LOGS/INDEX.md`）は生成物。trackerの LOG/UPD/SKILL-LOG を更新したPRでは `tools/log-index.sh` を再実行し、同一PRで更新する。
+※最新版: `_handoff_check/task_tracker.md`（バージョン番号はファイル名から除去、本文ヘッダで管理）。
 ---
 
 ## 1. 目的とスコープ
@@ -261,16 +261,16 @@ Skillsは単体で完結させず、必ずArtifactsへ“書き戻し”ます�
 
 ### I5: 運用統合（timing / failure / evidence / smoke）
 - 実行タイミング:
-  - 作業開始前: `./tools/cf-guard.sh --check`
-  - 主要作業前（またはPR前）: `./tools/cf-doctor.sh step STEP-G003`
+  - 作業開始前: `./tools/guard.sh --check`
+  - 主要作業前（またはPR前）: `./tools/doctor.sh step STEP-G003`
   - 失敗時: 原因と根拠を示して中止 → 次の1手を1コマンドで提示
 - 失敗時の運用:
   - FAIL時は安全停止（中止）→ next_action を1つだけ提示（再実行前提）
 - Evidence:
   - 規範は runbook、実行結果/証跡は tracker の Progress Log/Updates に残す
 - 最小スモーク（導線）:
-  - `./tools/cf-doctor.sh step STEP-G003`
-  - 必要に応じて `./tools/cf-ci-validate.sh`（smoke含む）
+  - `./tools/doctor.sh step STEP-G003`
+  - 必要に応じて `./tools/ci-validate.sh`（smoke含む）
 
 ### パッチ（unified diff）事故防止ルール（必須）
 
@@ -295,7 +295,7 @@ cd "$REPO"
 
 # Guard（安全確認：想定リポジトリ以外なら中止）
 test "$(git rev-parse --show-toplevel)" = "$REPO"
-./tools/cf-guard.sh --check
+./tools/guard.sh --check
 
 # 同期/クリーン確認（push後の最終整合）
 git status -sb
@@ -314,7 +314,7 @@ git log -1 --oneline --decorate
 
 ```bash
 # guard: Repo Lock（想定リポジトリ以外なら中止）
-./tools/cf-guard.sh --check
+./tools/guard.sh --check
 
 # branch capture
 start_branch="$(git rev-parse --abbrev-ref HEAD)"
@@ -346,10 +346,10 @@ git status -sb
 - 実行結果を貼って次に進む（1手運用の原則は維持）。
 ---
 
-## 8.2 運用フロー契約（SSOT→cf-doctor→GO/NO-GO→Skills）
+## 8.2 運用フロー契約（SSOT→doctor→GO/NO-GO→Skills）
 
 - **SSOT優先順位**: runbook（最上位） > tracker（進捗） > handoff_prompt（便宜）
-- **cf-doctor出力契約**:
+- **doctor出力契約**:
   - 必須: PASS/FAIL / failures（不足理由） / evidence（file:line+短い抜粋） / next_action（**1コマンドのみ**）
   - Read-only厳守（ファイル変更はしない）。Python等は**必須にしない**（あれば補助可）。
 - **GO/NO-GO契約（Architect/Auditor）**:
@@ -425,9 +425,9 @@ git status -sb
 
 ## 追記（2026-01-17）
 ### 最新参照（v5）
-- Single Source of Truth: `cf_update_runbook.md`（運用規範）
-- 進捗の最新参照: `cf_task_tracker_v5.md`
-- 本文中に `cf_task_tracker_vN.md` / `cf_task_tracker_v4.md` 等の旧参照が残っていても、履歴として保持し、**最新の進捗は `cf_task_tracker_v5.md` を参照**する。
+- Single Source of Truth: `update_runbook.md`（運用規範）
+- 進捗の最新参照: `task_tracker.md`
+- 本文中に `task_tracker.md` / `cf_task_tracker_v4.md` 等の旧参照が残っていても、履歴として保持し、**最新の進捗は `task_tracker.md` を参照**する。
 
 ## 翻訳レイヤ（抽象→具体の戻り先）
 
@@ -464,7 +464,7 @@ git status -sb
 - [x] H11: Phase 2 — 用途別ツールMCP（STDIO）設計（`get_ssot_bundle`/`diff_summary`等）
 - [x] H12: Phase 3 — 運用成熟（CIでスキーマ/ルール検証、ログ整備）
 <!-- CFCTX_TRACKER_ARCHIVE_V5_SLIM_20260126 -->
-### 付録A: cf_task_tracker_v5.md（スリム化前の内容）
+### 付録A: task_tracker.md（スリム化前の内容）
 （履歴保全のため、旧セクションを runbook へ移設）
 
 ## 0. 基本情報（必須）
@@ -478,7 +478,7 @@ git status -sb
   - [x] next1_work.zip（Auditor / Gate D）
   - [x] next2_work.zip（3常駐指示ファイル共存）
   - [x] next3_work.zip（Skills統合）
-- 参照手順書: `cf_update_runbook.md`
+- 参照手順書: `update_runbook.md`
 - 実行方針（固定）: **Charter → Mode → Artifacts → Skills**
 - 監査運用（固定 / 表現統一は後で反映）: **AuditorはPRへ監査結果を返す。修正はCrafter/Orchestratorが行う。**
 
@@ -500,7 +500,7 @@ git status -sb
     - ブランチ削除は **mainを絶対消さない**／**マージ済みのみ削除**／**指定がなければ開始時ブランチを対象**。
     - `git pull --ff-only` / `git fetch --prune` / `git status -sb` を含める。
     - コマンドの意味（復習用）と矛盾しないよう、説明は runbook 8.1 に集約して添える。
-- 作業開始前に Repo Lock を確認する（`./tools/cf-guard.sh --check`）。NGなら中止し、原因を確認する（詳細は runbook の Repo Lock）。
+- 作業開始前に Repo Lock を確認する（`./tools/guard.sh --check`）。NGなら中止し、原因を確認する（詳細は runbook の Repo Lock）。
 - 変更したら必ず「何を追加・削除・修正したか」を記録する
 - コマンドを実行したら「意味（復習用）」も必ず記録する
 - 迷ったら上位規範（Charter→Mode→Artifacts→Skills）に戻って判断する
@@ -518,7 +518,7 @@ git status -sb
   - 次の指示待ち（追加タスクがあれば Gate F に追記）
 
     - 注: `next2_work.zip` は旧運用ラベルです。**ZIPの作成/展開はしません**。
-    - 実作業のSSOTは `/_handoff_check/` の3ファイル（`cf_task_tracker_v5.md` / `cf_update_runbook.md` / `cf_handoff_prompt.md`）です。
+    - 実作業のSSOTは `/_handoff_check/` の3ファイル（`task_tracker.md` / `update_runbook.md` / `handoff_prompt.md`）です。
     - 差分洗い出しは、ZIPではなくリポジトリ内の `CLAUDE.md` / `AGENTS.md` / `GEMINI.md` を対象に行います。
 
 ---
@@ -539,7 +539,7 @@ set -euo pipefail
 # guard: Repo Lock（想定リポジトリ以外なら中止）
 cd /home/masahiro/projects/context-framework
 test "$(git rev-parse --show-toplevel)" = "/home/masahiro/projects/context-framework"
-./tools/cf-guard.sh --check
+./tools/guard.sh --check
 git remote get-url origin
 git status -sb
 
@@ -552,7 +552,7 @@ git status -sb
 - Guard（安全確認）:
   - `cd /home/masahiro/projects/context-framework`
   - `test "$(git rev-parse --show-toplevel)" = "/home/masahiro/projects/context-framework"`
-  - `./tools/cf-guard.sh --check`（Repo Lock: OK）
+  - `./tools/guard.sh --check`（Repo Lock: OK）
   - `git remote get-url origin`
   - `git status -sb`
 - 実行コマンド:
@@ -573,7 +573,7 @@ git status -sb
 - Guard（安全確認）:
   - `cd /home/masahiro/projects/context-framework`
   - `test "$(git rev-parse --show-toplevel)" = "/home/masahiro/projects/context-framework"`
-  - `./tools/cf-guard.sh --check`（Repo Lock: OK）
+  - `./tools/guard.sh --check`（Repo Lock: OK）
   - `git remote get-url origin`
   - `git status -sb`
 - 実行コマンド:
@@ -596,7 +596,7 @@ git status -sb
 - Guard（安全確認）:
   - `cd /home/masahiro/projects/context-framework`
   - `test "$(git rev-parse --show-toplevel)" = "/home/masahiro/projects/context-framework"`
-  - `./tools/cf-guard.sh --check`（Repo Lock: OK）
+  - `./tools/guard.sh --check`（Repo Lock: OK）
   - `git remote get-url origin`
   - `git status -sb`
 - 実行（UI操作）:
@@ -616,7 +616,7 @@ git status -sb
 - Guard（安全確認）:
   - `cd /home/masahiro/projects/context-framework`
   - `test "$(git rev-parse --show-toplevel)" = "/home/masahiro/projects/context-framework"`
-  - `./tools/cf-guard.sh --check`（Repo Lock: OK）
+  - `./tools/guard.sh --check`（Repo Lock: OK）
   - `git remote get-url origin`
   - `git status -sb`
 - 実行コマンド:
@@ -642,7 +642,7 @@ git status -sb
 - Guard（安全確認）:
   - `cd /home/masahiro/projects/context-framework`
   - `test "$(git rev-parse --show-toplevel)" = "/home/masahiro/projects/context-framework"`
-  - `./tools/cf-guard.sh --check`（Repo Lock: OK）
+  - `./tools/guard.sh --check`（Repo Lock: OK）
   - `git remote get-url origin`
   - `git status -sb`
 - 実行コマンド:
@@ -756,7 +756,7 @@ git status -sb
 | STEP-401 | 監査入力（Evidence）を揃える（差分/ログ/テンプレ等） | [x] | ARTIFACTS/AUDIT_REPORT.md / ARTIFACTS/AUDIT_CHECKLIST.md / target bbca353 / commit 6a8ff96 | - |
 | STEP-402 | AUDIT_CHECKLIST を記入（PASS/FAIL） | [x] | ARTIFACTS/AUDIT_CHECKLIST.md / target bbca353 / commit 6a8ff96 | - |
 | STEP-403 | AUDIT_REPORT を作成（指摘/根拠/要求） | [x] | ARTIFACTS/AUDIT_REPORT.md / target bbca353 / commit 6a8ff96 | - |
-| STEP-407 | Skill適用ログ（SKILL-LOG）がEvidenceに揃っているか確認 | [x] | _handoff_check/cf_task_tracker_v5.md: SKILL-LOG-001/002（L170, L188） | Mod |
+| STEP-407 | Skill適用ログ（SKILL-LOG）がEvidenceに揃っているか確認 | [x] | _handoff_check/task_tracker.md: SKILL-LOG-001/002（L170, L188） | Mod |
 | STEP-404 | FAIL項目を Crafter/Orchestrator に差し戻し | [x] | N/A（PASSのため差し戻し不要）/ target bbca353 / commit 6a8ff96 | - |
 | STEP-405 | 修正後に再監査（必要なら複数回） | [x] | N/A（PASSのため再監査不要）/ target bbca353 / commit 6a8ff96 | - |
 | STEP-406 | 最終PASS（Gate D完了） | [x] | ARTIFACTS/AUDIT_REPORT.md / ARTIFACTS/AUDIT_CHECKLIST.md / target bbca353 / commit 6a8ff96 | - |
@@ -796,8 +796,8 @@ git status -sb
 | STEP-508 | 3ファイルの「役割固定」撤廃と役割一覧の共通化 | [x] | `CLAUDE.md` / `AGENTS.md` / `GEMINI.md` / PR#28（merge: 18edacb / commit: 463b277） | Mod |
 | STEP-509 | templates（TOOLING/ADAPTERS）を初期設定参照へ整合 | [x] | `TOOLING/ADAPTERS/CLAUDE.template.md` / `TOOLING/ADAPTERS/AGENTS.template.md` / `TOOLING/ADAPTERS/GEMINI.template.md` / PR#28（merge: 18edacb / commit: 463b277） | Mod |
 | STEP-510 | COEXIST_3FILES に初期設定ファイル導線を追記 | [x] | `WORKFLOW/TOOLING/COEXIST_3FILES.md` / PR#28（merge: 18edacb / commit: 463b277） | Mod |
-| STEP-511 | runbook/handoff に初期設定ファイル導入を追記 | [x] | `_handoff_check/cf_update_runbook.md` / `_handoff_check/cf_handoff_prompt.md` / PR#28（merge: 18edacb / commit: 463b277） | Mod |
-| STEP-512 | 整合チェック（3ファイル参照一致/Repo Lock非混同） | [x] | `rg -n "INITIAL_SETTINGS.md" CLAUDE.md AGENTS.md GEMINI.md` / `rg -n "Repo Lock" _handoff_check/cf_update_runbook.md` / PR#28（merge: 18edacb / commit: 463b277） | Mod |
+| STEP-511 | runbook/handoff に初期設定ファイル導入を追記 | [x] | `_handoff_check/update_runbook.md` / `_handoff_check/handoff_prompt.md` / PR#28（merge: 18edacb / commit: 463b277） | Mod |
+| STEP-512 | 整合チェック（3ファイル参照一致/Repo Lock非混同） | [x] | `rg -n "INITIAL_SETTINGS.md" CLAUDE.md AGENTS.md GEMINI.md` / `rg -n "Repo Lock" _handoff_check/update_runbook.md` / PR#28（merge: 18edacb / commit: 463b277） | Mod |
 
 ---
 
@@ -816,10 +816,10 @@ git status -sb
 | STEP-G001 | 現状棚卸し（具体ログの正/抽象索引の正）をSSOTに沿って確認 | [x] | LOG-007 / LOGS/INDEX.md | Mod |
 | STEP-G002 | 具体ログの最小テンプレ合意（ID/状態/カテゴリ/症状/原因/対処/証跡） | [x] | LOG-008 / LOGS/INDEX.md | Mod |
 | STEP-G003 | 抽象ログ（索引）仕様合意（カテゴリ→パターン→具体ID、ID検索を正） | [x] | LOG-009 / LOGS/INDEX.md | Mod |
-| STEP-G004 | 運用ルール追記が必要か判定（同一PRで索引更新、生成物の扱い等） | [x] | _handoff_check/cf_update_runbook.md:L80 | Mod |
-| STEP-G005 | 受入テスト（失敗→抽象→具体→解決策へ辿れる）を最小シナリオで検証 | [x] |  LOG-007 / LOGS/INDEX.md / _handoff_check/cf_update_runbook.md:8.1  |  Mod  |
+| STEP-G004 | 運用ルール追記が必要か判定（同一PRで索引更新、生成物の扱い等） | [x] | _handoff_check/update_runbook.md:L80 | Mod |
+| STEP-G005 | 受入テスト（失敗→抽象→具体→解決策へ辿れる）を最小シナリオで検証 | [x] |  LOG-007 / LOGS/INDEX.md / _handoff_check/update_runbook.md:8.1  |  Mod  |
 | STEP-G006 | 定義固定（Concrete→Abstract→Skills：成功/失敗/同種判定/昇格/例外） | [x] | WORKFLOW/SKILLS_INTEGRATION.md | Mod |
-| STEP-G007 | Signature集計（>=2/>=3）候補検出ツール追加（refs付き） | [x] | tools/cf-signature-report.sh | Add |
+| STEP-G007 | Signature集計（>=2/>=3）候補検出ツール追加（refs付き） | [x] | tools/signature-report.sh | Add |
 
 ##### STEP-G005 受入テスト（最小シナリオ）チェック項目
 - 対象シナリオ（過去事例）: patch/unified diff 適用失敗（例: `No valid patches` / `does not apply` / `corrupt patch`）
@@ -835,13 +835,13 @@ git status -sb
 - 例外：重大事故/高頻度は1回目でも Abstract に入口のみ（手順は書かず Concrete 参照）
 - （2026-01-27 調査で確定再確認）昇格/分類ルールは本 STEP-G006 を正とする
 - （再確認）抽象ログは「索引＋パターン＋参照先」のみ（手順全文は書かない）
-- 証跡: `cf_handoff_prompt.md` の「調査証跡」小節を参照
+- 証跡: `handoff_prompt.md` の「調査証跡」小節を参照
 
 ##### STEP-G007 Signature集計ツール（候補検出）
 - 目的: ConcreteのSignature出現回数を集計し、Abstract(>=2)/Skills(>=3)の候補を提示（検出のみ）
 - 実行例:
-  ./tools/cf-guard.sh -- tools/cf-signature-report.sh --min 2
-  ./tools/cf-guard.sh -- tools/cf-signature-report.sh --min 3 --scope LOGS
+  ./tools/guard.sh -- tools/signature-report.sh --min 2
+  ./tools/guard.sh -- tools/signature-report.sh --min 3 --scope LOGS
 - 出力: "count | signature | refs(file:line...)" の形式
 
 #### Phase 2（カテゴリ/パターン育成：肥大化抑制）
@@ -922,40 +922,40 @@ git status -sb
 - 日時: 2026-01-17
 - 目的: 手順書やタスクリストが `cf_task_tracker_v?` の数字に依存しないようにする
 - 実施:
-  - `cf_update_runbook.md` の参照を `cf_task_tracker_vN.md（最新版）` に統一
+  - `update_runbook.md` の参照を `task_tracker.md（最新版）` に統一
   - `cf_task_tracker_v4.md` を作成（v3からコピーし、タイトルを v4 に修正）
-  - `cf_task_tracker_vN.md -> cf_task_tracker_v4.md` のシンボリックリンクを作成（最新版追従）
+  - `task_tracker.md -> cf_task_tracker_v4.md` のシンボリックリンクを作成（最新版追従）
 - 出力/証跡:
   - `grep -RIn --exclude-dir=.git "cf_task_tracker_v[0-9]" .` がヒットしないことを確認
-  - `ls -l cf_task_tracker_vN.md` でリンク先が v4 であることを確認
+  - `ls -l task_tracker.md` でリンク先が v4 であることを確認
 - 次の1手:
-  - 以後の記録は `cf_task_tracker_vN.md`（最新版）に追記し、必要になったら N+1 を作成
+  - 以後の記録は `task_tracker.md`（最新版）に追記し、必要になったら N+1 を作成
 
 
 
 ### LOG-007｜Gate G（STEP-G001）現状棚卸し：Concrete/Abstract/検索導線/証跡の確定
 - 日時: 2026-01-23
 - Guard（安全確認）:
-  - `./tools/cf-guard.sh --check`（Repo Lock: OK）
-  - `./tools/cf-guard.sh -- git status -sb`（## main...origin/main）
+  - `./tools/guard.sh --check`（Repo Lock: OK）
+  - `./tools/guard.sh -- git status -sb`（## main...origin/main）
 - 実行コマンド:
-  - `./tools/cf-guard.sh -- sed -n 1,160p LOGS/INDEX.md`
-  - `./tools/cf-guard.sh -- rg -n "STEP-G001" _handoff_check/cf_task_tracker_v5.md`
-  - `./tools/cf-guard.sh -- sed -n 350,410p _handoff_check/cf_task_tracker_v5.md`
-  - `./tools/cf-guard.sh -- rg -n "## 3\. 実行ログ" _handoff_check/cf_task_tracker_v5.md`
-  - `./tools/cf-guard.sh -- sed -n 80,140p _handoff_check/cf_task_tracker_v5.md`
-  - `./tools/cf-guard.sh -- rg -n "8\.1" _handoff_check/cf_update_runbook.md`
-  - `./tools/cf-guard.sh -- sed -n 245,310p _handoff_check/cf_update_runbook.md`
+  - `./tools/guard.sh -- sed -n 1,160p LOGS/INDEX.md`
+  - `./tools/guard.sh -- rg -n "STEP-G001" _handoff_check/task_tracker.md`
+  - `./tools/guard.sh -- sed -n 350,410p _handoff_check/task_tracker.md`
+  - `./tools/guard.sh -- rg -n "## 3\. 実行ログ" _handoff_check/task_tracker.md`
+  - `./tools/guard.sh -- sed -n 80,140p _handoff_check/task_tracker.md`
+  - `./tools/guard.sh -- rg -n "8\.1" _handoff_check/update_runbook.md`
+  - `./tools/guard.sh -- sed -n 245,310p _handoff_check/update_runbook.md`
 - コマンドの意味（復習用）:
   - `sed -n a,bp`：対象ファイルの指定範囲だけ表示（参照専用）
   - `rg -n`：行番号つき検索（位置特定→抜粋表示に使う）
 - 実行結果（確定事項）:
-  - Concrete（具体ログ）の正: tracker（`_handoff_check/cf_task_tracker_v5.md`）の「## 3. 実行ログ」に LOG を追記（各LOG冒頭に Guard 必須）
-  - Abstract（抽象索引）の正: `LOGS/INDEX.md`（Generated／手編集禁止／再生成=`./tools/cf-log-index.sh`／Source=tracker）
-  - 検索導線: `LOGS/INDEX.md` の `Ref: rg -n "ID" _handoff_check/cf_task_tracker_v5.md` で ID（UPD/LOG/SKILL-LOG）→Concreteへ到達
+  - Concrete（具体ログ）の正: tracker（`_handoff_check/task_tracker.md`）の「## 3. 実行ログ」に LOG を追記（各LOG冒頭に Guard 必須）
+  - Abstract（抽象索引）の正: `LOGS/INDEX.md`（Generated／手編集禁止／再生成=`./tools/log-index.sh`／Source=tracker）
+  - 検索導線: `LOGS/INDEX.md` の `Ref: rg -n "ID" _handoff_check/task_tracker.md` で ID（UPD/LOG/SKILL-LOG）→Concreteへ到達
   - 証跡: Guard（Repo Lock: OK）＋コマンド＋意味（復習）＋結果要約＋（可能ならスクショ/ログパス）
 - 次の1手:
-  - STEP-G001 を [x] 更新し、同一PRで `./tools/cf-log-index.sh` を再実行して `LOGS/INDEX.md` を更新
+  - STEP-G001 を [x] 更新し、同一PRで `./tools/log-index.sh` を再実行して `LOGS/INDEX.md` を更新
 
 
 
@@ -1000,17 +1000,17 @@ git status -sb
 ### 実行ログ（Evidence）
 - SHA256検証：`cf_handoff_and_tracker.zip: OK`
 - ZIP展開確認：入力ZIPに以下3ファイルが存在
-  - `cf_handoff_prompt.md`
-  - `cf_update_runbook.md`
-  - `cf_task_tracker_vN.md`
+  - `handoff_prompt.md`
+  - `update_runbook.md`
+  - `task_tracker.md`
 - 出力準備：v5雛形を作成
-  - `cf_handoff_prompt.md`（コピー）
-  - `cf_update_runbook.md`（コピー）
-  - `cf_task_tracker_v5.md`（vNをコピーしてv5名に変更）
+  - `handoff_prompt.md`（コピー）
+  - `update_runbook.md`（コピー）
+  - `task_tracker.md`（vNをコピーしてv5名に変更）
 - 参照整合（追記のみで実施）
-  - `cf_update_runbook.md` 末尾に「最新参照（v5）」を追記
-  - `cf_handoff_prompt.md` 末尾に「最新参照（v5）」を追記
-  - 注：本文中の `cf_task_tracker_vN.md` / `cf_task_tracker_v4.md` 等は履歴として残し、最新は `cf_task_tracker_v5.md` を参照する
+  - `update_runbook.md` 末尾に「最新参照（v5）」を追記
+  - `handoff_prompt.md` 末尾に「最新参照（v5）」を追記
+  - 注：本文中の `task_tracker.md` / `cf_task_tracker_v4.md` 等は履歴として残し、最新は `task_tracker.md` を参照する
 
 ### 入力規則（本チャットで受領）
 - `cf_handoff_input.md` / `cf_handoff_output.md` の最新版を受領し、以後の更新ルールSSOTとして適用
@@ -1018,7 +1018,7 @@ git status -sb
 ## 更新ログ（Progress Log / Updates）
 
 - 2026-01-17 | UPD-20260117-01 | ZIP運用廃止（SSOT=_handoff_check）へ統一 / 表記ポリシー（日本語統一）を3ファイル先頭に追記 / _handoff_cache をSSOTへ同期
-  - 対象: 旧引継ぎ文書（当時の運用）, _handoff_check/cf_handoff_prompt.md, _handoff_check/cf_update_runbook.md, _handoff_check/cf_task_tracker_v5.md
+  - 対象: 旧引継ぎ文書（当時の運用）, _handoff_check/handoff_prompt.md, _handoff_check/update_runbook.md, _handoff_check/task_tracker.md
   - 変更種別: 追記のみ（チェックボックス変更なし）
   - 証跡:
     - sha256検証: `cf_handoff_and_tracker.zip: OK`
@@ -1030,14 +1030,14 @@ git status -sb
 
 
 - 2026-01-17 | UPD-20260117-02 | 3ファイル共存アダプタ導入をPR#8でmainへ反映し、Gate C（STEP-301〜305）を完了記録
-  - 対象: WORKFLOW/TOOLING/COEXIST_3FILES.md / TOOLING/ADAPTERS/*.template.md / CLAUDE.md / AGENTS.md / GEMINI.md / 旧引継ぎ文書（当時の運用） / _handoff_check/cf_task_tracker_v5.md
+  - 対象: WORKFLOW/TOOLING/COEXIST_3FILES.md / TOOLING/ADAPTERS/*.template.md / CLAUDE.md / AGENTS.md / GEMINI.md / 旧引継ぎ文書（当時の運用） / _handoff_check/task_tracker.md
   - タスクID: STEP-301, STEP-302, STEP-303, STEP-304, STEP-305（Done=[x]）
   - 証跡: PR#8（https://github.com/xxxMasahiro/cf-context-framework/pull/8） / merge: 27459ca / commits: 2154ebe, d77aec7
 
 - 2026-01-17 | UPD-20260117-03 | 3指針ファイル（CLAUDE.md / AGENTS.md / GEMINI.md）差分確認：共存整合を確認 | 証跡: diff -u CLAUDE.md AGENTS.md / diff -u AGENTS.md GEMINI.md（差分は目的・役割・参考テンプレのみ、運用ルール/統一必須文言は一致）
 
 - 2026-01-18 | UPD-20260118-01 | Gate 0: STEP-004 リモート確認を完了（チェック反映 + 証跡追記）
-  - 対象: _handoff_check/cf_task_tracker_v5.md
+  - 対象: _handoff_check/task_tracker.md
   - タスクID: STEP-004
   - 証跡: `git remote -v`
     ```
@@ -1047,7 +1047,7 @@ git status -sb
   - 変更点: STEP-004 の Done を [ ]→[x] / 更新ログに本エントリを追記
 
 - 2026-01-18 | UPD-20260118-02 | Gate 0: STEP-005 展開先とファイル一覧を記録（チェック反映 + 証跡追記）
-  - 対象: _handoff_check/cf_task_tracker_v5.md
+  - 対象: _handoff_check/task_tracker.md
   - タスクID: STEP-005
   - 証跡: UNPACK_DIR + `ls -la _handoff_check`
     ```
@@ -1055,9 +1055,9 @@ git status -sb
     total 56
     drwxr-xr-x  2 masahiro masahiro  4096 Jan 17 22:10 .
     drwxr-xr-x 10 masahiro masahiro  4096 Jan 18 05:52 ..
-    -rwxr-xr-x  1 masahiro masahiro  6049 Jan 17 17:08 cf_handoff_prompt.md
-    -rwxr-xr-x  1 masahiro masahiro 22288 Jan 18 05:31 cf_task_tracker_v5.md
-    -rwxr-xr-x  1 masahiro masahiro 13767 Jan 17 17:08 cf_update_runbook.md
+    -rwxr-xr-x  1 masahiro masahiro  6049 Jan 17 17:08 handoff_prompt.md
+    -rwxr-xr-x  1 masahiro masahiro 22288 Jan 18 05:31 task_tracker.md
+    -rwxr-xr-x  1 masahiro masahiro 13767 Jan 17 17:08 update_runbook.md
     ```
   - 変更点: STEP-005 の Done を [ ]→[x] / 更新ログに本エントリを追記
 - 2026-01-18 | UPD-20260118-03 | Gate 0: STEP-006 バックアップ作成・整合性確認（rsync / 件数・容量一致 / 旧引継ぎ文書（当時の運用） sha256一致）
@@ -1072,19 +1072,19 @@ git status -sb
 - 2026-01-18 | UPD-20260118-04 | Gate A: STEP-103 3ファイル共存方針（COEXIST_3FILES）確認・反映
   - 対象: WORKFLOW/TOOLING/COEXIST_3FILES.md
   - タスクID: STEP-103
-  - 証跡: _handoff_check/cf_task_tracker_v5.md（STEP-103 [x], Evidence: WORKFLOW/TOOLING/COEXIST_3FILES.md）
+  - 証跡: _handoff_check/task_tracker.md（STEP-103 [x], Evidence: WORKFLOW/TOOLING/COEXIST_3FILES.md）
 - 2026-01-18 | UPD-20260118-05 | Gate A: STEP-104 Skills統合方針（SKILLS_INTEGRATION）を格納完了 | 証跡: 6addee1 / WORKFLOW/SKILLS_INTEGRATION.md
 - 2026-01-18 | UPD-20260118-07 | Gate A: STEP-106 完了。呼び出しフレーズ（SKILL: ...）とArtifacts書き戻し規則を WORKFLOW/SKILLS_INTEGRATION.md に追記。Evidence: 921dbe5
 
 ## Progress Log/Updates
 - 2026-01-25T23:57:27+09:00 | UPD-20260125-05 | Gate G: STEP-G007 Signature集計ツール（候補検出）をDone更新 | Done[x] | Evidence: PR #59 / merge 795d53f / topic bc0a5c7
-  - 対象: _handoff_check/cf_task_tracker_v5.md(L390-L418) / tools/cf-signature-report.sh(L1-L95)
+  - 対象: _handoff_check/task_tracker.md(L390-L418) / tools/signature-report.sh(L1-L95)
 
 - 2026-01-25T22:23:20+09:00 | UPD-20260125-04 | Gate G: STEP-G006 定義固定（Concrete→Abstract→Skills）をDone更新 | Done[x] | Evidence: PR #57 / merge 6305b49 / topic 1a1f3eb
-  - 対象: _handoff_check/cf_task_tracker_v5.md(L389-L403) / WORKFLOW/SKILLS_INTEGRATION.md(L115-L120)
-- 2026-01-25T17:52:33+09:00 | UPD-20260125-03 | Gate G: STEP-G005 受入テスト（チェック項目）を定義として追記 | Done[x] | Evidence: PR #54 / merge f14ec13 / topic 69aad10 / _handoff_check/cf_task_tracker_v5.md:L390-L395
+  - 対象: _handoff_check/task_tracker.md(L389-L403) / WORKFLOW/SKILLS_INTEGRATION.md(L115-L120)
+- 2026-01-25T17:52:33+09:00 | UPD-20260125-03 | Gate G: STEP-G005 受入テスト（チェック項目）を定義として追記 | Done[x] | Evidence: PR #54 / merge f14ec13 / topic 69aad10 / _handoff_check/task_tracker.md:L390-L395
 - 2026-01-25T14:05:42+0900 | UPD-20260125-02 | Gate G: STEP-G201〜G204 をDone更新（Skills導線/昇格条件/受入テスト/監査観点） | Evidence: WORKFLOW/SKILLS_INTEGRATION.md / WORKFLOW/AUDIT.md / commit 97535ef
-- 2026-01-25T11:27:33+09:00 | UPD-20260125-01 | Gate G: STEP-G104 受入テスト（同種2回→パターン吸収）PASS → Done[x] | Evidence: procedure-mismatch / _handoff_check/cf_update_runbook.md（パッチ事故防止） / HEAD=637b0db
+- 2026-01-25T11:27:33+09:00 | UPD-20260125-01 | Gate G: STEP-G104 受入テスト（同種2回→パターン吸収）PASS → Done[x] | Evidence: procedure-mismatch / _handoff_check/update_runbook.md（パッチ事故防止） / HEAD=637b0db
 - 2026-01-24T19:10:00+09:00 | UPD-20260124-07 | Gate G: STEP-G103 新カテゴリ追加ルール（Go/No-Go）必要と判定 →Done[x] | Evidence: Repo Lock OK / SSOT参照 / 判定=必要
 
 - 2026-01-24T18:41:29+09:00 | UPD-20260124-06 | Gate G: STEP-G102 パターン分類案（最小セット）を追記 → Done[x] | Done[x]
@@ -1092,45 +1092,45 @@ git status -sb
 - 2026-01-24T18:20:11+09:00 | UPD-20260124-05 | Gate G: STEP-G101 固定カテゴリ案（最小セット＋OTHER）を追記 → Done[x] | Done[x]
   - Evidence: Gate G Phase2: 固定カテゴリ案（git/tooling/docs/workflow/log-index + OTHER）
 - 2026-01-24T17:01:43+09:00 | UPD-20260124-04 | Gate G: STEP-G005 受入テスト（失敗→抽象→具体→解決策）PASS → Done[x] | Done[x]
-  - Evidence: LOG-007 / LOGS/INDEX.md / _handoff_check/cf_update_runbook.md:8.1
+  - Evidence: LOG-007 / LOGS/INDEX.md / _handoff_check/update_runbook.md:8.1
 - 2026-01-24T12:45:00+09:00 | UPD-20260124-03 | Tools: ブランチ掃除スクリプト追加（安全版/強い版） | Done[x]
   - Evidence: PR #47（merge: f6d5c7c）
 - 2026-01-24T12:17:00+09:00 | UPD-20260124-02 | Gate G: STEP-G004 判定（追記不要：runbook に既記載）→ Done[x] | Done[x]
-  - Evidence: _handoff_check/cf_update_runbook.md:L80 / STEP-G004 [x]（L387）
+  - Evidence: _handoff_check/update_runbook.md:L80 / STEP-G004 [x]（L387）
 - 2026-01-24 | UPD-20260124-01 | Gate G: STEP-G003 抽象ログ（索引）仕様合意 | Done[x] | Evidence: LOG-009（L689）/ STEP-G003 [x]（L386）
 - 2026-01-23T12:49:00+09:00 | UPD-20260123-02 | Gate G: STEP-G002 具体ログ最小テンプレ合意 → Done[x] | Done[x]
   - Evidence: LOG-008（L663）/ STEP-G002 [x]（L385）
 - 2026-01-23T07:13:35+09:00 | UPD-20260123-01 | Gate G: STEP-G001 現状棚卸しを Done 更新（Concrete/Abstract/検索導線/証跡確定） | Done[x]
   - Evidence: LOG-007（L454）/ STEP-G001 [x]（L384）
 - 2026-01-22T20:48:32+09:00 | UPD-20260122-05 | Gate G（ログ運用95%効率化）のタスク設計を追加 | Done[x]
-  - 対象: _handoff_check/cf_task_tracker_v5.md / LOGS/INDEX.md
+  - 対象: _handoff_check/task_tracker.md / LOGS/INDEX.md
   - Evidence: commit 9f3e5a7
 - 2026-01-22T16:39:13+09:00 | UPD-20260122-04 | ログ索引生成ツール導入（tools追加＋LOGS/INDEX.md生成＋runbook注記） | Done[x]
-  - 対象: tools/cf-log-index.sh / LOGS/INDEX.md / _handoff_check/cf_update_runbook.md / _handoff_check/cf_task_tracker_v5.md
+  - 対象: tools/log-index.sh / LOGS/INDEX.md / _handoff_check/update_runbook.md / _handoff_check/task_tracker.md
   - Evidence: commit d404554
 - 2026-01-22T15:07:03+09:00 | UPD-20260122-03 | WORKFLOW/MODES_AND_TRIGGERS.md に runbook 4.1 参照を1行追記（衝突時の意思決定の導線） | Done[x]
-  - 対象: WORKFLOW/MODES_AND_TRIGGERS.md / _handoff_check/cf_task_tracker_v5.md
+  - 対象: WORKFLOW/MODES_AND_TRIGGERS.md / _handoff_check/task_tracker.md
   - Evidence: commit f87c622
 - 2026-01-22T11:37:00+09:00 | UPD-20260122-02 | runbook 4.1 に「衝突時の意思決定」1行追記 | Done[x]
-  - 対象: _handoff_check/cf_update_runbook.md / _handoff_check/cf_task_tracker_v5.md
+  - 対象: _handoff_check/update_runbook.md / _handoff_check/task_tracker.md
   - Evidence: commit 554ed36
 - 2026-01-22T11:37:00+09:00 | UPD-20260122-01 | PR #31: .gitignore にローカル初期設定ファイル除外を反映 / SSOT 3ファイルへ反映 | Done[x]
-  - 対象: _handoff_check/cf_handoff_prompt.md / _handoff_check/cf_update_runbook.md / _handoff_check/cf_task_tracker_v5.md
+  - 対象: _handoff_check/handoff_prompt.md / _handoff_check/update_runbook.md / _handoff_check/task_tracker.md
   - Evidence: PR #31（merge: ee5c074 / commit: 8f06dcc）/ Repo Lock: OK / main==origin/main / working tree clean
 - 2026-01-21T18:11:10+09:00 | UPD-20260121-04 | Gate B: next3_work.zip (Skills統合) をDone更新 (PR #30) | Done[x]
-  - 対象: _handoff_check/cf_task_tracker_v5.md
+  - 対象: _handoff_check/task_tracker.md
   - Evidence: PR #30 (merge: ef0791c / commit: f99300f)
 - 2026-01-21T15:27:47+09:00 | UPD-20260121-03 | Gate F: SSOT 3ファイル表記の統一と証跡更新（STEP-507〜512） | Done[x]
-  - 対象: _handoff_check/cf_handoff_prompt.md / _handoff_check/cf_update_runbook.md / _handoff_check/cf_task_tracker_v5.md
+  - 対象: _handoff_check/handoff_prompt.md / _handoff_check/update_runbook.md / _handoff_check/task_tracker.md
   - Evidence: PR#28（merge: 18edacb / commit: 463b277）
 - 2026-01-21 | UPD-20260121-02 | Gate F: 役割固定の撤廃と初期設定導入（STEP-507〜512） | Done[x]
-  - 対象: `CLAUDE.md` / `AGENTS.md` / `GEMINI.md` / `TOOLING/ADAPTERS/*.template.md` / `.repo-id/agent_role_assignment.example.yaml` / `WORKFLOW/TOOLING/INITIAL_SETTINGS.md` / `WORKFLOW/TOOLING/COEXIST_3FILES.md` / `_handoff_check/cf_update_runbook.md` / `_handoff_check/cf_handoff_prompt.md`
-  - Evidence: `rg -n "INITIAL_SETTINGS.md" CLAUDE.md AGENTS.md GEMINI.md` / `rg -n "Repo Lock" _handoff_check/cf_update_runbook.md`
+  - 対象: `CLAUDE.md` / `AGENTS.md` / `GEMINI.md` / `TOOLING/ADAPTERS/*.template.md` / `.repo-id/agent_role_assignment.example.yaml` / `WORKFLOW/TOOLING/INITIAL_SETTINGS.md` / `WORKFLOW/TOOLING/COEXIST_3FILES.md` / `_handoff_check/update_runbook.md` / `_handoff_check/handoff_prompt.md`
+  - Evidence: `rg -n "INITIAL_SETTINGS.md" CLAUDE.md AGENTS.md GEMINI.md` / `rg -n "Repo Lock" _handoff_check/update_runbook.md`
 - 2026-01-21 | UPD-20260121-01 | Repo Lock 導入（fingerprint/guard/runbook/handoff prompt） | Done[x]
-  - 対象: `.repo-id/repo_fingerprint.json` / `tools/cf-guard.sh` / `WORKFLOW/TOOLING/REPO_LOCK.md` / `_handoff_check/cf_update_runbook.md` / `_handoff_check/cf_handoff_prompt.md`
-  - Evidence: `./tools/cf-guard.sh --check`
+  - 対象: `.repo-id/repo_fingerprint.json` / `tools/guard.sh` / `WORKFLOW/TOOLING/REPO_LOCK.md` / `_handoff_check/update_runbook.md` / `_handoff_check/handoff_prompt.md`
+  - Evidence: `./tools/guard.sh --check`
 - 2026-01-20 | UPD-20260120-01 | 引継ぎ簡略運用へ切替（旧引継ぎ文書不使用） | Done[x]
-  - 対象: _handoff_check/cf_update_runbook.md / _handoff_check/cf_task_tracker_v5.md
+  - 対象: _handoff_check/update_runbook.md / _handoff_check/task_tracker.md
 - 変更点: 新チャット添付は3ファイルのみ / SSOT最上位はrunbook・trackerは進捗 / 引継ぎテンプレ統一
   - Evidence: commit 0f70baa
 - 2026-01-18 | UPD-20260118-14 | 完了: STEP-306 3ファイルの Skill優先実行/作成提案 記載を確認（結果: 全てNOT FOUND） | Evidence: grep -nE 'Skill優先実行|作成提案' (CLAUDE.md/AGENTS.md/GEMINI.md) => NOT FOUND | Notes: 記載追加は未実施
@@ -1153,13 +1153,13 @@ git status -sb
 - 2026-01-19 | UPD-20260119-02 | Gate E: STEP-450〜453 を Done[x] に更新（日本語ポリシー） | Evidence: commit 1990219 / push origin main
 - 2026-01-19 | UPD-20260119-03 | Gate D: 監査ドキュメント日本語化 | Done[x] | テンプレ構造維持のまま日本語化 | Evidence: commit bbca353 / push origin main
 - 2026-01-19 | UPD-20260119-04 | Gate D: bbca353 監査（監査成果物作成） | Done[x] | Evidence: commit 6a8ff96 / target bbca353
-- 2026-01-19 | UPD-20260119-05 | Gate D: STEP-407 SKILL-LOG 証跡確認 | Done[x] | Evidence: _handoff_check/cf_task_tracker_v5.md（SKILL-LOG-001/002: L170,L188）
+- 2026-01-19 | UPD-20260119-05 | Gate D: STEP-407 SKILL-LOG 証跡確認 | Done[x] | Evidence: _handoff_check/task_tracker.md（SKILL-LOG-001/002: L170,L188）
 - 2026-01-19 | UPD-20260119-06 | STEP-505 最終整合チェック PASS | Done[x] | Evidence: commit 5f2a393
 
 - 2026-01-20 02:57 +0900 | STEP-506 | CHANGELOG.md の ## Unreleased にリリースメモを追記して完了（Unreleasedの1行置換）。Evidence: git diff -- CHANGELOG.md / tracker STEP-506 が [x]
 
 - 2026-01-20 | UPD-20260120-PR25 | PR#25 merged: PR後の後処理を「ガード付きで一括提示してよい」例外を追加 | Done [x]
-  - 対象: `_handoff_check/cf_task_tracker_v5.md` / `_handoff_check/cf_update_runbook.md`
+  - 対象: `_handoff_check/task_tracker.md` / `_handoff_check/update_runbook.md`
   - Evidence: PR #25 (merged) / commit eb6fc91 / merge 8d888ab
 
 ### LOG-008｜Gate G（STEP-G002）具体ログの最小テンプレ合意
@@ -1175,12 +1175,12 @@ git status -sb
   - 原因: 根因 or 仮説（不明なら不明と明記）
   - 対処: 実施内容（コマンド/変更点/判断）
   - 証跡: PR/commit/ファイルパス/行番号/ログID（再現・追跡できる形）
-  - 検索導線: Ref: rg -n "LOG-XXX" _handoff_check/cf_task_tracker_v5.md
+  - 検索導線: Ref: rg -n "LOG-XXX" _handoff_check/task_tracker.md
 
 - 実行コマンド（抜粋）
-  - ./tools/cf-guard.sh --check
-  - ./tools/cf-guard.sh -- git status -sb
-  - ./tools/cf-guard.sh -- git switch -c wip/gate-g-stepg002
+  - ./tools/guard.sh --check
+  - ./tools/guard.sh -- git status -sb
+  - ./tools/guard.sh -- git switch -c wip/gate-g-stepg002
   - python3（STEP-G002 行の [ ]→[x] 更新）
 
 - 実行結果（確定事項）
@@ -1195,13 +1195,13 @@ git status -sb
   - 抽象索引は「カテゴリ → パターン → 具体ID」の導線を提供する
     - カテゴリ: UPD / LOG / SKILL-LOG
     - パターン: ID接頭辞+採番規則（例: LOG-### / SKILL-LOG-### / UPD-YYYYMMDD-##）
-    - 具体ID: 規範（根拠）は runbook（_handoff_check/cf_update_runbook.md）、記録は tracker（進捗）。INDEX は tracker へリンクする
+    - 具体ID: 規範（根拠）は runbook（_handoff_check/update_runbook.md）、記録は tracker（進捗）。INDEX は tracker へリンクする
   - 「ID検索を正」:
-    - まず runbook（LOG-009規定）を確認し、ID検索は tracker を `rg -n "<ID>" _handoff_check/cf_task_tracker_v5.md` で検索して到達する（INDEXは補助ナビ）
+    - まず runbook（LOG-009規定）を確認し、ID検索は tracker を `rg -n "<ID>" _handoff_check/task_tracker.md` で検索して到達する（INDEXは補助ナビ）
   - 生成物運用:
-    - tracker の LOG/UPD/SKILL-LOG を更新したPRでは `tools/cf-log-index.sh` を再実行し、同一PRで LOGS/INDEX.md を更新する
+    - tracker の LOG/UPD/SKILL-LOG を更新したPRでは `tools/log-index.sh` を再実行し、同一PRで LOGS/INDEX.md を更新する
 - Evidence:
-  - _handoff_check/cf_update_runbook.md（LOGS/INDEX.md は生成物 / 同一PR更新の規定）
+  - _handoff_check/update_runbook.md（LOGS/INDEX.md は生成物 / 同一PR更新の規定）
   - LOGS/INDEX.md（Generated）
 - 変更区分: Mod（STEP-G003 表行更新） / Add（本LOG-009節） / Mod（LOGS/INDEX.md 再生成）
 
@@ -1277,7 +1277,7 @@ url = "https://developers.openai.com/mcp"
 - ルール/スキーマ/スモークを **毎回CIで検証** し、結果ログを回収する。
 
 ### 実行（ローカル/CI共通）
-- `./tools/cf-ci-validate.sh`（rules/manifest/routes/policy の整合 + smoke）
+- `./tools/ci-validate.sh`（rules/manifest/routes/policy の整合 + smoke）
 
 ### CI（GitHub Actions）
 - `.github/workflows/ci-validate.yml` を実行し、`LOGS/ci/*.log` を artifact 回収。

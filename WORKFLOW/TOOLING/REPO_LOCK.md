@@ -10,11 +10,11 @@
 - `expected_remotes` は運用で更新してよい（リモート変更時のみ）。
 
 ## Guard（チェックと実行）
-- 事前確認: `./tools/cf-guard.sh --check`
-- ガード実行: `./tools/cf-guard.sh -- <command...>`
+- 事前確認: `./tools/guard.sh --check`
+- ガード実行: `./tools/guard.sh -- <command...>`
 - NG の場合は **中止**し、原因（origin/expected_remotes/SSOTファイル有無）を確認する。
 
 ## 運用指針
 - 破壊的操作（restore/reset/clean/rm など）は Guard 経由を推奨する（強制ではない）。
 - Guard が通らない場合は、リポジトリ取り違えの可能性があるため作業を中止する。
-- 詳細運用は `_handoff_check/cf_update_runbook.md` を正とする。
+- 詳細運用は `_handoff_check/update_runbook.md` を正とする。

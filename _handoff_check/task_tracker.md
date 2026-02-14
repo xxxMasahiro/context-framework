@@ -1,11 +1,11 @@
 <!-- GATE_AUDIT_LANG_POLICY_V1 -->
 ## 表記ポリシー（日本語統一 / SSOT）
 
-- 新しいチャットへ引き継ぐ場合は、**_handoff_check の3ファイル（cf_update_runbook.md / cf_task_tracker_v5.md / cf_handoff_prompt.md）を必ず添付**する（新運用の固定）。
+- 新しいチャットへ引き継ぐ場合は、**_handoff_check の3ファイル（update_runbook.md / task_tracker.md / handoff_prompt.md）を必ず添付**する（新運用の固定）。
 - 規範文書（Charter/Mode/Workflow/Artifacts/Skills）は **日本語本文が正（SSOT）**。
 - `PROMPTS/` や各ツール入口（`CLAUDE.md` / `AGENTS.md` / `GEMINI.md`）は、**日本語本文＋必要最小限の英語要約を併記可**（規範は日本語側）。
 - 固有名詞（パス/コマンド/ファイル名/GitHub用語）は **英語表記のまま固定**（無理に日本語化しない）。
-- 詳細は `_handoff_check/cf_update_runbook.md` の「言語ポリシー」記載を正とする（このブロックは要約）。
+- 詳細は `_handoff_check/update_runbook.md` の「言語ポリシー」記載を正とする（このブロックは要約）。
 
 
 <!-- CFCTX_UPDATE_ZIP_DEPRECATED_V1 -->
@@ -14,13 +14,13 @@
 ## 引継ぎ簡略運用（旧引継ぎ文書不使用）
 
 - 新チャット添付は次の3ファイルのみ（整合性対象は3ファイル）:
-  - `_handoff_check/cf_update_runbook.md`
-  - `_handoff_check/cf_task_tracker_v5.md`
-  - `_handoff_check/cf_handoff_prompt.md`（都度更新の運用メモだが、SSOTパックに含める）
+  - `_handoff_check/update_runbook.md`
+  - `_handoff_check/task_tracker.md`
+  - `_handoff_check/handoff_prompt.md`（都度更新の運用メモだが、SSOTパックに含める）
 - SSOTは _handoff_check の3ファイル（**運用規範の最上位は runbook**／trackerは進捗／handoff_promptは便宜）
-- このファイルは進捗計測用（運用規範の最上位は `_handoff_check/cf_update_runbook.md`）。
+- このファイルは進捗計測用（運用規範の最上位は `_handoff_check/update_runbook.md`）。
 - 引継ぎプロンプト（テンプレ・表記固定）:
-  > 前回のチャットからの引継ぎを行います。まずは、添付した3つのファイル（cf_handoff_prompt.md / cf_update_runbook.md / cf_task_tracker_v5.md）をすべて読み込んで確認し、整合性の取れた適切な引継ぎ構成を構築してください。cf_update_runbook.md と cf_task_tracker_v5.md に完全準拠し、cf_handoff_prompt.md を参照してこれまでの経緯と次の指示（次にやること1つ）を提示してください。
+  > 前回のチャットからの引継ぎを行います。まずは、添付した3つのファイル（handoff_prompt.md / update_runbook.md / task_tracker.md）をすべて読み込んで確認し、整合性の取れた適切な引継ぎ構成を構築してください。update_runbook.md と task_tracker.md に完全準拠し、handoff_prompt.md を参照してこれまでの経緯と次の指示（次にやること1つ）を提示してください。
 
 - 今後の引継ぎはZIPを作らない。SSOTはリポジトリ直下 `_handoff_check/` の3ファイル。
 - `_handoff_cache/` は過去の証跡・互換用（原則参照しない）。
@@ -30,7 +30,7 @@
 
 # context-framework アップデート｜タスク管理票 v5（Skills運用統合 / 進捗・証跡ログ付き）
 
-このファイルは、`cf_update_runbook.md` に従って **一気通貫で安全にアップデート**するためのタスク管理票です。  
+このファイルは、`update_runbook.md` に従って **一気通貫で安全にアップデート**するためのタスク管理票です。  
 チェックボックスで進捗を管理し、各ステップの **実行コマンド・結果・証跡（Evidence）** を残せます。  
 さらに v3 では、**Skills（再利用可能な導入手順モジュール）**の「適用ログ」と「Skill作成/更新タスク」を統合しています。
 
@@ -43,7 +43,7 @@
 
 ## 1. 運用ルール（最小）
 - runbook 8 完全準拠（1手運用 / 変更点明示 / 復習用の意味）
-- Repo Lock: `./tools/cf-guard.sh --check`
+- Repo Lock: `./tools/guard.sh --check`
 - 変更は Add/Del/Mod を明示し、Evidence は更新ログへ残す
 
 ## 2. 進捗サマリ
@@ -53,9 +53,9 @@
 ## 3. タスク一覧（Gate別）
 - [x] Gate I / I0（Gate H完了チェックリスト退避＋SSOTスリム化）
 - [x] Gate I / I1（Gate I 入口定義: 目的/Done条件/最初の1手をSSOTに最小追記）
-- [x] Gate I / I2（事前調査: 外部仕様4ファイルの要点とSSOT整合／LOG-009・LOGS/INDEX・cf-log-index 入力ソースを read-only で確認）
+- [x] Gate I / I2（事前調査: 外部仕様4ファイルの要点とSSOT整合／LOG-009・LOGS/INDEX・log-index 入力ソースを read-only で確認）
 - [x] Gate I / I3（SPEC Phase 0: WORKFLOW/SPEC/gates/gate-g.yaml に STEP-G003 のみ定義（runbookを正として must_contain/invariants を最小化））
-- [x] Gate I / I4（cf-doctor Phase 0: tools/cf-doctor.sh 最小実装（Read-only／rg→grep／PASS/FAIL＋根拠＋次の1手））
+- [x] Gate I / I4（doctor Phase 0: tools/doctor.sh 最小実装（Read-only／rg→grep／PASS/FAIL＋根拠＋次の1手））
 - [x] Gate I / I5（運用統合: runbook/tracker に実行タイミング・失敗時の運用・Evidenceの残し方を追記。最小スモークで確認）
 - [ ] Gate J / J0（Gate J 入口定義: 目的/Done条件/最初の1手をSSOTに最小追記）
 
@@ -70,13 +70,13 @@
 ## 4. 更新ログ（Progress Log/Updates）※直近のみ
 - 2026-02-02T00:33:11+09:00 | UPD-20260202-01 | Gate D REQ3 STRICT PASS | Evidence: ~/.gate-audit_root/.gate-audit/logs/evidence/20260201T150142Z_gateD_redo_req3_functional_strict.txt
 - 2026-01-31T13:35:37+09:00 | UPD-20260131-04 | Gate J: J0 追加（次にやる1手を Gate J へ移行） | Evidence: tracker に Gate J 行が無かったため入口J0を最小追加（この変更コミット参照）
-- 2026-01-31T10:50:39+09:00 | UPD-20260131-03 | Gate I: I4/I5 Done[x]（最小スモーク: ./tools/cf-doctor.sh step STEP-G003 => PASS / 運用統合runbook追記済み） | Evidence: doctor PASS（出力のrefs: runbook L818/L1191, LOGS/INDEX L47 ほか）
-- 2026-01-31T08:56:02+09:00 | UPD-20260131-02 | Gate I: I2（事前調査） Done[x]（外部仕様4ファイルの要点とSSOT整合／LOG-009・LOGS/INDEX・cf-log-index入力ソースを read-only 確認） | Evidence: cmd: rg(01-04) + rg LOG-009 + cf-log-index.sh 入力確認 / output: このチャットの貼付結果
+- 2026-01-31T10:50:39+09:00 | UPD-20260131-03 | Gate I: I4/I5 Done[x]（最小スモーク: ./tools/doctor.sh step STEP-G003 => PASS / 運用統合runbook追記済み） | Evidence: doctor PASS（出力のrefs: runbook L818/L1191, LOGS/INDEX L47 ほか）
+- 2026-01-31T08:56:02+09:00 | UPD-20260131-02 | Gate I: I2（事前調査） Done[x]（外部仕様4ファイルの要点とSSOT整合／LOG-009・LOGS/INDEX・log-index入力ソースを read-only 確認） | Evidence: cmd: rg(01-04) + rg LOG-009 + log-index.sh 入力確認 / output: このチャットの貼付結果
 - 2026-01-31T00:05:20+0900 | UPD-20260131-01 | Gate I: I1（入口定義） Done[x]（SSOT文言を runbook最上位 / trackerは進捗 に統一） | Evidence: PR#99 (merged), commit:6a7b31d, merge_commit:df8a60f
 - 2026-01-30T20:27:00+0900 | UPD-20260130-01 | Gate I: I3/I4 Phase0 実装完了として一覧に反映 | Evidence: commit:0773431
 - 2026-01-28T19:07:32+0900 | UPD-20260128-03 | Gate I: I1（入口定義の最小追記を開始） | Evidence: commit:7ba1242
 - 2026-01-28T16:36:42+0900 | UPD-20260128-02 | Gate I: I0（Gate H完了チェックリスト退避＋SSOTスリム化） | Evidence: commit:54a6bae
-- 2026-01-28T14:43:17+0900 | UPD-20260128-01 | Gate H: H12 運用成熟（CI/ログ整備）完了 | Evidence: commit:9626c12 / cmd: ./tools/cf-ci-validate.sh
+- 2026-01-28T14:43:17+0900 | UPD-20260128-01 | Gate H: H12 運用成熟（CI/ログ整備）完了 | Evidence: commit:9626c12 / cmd: ./tools/ci-validate.sh
 - 2026-01-27T18:53:51+0900 | UPD-20260127-11 | Gate H: H11 用途別ツールMCP（STDIO）設計完了 | Evidence: commit:40f33ad
 - 2026-01-27T17:59:36+0900 | UPD-20260127-10 | Gate H: H10 Docs MCP（読み取り専用）手順整備完了 | Evidence: commit:904b79a
 - 2026-01-27T14:57:33+0900 | UPD-20260127-09 | Gate H: H9 Gate C 検証組込み完了 | Evidence: commit:6b5cd88 / cmd: ./tools/cf-controller-smoke.sh
@@ -95,7 +95,7 @@
 - 2026-01-25T22:23:20+09:00 | UPD-20260125-04 | Gate G: STEP-G006 定義固定をDone更新 | Evidence: PR #57 / merge 6305b49 / topic 1a1f3eb
 - 2026-01-25T17:52:33+09:00 | UPD-20260125-03 | Gate G: STEP-G005 受入テスト（チェック項目）追記 | Evidence: PR #54 / merge f14ec13 / topic 69aad10
 - 2026-01-25T14:05:42+0900 | UPD-20260125-02 | Gate G: STEP-G201〜G204 Done更新 | Evidence: WORKFLOW/SKILLS_INTEGRATION.md / WORKFLOW/AUDIT.md / commit 97535ef
-- 2026-01-25T11:27:33+09:00 | UPD-20260125-01 | Gate G: STEP-G104 受入テスト PASS | Evidence: procedure-mismatch / _handoff_check/cf_update_runbook.md（パッチ事故防止） / HEAD=637b0db
+- 2026-01-25T11:27:33+09:00 | UPD-20260125-01 | Gate G: STEP-G104 受入テスト PASS | Evidence: procedure-mismatch / _handoff_check/update_runbook.md（パッチ事故防止） / HEAD=637b0db
 - 2026-01-24T19:10:00+09:00 | UPD-20260124-07 | Gate G: STEP-G103 新カテゴリ追加ルール 判定 | Evidence: Repo Lock OK / SSOT参照 / 判定=必要
 - 2026-01-24T18:41:29+09:00 | UPD-20260124-06 | Gate G: STEP-G102 パターン分類案 追記 | Evidence: Gate G Phase2: パターン分類案
 - 2026-01-24T18:20:11+09:00 | UPD-20260124-05 | Gate G: STEP-G101 固定カテゴリ案 追記 | Evidence: Gate G Phase2: 固定カテゴリ案
