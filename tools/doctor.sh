@@ -2,7 +2,7 @@
 set -eu
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-RUNBOOK="$ROOT/_handoff_check/cf_update_runbook.md"
+RUNBOOK="$ROOT/_handoff_check/update_runbook.md"
 INDEX="$ROOT/LOGS/INDEX.md"
 
 usage() {
@@ -14,8 +14,8 @@ if [ "$#" -ne 2 ] || [ "$1" != "step" ] || [ "$2" != "STEP-G003" ]; then
   usage
 fi
 
-if [ -x "$ROOT/tools/cf-guard.sh" ]; then
-  "$ROOT/tools/cf-guard.sh" --check >/dev/null 2>&1 || true
+if [ -x "$ROOT/tools/guard.sh" ]; then
+  "$ROOT/tools/guard.sh" --check >/dev/null 2>&1 || true
 fi
 
 has_rg() { command -v rg >/dev/null 2>&1; }
@@ -61,9 +61,9 @@ check_pattern() {
   fi
 }
 
-echo "[cf-doctor] step=STEP-G003"
-check_pattern "$RUNBOOK" "STEP-G003.*\\[x\\]" "_handoff_check/cf_update_runbook.md"
-check_pattern "$RUNBOOK" "^### LOG-009" "_handoff_check/cf_update_runbook.md"
+echo "[doctor] step=STEP-G003"
+check_pattern "$RUNBOOK" "STEP-G003.*\\[x\\]" "_handoff_check/update_runbook.md"
+check_pattern "$RUNBOOK" "^### LOG-009" "_handoff_check/update_runbook.md"
 check_pattern "$INDEX" "LOG-009" "LOGS/INDEX.md"
 
 if [ "$status" = "PASS" ]; then
@@ -82,9 +82,9 @@ printf '%s\\n' "$evidence" | sed '/^$/d' | sed 's/^/  /'
 
 next_action=""
 if [ "$need_index_fix" -eq 1 ]; then
-  next_action="./tools/cf-guard.sh -- ./tools/cf-log-index.sh"
+  next_action="./tools/guard.sh -- ./tools/log-index.sh"
 elif [ "$need_runbook_fix" -eq 1 ]; then
-  next_action="./tools/cf-guard.sh -- rg -n \"STEP-G003|LOG-009\" _handoff_check/cf_update_runbook.md || true"
+  next_action="./tools/guard.sh -- rg -n \"STEP-G003|LOG-009\" _handoff_check/update_runbook.md || true"
 fi
 
 if [ -n "$next_action" ]; then

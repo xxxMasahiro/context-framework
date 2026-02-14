@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-GUARD="${GUARD:-./tools/cf-guard.sh}"
+GUARD="${GUARD:-./tools/guard.sh}"
 
 usage() {
   cat <<'USAGE'
@@ -11,7 +11,7 @@ Usage:
 Deletes a remote branch SAFELY.
 - Refuses to delete: main, master, HEAD
 - Requires --yes to actually delete
-- Always runs git commands via ./tools/cf-guard.sh -- ...
+- Always runs git commands via ./tools/guard.sh -- ...
 
 Options:
   --remote <remote>  Remote name (default: origin)

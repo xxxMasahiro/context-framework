@@ -6,7 +6,7 @@ SCOPE="."
 
 usage() {
   cat <<'USAGE'
-Usage: tools/cf-signature-report.sh [--min N] [--scope PATH]
+Usage: tools/signature-report.sh [--min N] [--scope PATH]
 
 Read-only signature counter for "Signature:" lines in markdown.
 
@@ -41,20 +41,20 @@ while [ $# -gt 0 ]; do
 done
 
 if ! command -v python3 >/dev/null 2>&1; then
-  echo "ERROR: python3 is required for tools/cf-signature-report.sh" >&2
+  echo "ERROR: python3 is required for tools/signature-report.sh" >&2
   exit 1
 fi
 
 # Guard (Repo Lock)
-./tools/cf-guard.sh --check
+./tools/guard.sh --check
 
 # Use guard for ripgrep execution.
-if ! ./tools/cf-guard.sh -- rg --version >/dev/null 2>&1; then
-  echo "ERROR: rg (ripgrep) is required for tools/cf-signature-report.sh" >&2
+if ! ./tools/guard.sh -- rg --version >/dev/null 2>&1; then
+  echo "ERROR: rg (ripgrep) is required for tools/signature-report.sh" >&2
   exit 1
 fi
 
-./tools/cf-guard.sh -- rg -n --no-heading --glob '*.md' '^\\s*Signature:' "$SCOPE" | \
+./tools/guard.sh -- rg -n --no-heading --glob '*.md' '^\\s*Signature:' "$SCOPE" | \
 python3 <(cat <<'PY'
 import sys
 from collections import defaultdict

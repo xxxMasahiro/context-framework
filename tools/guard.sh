@@ -4,8 +4,8 @@ set -euo pipefail
 usage() {
   cat <<'USAGE'
 Usage:
-  ./tools/cf-guard.sh --check
-  ./tools/cf-guard.sh -- <command...>
+  ./tools/guard.sh --check
+  ./tools/guard.sh -- <command...>
 USAGE
 }
 
@@ -43,12 +43,12 @@ fi
 
 if [ -z "$reason" ]; then
   fingerprint="$root/.repo-id/repo_fingerprint.json"
-  runbook="$root/_handoff_check/cf_update_runbook.md"
+  runbook="$root/_handoff_check/update_runbook.md"
 
   if [ ! -f "$fingerprint" ]; then
     reason="missing .repo-id/repo_fingerprint.json"
   elif [ ! -f "$runbook" ]; then
-    reason="missing _handoff_check/cf_update_runbook.md"
+    reason="missing _handoff_check/update_runbook.md"
   elif [ -z "$origin_url" ]; then
     reason="missing origin remote"
   else

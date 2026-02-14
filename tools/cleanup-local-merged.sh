@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-GUARD="${GUARD:-./tools/cf-guard.sh}"
+GUARD="${GUARD:-./tools/guard.sh}"
 
 usage() {
   cat <<'USAGE'
@@ -10,7 +10,7 @@ Usage:
 
 Safely clean up local branches that are already merged into the base branch.
 - Uses `git branch -d` (safe): it will NOT delete unmerged branches.
-- Always runs git commands via ./tools/cf-guard.sh -- ...
+- Always runs git commands via ./tools/guard.sh -- ...
 
 Options:
   --base <branch>   Base branch to compare against (default: main)

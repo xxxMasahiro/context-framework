@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-input="${1:-_handoff_check/cf_task_tracker_v5.md}"
+input="${1:-_handoff_check/task_tracker.md}"
 output="${2:-LOGS/INDEX.md}"
 
 if [ ! -f "$input" ]; then
@@ -18,7 +18,7 @@ cat >"$tmpfile" <<EOF
 # LOGS/INDEX（Generated）
 - Generated: ${generated_at}
 - 手編集禁止（再生成してください）
-- 再生成コマンド: \`./tools/cf-log-index.sh\`
+- 再生成コマンド: \`./tools/log-index.sh\`
 - Source: ${input}
 
 ## Progress Log/Updates（UPD-*）

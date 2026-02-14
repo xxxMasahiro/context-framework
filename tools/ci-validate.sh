@@ -2,7 +2,7 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-GUARD="$ROOT/tools/cf-guard.sh"
+GUARD="$ROOT/tools/guard.sh"
 LOG_DIR="$ROOT/LOGS/ci"
 TS="$(date +%Y%m%dT%H%M%S)"
 LOG_FILE="$LOG_DIR/ci-validate-${TS}.log"
@@ -11,7 +11,7 @@ mkdir -p "$LOG_DIR"
 
 exec > >(tee -a "$LOG_FILE") 2>&1
 
-echo "== cf-ci-validate =="
+echo "== ci-validate =="
 echo "root=$ROOT"
 echo "log=$LOG_FILE"
 
@@ -86,6 +86,6 @@ print("OK: rules/schema validated")
 PY
 
 echo "== smoke =="
-"$ROOT/tools/cf-controller-smoke.sh"
+"$ROOT/tools/controller-smoke.sh"
 
 echo "OK: ci validate"
