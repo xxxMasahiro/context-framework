@@ -1,4 +1,4 @@
-# cf_handoff_prompt.md（このチャットの引継ぎメモ）
+# handoff_prompt.md（このチャットの引継ぎメモ）
 
 ## 0. 目的
 - 引継ぎ運用を「_handoff_check の3ファイル添付」に簡略化した（ZIP不要）。
@@ -6,9 +6,9 @@
 
 ## 1. 今回の変更サマリ（何を追加/削除/修正したか）
 - 修正対象は _handoff_check の3ファイル：
-  - _handoff_check/cf_handoff_prompt.md
-  - _handoff_check/cf_update_runbook.md
-  - _handoff_check/cf_task_tracker_v5.md
+  - _handoff_check/handoff_prompt.md
+  - _handoff_check/update_runbook.md
+  - _handoff_check/task_tracker.md
 - 変更内容（要約）：
   - Gate F（INITIAL_SETTINGS導入・固定ロール撤廃）前提に統一
   - SSOTは _handoff_check の3ファイルで統一（ZIP不要）
@@ -24,7 +24,7 @@
 
 ## 3. 同一性確認（引用個所と同じ最新版か）
 - sha256 は固定値を書かず、必要時に現物で算出する：
-  - `sha256sum _handoff_check/cf_handoff_prompt.md _handoff_check/cf_update_runbook.md _handoff_check/cf_task_tracker_v5.md`
+  - `sha256sum _handoff_check/handoff_prompt.md _handoff_check/update_runbook.md _handoff_check/task_tracker.md`
 
 ## 4. 懸念点/次にやる候補（未実施）
 ※致命ではないが、将来の混乱を減らす改善候補（必要なら最小差分）
@@ -35,14 +35,14 @@
 ## 5. 新チャット側への要求（最重要）
 - 検索（見つからなくてもOK）系の `rg`/`grep` などは必ず `|| true` を付けて 0 終了にする（runbook ##8）
 - 添付3ファイルを最初に読むこと
-- `cf_handoff_prompt.md` 読了直後に `cf_update_runbook.md` の「## 8. 実行プロトコル（運用ルール）」を必ず確認し、以後の出力は **根拠/判定/変更提案** を厳守する
+- `handoff_prompt.md` 読了直後に `update_runbook.md` の「## 8. 実行プロトコル（運用ルール）」を必ず確認し、以後の出力は **根拠/判定/変更提案** を厳守する
 - SSOTは _handoff_check の3ファイル（ZIP不要）
 - 運用規範の最上位は runbook。trackerは進捗、handoff_prompt は経緯メモとして整合させる
 - 次にやる1手の正は tracker の進捗サマリ。過去追記内の“次にやる”は履歴扱い。
 - tracker はスリム化済み。詳細テンプレ/完了済み一覧/旧ログは runbook 付録「tracker退避」へ移設
 - 新規タスクの入口は Gate H（Phase 1）に統一する（Gate G は完了扱い）
 - 次にやることは「1つ（1コマンド/1操作）」で提示すること
-- 最初の安全確認として Repo Lock を実行する（`./tools/cf-guard.sh --check`）
+- 最初の安全確認として Repo Lock を実行する（`./tools/guard.sh --check`）
 - 役割は初期設定ファイルに従う（`WORKFLOW/TOOLING/INITIAL_SETTINGS.md` を参照）
 
 ### SSOT 3ファイルを添付できない場合の代替手順（必須）
@@ -50,7 +50,7 @@
 - その前に必ず Guard（誤リポジトリ防止＋Repo Lock）を通す:
   - `cd /home/masahiro/projects/context-framework`
   - `test "$(git rev-parse --show-toplevel)" = "/home/masahiro/projects/context-framework"`
-  - `./tools/cf-guard.sh --check`（Repo Lock: OK）
+  - `./tools/guard.sh --check`（Repo Lock: OK）
 - 一括処理を希望された場合は、runbook 8.1 の「ガード付き一括テンプレ（コピペ枠）」へ誘導する  
   （一括でも Guard を先頭に置くこと）
 
@@ -145,10 +145,10 @@
 - Evidence:
   - PR #54 merged: merge f14ec13 / topic 69aad10
   - PR #55 merged: merge b1d4a36 / topic ca43087
-  - 対象レンジ（目安）: `rg -n "STEP-G005" _handoff_check/cf_update_runbook.md || true` ＋ `rg -n "UPD-20260125-03" _handoff_check/cf_task_tracker_v5.md || true`
+  - 対象レンジ（目安）: `rg -n "STEP-G005" _handoff_check/update_runbook.md || true` ＋ `rg -n "UPD-20260125-03" _handoff_check/task_tracker.md || true`
 - 次に進むべきタスク:
   - ①成功/失敗分類 ②Signature（同種判定キー）③Skill昇格条件 を、トラッカー「チェック項目」から一段上げて **定義として固定**（WORKFLOW/SKILLS_INTEGRATION.md 等へ）するフェーズ
-  - 新チャット開始の最初の1手: `./tools/cf-guard.sh --check`
+  - 新チャット開始の最初の1手: `./tools/guard.sh --check`
 
 
 
@@ -162,7 +162,7 @@ Gate G / Phase 3（STEP-G201〜G204）を、Skills統合の本文へ反映して
   - Skillsへの導線（抽象→Skill）
   - Skill昇格条件（候補化の条件）
   - 受入テスト（入口→Skillに辿れる）
-- **Mod**: _handoff_check/cf_task_tracker_v5.md
+- **Mod**: _handoff_check/task_tracker.md
   - STEP-G201〜G204 を Done 更新
   - Evidence/Progress Log を追記
 
@@ -210,11 +210,11 @@ Gate G / Phase 3（STEP-G201〜G204）を、Skills統合の本文へ反映して
 
 ### 証跡（Evidence）
 - Progress Log: `UPD-20260124-04` / `UPD-20260124-05` / `UPD-20260124-06`
-- tracker: `_handoff_check/cf_task_tracker_v5.md`（Gate G Phase 1/2）
+- tracker: `_handoff_check/task_tracker.md`（Gate G Phase 1/2）
 
 ### 次にやること
 - STEP-G103（新カテゴリ追加ルールの必要性判定）→ STEP-G104（受入テスト）
-- 新チャット開始時の最初の一手: `./tools/cf-guard.sh --check`
+- 新チャット開始時の最初の一手: `./tools/guard.sh --check`
 
 
 ## 追記（2026-01-25）｜Gate G STEP-G103（新カテゴリ追加ルール）完了
@@ -223,7 +223,7 @@ Gate G / Phase 3（STEP-G201〜G204）を、Skills統合の本文へ反映して
 - カテゴリ増殖（肥大化）を抑えるため、新カテゴリ追加の Go/No-Go（同種2回目から検討）を最小ルールとして確定し、進捗（tracker）へ反映したことを handoff に記録する。
 
 ### 変更点（Add/Del/Mod）
-- **Mod**: `_handoff_check/cf_task_tracker_v5.md`
+- **Mod**: `_handoff_check/task_tracker.md`
   - STEP-G103 を Done[x] に更新
   - 「新カテゴリ追加ルール（STEP-G103）」を追記（3〜7行の最小ルール）
   - Progress Log/Updates に `UPD-20260124-07` を追記（日時/タスクID/証跡）
@@ -234,7 +234,7 @@ Gate G / Phase 3（STEP-G201〜G204）を、Skills統合の本文へ反映して
 
 ### 次にやること
 - Gate G Phase 2 / STEP-G104（受入テスト）※原則 read-only 検証→必要なら最小 diff 提案
-- 新チャット開始時の最初の一手: `./tools/cf-guard.sh --check`
+- 新チャット開始時の最初の一手: `./tools/guard.sh --check`
 
 ---
 
@@ -244,8 +244,8 @@ Gate G / Phase 3（STEP-G201〜G204）を、Skills統合の本文へ反映して
 - Gate G Phase 1 / STEP-G004（運用ルール追記の要否判定）を完了し、運用ルールは「追記不要」と確定。
 
 ### 変更点（Add/Del/Mod）
-- **Mod**: `_handoff_check/cf_task_tracker_v5.md`
-  - STEP-G004 を Done[x] に更新（Evidence: `rg -n "Repo Lock（作業開始前の必須チェック）" _handoff_check/cf_update_runbook.md || true`）
+- **Mod**: `_handoff_check/task_tracker.md`
+  - STEP-G004 を Done[x] に更新（Evidence: `rg -n "Repo Lock（作業開始前の必須チェック）" _handoff_check/update_runbook.md || true`）
   - Progress Log/Updates に `UPD-20260124-02` を追記
 - **Mod**: `LOGS/INDEX.md`
   - `./tools/cf-log-index.sh` 再実行で再生成（`UPD-20260124-02` を反映）
@@ -254,7 +254,7 @@ Gate G / Phase 3（STEP-G201〜G204）を、Skills統合の本文へ反映して
 - PR #46（merged）
 - Merge: `5dd667f`
 - 次に進むべきタスク: Gate G / STEP-G005（受入テストの最小シナリオ検証）
-- 新チャット開始時の最初の1手: `./tools/cf-guard.sh --check`
+- 新チャット開始時の最初の1手: `./tools/guard.sh --check`
 
 ---
 
@@ -264,7 +264,7 @@ Gate G / Phase 3（STEP-G201〜G204）を、Skills統合の本文へ反映して
 - Gate G Phase 1 / STEP-G003（抽象ログ仕様合意）を完了し、Concrete（tracker）と Abstract（LOGS/INDEX）を整合させる。
 
 ### 変更点（Add/Del/Mod）
-- **Mod**: `_handoff_check/cf_task_tracker_v5.md`
+- **Mod**: `_handoff_check/task_tracker.md`
   - Gate G: STEP-G003 を Done[x] に更新（Evidence: `LOG-009` / `LOGS/INDEX.md`）
   - `LOG-009` を追記（抽象ログ仕様の合意内容）
   - Progress Log/Updates に `UPD-20260124-01` を追記
@@ -276,11 +276,11 @@ Gate G / Phase 3（STEP-G201〜G204）を、Skills統合の本文へ反映して
 - Merge: `40b3f0c`
 - Repo Lock: OK / `main == origin/main` / working tree clean
 - 次に進むべきタスク: Gate G / STEP-G004（運用ルール追記が必要か判定）
-- 新チャット開始時の最初の1手: `./tools/cf-guard.sh --check`
+- 新チャット開始時の最初の1手: `./tools/guard.sh --check`
 - 確認コマンド:
-  - `rg -n "^| STEP-G003" _handoff_check/cf_task_tracker_v5.md`
-  - `rg -n "LOG-009" _handoff_check/cf_task_tracker_v5.md`
-  - `rg -n "UPD-20260124-01" _handoff_check/cf_task_tracker_v5.md`
+  - `rg -n "^| STEP-G003" _handoff_check/task_tracker.md`
+  - `rg -n "LOG-009" _handoff_check/task_tracker.md`
+  - `rg -n "UPD-20260124-01" _handoff_check/task_tracker.md`
   - `rg -n "LOG-009" LOGS/INDEX.md`
   - `rg -n "UPD-20260124-01" LOGS/INDEX.md`
 
@@ -292,7 +292,7 @@ Gate G / Phase 3（STEP-G201〜G204）を、Skills統合の本文へ反映して
 - STEP-G002 完了後の引継ぎメモを追加し、handoff_prompt の経緯メモを最新化する。
 
 ### 変更点（Add/Del/Mod）
-- **Mod**: `_handoff_check/cf_handoff_prompt.md`
+- **Mod**: `_handoff_check/handoff_prompt.md`
   - STEP-G002 完了の引継ぎメモを追記
 
 ### 証跡（Evidence）
@@ -307,7 +307,7 @@ Gate G / Phase 3（STEP-G201〜G204）を、Skills統合の本文へ反映して
 - Gate G Phase 1 / STEP-G002（具体ログの最小テンプレ合意）を完了し、Concrete（tracker）と Abstract（LOGS/INDEX）を整合させる。
 
 ### 変更点（Add/Del/Mod）
-- **Mod**: `_handoff_check/cf_task_tracker_v5.md`
+- **Mod**: `_handoff_check/task_tracker.md`
   - Gate G: STEP-G002 を Done[x] に更新（Evidence: `LOG-008` / `LOGS/INDEX.md`）
   - `LOG-008` を追記（最小テンプレ合意の内容を明文化）
   - Progress Log/Updates に `UPD-20260123-02` を追記（検索導線の証跡を追加）
@@ -320,11 +320,11 @@ Gate G / Phase 3（STEP-G201〜G204）を、Skills統合の本文へ反映して
 - Branch: `wip/gate-g-stepg002`（削除済み）
 - Repo Lock: OK / `main == origin/main` / working tree clean
 - 次に進むべきタスク: Gate G / STEP-G003（抽象ログ仕様合意）
-- 新チャット開始時の最初の1手: `./tools/cf-guard.sh --check`
+- 新チャット開始時の最初の1手: `./tools/guard.sh --check`
 - 確認コマンド:
-  - `rg -n "^| STEP-G002" _handoff_check/cf_task_tracker_v5.md`
-  - `rg -n "LOG-008" _handoff_check/cf_task_tracker_v5.md`
-  - `rg -n "UPD-20260123-02" _handoff_check/cf_task_tracker_v5.md`
+  - `rg -n "^| STEP-G002" _handoff_check/task_tracker.md`
+  - `rg -n "LOG-008" _handoff_check/task_tracker.md`
+  - `rg -n "UPD-20260123-02" _handoff_check/task_tracker.md`
   - `rg -n "LOG-008" LOGS/INDEX.md`
   - `rg -n "UPD-20260123-02" LOGS/INDEX.md`
 
@@ -336,7 +336,7 @@ Gate G / Phase 3（STEP-G201〜G204）を、Skills統合の本文へ反映して
 - Gate G Phase 1 / STEP-G001（現状棚卸し）を完了し、Concrete（tracker）と Abstract（LOGS/INDEX）を整合させる。
 
 ### 変更点（Add/Del/Mod）
-- **Mod**: `_handoff_check/cf_task_tracker_v5.md`
+- **Mod**: `_handoff_check/task_tracker.md`
   - Gate G: STEP-G001 を Done[x] に更新（Evidence: `LOG-007` / `LOGS/INDEX.md`）
   - `LOG-007` を追記（Concrete/Abstract/検索導線/証跡確定の記録）
   - Progress Log/Updates に `UPD-20260123-01` を追記（索引生成ツールが拾えるよう行パイプ形式に正規化）
@@ -349,9 +349,9 @@ Gate G / Phase 3（STEP-G201〜G204）を、Skills統合の本文へ反映して
 - Branch: `wip/gate-g-stepg001`（削除済み）
 - Repo Lock: OK / `main == origin/main` / working tree clean
 - 確認コマンド:
-  - `rg -n "^| STEP-G001" _handoff_check/cf_task_tracker_v5.md`
-  - `rg -n "LOG-007" _handoff_check/cf_task_tracker_v5.md`
-  - `rg -n "UPD-20260123-01" _handoff_check/cf_task_tracker_v5.md`
+  - `rg -n "^| STEP-G001" _handoff_check/task_tracker.md`
+  - `rg -n "LOG-007" _handoff_check/task_tracker.md`
+  - `rg -n "UPD-20260123-01" _handoff_check/task_tracker.md`
   - `rg -n "LOG-007" LOGS/INDEX.md`
   - `rg -n "UPD-20260123-01" LOGS/INDEX.md`
 
@@ -360,10 +360,10 @@ Gate G / Phase 3（STEP-G201〜G204）を、Skills統合の本文へ反映して
 ## 追記: 2026-01-20 PR#25（例外：PR後の後処理を“ガード付きで一括提示”してよいケース）
 
 ### 変更点（何を追加・削除・修正したか）
-- Mod: `_handoff_check/cf_task_tracker_v5.md`
+- Mod: `_handoff_check/task_tracker.md`
   - 「次にやることは1つ（1コマンド/1操作）」原則の**例外**として、Developerが明示的に依頼した場合のみ
     「PR作成→merge→branch削除→main同期→prune→status」を**まとめて提示してよい**旨を追記（詳細は runbook 8.1）。
-- Mod: `_handoff_check/cf_update_runbook.md`
+- Mod: `_handoff_check/update_runbook.md`
   - `8.1 例外: PR後の後処理をまとめて提示する場合（ガード付き一括手続きテンプレ）` を追記。
   - main保護、`--ff-only`、開始ブランチ（`TOPIC_BRANCH` / `start_branch`）、削除条件、想定repoガード等を明文化。
 
@@ -394,7 +394,7 @@ Gate G / Phase 3（STEP-G201〜G204）を、Skills統合の本文へ反映して
   - Merge: ee5c074 / Commit: 8f06dcc
   - Repo Lock: OK / main==origin/main / working tree clean
 - 変更点（Add/Del/Mod）:
-  - Mod: _handoff_check/cf_handoff_prompt.md / _handoff_check/cf_update_runbook.md / _handoff_check/cf_task_tracker_v5.md
+  - Mod: _handoff_check/handoff_prompt.md / _handoff_check/update_runbook.md / _handoff_check/task_tracker.md
 
 ---
 
@@ -404,24 +404,24 @@ Gate G / Phase 3（STEP-G201〜G204）を、Skills統合の本文へ反映して
 - runbook単体で読んだ新エージェントが「3ファイル添付できない」ケースで詰まる確率を下げる。
 
 ### 変更点（Add/Del/Mod）
-- **Mod**: `_handoff_check/cf_update_runbook.md`
+- **Mod**: `_handoff_check/update_runbook.md`
   - 「表記ポリシー（日本語統一 / SSOT）」内の「3ファイル必ず添付」直後に、
-    「添付できない場合は `cf_handoff_prompt.md` の『SSOT 3ファイルを添付できない場合の代替手順』に従う。」を**1行**追記。
+    「添付できない場合は `handoff_prompt.md` の『SSOT 3ファイルを添付できない場合の代替手順』に従う。」を**1行**追記。
 
 ### 証跡（Evidence）
 - Repo Lock: OK
 - Commit: 35a6483（docs: runbookに添付不可時の代替手順注記を追記）
 - 状態: `main == origin/main`, 作業ツリー clean
-- 追記行確認: `rg -n "添付できない場合は.*代替手順" _handoff_check/cf_update_runbook.md` で該当行を確認
+- 追記行確認: `rg -n "添付できない場合は.*代替手順" _handoff_check/update_runbook.md` で該当行を確認
 
 ---
 
 ## 追記（2026-01-22）｜PR #33（衝突時の意思決定フロー／tracker修復）
 
 ### 変更点（Add/Del/Mod）
-- **Mod**: `_handoff_check/cf_update_runbook.md`
+- **Mod**: `_handoff_check/update_runbook.md`
   - 4.1 ロール（責務）に「衝突時の意思決定」1行を追記
-- **Mod**: `_handoff_check/cf_task_tracker_v5.md`
+- **Mod**: `_handoff_check/task_tracker.md`
   - Progress Log/Updates の UPD-20260122-02 を復元（壊れ行の修正）
 
 ### 証跡（Evidence）
@@ -433,8 +433,8 @@ Gate G / Phase 3（STEP-G201〜G204）を、Skills統合の本文へ反映して
 - PR #36（merge commit: 2f8cc22）
   - tools/cf-log-index.sh を追加（trackerから LOG/UPD/SKILL-LOG を抽出して LOGS/INDEX.md を生成）
   - LOGS/INDEX.md を追加（生成物：手編集禁止、再生成コマンドは `./tools/cf-log-index.sh`）
-  - _handoff_check/cf_update_runbook.md に「LOGS/INDEX.md は生成物。tracker更新PRでは再生成して同一PRで更新」を1行追記
-  - _handoff_check/cf_task_tracker_v5.md に UPD-20260122-04 を追記（Done[x]）
+  - _handoff_check/update_runbook.md に「LOGS/INDEX.md は生成物。tracker更新PRでは再生成して同一PRで更新」を1行追記
+  - _handoff_check/task_tracker.md に UPD-20260122-04 を追記（Done[x]）
 - 証跡: Merge 2f8cc22 / Commits d404554, 593dea4 / Repo Lock OK / main==origin/main / clean
 
 ## 追記（2026-01-22）｜PR #38（Gate G 追加＋LOGS/INDEX更新）
@@ -447,21 +447,21 @@ Gate G / Phase 3（STEP-G201〜G204）を、Skills統合の本文へ反映して
 ## 追記（2026-01-25）｜Gate G Phase 2: STEP-G104（受入テスト）Done → 次は Phase 3（STEP-G201）
 
 ### 変更点（Add/Del/Mod）
-- **Mod**: `_handoff_check/cf_task_tracker_v5.md`
+- **Mod**: `_handoff_check/task_tracker.md`
   - STEP-G104 を Done[x]（procedure-mismatch / runbook:パッチ事故防止）
   - Progress Log/Updates: UPD-20260125-01 を追記
-- **Mod**: `_handoff_check/cf_update_runbook.md`
+- **Mod**: `_handoff_check/update_runbook.md`
   - 出力（根拠/判定/変更提案）を「重要点のみ短く」する運用ルールを最小追記
-- **Mod**: `_handoff_check/cf_handoff_prompt.md`（本追記）
+- **Mod**: `_handoff_check/handoff_prompt.md`（本追記）
 
 ### 証跡（Evidence）
 - Commit: `7f9655a`（docs: trackerでSTEP-G104をDoneに更新）
 - 状態: Repo Lock: OK / `main == origin/main` / working tree clean
 - 次に進むべきタスク: Gate G / Phase 3 / STEP-G201（Skill昇格条件）
-- 新チャット開始時の最初の1手: `./tools/cf-guard.sh --check`
+- 新チャット開始時の最初の1手: `./tools/guard.sh --check`
 - 確認コマンド:
-  - `rg -n "STEP-G20" _handoff_check/cf_update_runbook.md || true`
-  - `rg -n "Progress Log/Updates" _handoff_check/cf_task_tracker_v5.md || true`
+  - `rg -n "STEP-G20" _handoff_check/update_runbook.md || true`
+  - `rg -n "Progress Log/Updates" _handoff_check/task_tracker.md || true`
 
 
 ### Handoff Memo: PR #57-#60（Gate G: STEP-G006/STEP-G007）
@@ -475,10 +475,10 @@ Gate G / Phase 3（STEP-G201〜G204）を、Skills統合の本文へ反映して
   - merge commits: PR57=6305b49 / PR58=390dd58 / PR59=795d53f / PR60=695279
   - tool: tools/cf-signature-report.sh（read-only, refs付き）
 - 使い方（同種2回/3回の候補検出）:
-  - ./tools/cf-guard.sh -- tools/cf-signature-report.sh -min 2
-  - ./tools/cf-guard.sh -- tools/cf-signature-report.sh -min 3 -scope LOGS
+  - ./tools/guard.sh -- tools/cf-signature-report.sh -min 2
+  - ./tools/guard.sh -- tools/cf-signature-report.sh -min 3 -scope LOGS
 - 次に進むべき作業:
-  - _handoff_check/cf_task_tracker_v5.md の Gate H 未完了 [ ] を上から実施（Concreteの記録→Signature付与→集計→Abstract/Skill昇格判断）。
+  - _handoff_check/task_tracker.md の Gate H 未完了 [ ] を上から実施（Concreteの記録→Signature付与→集計→Abstract/Skill昇格判断）。
 
 
 ## 追記（2026-01-26）｜PR #62/#63：runbook8 出力契約・検索0終了ルールを固定
@@ -492,7 +492,7 @@ Gate G / Phase 3（STEP-G201〜G204）を、Skills統合の本文へ反映して
 - PR #63: merge commit = 7b4ed39 / commit = c98331c
 
 ### 次チャットの開始手順（再掲）
-- Repo Lock: `./tools/cf-guard.sh --check`
+- Repo Lock: `./tools/guard.sh --check`
 - 読み込み順: handoff → runbook（##8）→ tracker
 - 出力: **根拠/判定/変更提案**
 - 検索（見つからなくてもOK）: `rg ... || true`
@@ -509,7 +509,7 @@ Gate G / Phase 3（STEP-G201〜G204）を、Skills統合の本文へ反映して
 - 『3ファイルの整合性から無駄を省いて整理（特にトラッカーの重複/不要の削除）』は、SSOT（_handoff_check の3ファイル）へは **未反映**。
 - （注）一時ワークスペース `_handoff_check/_workspace_tracker_20260126/`／`cf_task_tracker_v5.WIP.md` はリポジトリ内に実体が見つからない（作成は未実施 or ローカルのみで破棄済みの可能性）。以後は SSOT（_handoff_check の3ファイル）を正として作業する。
 - 確定ルール: 参照不能/存在不明の作業メモは SSOT 判断根拠にしない。
-- SSOT方針: ZIPは不要。正は `_handoff_check` の3ファイル（cf_handoff_prompt.md / cf_update_runbook.md / cf_task_tracker_v5.md）。
+- SSOT方針: ZIPは不要。正は `_handoff_check` の3ファイル（handoff_prompt.md / update_runbook.md / task_tracker.md）。
 
 ### 調査証跡（2026-01-26）
 - `ls -la _workspace_tracker_20260126` → `No such file or directory`
@@ -519,10 +519,10 @@ Gate G / Phase 3（STEP-G201〜G204）を、Skills統合の本文へ反映して
 - SSOT 3ファイルに ZIP/旧運用の残骸がないか横断検索し、結果を貼って判定する。
 
 ```bash
-./tools/cf-guard.sh -- rg -n "(ZIP|zip|cf_handoff_and_tracker\\.zip|next[0-9]+_work\\.zip)" \
-  _handoff_check/cf_handoff_prompt.md \
-  _handoff_check/cf_update_runbook.md \
-  _handoff_check/cf_task_tracker_v5.md || true
+./tools/guard.sh -- rg -n "(ZIP|zip|cf_handoff_and_tracker\\.zip|next[0-9]+_work\\.zip)" \
+  _handoff_check/handoff_prompt.md \
+  _handoff_check/update_runbook.md \
+  _handoff_check/task_tracker.md || true
 ```
 
 <!-- CFTCX_HANDOFF_20260126_PR66_67_NOTE -->
@@ -539,14 +539,14 @@ Gate G / Phase 3（STEP-G201〜G204）を、Skills統合の本文へ反映して
 - working tree: clean
 
 ### 次にやること（1つだけ）
-./tools/cf-guard.sh --check
+./tools/guard.sh --check
 意味（復習用）: Repo Lock の安全確認（想定リポジトリ以外なら中止）
 
 ## 追記 (2026-01-27) | PR #70/#71 : Gate H 入口統一 + tracker Evidence 修正
 - PR #70（merged）: 新規タスクの入口を Gate H（Phase 1）に統一（Gate G は完了扱い）。Evidence: PR #70 / merge e9105da
 - PR #71（merged）: tracker 更新ログ UPD-20260126-03 の Evidence を「PR予定」から「PR #70 / merge e9105da」へ修正。Evidence: PR #71 / merge 6d5df16
 
-（新チャットでは SSOT として _handoff_check の3ファイルを添付し、最初に Repo Lock（./tools/cf-guard.sh --check）から開始する）
+（新チャットでは SSOT として _handoff_check の3ファイルを添付し、最初に Repo Lock（./tools/guard.sh --check）から開始する）
 
 
 <!-- CFCTX_HANDOFF_20260127_GATEH_H4_RULES_START -->
@@ -565,7 +565,7 @@ Gate G / Phase 3（STEP-G201〜G204）を、Skills統合の本文へ反映して
 
 ### 次にやること（1つだけ）
 ```bash
-./tools/cf-guard.sh --check
+./tools/guard.sh --check
 ```
 意味（復習用）: Repo Lock の安全確認（想定リポジトリ以外なら中止）
 
@@ -588,7 +588,7 @@ Gate G / Phase 3（STEP-G201〜G204）を、Skills統合の本文へ反映して
 
 ### 次にやること（1つだけ）
 ```bash
-./tools/cf-guard.sh --check
+./tools/guard.sh --check
 ```
 意味（復習用）: Repo Lock の安全確認（想定リポジトリ以外なら中止）
 
@@ -625,12 +625,12 @@ Gate G / Phase 3（STEP-G201〜G204）を、Skills統合の本文へ反映して
 ## 引継ぎメモ（20260130-014312）: STEP-G003 / cf-doctor / SSOT混乱の整理
 
 ### 根拠
-- 外部仕様（特に 03_仕様書.md）に `ssot: _handoff_check/cf_task_tracker_v5.md` と tracker 前提の invariants が記載されていたため、Claude Code が「tracker 正」と解釈した可能性が高い。
-- あなたの運用整理：SSOT最高位は runbook（_handoff_check/cf_update_runbook.md）。tracker は進捗計測、handoff_prompt は引継ぎ便宜。
+- 外部仕様（特に 03_仕様書.md）に `ssot: _handoff_check/task_tracker.md` と tracker 前提の invariants が記載されていたため、Claude Code が「tracker 正」と解釈した可能性が高い。
+- あなたの運用整理：SSOT最高位は runbook（_handoff_check/update_runbook.md）。tracker は進捗計測、handoff_prompt は引継ぎ便宜。
 - 観測メモ（ターミナル出力より）：cf-doctor.sh が `sh` 実行で syntax error（line 131 付近）を起こした。原因候補は **POSIX sh で無効なクォート/正規表現（例：sed の single-quote 内に \\' を含める等）**。
 
 ### 判定
-- **SSOT（最高位）= cf_update_runbook.md** に統一するのが正。
+- **SSOT（最高位）= update_runbook.md** に統一するのが正。
 - 外部4ファイル（01-04）は runbook 最上位の優先順位を明文化し、spec/doctor も runbook 参照へ寄せる。
 - doctor は read-only のまま、**PASS/FAIL + 根拠 + Next 1 action** を安定出力できればよい。
 
@@ -646,10 +646,10 @@ Gate G / Phase 3（STEP-G201〜G204）を、Skills統合の本文へ反映して
 - stash(top): stash@{0}: On main: wip: pre-handoff auto stash
 - runbook STEP-G003: 790:| STEP-G003 | 抽象ログ（索引）仕様合意（カテゴリ→パターン→具体ID、ID検索を正） | [x] | LOG-009 / LOGS/INDEX.md | Mod |
 - runbook LOG-009: 1163:### LOG-009｜Gate G（STEP-G003）抽象ログ（索引）仕様合意
-- LOGS/INDEX LOG-009: 47:- LOG-009 | Gate G（STEP-G003）抽象ログ（索引）仕様合意 | L694 | Ref: rg -n "LOG-009" _handoff_check/cf_task_tracker_v5.md
+- LOGS/INDEX LOG-009: 47:- LOG-009 | Gate G（STEP-G003）抽象ログ（索引）仕様合意 | L694 | Ref: rg -n "LOG-009" _handoff_check/task_tracker.md
 
 ### 次にやること（1つだけ）
-./tools/cf-guard.sh --check
+./tools/guard.sh --check
 意味（復習用）: Repo Lock の安全確認（想定リポジトリ以外なら中止）
 ---
 
@@ -667,14 +667,14 @@ Gate G / Phase 3（STEP-G201〜G204）を、Skills統合の本文へ反映して
   - WORKFLOW/SPEC/gates/gate-g.yaml
   - tools/cf-doctor.sh
 - Mod:
-  - _handoff_check/cf_update_runbook.md（SSOT最上位=runbook を明文化）
-  - _handoff_check/cf_task_tracker_v5.md（tracker=進捗計測 を明確化）
-  - _handoff_check/cf_handoff_prompt.md（引継ぎメモ更新）
+  - _handoff_check/update_runbook.md（SSOT最上位=runbook を明文化）
+  - _handoff_check/task_tracker.md（tracker=進捗計測 を明確化）
+  - _handoff_check/handoff_prompt.md（引継ぎメモ更新）
 - Del: なし
 
 ### 次にやりたいこと（新チャット）
 - 目的: 外部仕様（例: 03_仕様書.md など）や SPEC/doctor 側に「tracker を SSOT 扱い」する記述が残っていないか確認し、**runbook SSOT** に統一する（Gate I / I1）。
-- 最初の1手: `./tools/cf-guard.sh --check`
+- 最初の1手: `./tools/guard.sh --check`
 
 #### 調査コマンド候補（見つからなくてもOK → 末尾 `|| true`）
 - `rg -n "tracker.*SSOT|SSOT.*tracker|cf_task_tracker_v5|03_仕様書|WORKFLOW/SPEC|cf-doctor" -S . || true`
@@ -692,28 +692,28 @@ Gate G / Phase 3（STEP-G201〜G204）を、Skills統合の本文へ反映して
 - 事前検証（read-only / 失敗許容なしのための事実確認）:
   - `git status -sb`: `## main...origin/main`（clean）
   - `sh -n tools/cf-doctor.sh`: OK（出力なし）
-  - tracker（`_handoff_check/cf_task_tracker_v5.md`）に `LOG-009` は存在しない（rg出力なし）
+  - tracker（`_handoff_check/task_tracker.md`）に `LOG-009` は存在しない（rg出力なし）
 - 懸念（要確認）:
   - `tools/cf-log-index.sh` の入力ソースが tracker のみの場合、INDEX 再生成で `LOG-009` が落ち、doctor の Next action（index再生成）で PASS に戻らない可能性がある。
 - 次フェーズ方針:
   - 実装に入る前に「事前準備段階を含めた Gate I タスク」を tracker に正式追加してから着手する（スクリプト絡みの重要セクションで失敗許容なし）。
 - 新チャット開始の最初の1手（運用固定）:
-  - `./tools/cf-guard.sh --check`
+  - `./tools/guard.sh --check`
 - Repo Lock: OK 後の read-only 確認（次の1手候補）:
-  - `./tools/cf-guard.sh -- bash -lc 'rg -n "cf_task_tracker|tracker|cf_update_runbook|runbook|INPUT|SOURCE|DEFAULT|LOGS/INDEX" tools/cf-log-index.sh || true'`
+  - `./tools/guard.sh -- bash -lc 'rg -n "cf_task_tracker|tracker|cf_update_runbook|runbook|INPUT|SOURCE|DEFAULT|LOGS/INDEX" tools/cf-log-index.sh || true'`
 
 ---
 ## 追記（2026-01-30T22:57:02+09:00）｜handoff更新（cf-doctor Phase 0 / 運用フロー契約 / Gate I 整合）
 
 - 反映内容（Add/Del/Mod）:
-  - **Mod**: `_handoff_check/cf_handoff_prompt.md`（本追記）
+  - **Mod**: `_handoff_check/handoff_prompt.md`（本追記）
   - **Ref**: `tools/cf-doctor.sh` / `WORKFLOW/SPEC/gates/gate-g.yaml`（cf-doctor Phase 0: STEP-G003）
-  - **Ref**: `_handoff_check/cf_update_runbook.md`（運用フロー契約: SSOT→cf-doctor→GO/NO-GO→Skills）
-  - **Ref**: `_handoff_check/cf_task_tracker_v5.md`（Gate I: I0/I1 の整合）
+  - **Ref**: `_handoff_check/update_runbook.md`（運用フロー契約: SSOT→cf-doctor→GO/NO-GO→Skills）
+  - **Ref**: `_handoff_check/task_tracker.md`（Gate I: I0/I1 の整合）
 
 - 状態:
   - 次にやる1手: Gate I / I1（Gate I 入口定義: 目的/Done条件/最初の1手をSSOTに最小追記）
-  - 新チャット開始時の最初の1手: `./tools/cf-guard.sh --check`
+  - 新チャット開始時の最初の1手: `./tools/guard.sh --check`
 
 - Evidence:
   - HEAD: 5932561
@@ -727,7 +727,7 @@ Gate G / Phase 3（STEP-G201〜G204）を、Skills統合の本文へ反映して
   - bf28712 docs: clarify ssot bundle vs runbook SSOT (Gate I / I1)
   - 7594b85 docs: handoff memo (PR#97 / stash cleanup)
   - cf-doctor:
-    - `./tools/cf-guard.sh -- ./tools/cf-doctor.sh step STEP-G003` => PASS（必要なら再実行）
+    - `./tools/guard.sh -- ./tools/cf-doctor.sh step STEP-G003` => PASS（必要なら再実行）
 
 ---
 ## 追記（2026-01-31T07:46:48+0900）｜Gate I: I1 完了（tracker整合）→ 次は I2
@@ -742,13 +742,13 @@ Gate G / Phase 3（STEP-G201〜G204）を、Skills統合の本文へ反映して
 - handoff 末尾に本追記を追加し、最新の「次にやる1手」を I2 として明示する。
 
 ### 変更内容（Add/Del/Mod）
-- **Mod**: `_handoff_check/cf_handoff_prompt.md`（本追記）
-- **Ref**: `_handoff_check/cf_task_tracker_v5.md`（I1 Done[x] / 次の1手 I2）
+- **Mod**: `_handoff_check/handoff_prompt.md`（本追記）
+- **Ref**: `_handoff_check/task_tracker.md`（I1 Done[x] / 次の1手 I2）
 
 ### 状態
 - - 次にやる1手: Gate I / I2（Gate I 事前調査: 外部仕様4ファイルの要点とSSOT整合→LOG-009・LOGS/INDEX・cf-log-index入力ソースを read-only 確認）
 - 新チャット開始の最初の1手（運用固定）:
-  - `./tools/cf-guard.sh --check`
+  - `./tools/guard.sh --check`
 
 ### Evidence
 - HEAD: fc24b3b
@@ -769,9 +769,9 @@ Gate G / Phase 3（STEP-G201〜G204）を、Skills統合の本文へ反映して
   - 最小スモーク（doctor）: [cf-doctor] step=STEP-G003
 - status: PASS
 - evidence:
-  - _handoff_check/cf_update_runbook.md:818 | | STEP-G003 | 抽象ログ（索引）仕様合意（カテゴリ→パターン→具体ID、ID検索を正） | [x] | LOG-009 / LOGS/INDEX.md | Mod |
-  - _handoff_check/cf_update_runbook.md:1191 | ### LOG-009｜Gate G（STEP-G003）抽象ログ（索引）仕様合意
-  - LOGS/INDEX.md:47 | - LOG-009 | Gate G（STEP-G003）抽象ログ（索引）仕様合意 | L694 | Ref: rg -n "LOG-009" _handoff_check/cf_task_tracker_v5.md
+  - _handoff_check/update_runbook.md:818 | | STEP-G003 | 抽象ログ（索引）仕様合意（カテゴリ→パターン→具体ID、ID検索を正） | [x] | LOG-009 / LOGS/INDEX.md | Mod |
+  - _handoff_check/update_runbook.md:1191 | ### LOG-009｜Gate G（STEP-G003）抽象ログ（索引）仕様合意
+  - LOGS/INDEX.md:47 | - LOG-009 | Gate G（STEP-G003）抽象ログ（索引）仕様合意 | L694 | Ref: rg -n "LOG-009" _handoff_check/task_tracker.md
 - next: (none) => PASS
 - trackerに Gate J のタスク行が無かったため、入口として Gate J / J0 を最小追加し「次にやる1手」を Gate J へ移行
 
