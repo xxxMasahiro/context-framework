@@ -45,7 +45,7 @@ _validate_main_repo() {
   local kit="${KIT_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)}"
   local ssot_dir="${kit}/SSOT"
   if [[ -d "$ssot_dir" ]]; then
-    local ssot_files=("cf_handoff_prompt.md" "cf_update_runbook.md" "cf_task_tracker_v5.md")
+    local ssot_files=("handoff_prompt.md" "update_runbook.md" "task_tracker.md")
     for sf in "${ssot_files[@]}"; do
       local kit_f="${ssot_dir}/${sf}"
       local repo_f="${candidate}/_handoff_check/${sf}"

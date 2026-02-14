@@ -82,19 +82,19 @@ emit_main_repo_snapshot() {
   fi
 
   # Repo lock
-  # cf-guard.sh uses `git rev-parse --show-toplevel` to find the repo root,
+  # guard.sh uses `git rev-parse --show-toplevel` to find the repo root,
   # so it must be run from within the main repo (subshell, read-only).
   local repo_lock="NG"
-  if [[ -x "$MAIN_REPO/tools/cf-guard.sh" ]]; then
+  if [[ -x "$MAIN_REPO/tools/guard.sh" ]]; then
     local guard_out
-    guard_out="$(cd "$MAIN_REPO" && bash "$MAIN_REPO/tools/cf-guard.sh" --check 2>&1)" || true
+    guard_out="$(cd "$MAIN_REPO" && bash "$MAIN_REPO/tools/guard.sh" --check 2>&1)" || true
     if echo "$guard_out" | grep -q "OK" 2>/dev/null; then
       repo_lock="OK"
     fi
   fi
 
   # SSOT fingerprint (sha256 first 8 chars)
-  local ssot_files=("cf_handoff_prompt.md" "cf_update_runbook.md" "cf_task_tracker_v5.md")
+  local ssot_files=("handoff_prompt.md" "update_runbook.md" "task_tracker.md")
   local fp_lines=""
   for f in "${ssot_files[@]}"; do
     local fp="N/A"
@@ -380,9 +380,9 @@ emit_evidence_index() {
 emit_kit_files() {
   cat <<'EOF'
 ## 5. Kit Files
-- SSOT/cf_handoff_prompt.md
-- SSOT/cf_update_runbook.md
-- SSOT/cf_task_tracker_v5.md
+- SSOT/handoff_prompt.md
+- SSOT/update_runbook.md
+- SSOT/task_tracker.md
 - verify/verify_requirements.md
 - verify/verify_spec.md
 - verify/verify_implementation_plan.md

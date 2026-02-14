@@ -1,8 +1,8 @@
 # as-built 要件定義書（正式版）— Temporary Verification Kit
 
-version: 2.1
+version: 2.2
 date: 2026-02-14
-status: 正式版（v2.1: 配置モデル明確化 — REQ-S01 に CF repo snapshot 注記追加）
+status: 正式版（v2.2: cf_/cf- プレフィックス除去 — SSOT 3 ファイル名・ツール参照を新名に更新）
 
 ---
 
@@ -79,7 +79,7 @@ status: 正式版（v2.1: 配置モデル明確化 — REQ-S01 に CF repo snaps
 
 ### REQ-S04: Repo Lock 確認
 
-- **要件**: 検証開始時に `./tools/cf-guard.sh --check` の結果を Evidence 化する。
+- **要件**: 検証開始時に `./tools/guard.sh --check` の結果を Evidence 化する。
 - **受入条件**: handoff 生成時に repo_lock 状態が記録される。
 - **実装状態**: 充足。`handoff_builder.sh:89-95` が guard チェックを実施、`run_tests.sh:90-96` も Phase 1 で確認。
 - **根拠**: handoff_builder.sh:89-95, verify_requirements.md:43
@@ -324,7 +324,7 @@ status: 正式版（v2.1: 配置モデル明確化 — REQ-S01 に CF repo snaps
 | # | 条件 | 状態 | 根拠 |
 |---|------|------|------|
 | AC-01 | KIT_ROOT が repo 外に存在 | OK | Kit が `/home/masahiro/.gate-audit_root/.gate-audit/` に存在 |
-| AC-02 | SSOT/ に 3 ファイル | OK | SSOT/cf_handoff_prompt.md, cf_update_runbook.md, cf_task_tracker_v5.md |
+| AC-02 | SSOT/ に 3 ファイル | OK | SSOT/handoff_prompt.md, update_runbook.md, task_tracker.md |
 | AC-03 | context/ に run_rules.md + codex_high_prompt.md | OK | 両ファイル存在 |
 | AC-04 | tasks/ にトラッカー群（verify/test/as_built/rebuild/post_rebuild/self_check） | OK | 6 ファイル存在 |
 | AC-05 | logs/evidence/ に Evidence 蓄積 | OK | 多数の evidence ディレクトリ/ファイルが存在 |
@@ -419,11 +419,12 @@ status: 正式版（v2.1: 配置モデル明確化 — REQ-S01 に CF repo snaps
 - v1.1（2026-02-06 JST）: 未文書化機能 6 件を追加（REQ-F09〜F14: トラッカー自動更新、プラグインソート、否定構文、REQ-ID 範囲展開、GATE_EVIDENCE マーカー、進捗ログ自動記録）
 - v1.2（2026-02-06 JST）: セキュリティ総合調査結果を追加（REQ-S05: セキュリティ姿勢の確認、17 件の受容判定結果）
 - v1.3（2026-02-07 JST）: REQ-S02 強化（read-only 3 層検証: CQ-RO 静的検査 + Phase 1 ランタイム + OS レベル ro mount）、REQ-F15 追加（CQ-RO チェック）、REQ-F04 を 7→8 種に更新
-- v1.4（2026-02-07 JST）: バグ修正 8 件の反映（verify_gate.sh 未知 Gate exit code、run_tests.sh cf-guard.sh パス、evidence.sh discover_main_repo 階層、kit テストサマリ抽出、gate_a/b req② 判定厳格化、gate_g req② LOG-009 両方必須、gate_i req① 閾値 ==6）
+- v1.4（2026-02-07 JST）: バグ修正 8 件の反映（verify_gate.sh 未知 Gate exit code、run_tests.sh guard.sh パス、evidence.sh discover_main_repo 階層、kit テストサマリ抽出、gate_a/b req② 判定厳格化、gate_g req② LOG-009 両方必須、gate_i req① 閾値 ==6）
 - v1.5（2026-02-07 JST）: Gate 動的スケーラビリティ対応（REQ-F03: run_tests.sh Phase 1/2/3 の A-I 固定を gate_registry.sh 動的検出に置換、REQ-T04: tracker_updater.sh に Gate セクション自動生成機能追加、REQ-F07: gate_registry.sh に Gate ID バリデーション追加〈`_gr_is_safe_gate_id()` ヘルパー、列挙時+source 前の 2 箇所で一貫適用〉）
 - v1.6（2026-02-07 JST）: Codex 評価指摘 4 件修正（REQ-F02: verify_all.sh に Gate 0 件ガード + SSOT MATCH 必須化〈fail-closed〉、REQ-F07: gate_registry.sh unsafe ID を WARN→FATAL+exit 1 に昇格 + `for f in $(...)` を `while IFS= read -r f` に変更〈空白パス安全化〉）
 - v1.7（2026-02-07 JST）: run_tests.sh Phase 2 Gate 0 件ガード追加（REQ-F03: プロセス置換 `< <(gr_list_gate_ids)` の exit code 非伝播による偽 PASS 防止）
 - v1.8（2026-02-07 JST）: gate_a.sh/gate_b.sh req② の `repo_grep` 呼び出しバグ修正（`-i` フラグが `repo_grep` 非対応のため、パターンとファイルパスが 1 つずれて常に FAIL していた。`-i` 除去で解消。パターン自体に大小文字両方含むため動作変更なし）
 - v1.9（2026-02-07 JST）: Phase 5 lockdown/unlock 実装（REQ-D02 解消）+ MAIN_REPO バリデーション強化（REQ-F16: _validate_main_repo() 4 段階検証 — .git + _handoff_check/ + 構造マーカー + SSOT sha256 照合。find 結果を全候補走査に変更し、誤 repo 接続を防止）+ `./kit lockdown` / `./kit unlock` サブコマンド追加（REQ-F01 更新）
+- v2.2（2026-02-14 JST）: cf_/cf- プレフィックス除去 — SSOT 3 ファイル名（handoff_prompt.md / update_runbook.md / task_tracker.md）およびツール参照を新名に更新。
 - v2.1（2026-02-14 JST）: REQ-S01 配置モデル明確化 — CF repo 内 `.gate-audit/` は snapshot であり運用時の KIT_ROOT ではないことを注記（CODEX F-02 対応）。
 - v2.0（2026-02-14 JST）: 3 層リネーム + 構造簡素化（`.cfctx_verify` → `.gate-audit`、`.cfctx` → `.repo-id`、内部 CIQA → self-check〈ファイル・関数 9 件・変数 13 件・CLI サブコマンド〉、環境変数 `CFCTX_*` → `GATE_AUDIT_*` / `SC_*`、ディレクトリ 3 段→2 段簡素化）

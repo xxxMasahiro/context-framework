@@ -78,12 +78,12 @@ verify_gate_a() {
 
     # Check runbook references Gate A
     echo "--- Runbook Gate A references ---"
-    grep -n -i "gate.a\|STEP-.*A\|タスク合意" "${MAIN_REPO}/_handoff_check/cf_update_runbook.md" 2>/dev/null | head -20 || echo "(none)"
+    grep -n -i "gate.a\|STEP-.*A\|タスク合意" "${MAIN_REPO}/_handoff_check/update_runbook.md" 2>/dev/null | head -20 || echo "(none)"
     echo ""
 
     # Check tracker references Gate A
     echo "--- Tracker Gate A references ---"
-    grep -n -i "gate.a" "${MAIN_REPO}/_handoff_check/cf_task_tracker_v5.md" 2>/dev/null | head -10 || echo "(none)"
+    grep -n -i "gate.a" "${MAIN_REPO}/_handoff_check/task_tracker.md" 2>/dev/null | head -10 || echo "(none)"
   } > "$req2_out"
 
   # Gate A coherence: GATES.md must define it, deliverables must reference artifacts

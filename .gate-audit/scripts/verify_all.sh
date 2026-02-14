@@ -69,7 +69,7 @@ mkdir -p "$REPO_EVIDENCE_DIR"
   (cd "$MAIN_REPO" && git status --porcelain 2>&1) || echo "(git status failed)"
   echo ""
   echo "--- SSOT 3-file sha256 ---"
-  for f in cf_handoff_prompt.md cf_update_runbook.md cf_task_tracker_v5.md; do
+  for f in handoff_prompt.md update_runbook.md task_tracker.md; do
     if [[ -f "${MAIN_REPO}/_handoff_check/${f}" ]]; then
       sha256sum "${MAIN_REPO}/_handoff_check/${f}" | awk '{print $1 "  _handoff_check/'"$f"'"}'
     fi

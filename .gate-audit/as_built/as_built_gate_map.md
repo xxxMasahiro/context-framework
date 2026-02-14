@@ -1,8 +1,8 @@
 # as-built Gate Map & 操作ガイド（Temporary Verification Kit）
 
-version: 2.1
+version: 2.2
 date: 2026-02-14
-status: 正式版（v2.1: 版参照を as-built v2.1 に追随）
+status: 正式版（v2.2: cf_/cf- プレフィックス除去 — SSOT 3 ファイル名・ツール参照を新名に更新）
 
 ---
 
@@ -78,9 +78,9 @@ KIT_ROOT/
 ├── .gitignore                   ← git 除外設定
 │
 ├── SSOT/                        ← 本体 _handoff_check/ のスナップショット（3 ファイル）
-│   ├── cf_handoff_prompt.md
-│   ├── cf_update_runbook.md
-│   └── cf_task_tracker_v5.md
+│   ├── handoff_prompt.md
+│   ├── update_runbook.md
+│   └── task_tracker.md
 │
 ├── context/                     ← 運用ルール・プロンプト
 │   ├── run_rules.md             ← 運用ルール集
@@ -531,31 +531,31 @@ Gate はそれぞれ本体 repo の異なる側面を検証する。各 Gate は
 
 - **何を検証するか**: ドキュメントの言語ポリシー（日本語統一）が遵守されていること。
 - **evidence 根拠**:
-  - _handoff_check/cf_update_runbook.md:766-775 — 言語ポリシー定義
+  - _handoff_check/update_runbook.md:766-775 — 言語ポリシー定義
 
 ### Gate F — 初期設定/役割割当（フレームワーク整合性）
 
 - **何を検証するか**: フレームワークの初期設定と役割の割り当てが整合していること。
 - **evidence 根拠**:
-  - _handoff_check/cf_update_runbook.md:791-801 — 初期設定/役割定義
+  - _handoff_check/update_runbook.md:791-801 — 初期設定/役割定義
 
 ### Gate G — ログ運用95%効率化（ログ導線）
 
 - **何を検証するか**: ログ運用の導線（索引・ログ・ルール）が存在し、整合していること。
 - **evidence 根拠**:
-  - _handoff_check/cf_update_runbook.md:804-860 — ログ運用定義
+  - _handoff_check/update_runbook.md:804-860 — ログ運用定義
 
 ### Gate H — 新規タスクの入口（Handoff 整合）
 
 - **何を検証するか**: 新規タスクの入口としてのアーカイブが整備されていること。
 - **evidence 根拠**:
-  - _handoff_check/cf_update_runbook.md:441-474 — 新規タスク定義
+  - _handoff_check/update_runbook.md:441-474 — 新規タスク定義
 
 ### Gate I — 用途別ツールMCP（統合ゲート）
 
 - **何を検証するか**: MCP（STDIO）設計が定義され、統合が完了していること。
 - **evidence 根拠**:
-  - _handoff_check/cf_update_runbook.md:443-451 — MCP 設計定義
+  - _handoff_check/update_runbook.md:443-451 — MCP 設計定義
 
 ### Gate 自動発見の仕組み（REQ-F07, SPEC-S08）
 
@@ -811,4 +811,5 @@ cp ~/projects/context-framework/_handoff_check/*.md SSOT/
 - v1.8（2026-02-07 JST）: gate_a.sh/gate_b.sh req② の `repo_grep` 引数バグ修正（`-i` フラグ誤渡し解消→Gate A/B PASS 復帰）、9 PASS / 0 FAIL + SSOT MATCH 達成、as-built v1.8 準拠
 - v1.9（2026-02-07 JST）: Phase 5 lockdown/unlock 実装（§3.7/3.8 追加）+ MAIN_REPO バリデーション強化（SSOT sha256 照合で誤 repo 接続防止、§3.5 更新）+ ディレクトリ構造・Exit code テーブル・コマンド一覧更新、as-built v1.9 準拠
 - v2.0（2026-02-14 JST）: 3 層リネーム + 構造簡素化（`.cfctx_verify` → `.gate-audit`、`.cfctx` → `.repo-id`、内部 CIQA → self-check〈CLI `ciqa` → `self-check`〉、環境変数 `CFCTX_*` → `GATE_AUDIT_*`、ディレクトリ 3 段→2 段簡素化、全コマンド例・パス名・ディレクトリ構造図更新）、as-built v2.0 準拠
+- v2.2（2026-02-14 JST）: cf_/cf- プレフィックス除去 — SSOT 3 ファイル名・ツール参照を新名に更新。
 - v2.1（2026-02-14 JST）: 版参照を as-built v2.1 に追随（準拠文書テーブル v2.0 → v2.1）

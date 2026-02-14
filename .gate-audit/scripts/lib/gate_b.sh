@@ -46,7 +46,7 @@ verify_gate_b() {
     grep -B 2 -A 15 -i "gate.b\|##.*B[.:]" "${MAIN_REPO}/WORKFLOW/GATES.md" 2>/dev/null || echo "(not found)"
     echo ""
     echo "--- Runbook Gate B references ---"
-    grep -n -i "gate.b\|実装計画" "${MAIN_REPO}/_handoff_check/cf_update_runbook.md" 2>/dev/null | head -20 || echo "(none)"
+    grep -n -i "gate.b\|実装計画" "${MAIN_REPO}/_handoff_check/update_runbook.md" 2>/dev/null | head -20 || echo "(none)"
     echo ""
     # Check Add/Del/Mod mentions
     echo "--- IMPLEMENTATION_PLAN.md Add/Del/Mod check ---"

@@ -1,8 +1,8 @@
 # as-built 仕様書（正式版）— Temporary Verification Kit
 
-version: 2.1
+version: 2.2
 date: 2026-02-14
-status: 正式版（v2.1: 配置モデル明確化 — KIT_ROOT（repo 外）を運用正、CF repo 内を snapshot と明記）
+status: 正式版（v2.2: cf_/cf- プレフィックス除去 — SSOT 3 ファイル名・ツール参照を新名に更新）
 
 ---
 
@@ -26,9 +26,9 @@ status: 正式版（v2.1: 配置モデル明確化 — KIT_ROOT（repo 外）を
   kit                          <- 統合 CLI エントリポイント (kit:1-271)
   .gitignore                   <- git 除外設定
   SSOT/                        <- 本体 _handoff_check/ のスナップショット (3 ファイル)
-    cf_handoff_prompt.md
-    cf_update_runbook.md
-    cf_task_tracker_v5.md
+    handoff_prompt.md
+    update_runbook.md
+    task_tracker.md
   context/                     <- 運用ルール・プロンプト
     run_rules.md               <- 運用ルール集 (run_rules.md:1-32)
     codex_high_prompt.md       <- Codex high 向けプロンプト
@@ -443,7 +443,7 @@ status: 正式版（v2.1: 配置モデル明確化 — KIT_ROOT（repo 外）を
   1. `.git` ディレクトリ存在確認（git リポジトリであること）
   2. `_handoff_check/` ディレクトリ存在確認（SSOT ソースの存在）
   3. 構造マーカー確認（`WORKFLOW/`、`controller/`、`rules/` のいずれか存在）
-  4. **SSOT fingerprint 照合**: Kit `SSOT/` の 3 ファイル（cf_handoff_prompt.md, cf_update_runbook.md, cf_task_tracker_v5.md）の sha256 と候補 repo `_handoff_check/` の sha256 を比較。全ファイル一致で PASS、1 ファイルでも不一致なら候補を棄却。
+  4. **SSOT fingerprint 照合**: Kit `SSOT/` の 3 ファイル（handoff_prompt.md, update_runbook.md, task_tracker.md）の sha256 と候補 repo `_handoff_check/` の sha256 を比較。全ファイル一致で PASS、1 ファイルでも不一致なら候補を棄却。
 - **候補走査**: `discover_main_repo()` のステップ 4（GATE_AUDIT_SEARCH_PATH 検索）は `find` の全結果を走査し、最初にバリデーションを通過した候補を採用（`head -1` → `while read` ループに変更）。
 - **リスク緩和効果**: 同一検索パス配下に複数の context-framework クローンが存在する場合でも、Kit の SSOT スナップショットと SHA が一致する repo のみが選択される。
 - **対応 REQ**: REQ-F16
@@ -653,11 +653,12 @@ latest.md は以下の 7 セクションで構成される（handoff_builder.sh 
 - v1.1（2026-02-06 JST）: 未文書化機能 6 件の仕様追加（SPEC-S15: トラッカー自動更新パイプライン、SPEC-CQ01: REQ-ID 範囲展開、SPEC-S05 否定構文詳細、SPEC-S09 プラグインソート詳細、SPEC-S10 GATE_EVIDENCE マーカー、SPEC-S11 進捗ログ詳細）
 - v1.2（2026-02-06 JST）: セキュリティ総合調査結果の仕様追加（SPEC-D03: 17 件の受容判定サマリ、Medium 指摘詳細、セキュリティ姿勢の良好点）
 - v1.3（2026-02-07 JST）: CQ-RO チェック仕様追加（SPEC-CQ02: Read-only Compliance、13 種 write パターン検出）、Phase 1 ro mount 検証統合、CIQA チェック一覧に CQ-RO 追加、ソート順更新
-- v1.4（2026-02-07 JST）: バグ修正 8 件の反映（verify_gate.sh 未知 Gate exit 1 化、run_tests.sh cf-guard.sh パス統一、evidence.sh discover_main_repo 階層修正+コメント修正、kit テストサマリ抽出修正、gate_a/b req② 代替 PASS 分岐削除、gate_g req② LOG-009 両方必須化、gate_i req① 閾値 ==6 化）
+- v1.4（2026-02-07 JST）: バグ修正 8 件の反映（verify_gate.sh 未知 Gate exit 1 化、run_tests.sh guard.sh パス統一、evidence.sh discover_main_repo 階層修正+コメント修正、kit テストサマリ抽出修正、gate_a/b req② 代替 PASS 分岐削除、gate_g req② LOG-009 両方必須化、gate_i req① 閾値 ==6 化）
 - v1.5（2026-02-07 JST）: Gate 動的スケーラビリティ対応（run_tests.sh の A-I 固定 3 箇所を gate_registry.sh 動的検出に置換、tracker_updater.sh に Gate セクション自動生成機能 `_tu_auto_create_gate_section()` 追加、gate_registry.sh に Gate ID バリデーション追加〈`_gr_is_safe_gate_id()` ヘルパー、列挙時+source 前の 2 箇所で一貫適用〉）
 - v1.6（2026-02-07 JST）: Codex 評価指摘 4 件修正（SPEC-S03: verify_all.sh に Gate 0 件ガード追加 + SSOT MATCH を exit 0 の必須条件化、SPEC-S08: gate_registry.sh の unsafe ID を WARN→FATAL+exit 1 に昇格 + `for f in $(...)` を `while IFS= read -r f` に変更して空白パス安全化）
 - v1.7（2026-02-07 JST）: run_tests.sh Phase 2 Gate 0 件ガード追加（SPEC-S04: プロセス置換 `< <(gr_list_gate_ids)` の exit code 非伝播による偽 PASS を防止。Gate 配列が空の場合は即 FAIL）
 - v1.8（2026-02-07 JST）: gate_a.sh:90/gate_b.sh:57 の `repo_grep` 呼び出しバグ修正（SPEC-S06/S07: `-i` フラグが `repo_grep` 非対応のため引数が 1 つずれ常に FAIL。`-i` 除去で解消）
 - v1.9（2026-02-07 JST）: Phase 5 lockdown/unlock 実装（SPEC-S17/S18: quarantine 移動 + 二段階解除、SSOT 準拠）+ MAIN_REPO バリデーション強化（SPEC-S16: _validate_main_repo 4 段階検証 — SSOT sha256 照合で誤 repo 接続防止、find 全候補走査化）+ SPEC-D01 ディレクトリ構造に lockdown.sh/unlock.sh 追加 + SSOT 差分テーブル更新（lockdown 行を「実装済み」に変更）
+- v2.2（2026-02-14 JST）: cf_/cf- プレフィックス除去 — SSOT 3 ファイル名・ツール参照を新名に更新。
 - v2.1（2026-02-14 JST）: SPEC-D01 配置モデル明確化 — KIT_ROOT（repo 外）を運用正、CF repo 内 `.gate-audit/` を snapshot と注記（CODEX F-02 対応）。
 - v2.0（2026-02-14 JST）: 3 層リネーム + 構造簡素化（`.cfctx_verify` → `.gate-audit`、`.cfctx` → `.repo-id`、内部 CIQA → self-check〈ファイル・関数 9 件・変数 13 件・CLI サブコマンド〉、環境変数 `CFCTX_*` → `GATE_AUDIT_*` / `SC_*`、SPEC-D01 ディレクトリ構造・SPEC-CQ01/CQ02 チェック参照・全スクリプト入出力のパス名更新）

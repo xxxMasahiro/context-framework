@@ -77,7 +77,7 @@ mkdir -p "$REPO_EVIDENCE_DIR"
   echo "main_repo_head: $(cd "$MAIN_REPO" && git rev-parse HEAD 2>/dev/null || echo 'N/A')"
   echo ""
   echo "--- SSOT 3-file sha256 ---"
-  for f in cf_handoff_prompt.md cf_update_runbook.md cf_task_tracker_v5.md; do
+  for f in handoff_prompt.md update_runbook.md task_tracker.md; do
     if [[ -f "${MAIN_REPO}/_handoff_check/${f}" ]]; then
       sha256sum "${MAIN_REPO}/_handoff_check/${f}" | awk '{print $1 "  _handoff_check/'"$f"'"}'
     fi
