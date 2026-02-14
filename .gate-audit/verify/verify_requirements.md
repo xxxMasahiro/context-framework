@@ -40,7 +40,7 @@
 - 本体repoへのアクセスは `status/diff/log/rev-parse` 等の参照系に限定する。
 
 ### 3.3 Repo Lock（MUST）
-- 検証開始時に `./tools/cf-guard.sh --check` を実行し、`Repo Lock: OK` を Evidence 化する。
+- 検証開始時に `./tools/guard.sh --check` を実行し、`Repo Lock: OK` を Evidence 化する。
 
 ### 3.4 検索の0終了（MUST）
 - `rg/grep` 等の検索は「見つからなくてもOK」のため **必ず `|| true` を付与**して 0 終了にする。

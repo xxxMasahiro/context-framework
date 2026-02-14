@@ -188,7 +188,7 @@
 - 2026-02-03 JST | Phase 0 完了: 要件定義・仕様・実装計画・タスク管理表を作成 | 判定: PASS | Evidence: docs/rebuild/ 配下 + tasks/rebuild_task_tracker.md
 - 2026-02-03 22:14 JST | Phase 1 完了: handoff_builder.sh 作成（7 emit関数実装＋単体テスト PASS） | 判定: PASS | Evidence: logs/evidence/20260203-221430_step1_handoff_builder_unit_test.txt
 - 2026-02-03 22:26 JST | Phase 2 完了: generate_handoff.sh v2 改修（バックアップ→改修→新フォーマット検証 全PASS） | 判定: PASS | Evidence: logs/evidence/20260203-222430_step2_backup_created.txt, logs/evidence/20260203-222644_step2_generate_handoff_test.txt
-- 2026-02-03 23:23 JST | Phase 2 補足: repo_lock NG 修正（cf-guard.sh をサブシェルで MAIN_REPO から実行するよう変更 → repo_lock: OK） | 判定: PASS | Evidence: logs/evidence/20260203-232326_step2_repo_lock_fix.txt
+- 2026-02-03 23:23 JST | Phase 2 補足: repo_lock NG 修正（guard.sh をサブシェルで MAIN_REPO から実行するよう変更 → repo_lock: OK） | 判定: PASS | Evidence: logs/evidence/20260203-232326_step2_repo_lock_fix.txt
 - 2026-02-03 23:43 JST | Phase 3 完了: tracker_updater.sh 作成（3関数実装＋単体テスト 6/6 PASS） | 判定: PASS | Evidence: logs/evidence/20260203-234314_step3_tracker_updater_unit_test.txt
 - 2026-02-04 00:27 JST | Phase 4+5 完了: ./kit CLI 作成（5サブコマンド実装）＋ I/F調整（exit code 統一 + 後方互換テスト） 8/8 PASS | 判定: PASS | Evidence: logs/evidence/20260204-002755_step4_kit_cli_test.txt
 - 2026-02-04 00:48 JST | Phase 6 完了: 統合テスト・受け入れ検証 AC-01〜AC-07 全 PASS | 判定: PASS | Evidence: logs/evidence/20260204-004817_step6_acceptance_ac01_07.txt | sha256(16): fae51d90a3c6ba2c

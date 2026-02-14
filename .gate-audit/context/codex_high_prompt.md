@@ -16,9 +16,9 @@
 ---
 
 ## 1. 参照するファイル（このキットがSSOT）
-- `SSOT/cf_handoff_prompt.md`
-- `SSOT/cf_update_runbook.md`
-- `SSOT/cf_task_tracker_v5.md`
+- `SSOT/handoff_prompt.md`
+- `SSOT/update_runbook.md`
+- `SSOT/task_tracker.md`
 - `verify_requirements.md` / `verify_spec.md` / `verify_implementation_plan.md`
 - `context/run_rules.md`
 - `tasks/verify_task_tracker.md`

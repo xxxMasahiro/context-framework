@@ -17,9 +17,9 @@
   README.md
   .gitignore
   SSOT/
-    cf_handoff_prompt.md
-    cf_update_runbook.md
-    cf_task_tracker_v5.md
+    handoff_prompt.md
+    update_runbook.md
+    task_tracker.md
   context/
     codex_high_prompt.md
     run_rules.md
@@ -125,14 +125,14 @@
 - 検証スクリプトは read-only。
 - git 操作は `status`, `diff`, `rev-parse`, `log` 等の参照系に限定。
 - 必須の安全確認：
-  - `./tools/cf-guard.sh --check` を最初に実行し、`Repo Lock: OK` を Evidence に記録する。
+  - `./tools/guard.sh --check` を最初に実行し、`Repo Lock: OK` を Evidence に記録する。
 - 検索コマンドは `|| true` を強制（見つからなくても 0 終了）。
 
 ---
 
 ## 5. 互換性・依存
 - bash が動作する環境（Ubuntu/WSL）を前提。
-- 既存の `./tools/cf-guard.sh` / `./tools/cf-doctor.sh` を利用する。
+- 既存の `./tools/guard.sh` / `./tools/doctor.sh` を利用する。
 - 追加依存は原則禁止（どうしても必要な場合は runbook に追記が必要）。
 
 ---
