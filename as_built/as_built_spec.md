@@ -1,6 +1,6 @@
 # 仕様書 — context-framework
 
-version: 0.7
+version: 0.8
 date: 2026-02-14
 status: as-built
 
@@ -22,10 +22,20 @@ status: as-built
 
 ```
 context-framework/
+├── .gate-audit/                 # 設計整合監査キット — Gate A〜I (REQ-CF-T01)
+│   ├── kit                      # 監査 CLI
+│   ├── scripts/                 # Gate スクリプト群
+│   ├── verify/                  # 検証仕様 (SSOT)
+│   ├── as_built/                # 検証キット as-built 文書
+│   ├── SSOT/                    # _handoff_check/ 同期コピー
+│   └── ...                      # config, docs, tasks, logs 等
 ├── .github/
 │   └── workflows/
 │       ├── ci-validate.yml      # 既存 CI バリデーション (REQ-CF-T04)
 │       └── ciqa.yml             # ciqa フルパイプライン (REQ-CF-F07)
+├── .repo-id/                    # リポジトリ身元メタデータ (REQ-CF-O02)
+│   ├── agent_role_assignment.example.yaml  # 役割割り当てテンプレート
+│   └── repo_fingerprint.json    # リポジトリフィンガープリント
 ├── _handoff_check/              # SSOT 3ファイルバンドル (REQ-CF-T02)
 │   ├── cf_handoff_prompt.md     # 引継ぎサマリ
 │   ├── cf_update_runbook.md     # 運用マニュアル
@@ -556,6 +566,7 @@ context-framework/
 
 ## 8. 変更履歴
 
+- v0.8（2026-02-14 JST）: SPEC-CF-DIR01 に `.gate-audit/`（設計整合監査キット）と `.repo-id/`（身元メタデータ）をレイアウト図に追記（CODEX F-02 対応）。
 - v0.7（2026-02-14 JST）: `.cfctx/` → `.repo-id/` リネーム。SPEC-CF-O02 の初期設定パス参照を更新。
 - v0.6（2026-02-13 JST）: CODEX 三者整合監査 H-03/L-01 修正。SPEC-CF-D02: CIQA_REF を最終コミット SHA（`4d31f39`）に更新。参照要件定義書バージョンを v0.1→v0.3 に修正。
 - v0.5（2026-02-13 JST）: CODEX H-03/H-04 解消。SPEC-CF-D01: ciqa プロファイル作成済みに更新。SPEC-CF-D02: CIQA_REF 確定済み（`954af28`）に更新。

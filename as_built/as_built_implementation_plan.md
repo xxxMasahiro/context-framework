@@ -1,6 +1,6 @@
 # 実装計画書 — context-framework
 
-version: 0.8
+version: 0.9
 date: 2026-02-14
 status: as-built
 
@@ -8,7 +8,7 @@ status: as-built
 
 ## 0. 目的・位置づけ
 
-本書は `as_built/as_built_requirements.md`（要件定義書 v0.4）および `as_built/as_built_spec.md`（仕様書 v0.7）に完全準拠した **実装計画** を記述する。
+本書は `as_built/as_built_requirements.md`（要件定義書 v0.4）および `as_built/as_built_spec.md`（仕様書 v0.8）に完全準拠した **実装計画** を記述する。
 
 - 本書は **as-built（実態記述）** である。
 - 要件定義書（`as_built/as_built_requirements.md`）・仕様書（`as_built/as_built_spec.md`）とトレーサブルである。
@@ -330,6 +330,7 @@ P10 (as-built 文書) ← P1-P9 全完了後
 
 ## 14. 変更履歴
 
+- v0.9（2026-02-14 JST）: 参照仕様書バージョンを v0.7 → v0.8 に更新（CODEX F-02 対応。仕様書との文書間トレーサビリティ整合）。
 - v0.8（2026-02-14 JST）: `.cfctx/` → `.repo-id/` リネーム。身元確認ディレクトリ参照を更新。
 - v0.7（2026-02-13 JST）: CODEX 再監査 M-01 修正。参照仕様書バージョンを v0.5→v0.6 に更新（仕様書と同期）。
 - v0.6（2026-02-13 JST）: CODEX 三者整合監査 H-03/L-01 修正。CIQA_REF を最終コミット SHA（`4d31f39`）に更新。参照要件定義書/仕様書バージョンを v0.1→v0.3 / v0.3→v0.5 に修正。
