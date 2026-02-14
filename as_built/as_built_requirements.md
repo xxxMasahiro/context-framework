@@ -1,7 +1,7 @@
 # 要件定義書 — context-framework
 
-version: 0.3
-date: 2026-02-13
+version: 0.4
+date: 2026-02-14
 status: as-built
 
 ---
@@ -344,6 +344,7 @@ status: as-built
 
 ## 9. 変更履歴
 
+- v0.4（2026-02-14 JST）: `.cfctx/` → `.repo-id/` リネーム。身元確認ディレクトリ名を直感的な名称に変更。
 - v0.3（2026-02-13 JST）: CODEX H-04 解消。REQ-CF-D01: ciqa プロファイル作成済みに更新（影響度: 解消済み）。
 - v0.2（2026-02-13 JST）: リポジトリ名ドリフト修正。タイトル・目的・スコープ・プロファイルパスの旧名 `cf-context-framework` を `context-framework` に統一（CODEX H-02/M-01 対応）。
 - v0.1（2026-02-12 JST）: 初版作成。cf-context-framework の実装済み要件を as-built として記述。安全性 7 件、追跡性 5 件、運用 3 件、機能 8 件、差分 2 件を策定。

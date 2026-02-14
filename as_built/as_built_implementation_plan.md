@@ -1,14 +1,14 @@
 # 実装計画書 — context-framework
 
-version: 0.7
-date: 2026-02-13
+version: 1.0
+date: 2026-02-14
 status: as-built
 
 ---
 
 ## 0. 目的・位置づけ
 
-本書は `as_built/as_built_requirements.md`（要件定義書 v0.3）および `as_built/as_built_spec.md`（仕様書 v0.6）に完全準拠した **実装計画** を記述する。
+本書は `as_built/as_built_requirements.md`（要件定義書 v0.4）および `as_built/as_built_spec.md`（仕様書 v0.9）に完全準拠した **実装計画** を記述する。
 
 - 本書は **as-built（実態記述）** である。
 - 要件定義書（`as_built/as_built_requirements.md`）・仕様書（`as_built/as_built_spec.md`）とトレーサブルである。
@@ -227,7 +227,7 @@ status: as-built
   - notify_failure: 失敗時 PR コメント投稿
   - permissions: `contents: read`, `pull-requests: write`
 - **完了条件**: ciqa.yml が `.github/workflows/` に存在し、全ジョブが定義されている
-- **注記**: CIQA_REF は ciqa リポジトリ最終コミット SHA `4d31f397a44cb1bfb3f69631eacb9e17c636e907` に確定済み
+- **注記**: CIQA_REF は ciqa リポジトリ最終コミット SHA `9da152c0d8a916b501b20e9bc210f55894d03cf9` に確定済み
 - **状態**: 実装済み
 
 ---
@@ -330,6 +330,9 @@ P10 (as-built 文書) ← P1-P9 全完了後
 
 ## 14. 変更履歴
 
+- v1.0（2026-02-14 JST）: CIQA_REF を `4d31f39` → `9da152c`（3層リネーム後コミット）に更新。参照仕様書 v0.8 → v0.9（CODEX F-01 対応）。
+- v0.9（2026-02-14 JST）: 参照仕様書バージョンを v0.7 → v0.8 に更新（CODEX F-02 対応。仕様書との文書間トレーサビリティ整合）。
+- v0.8（2026-02-14 JST）: `.cfctx/` → `.repo-id/` リネーム。身元確認ディレクトリ参照を更新。
 - v0.7（2026-02-13 JST）: CODEX 再監査 M-01 修正。参照仕様書バージョンを v0.5→v0.6 に更新（仕様書と同期）。
 - v0.6（2026-02-13 JST）: CODEX 三者整合監査 H-03/L-01 修正。CIQA_REF を最終コミット SHA（`4d31f39`）に更新。参照要件定義書/仕様書バージョンを v0.1→v0.3 / v0.3→v0.5 に修正。
 - v0.5（2026-02-13 JST）: CODEX H-03 解消。IMPL-CF-P8-01 の CIQA_REF 注記をプレースホルダから確定済み SHA に更新。

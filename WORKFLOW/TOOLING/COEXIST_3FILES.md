@@ -29,7 +29,7 @@
 ## 役割の割当（初期設定）
 - 役割は固定しない。Developer が初期設定ファイルで割り当てる。
 - 参照: `WORKFLOW/TOOLING/INITIAL_SETTINGS.md`
-- 設定例: `.cfctx/agent_role_assignment.example.yaml`
+- 設定例: `.repo-id/agent_role_assignment.example.yaml`
 
 ## 統一必須文言（運用上の固定）
 **AuditorはPRへ監査結果を返す。修正はCrafter/Orchestratorが行う。**

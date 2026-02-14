@@ -1,14 +1,14 @@
 # 仕様書 — context-framework
 
-version: 0.6
-date: 2026-02-13
+version: 0.9
+date: 2026-02-14
 status: as-built
 
 ---
 
 ## 0. 目的・位置づけ
 
-本書は `as_built/as_built_requirements.md`（要件定義書 v0.3）に定義された全要件に対する **技術仕様** を記述する。
+本書は `as_built/as_built_requirements.md`（要件定義書 v0.4）に定義された全要件に対する **技術仕様** を記述する。
 
 - 本書は **as-built（実態記述）** である。
 - 要件定義書（`as_built/as_built_requirements.md`）・実装計画書（`as_built/as_built_implementation_plan.md`）とトレーサブルである。
@@ -22,10 +22,20 @@ status: as-built
 
 ```
 context-framework/
+├── .gate-audit/                 # 設計整合監査キット snapshot（運用時は repo 外 KIT_ROOT から実行, REQ-CF-T01）
+│   ├── kit                      # 監査 CLI
+│   ├── scripts/                 # Gate スクリプト群
+│   ├── verify/                  # 検証仕様 (SSOT)
+│   ├── as_built/                # 検証キット as-built 文書
+│   ├── SSOT/                    # _handoff_check/ 同期コピー
+│   └── ...                      # config, docs, tasks, logs 等
 ├── .github/
 │   └── workflows/
 │       ├── ci-validate.yml      # 既存 CI バリデーション (REQ-CF-T04)
 │       └── ciqa.yml             # ciqa フルパイプライン (REQ-CF-F07)
+├── .repo-id/                    # リポジトリ身元メタデータ (REQ-CF-O02)
+│   ├── agent_role_assignment.example.yaml  # 役割割り当てテンプレート
+│   └── repo_fingerprint.json    # リポジトリフィンガープリント
 ├── _handoff_check/              # SSOT 3ファイルバンドル (REQ-CF-T02)
 │   ├── cf_handoff_prompt.md     # 引継ぎサマリ
 │   ├── cf_update_runbook.md     # 運用マニュアル
@@ -328,7 +338,7 @@ context-framework/
   2. 「Auditor は PR へ監査結果を返す。修正は Crafter/Orchestrator が行う。」（統一必須文言）
   3. 役割は Developer が初期設定ファイルで割り当てる:
      - `WORKFLOW/TOOLING/INITIAL_SETTINGS.md`
-     - `.cfctx/agent_role_assignment.example.yaml`
+     - `.repo-id/agent_role_assignment.example.yaml`
 - **実装状態**: 実装済み
 
 ### SPEC-CF-O03: Mode 運用仕様
@@ -549,13 +559,16 @@ context-framework/
 ### SPEC-CF-D02: CIQA_REF 確定
 
 - **対応**: —
-- **状況**: ciqa.yml の `CIQA_REF` を ciqa リポジトリ最終コミット SHA（`4d31f397a44cb1bfb3f69631eacb9e17c636e907`）に確定済み。プレースホルダ検証ステップを通過可能。
+- **状況**: ciqa.yml の `CIQA_REF` を ciqa リポジトリ最終コミット SHA（`9da152c0d8a916b501b20e9bc210f55894d03cf9`）に確定済み。プレースホルダ検証ステップを通過可能。
 - **影響度**: 解消済み
 
 ---
 
 ## 8. 変更履歴
 
+- v0.9（2026-02-14 JST）: SPEC-CF-D02: CIQA_REF を `4d31f39` → `9da152c`（3層リネーム後コミット）に更新（CODEX F-01 対応）。SPEC-CF-DIR01: `.gate-audit/` の配置モデルを明確化 — repo 内は snapshot、運用時は repo 外 KIT_ROOT から実行（CODEX F-02 対応）。
+- v0.8（2026-02-14 JST）: SPEC-CF-DIR01 に `.gate-audit/`（設計整合監査キット）と `.repo-id/`（身元メタデータ）をレイアウト図に追記（CODEX F-02 対応）。
+- v0.7（2026-02-14 JST）: `.cfctx/` → `.repo-id/` リネーム。SPEC-CF-O02 の初期設定パス参照を更新。
 - v0.6（2026-02-13 JST）: CODEX 三者整合監査 H-03/L-01 修正。SPEC-CF-D02: CIQA_REF を最終コミット SHA（`4d31f39`）に更新。参照要件定義書バージョンを v0.1→v0.3 に修正。
 - v0.5（2026-02-13 JST）: CODEX H-03/H-04 解消。SPEC-CF-D01: ciqa プロファイル作成済みに更新。SPEC-CF-D02: CIQA_REF 確定済み（`954af28`）に更新。
 - v0.4（2026-02-13 JST）: リポジトリ名ドリフト修正。タイトル・ディレクトリ構造図ルート・プロファイルパスの旧名 `cf-context-framework` を `context-framework` に統一（CODEX H-02/M-01 対応）。
