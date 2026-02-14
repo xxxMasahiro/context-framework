@@ -82,14 +82,14 @@
 ## 6. 機能要件（MUST）
 ### 6.1 最小スモーク（MUST）
 - Phase 2（最小スモーク）として最低限以下を PASS/FAIL 判定できること：
-  - Repo Lock を Evidence 化（cf-guard）
+  - Repo Lock を Evidence 化（guard）
   - doctor step（例：STEP-G003）を Evidence 化
   - Gate C（アダプタ参照整合）read-only 確認
   - Gate G（ログ導線：索引/ログ/ルールの存在）read-only 確認
 
 ### 6.2 フル検証（MUST）
 - Phase 3（フル）として Gate A〜I の要件①②③を Evidence 付きで説明できること：
-  - **要件①**：各Gateの追加/変更点を、SSOT/差分/ログに基づき要約できる
+  - **要件①**：各Gateの追加/変更点を、SSOT・差分・ログに基づき要約できる
   - **要件②**：体系整合（参照切れ/矛盾/衝突）がない、または問題を特定できる
   - **要件③**：最小実行で PASS/FAIL が取れる（doctor/guard/整合チェック等）
 
@@ -97,7 +97,7 @@
 
 ## 7. 合格条件（Acceptance Criteria）
 - 検証キットが `$GATE_AUDIT_ROOT/.gate-audit/` に存在し、次が揃っている：
-  - `SSOT/` に3ファイル（参照コピー）
+  - SSOT/  に3ファイル（参照コピー）
   - `context/run_rules.md` と `context/codex_high_prompt.md`
   - `tasks/verify_task_tracker.md`
   - `logs/evidence/` に Evidence が蓄積されている

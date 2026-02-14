@@ -19,7 +19,7 @@
 - `SSOT/handoff_prompt.md`
 - `SSOT/update_runbook.md`
 - `SSOT/task_tracker.md`
-- `verify_requirements.md` / `verify_spec.md` / `verify_implementation_plan.md`
+- `verify/verify_requirements.md` / `verify/verify_spec.md` / `verify/verify_implementation_plan.md`
 - `context/run_rules.md`
 - `tasks/verify_task_tracker.md`
 - `logs/evidence/*`（証跡）

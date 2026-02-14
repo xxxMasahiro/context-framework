@@ -82,7 +82,7 @@
 ## 6. 機能要件（MUST）
 ### 6.1 最小スモーク（MUST）
 - Phase 2（最小スモーク）として最低限以下を PASS/FAIL 判定できること：
-  - Repo Lock を Evidence 化（cf-guard）
+  - Repo Lock を Evidence 化（guard）
   - doctor step（例：STEP-G003）を Evidence 化
   - Gate C（アダプタ参照整合）read-only 確認
   - Gate G（ログ導線：索引/ログ/ルールの存在）read-only 確認
