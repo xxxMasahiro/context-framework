@@ -1,8 +1,8 @@
 # as-built 実装計画書（正式版）— Temporary Verification Kit
 
-version: 2.0
+version: 2.1
 date: 2026-02-14
-status: 正式版（v2.0: 3 層リネーム + context-framework リポジトリ名統一 — `.cfctx_verify` → `.gate-audit`、内部 CIQA → self-check、環境変数 `CFCTX_*` → `GATE_AUDIT_*` / `SC_*`）
+status: 正式版（v2.1: 配置モデル明確化 — PLAN-PRE01 に CF repo snapshot 注記追加）
 
 ---
 
@@ -23,7 +23,7 @@ status: 正式版（v2.0: 3 層リネーム + context-framework リポジトリ�
 | 項目 | 要件 | 根拠 |
 |------|------|------|
 | OS | bash が動作する環境（Ubuntu/WSL） | verify_spec.md:134 |
-| KIT_ROOT | `/home/masahiro/.gate-audit_root/.gate-audit/` | kit:18-20 |
+| KIT_ROOT | `/home/masahiro/.gate-audit_root/.gate-audit/`（CF repo 内 `.gate-audit/` は snapshot） | kit:18-20 |
 | MAIN_REPO | 本体 repo（自動発見: evidence.sh:18-38） | evidence.sh:18-38 |
 | Git | 参照系コマンドのみ使用（status/diff/log/rev-parse） | evidence.sh:250-310 |
 | shellcheck | CQ-LINT チェックで使用（未インストール時は SKIP） | self_check_spec.md:228 |
@@ -473,4 +473,5 @@ FATAL: Cannot locate main repo (context-framework).
 - v1.7（2026-02-07 JST）: run_tests.sh Phase 2 Gate 0 件ガード追加（Phase 4i: プロセス置換 `< <(gr_list_gate_ids)` の exit code 非伝播による偽 PASS 防止）
 - v1.8（2026-02-07 JST）: gate_a.sh/gate_b.sh req② の `repo_grep` 呼び出しバグ修正（Phase 4j: `-i` フラグ誤渡しにより引数ずれ→常時 FAIL を解消。9 PASS / 0 FAIL + SSOT MATCH 達成）
 - v1.9（2026-02-07 JST）: Phase 5 lockdown/unlock 実装（PLAN-P5 完了: lockdown.sh quarantine 移動 + unlock.sh 二段階解除、SSOT verify_spec.md:93-108 準拠）+ MAIN_REPO バリデーション強化（REQ-F16/SPEC-S16: _validate_main_repo 4 段階検証 — SSOT sha256 照合で誤 repo 接続防止、find 全候補走査化）+ kit lockdown/unlock サブコマンド追加 + 未実装一覧 #1 解消 + リスクテーブル lockdown 行を「充足」に更新
+- v2.1（2026-02-14 JST）: PLAN-PRE01 配置モデル明確化 — CF repo 内 `.gate-audit/` は snapshot と注記（CODEX F-02 対応）。
 - v2.0（2026-02-14 JST）: 3 層リネーム + 構造簡素化（`.cfctx_verify` → `.gate-audit`、`.cfctx` → `.repo-id`、内部 CIQA → self-check〈ファイル・関数 9 件・変数 13 件・CLI `ciqa` → `self-check`〉、環境変数 `CFCTX_*` → `GATE_AUDIT_*` / `SC_*`、ディレクトリ 3 段→2 段簡素化、全 Phase・手順のパス名・コマンド例更新）

@@ -1,8 +1,8 @@
 # as-built 仕様書（正式版）— Temporary Verification Kit
 
-version: 2.0
+version: 2.1
 date: 2026-02-14
-status: 正式版（v2.0: 3 層リネーム + context-framework リポジトリ名統一 — `.cfctx_verify` → `.gate-audit`、内部 CIQA → self-check、環境変数 `CFCTX_*` → `GATE_AUDIT_*` / `SC_*`）
+status: 正式版（v2.1: 配置モデル明確化 — KIT_ROOT（repo 外）を運用正、CF repo 内を snapshot と明記）
 
 ---
 
@@ -21,7 +21,8 @@ status: 正式版（v2.0: 3 層リネーム + context-framework リポジトリ�
 ### SPEC-D01: ディレクトリ責務一覧
 
 ```
-/home/masahiro/.gate-audit_root/.gate-audit/   <- KIT_ROOT
+/home/masahiro/.gate-audit_root/.gate-audit/   <- KIT_ROOT（運用時の実行元）
+# 注: CF repo 内 .gate-audit/ はバージョン管理用 snapshot。運用時は本パスの KIT_ROOT から実行する。
   kit                          <- 統合 CLI エントリポイント (kit:1-271)
   .gitignore                   <- git 除外設定
   SSOT/                        <- 本体 _handoff_check/ のスナップショット (3 ファイル)
@@ -658,4 +659,5 @@ latest.md は以下の 7 セクションで構成される（handoff_builder.sh 
 - v1.7（2026-02-07 JST）: run_tests.sh Phase 2 Gate 0 件ガード追加（SPEC-S04: プロセス置換 `< <(gr_list_gate_ids)` の exit code 非伝播による偽 PASS を防止。Gate 配列が空の場合は即 FAIL）
 - v1.8（2026-02-07 JST）: gate_a.sh:90/gate_b.sh:57 の `repo_grep` 呼び出しバグ修正（SPEC-S06/S07: `-i` フラグが `repo_grep` 非対応のため引数が 1 つずれ常に FAIL。`-i` 除去で解消）
 - v1.9（2026-02-07 JST）: Phase 5 lockdown/unlock 実装（SPEC-S17/S18: quarantine 移動 + 二段階解除、SSOT 準拠）+ MAIN_REPO バリデーション強化（SPEC-S16: _validate_main_repo 4 段階検証 — SSOT sha256 照合で誤 repo 接続防止、find 全候補走査化）+ SPEC-D01 ディレクトリ構造に lockdown.sh/unlock.sh 追加 + SSOT 差分テーブル更新（lockdown 行を「実装済み」に変更）
+- v2.1（2026-02-14 JST）: SPEC-D01 配置モデル明確化 — KIT_ROOT（repo 外）を運用正、CF repo 内 `.gate-audit/` を snapshot と注記（CODEX F-02 対応）。
 - v2.0（2026-02-14 JST）: 3 層リネーム + 構造簡素化（`.cfctx_verify` → `.gate-audit`、`.cfctx` → `.repo-id`、内部 CIQA → self-check〈ファイル・関数 9 件・変数 13 件・CLI サブコマンド〉、環境変数 `CFCTX_*` → `GATE_AUDIT_*` / `SC_*`、SPEC-D01 ディレクトリ構造・SPEC-CQ01/CQ02 チェック参照・全スクリプト入出力のパス名更新）
