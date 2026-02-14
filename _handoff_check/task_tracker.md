@@ -8,9 +8,6 @@
 - 詳細は `_handoff_check/update_runbook.md` の「言語ポリシー」記載を正とする（このブロックは要約）。
 
 
-<!-- CFCTX_UPDATE_ZIP_DEPRECATED_V1 -->
-## 追記（2026-01-17）：ZIP運用廃止 / SSOTは _handoff_check
-
 ## 引継ぎ簡略運用（旧引継ぎ文書不使用）
 
 - 新チャット添付は次の3ファイルのみ（整合性対象は3ファイル）:
@@ -22,10 +19,9 @@
 - 引継ぎプロンプト（テンプレ・表記固定）:
   > 前回のチャットからの引継ぎを行います。まずは、添付した3つのファイル（handoff_prompt.md / update_runbook.md / task_tracker.md）をすべて読み込んで確認し、整合性の取れた適切な引継ぎ構成を構築してください。update_runbook.md と task_tracker.md に完全準拠し、handoff_prompt.md を参照してこれまでの経緯と次の指示（次にやること1つ）を提示してください。
 
-- 今後の引継ぎはZIPを作らない。SSOTはリポジトリ直下 `_handoff_check/` の3ファイル。
+- SSOTはリポジトリ直下 `_handoff_check/` の3ファイル。
 - `_handoff_cache/` は過去の証跡・互換用（原則参照しない）。
-- 文中の `*.zip` は旧称ラベルとして残る場合がある（実体ZIPは前提にしない）。
-- バックアップは `git tag`（作業前タグ）を標準とする（zipバックアップは廃止）。
+- バックアップは `git tag`（作業前タグ）を標準とする。
 
 
 # context-framework アップデート｜タスク管理票 v5（Skills運用統合 / 進捗・証跡ログ付き）

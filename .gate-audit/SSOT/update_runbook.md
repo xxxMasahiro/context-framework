@@ -9,9 +9,6 @@
 - 詳細は `_handoff_check/update_runbook.md` の「言語ポリシー」記載を正とする（このブロックは要約）。
 
 
-<!-- CFCTX_UPDATE_ZIP_DEPRECATED_V1 -->
-## 追記（2026-01-17）：ZIP運用廃止 / SSOTは _handoff_check
-
 ## 引継ぎ簡略運用（旧引継ぎ文書不使用）
 
 - 新チャット添付は次の3ファイルのみ（整合性対象は3ファイル）:
@@ -23,11 +20,9 @@
 - 引継ぎプロンプト（テンプレ・表記固定）:
   > 前回のチャットからの引継ぎを行います。まずは、添付した3つのファイル（handoff_prompt.md / update_runbook.md / task_tracker.md）をすべて読み込んで確認し、整合性の取れた適切な引継ぎ構成を構築してください。update_runbook.md と task_tracker.md に完全準拠し、handoff_prompt.md を参照してこれまでの経緯と次の指示（次にやること1つ）を提示してください。
 
-- 今後の引継ぎはZIPを作らない。SSOTはリポジトリ直下 `_handoff_check/` の3ファイル。
+- SSOTはリポジトリ直下 `_handoff_check/` の3ファイル。
 - `_handoff_cache/` は過去の証跡・互換用（原則参照しない）。
-- 文中の `*.zip` は旧称ラベルとして残る場合がある（実体ZIPは前提にしない）。
-- 注意: vendor/ 配下の *.zip は入力/成果物ZIP（実体）であり、「運用ZIP廃止/ラベル扱い」とは別物。
-- バックアップは `git tag`（作業前タグ）を標準とする（zipバックアップは廃止）。
+- バックアップは `git tag`（作業前タグ）を標準とする。
 
 ## Repo Lock（作業開始前の必須チェック）
 
@@ -54,7 +49,7 @@
 
 原則:
 - バックアップは「上書き更新」しない。常に新規作成（証跡固定のため）。
-- 標準は `git tag`（作業前タグ）。※zipバックアップは廃止。
+- 標準は `git tag`（作業前タグ）。
 - ディレクトリバックアップ（例: `../context-framework_backup_YYYYMMDD[-HHMM]`）は、必要に応じて補助として併用してよい（証跡を残すこと）。
 
 バックアップ作成を必須とするタイミング（いずれか該当で実施）:
@@ -363,7 +358,7 @@ git status -sb
 
 ### Phase 0：準備（作業ブランチ・現状固定）
 - ブランチ：`wip/<version>`（例：`wip/v0.1.5`）
-- 差分対象を洗い出し（旧称: 3ZIP。ZIPの作成/展開は行わず、Evidenceとして残す）
+- 差分対象を洗い出し（Evidenceとして残す）
 
 ### Phase 1：Gate A（スコープ固定）
 - 追加/修正するファイルを「やる/やらない」単位で確定
@@ -474,10 +469,10 @@ git status -sb
 - 作業リポジトリ: `/home/masahiro/projects/context-framework`
 - 追従リポジトリ: `/home/masahiro/projects/context-framework`（※統合済み、単一リポジトリ運用）
 - 作業ブランチ: `wip/v0.1.5`（PR#1でmainへマージ後、ローカル/リモートとも削除済）
-- 対象ZIP:
-  - [x] next1_work.zip（Auditor / Gate D）
-  - [x] next2_work.zip（3常駐指示ファイル共存）
-  - [x] next3_work.zip（Skills統合）
+- 対象:
+  - [x] next1_work（Auditor / Gate D）
+  - [x] next2_work（3常駐指示ファイル共存）
+  - [x] next3_work（Skills統合）
 - 参照手順書: `update_runbook.md`
 - 実行方針（固定）: **Charter → Mode → Artifacts → Skills**
 - 監査運用（固定 / 表現統一は後で反映）: **AuditorはPRへ監査結果を返す。修正はCrafter/Orchestratorが行う。**
@@ -517,9 +512,8 @@ git status -sb
 - 次にやる「1手」:
   - 次の指示待ち（追加タスクがあれば Gate F に追記）
 
-    - 注: `next2_work.zip` は旧運用ラベルです。**ZIPの作成/展開はしません**。
     - 実作業のSSOTは `/_handoff_check/` の3ファイル（`task_tracker.md` / `update_runbook.md` / `handoff_prompt.md`）です。
-    - 差分洗い出しは、ZIPではなくリポジトリ内の `CLAUDE.md` / `AGENTS.md` / `GEMINI.md` を対象に行います。
+    - 差分洗い出しは、リポジトリ内の `CLAUDE.md` / `AGENTS.md` / `GEMINI.md` を対象に行います。
 
 ---
 
@@ -658,7 +652,7 @@ git status -sb
 - 出力/証跡:
   - ターミナルスクショ（エラー解消後のfetch --prune成功）
 - 次の1手:
-  - next2_work.zip（3常駐指示ファイル共存）へ着手
+  - next2_work（3常駐指示ファイル共存）へ着手
   - ※必要時のみ。常用しない（判断は runbook 8.1 と Repo Lock に従う）
 
 
@@ -675,7 +669,7 @@ git status -sb
   - Version: -
 - Mode: standard
 - Inputs（今回の入力値）:
-  - next1_work.zip（Auditor/Gate D）
+  - next1_work（Auditor/Gate D）
 - Outputs（生成/変更されたもの）:
   - Files: `WORKFLOW/AUDIT.md`, `PROMPTS/AUDITOR.md`, `ARTIFACTS/AUDIT_REPORT.md`, `ARTIFACTS/AUDIT_CHECKLIST.md`, `ARTIFACTS/EXCEPTIONS.md` ほか
   - ENV/Settings: -
@@ -701,7 +695,7 @@ git status -sb
 | STEP-002 | ブランチ確認（wip/<version>） | [x] | `git branch`（作業時: `wip/v0.1.5` / 現在: `main`） | - |
 | STEP-003 | clean確認 | [x] | `git status` → working tree clean | - |
 | STEP-004 | リモート確認 | [x] | `git remote -v` | - |
-| STEP-005 | 差分対象の洗い出し（旧称: 3ZIP）・内容把握（差分対象の洗い出し） | [x] | 展開先パス＋ファイル一覧 | - |
+| STEP-005 | 差分対象の洗い出し・内容把握 | [x] | 展開先パス＋ファイル一覧 | - |
 | STEP-006 | バックアップ（作業前タグ） | [x] | tag名 or バックアップ | - |
 
 ---
@@ -998,8 +992,8 @@ git status -sb
 - 出力トラッカー：v5（N+1）を作成して以後の参照SSOTにする
 
 ### 実行ログ（Evidence）
-- SHA256検証：`cf_handoff_and_tracker.zip: OK`
-- ZIP展開確認：入力ZIPに以下3ファイルが存在
+- SHA256検証：入力ファイル整合 OK
+- 展開確認：入力に以下3ファイルが存在
   - `handoff_prompt.md`
   - `update_runbook.md`
   - `task_tracker.md`
@@ -1017,15 +1011,15 @@ git status -sb
 
 ## 更新ログ（Progress Log / Updates）
 
-- 2026-01-17 | UPD-20260117-01 | ZIP運用廃止（SSOT=_handoff_check）へ統一 / 表記ポリシー（日本語統一）を3ファイル先頭に追記 / _handoff_cache をSSOTへ同期
+- 2026-01-17 | UPD-20260117-01 | SSOT=_handoff_check へ統一 / 表記ポリシー（日本語統一）を3ファイル先頭に追記 / _handoff_cache をSSOTへ同期
   - 対象: 旧引継ぎ文書（当時の運用）, _handoff_check/handoff_prompt.md, _handoff_check/update_runbook.md, _handoff_check/task_tracker.md
   - 変更種別: 追記のみ（チェックボックス変更なし）
   - 証跡:
-    - sha256検証: `cf_handoff_and_tracker.zip: OK`
+    - sha256検証: 入力ファイル整合 OK
     - 差分確認: `diff -ruq _handoff_check _handoff_cache/unpacked` -> 差分なし / `diff -ruq _handoff_check _handoff_cache/_handoff_check` -> 差分なし
     - 表記ルール確認: `grep -nE '日本語|表記|英語表記|日本語に統一|日本語表記' _handoff_check/*.md`（該当行ヒット）
     - 追記マーカー:
-      - `CFCTX_UPDATE_ZIP_DEPRECATED_V1`
+      - `GATE_AUDIT_SSOT_POLICY_V1`
       - `GATE_AUDIT_LANG_POLICY_V1`
 
 
@@ -1117,7 +1111,7 @@ git status -sb
 - 2026-01-22T11:37:00+09:00 | UPD-20260122-01 | PR #31: .gitignore にローカル初期設定ファイル除外を反映 / SSOT 3ファイルへ反映 | Done[x]
   - 対象: _handoff_check/handoff_prompt.md / _handoff_check/update_runbook.md / _handoff_check/task_tracker.md
   - Evidence: PR #31（merge: ee5c074 / commit: 8f06dcc）/ Repo Lock: OK / main==origin/main / working tree clean
-- 2026-01-21T18:11:10+09:00 | UPD-20260121-04 | Gate B: next3_work.zip (Skills統合) をDone更新 (PR #30) | Done[x]
+- 2026-01-21T18:11:10+09:00 | UPD-20260121-04 | Gate B: next3_work (Skills統合) をDone更新 (PR #30) | Done[x]
   - 対象: _handoff_check/task_tracker.md
   - Evidence: PR #30 (merge: ef0791c / commit: f99300f)
 - 2026-01-21T15:27:47+09:00 | UPD-20260121-03 | Gate F: SSOT 3ファイル表記の統一と証跡更新（STEP-507〜512） | Done[x]

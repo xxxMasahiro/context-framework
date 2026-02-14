@@ -1,14 +1,14 @@
 # 実装計画書 — context-framework
 
-version: 1.1
-date: 2026-02-14
+version: 1.2
+date: 2026-02-15
 status: as-built
 
 ---
 
 ## 0. 目的・位置づけ
 
-本書は `as_built/as_built_requirements.md`（要件定義書 v0.5）および `as_built/as_built_spec.md`（仕様書 v0.10）に完全準拠した **実装計画** を記述する。
+本書は `as_built/as_built_requirements.md`（要件定義書 v0.6）および `as_built/as_built_spec.md`（仕様書 v0.11）に完全準拠した **実装計画** を記述する。
 
 - 本書は **as-built（実態記述）** である。
 - 要件定義書（`as_built/as_built_requirements.md`）・仕様書（`as_built/as_built_spec.md`）とトレーサブルである。
@@ -330,6 +330,7 @@ P10 (as-built 文書) ← P1-P9 全完了後
 
 ## 14. 変更履歴
 
+- v1.2（2026-02-15 JST）: vendor/ 廃止（ZIP 運用完全終了）。互換シンボリックリンク 9 本撤去（完全ゼロ化）。参照 v0.6 / v0.11。
 - v1.1（2026-02-14 JST）: `cf_` / `cf-` プレフィックス除去。全ツール名・SSOT ファイル名参照を新名に更新。参照 v0.5 / v0.10。
 - v1.0（2026-02-14 JST）: CIQA_REF を `4d31f39` → `9da152c`（3層リネーム後コミット）に更新。参照仕様書 v0.8 → v0.9（CODEX F-01 対応）。
 - v0.9（2026-02-14 JST）: 参照仕様書バージョンを v0.7 → v0.8 に更新（CODEX F-02 対応。仕様書との文書間トレーサビリティ整合）。

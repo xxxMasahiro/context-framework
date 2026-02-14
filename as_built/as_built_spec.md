@@ -1,14 +1,14 @@
 # 仕様書 — context-framework
 
-version: 0.10
-date: 2026-02-14
+version: 0.11
+date: 2026-02-15
 status: as-built
 
 ---
 
 ## 0. 目的・位置づけ
 
-本書は `as_built/as_built_requirements.md`（要件定義書 v0.5）に定義された全要件に対する **技術仕様** を記述する。
+本書は `as_built/as_built_requirements.md`（要件定義書 v0.6）に定義された全要件に対する **技術仕様** を記述する。
 
 - 本書は **as-built（実態記述）** である。
 - 要件定義書（`as_built/as_built_requirements.md`）・実装計画書（`as_built/as_built_implementation_plan.md`）とトレーサブルである。
@@ -94,7 +94,6 @@ context-framework/
 ├── bin/                         # CLI ツール
 │   ├── ctx-run
 │   └── ctx-controller
-├── vendor/                      # サードパーティ
 ├── CLAUDE.md                    # Claude 運用アダプタ (REQ-CF-F05)
 ├── AGENTS.md                    # Codex 運用アダプタ (REQ-CF-F05)
 ├── GEMINI.md                    # Gemini 運用アダプタ (REQ-CF-F05)
@@ -566,6 +565,7 @@ context-framework/
 
 ## 8. 変更履歴
 
+- v0.11（2026-02-15 JST）: vendor/ 廃止（ZIP 運用完全終了）。SPEC-CF-DIR01 ディレクトリ構造図から vendor/ 行を削除。互換シンボリックリンク 9 本撤去（完全ゼロ化）。
 - v0.10（2026-02-14 JST）: `cf_` / `cf-` プレフィックス除去。SSOT 3 ファイル名・ツール 6 ファイル名・ディレクトリ構造図を新名に更新。
 - v0.9（2026-02-14 JST）: SPEC-CF-D02: CIQA_REF を `4d31f39` → `9da152c`（3層リネーム後コミット）に更新（CODEX F-01 対応）。SPEC-CF-DIR01: `.gate-audit/` の配置モデルを明確化 — repo 内は snapshot、運用時は repo 外 KIT_ROOT から実行（CODEX F-02 対応）。
 - v0.8（2026-02-14 JST）: SPEC-CF-DIR01 に `.gate-audit/`（設計整合監査キット）と `.repo-id/`（身元メタデータ）をレイアウト図に追記（CODEX F-02 対応）。

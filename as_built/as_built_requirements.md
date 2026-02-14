@@ -1,7 +1,7 @@
 # 要件定義書 — context-framework
 
-version: 0.5
-date: 2026-02-14
+version: 0.6
+date: 2026-02-15
 status: as-built
 
 ---
@@ -31,7 +31,7 @@ status: as-built
 
 - CI/CQ 基盤（ciqa）自体の実装（別リポジトリで管理）
 - controller（main.py）のロジック詳細変更
-- vendor/ 配下のサードパーティコード変更
+- 外部サードパーティコードの変更
 
 ---
 
@@ -344,6 +344,7 @@ status: as-built
 
 ## 9. 変更履歴
 
+- v0.6（2026-02-15 JST）: vendor/ 廃止（ZIP 運用完全終了）。互換シンボリックリンク 9 本撤去（完全ゼロ化）。REQ-CF-S02/F04 の非対象から vendor/ を削除。
 - v0.5（2026-02-14 JST）: `cf_` / `cf-` プレフィックス除去。SSOT 3 ファイル名（`handoff_prompt.md` / `update_runbook.md` / `task_tracker.md`）およびツール 6 ファイル名を新名に更新。
 - v0.4（2026-02-14 JST）: `.cfctx/` → `.repo-id/` リネーム。身元確認ディレクトリ名を直感的な名称に変更。
 - v0.3（2026-02-13 JST）: CODEX H-04 解消。REQ-CF-D01: ciqa プロファイル作成済みに更新（影響度: 解消済み）。

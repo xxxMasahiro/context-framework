@@ -1,5 +1,5 @@
 # Implementation Plan（実装計画 / Antigravity準拠）
-> 対象：`cf-dist_v0.1.3_complete.zip` を入力として、最終的に `cf-dist_v0.1.4_complete.zip` を生成する。
+> 対象：v0.1.3 を入力として、最終的に v0.1.4 成果物を生成する。
 > ここでは「どのファイルをどう変えるか」を **ファイル単位**で明確化し、レビュー可能にする。
 
 ## Profile / Triggers
@@ -10,24 +10,23 @@
 
 ## 0. 変更方針（最重要）
 - **追加 + 最小修正**で完結させる（既存のPLAN/DESIGN_NOTE/RISK_ASSESSMENTは残す）
-- Antigravity 3点セットは **新テンプレとして標準搭載**し、参照ドキュメントと役割定義で “公式成果物” にする
+- Antigravity 3点セットは **新テンプレとして標準搭載**し、参照ドキュメントと役割定義で "公式成果物" にする
 - Gate D（監査）の成果物は `ARTIFACTS/AUDIT_REPORT.md` / `ARTIFACTS/AUDIT_CHECKLIST.md` を参照
 
 ---
 
 ## 1. 変更対象（コンポーネント）
 ### A) Core（正本）
-- 入力：`cf-core_v0.1.3.zip`
-- 出力：`cf-core_v0.1.4.zip`
+- 入力：v0.1.3
+- 出力：v0.1.4
 
 ### B) Sample Product（workframe）
-- 入力：`cf-wf-sample-product_v0.1.1.zip`
-- 出力：`cf-wf-sample-product_v0.1.2.zip`
-- 変更対象：`workframe/core`（vendored core）
+- 入力：v0.1.1
+- 出力：v0.1.2
 
 ### C) Dist（封筒）
-- 入力：`cf-dist_v0.1.3_complete.zip`
-- 出力：`cf-dist_v0.1.4_complete.zip`
+- 入力：v0.1.3
+- 出力：v0.1.4
 
 ---
 
@@ -41,8 +40,8 @@
 - `IMPLEMENTATION_PLAN.md`（Implementation Plan：実装計画）
 - `WALKTHROUGH.md`（Walkthrough：検証）
 
-> これらの“ファイル内容（ひな形）”は `support/templates/` に同梱。  
-> 作業時は **同一内容を core と vendored core にコピー**する。
+> これらの"ファイル内容（ひな形）"は `support/templates/` に同梱。
+> 作業時は **同一内容を core にコピー**する。
 
 ---
 
@@ -74,9 +73,6 @@
 - ルート `CHANGELOG.md`：`0.1.2` 追記
 - `WORKFRAME_MANIFEST.yaml`：
   - `workframe_version` と `product.version` を `0.1.2` へ
-  - `vendored.core_zip.name` を `cf-core_v0.1.4.zip` へ
-  - `vendored.core_zip.version` を `0.1.4` へ
-  - `vendored.core_zip.sha256` を **新しいcore zipのsha256**へ更新
   - `built_at` 更新
 - ルート `_meta/*`：version/built_at/checksums 更新
 - `workframe/core/VERSION`：`0.1.3` → `0.1.4`
@@ -85,7 +81,7 @@
 
 ---
 
-## 4. 変更内容（テキスト修正の“具体”）
+## 4. 変更内容（テキスト修正の"具体"）
 ### 4.1 `docs/reference/ARTIFACTS.md`（追記行）
 Templates に以下を追加：
 - `artifacts/templates/TASK_LISTS.md`：Task Lists（タスク分割 / Antigravity互換）
@@ -104,16 +100,14 @@ Templates に以下を追加：
 ---
 
 ## 5. 生成物（最終アウトプット）
-- `cf-core_v0.1.4.zip`
-- `cf-wf-sample-product_v0.1.2.zip`
-- `cf-dist_v0.1.4_complete.zip`
+- Core v0.1.4
+- Sample Product v0.1.2
+- Dist v0.1.4
 
 ---
 
 ## 6. リスクと緩和策（抜粋）
-- リスク：coreとvendored coreで差分が出る  
+- リスク：coreで差分が出る
   緩和：テンプレファイルは同梱の `support/templates/` をコピーし、差分ゼロにする
-- リスク：チェックサム/マニフェスト更新漏れ  
+- リスク：チェックサム/マニフェスト更新漏れ
   緩和：Walkthroughの検証で `_meta` 必須項目を全てチェックする
-- リスク：zipのルートディレクトリ名が変わって壊れる  
-  緩和：既存zipのルート名を維持（coreは `cf-core/`、sample-productは `cf-wf-sample-product_v0.1.2/`）

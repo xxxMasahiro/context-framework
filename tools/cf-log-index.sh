@@ -1,1 +1,0 @@
-log-index.sh

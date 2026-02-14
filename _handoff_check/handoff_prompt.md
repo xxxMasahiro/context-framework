@@ -1,7 +1,7 @@
 # handoff_prompt.md（このチャットの引継ぎメモ）
 
 ## 0. 目的
-- 引継ぎ運用を「_handoff_check の3ファイル添付」に簡略化した（ZIP不要）。
+- 引継ぎ運用を「_handoff_check の3ファイル添付」に簡略化した。
 - 今後 Prompt.md は使わない（参照禁止）。
 
 ## 1. 今回の変更サマリ（何を追加/削除/修正したか）
@@ -11,7 +11,7 @@
   - _handoff_check/task_tracker.md
 - 変更内容（要約）：
   - Gate F（INITIAL_SETTINGS導入・固定ロール撤廃）前提に統一
-  - SSOTは _handoff_check の3ファイルで統一（ZIP不要）
+  - SSOTは _handoff_check の3ファイルで統一
   - Gate Fの証跡（PR#28/commit）をタスク表と更新ログに反映
 
 ## 2. エビデンス（コミット/状態）
@@ -29,14 +29,14 @@
 ## 4. 懸念点/次にやる候補（未実施）
 ※致命ではないが、将来の混乱を減らす改善候補（必要なら最小差分）
 - tracker 冒頭に「v3」表記が残っている箇所があれば「v5」に寄せる
-- runbook に旧運用の言い回し（例：添付3ZIP/next1-3 等）が残っていれば、新運用（添付3ファイル）へ文言を寄せる
+- runbook に旧運用の言い回しが残っていれば、新運用（添付3ファイル）へ文言を寄せる
 （※矛盾まではしていない前提。実際に残っているかはSSOTの現物で確認して判断する）
 
 ## 5. 新チャット側への要求（最重要）
 - 検索（見つからなくてもOK）系の `rg`/`grep` などは必ず `|| true` を付けて 0 終了にする（runbook ##8）
 - 添付3ファイルを最初に読むこと
 - `handoff_prompt.md` 読了直後に `update_runbook.md` の「## 8. 実行プロトコル（運用ルール）」を必ず確認し、以後の出力は **根拠/判定/変更提案** を厳守する
-- SSOTは _handoff_check の3ファイル（ZIP不要）
+- SSOTは _handoff_check の3ファイル
 - 運用規範の最上位は runbook。trackerは進捗、handoff_prompt は経緯メモとして整合させる
 - 次にやる1手の正は tracker の進捗サマリ。過去追記内の“次にやる”は履歴扱い。
 - tracker はスリム化済み。詳細テンプレ/完了済み一覧/旧ログは runbook 付録「tracker退避」へ移設
@@ -509,21 +509,14 @@ Gate G / Phase 3（STEP-G201〜G204）を、Skills統合の本文へ反映して
 - 『3ファイルの整合性から無駄を省いて整理（特にトラッカーの重複/不要の削除）』は、SSOT（_handoff_check の3ファイル）へは **未反映**。
 - （注）一時ワークスペース `_handoff_check/_workspace_tracker_20260126/`／`cf_task_tracker_v5.WIP.md` はリポジトリ内に実体が見つからない（作成は未実施 or ローカルのみで破棄済みの可能性）。以後は SSOT（_handoff_check の3ファイル）を正として作業する。
 - 確定ルール: 参照不能/存在不明の作業メモは SSOT 判断根拠にしない。
-- SSOT方針: ZIPは不要。正は `_handoff_check` の3ファイル（handoff_prompt.md / update_runbook.md / task_tracker.md）。
+- SSOT方針: 正は `_handoff_check` の3ファイル（handoff_prompt.md / update_runbook.md / task_tracker.md）。
 
 ### 調査証跡（2026-01-26）
 - `ls -la _workspace_tracker_20260126` → `No such file or directory`
 - `find . -maxdepth 3 -type d -name "*workspace*tracker*"` → 検出なし
 
 ### 次にやること（1つだけ）
-- SSOT 3ファイルに ZIP/旧運用の残骸がないか横断検索し、結果を貼って判定する。
-
-```bash
-./tools/guard.sh -- rg -n "(ZIP|zip|cf_handoff_and_tracker\\.zip|next[0-9]+_work\\.zip)" \
-  _handoff_check/handoff_prompt.md \
-  _handoff_check/update_runbook.md \
-  _handoff_check/task_tracker.md || true
-```
+- SSOT 3ファイルに旧運用の残骸がないか横断検索し、結果を貼って判定する。
 
 <!-- CFTCX_HANDOFF_20260126_PR66_67_NOTE -->
 
@@ -531,7 +524,7 @@ Gate G / Phase 3（STEP-G201〜G204）を、Skills統合の本文へ反映して
 
 ### 直近で確定したこと（PR #66/#67 の反映状況）
 - PR #66（merge commit: 7897a64）: handoff_prompt 内の「workspace_tracker_20260126 / cf_task_tracker_v5.WIP.md 作成」記述は、**リポジトリ実体（ファイル/ディレクトリ）が見つからない**ため、未実施 or ローカルのみの可能性として扱う（SSOTは _handoff_check の3ファイルを正とする）。
-- PR #67（merge commit: 4998f4f）: SSOT運用の「本文中の .zip は旧運用ラベル（実体ZIPは前提にしない）」に加え、**vendor/ 配下の *.zip は入力/成果物ZIP（実体）であり、運用ZIP廃止/ラベル扱いとは別物**、を明確化。
+- PR #67（merge commit: 4998f4f）: SSOT運用ルールを明確化。
 
 ### 現状（確定）
 - Repo Lock: OK
