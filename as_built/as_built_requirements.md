@@ -1,6 +1,6 @@
 # 要件定義書 — context-framework
 
-version: 0.4
+version: 0.5
 date: 2026-02-14
 status: as-built
 
@@ -69,8 +69,8 @@ status: as-built
 
 ### REQ-CF-S02: リポジトリロック
 
-- **要件**: `tools/cf-guard.sh` によるリポジトリロック機構を提供し、意図しない変更を防止する。
-- **受入条件**: `cf-guard.sh` が実行可能で、ロック・検証機能が動作する。
+- **要件**: `tools/guard.sh` によるリポジトリロック機構を提供し、意図しない変更を防止する。
+- **受入条件**: `guard.sh` が実行可能で、ロック・検証機能が動作する。
 - **実装状態**: 実装済み
 - **根拠**: `WORKFLOW/TOOLING/REPO_LOCK.md`
 
@@ -133,9 +133,9 @@ status: as-built
 ### REQ-CF-T02: SSOT 3 ファイルバンドル
 
 - **要件**: `_handoff_check/` に以下の 3 ファイルを SSOT バンドルとして管理する:
-  - `cf_handoff_prompt.md`（引継ぎサマリ）
-  - `cf_update_runbook.md`（運用マニュアル）
-  - `cf_task_tracker_v5.md`（進捗管理）
+  - `handoff_prompt.md`（引継ぎサマリ）
+  - `update_runbook.md`（運用マニュアル）
+  - `task_tracker.md`（進捗管理）
 - `ssot_manifest.yaml` の `ssot` キーでバンドルを定義する。
 - **受入条件**: 3 ファイルが `_handoff_check/` に存在し、`ssot_manifest.yaml` に登録されている。
 - **実装状態**: 実装済み
@@ -144,9 +144,9 @@ status: as-built
 ### REQ-CF-T03: 証跡ログ管理
 
 - **要件**: 実行ログを `LOGS/` に保存し、`LOGS/INDEX.md` を自動生成する。
-- **受入条件**: `tools/cf-log-index.sh` で `LOGS/INDEX.md` が生成可能。
+- **受入条件**: `tools/log-index.sh` で `LOGS/INDEX.md` が生成可能。
 - **実装状態**: 実装済み
-- **根拠**: `LOGS/INDEX.md`, `tools/cf-log-index.sh`
+- **根拠**: `LOGS/INDEX.md`, `tools/log-index.sh`
 
 ### REQ-CF-T04: CI/CQ パイプライン統合
 
@@ -245,12 +245,12 @@ status: as-built
 ### REQ-CF-F04: tools（ユーティリティ群）
 
 - **要件**: 以下のツールを `tools/` に提供する:
-  - `cf-ci-validate.sh`: rules/manifest/routes/policy バリデーション + smoke test
-  - `cf-controller-smoke.sh`: controller smoke test
-  - `cf-doctor.sh`: Phase 0 診断（STEP-G003）
-  - `cf-guard.sh`: リポジトリロック・検証
-  - `cf-log-index.sh`: LOGS/INDEX.md 自動生成
-  - `cf-signature-report.sh`: 署名/フィンガープリント報告
+  - `ci-validate.sh`: rules/manifest/routes/policy バリデーション + smoke test
+  - `controller-smoke.sh`: controller smoke test
+  - `doctor.sh`: Phase 0 診断（STEP-G003）
+  - `guard.sh`: リポジトリロック・検証
+  - `log-index.sh`: LOGS/INDEX.md 自動生成
+  - `signature-report.sh`: 署名/フィンガープリント報告
 - **受入条件**: 各ツールが `tools/` に存在し、実行可能である。
 - **実装状態**: 実装済み
 - **根拠**: `tools/`
@@ -309,7 +309,7 @@ status: as-built
 | REQ-CF-S07 (CODEOWNERS) | CODEOWNERS | |
 | REQ-CF-T01 (Gate A-D) | WORKFLOW/GATES.md | |
 | REQ-CF-T02 (SSOT 3 ファイル) | ssot_manifest.yaml | |
-| REQ-CF-T03 (証跡ログ) | tools/cf-log-index.sh | |
+| REQ-CF-T03 (証跡ログ) | tools/log-index.sh | |
 | REQ-CF-T04 (CI/CQ 統合) | .github/workflows/ | |
 | REQ-CF-T05 (Audit 証跡) | WORKFLOW/AUDIT.md | |
 | REQ-CF-O01 (ブランチ運用) | WORKFLOW/BRANCHING.md | |
@@ -344,6 +344,7 @@ status: as-built
 
 ## 9. 変更履歴
 
+- v0.5（2026-02-14 JST）: `cf_` / `cf-` プレフィックス除去。SSOT 3 ファイル名（`handoff_prompt.md` / `update_runbook.md` / `task_tracker.md`）およびツール 6 ファイル名を新名に更新。
 - v0.4（2026-02-14 JST）: `.cfctx/` → `.repo-id/` リネーム。身元確認ディレクトリ名を直感的な名称に変更。
 - v0.3（2026-02-13 JST）: CODEX H-04 解消。REQ-CF-D01: ciqa プロファイル作成済みに更新（影響度: 解消済み）。
 - v0.2（2026-02-13 JST）: リポジトリ名ドリフト修正。タイトル・目的・スコープ・プロファイルパスの旧名 `cf-context-framework` を `context-framework` に統一（CODEX H-02/M-01 対応）。

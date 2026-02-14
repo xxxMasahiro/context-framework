@@ -1,6 +1,6 @@
 # 実装計画書 — context-framework
 
-version: 1.0
+version: 1.1
 date: 2026-02-14
 status: as-built
 
@@ -8,7 +8,7 @@ status: as-built
 
 ## 0. 目的・位置づけ
 
-本書は `as_built/as_built_requirements.md`（要件定義書 v0.4）および `as_built/as_built_spec.md`（仕様書 v0.9）に完全準拠した **実装計画** を記述する。
+本書は `as_built/as_built_requirements.md`（要件定義書 v0.5）および `as_built/as_built_spec.md`（仕様書 v0.10）に完全準拠した **実装計画** を記述する。
 
 - 本書は **as-built（実態記述）** である。
 - 要件定義書（`as_built/as_built_requirements.md`）・仕様書（`as_built/as_built_spec.md`）とトレーサブルである。
@@ -94,12 +94,12 @@ status: as-built
 - **対応 SPEC**: SPEC-CF-F04, SPEC-CF-S02
 - **対応 REQ**: REQ-CF-F04, REQ-CF-S02
 - **成果物**:
-  - `tools/cf-ci-validate.sh`: rules/manifest/routes/policy バリデーション + smoke test
-  - `tools/cf-controller-smoke.sh`: controller smoke test
-  - `tools/cf-doctor.sh`: Phase 0 診断
-  - `tools/cf-guard.sh`: リポジトリロック・検証
-  - `tools/cf-log-index.sh`: LOGS/INDEX.md 自動生成
-  - `tools/cf-signature-report.sh`: 署名/フィンガープリント報告
+  - `tools/ci-validate.sh`: rules/manifest/routes/policy バリデーション + smoke test
+  - `tools/controller-smoke.sh`: controller smoke test
+  - `tools/doctor.sh`: Phase 0 診断
+  - `tools/guard.sh`: リポジトリロック・検証
+  - `tools/log-index.sh`: LOGS/INDEX.md 自動生成
+  - `tools/signature-report.sh`: 署名/フィンガープリント報告
   - `tools/cleanup-local-merged.sh`: マージ済みブランチクリーンアップ
   - `tools/delete-remote-branch.sh`: リモートブランチ削除
 - **完了条件**: 全ツールが実行可能で、各機能が動作する
@@ -143,9 +143,9 @@ status: as-built
 - **対応 SPEC**: SPEC-CF-T02
 - **対応 REQ**: REQ-CF-T02
 - **成果物**:
-  - `_handoff_check/cf_handoff_prompt.md`
-  - `_handoff_check/cf_update_runbook.md`
-  - `_handoff_check/cf_task_tracker_v5.md`
+  - `_handoff_check/handoff_prompt.md`
+  - `_handoff_check/update_runbook.md`
+  - `_handoff_check/task_tracker.md`
 - **完了条件**: 3 ファイルが `_handoff_check/` に存在し、`ssot_manifest.yaml` に登録されている
 - **状態**: 実装済み
 
@@ -330,6 +330,7 @@ P10 (as-built 文書) ← P1-P9 全完了後
 
 ## 14. 変更履歴
 
+- v1.1（2026-02-14 JST）: `cf_` / `cf-` プレフィックス除去。全ツール名・SSOT ファイル名参照を新名に更新。参照 v0.5 / v0.10。
 - v1.0（2026-02-14 JST）: CIQA_REF を `4d31f39` → `9da152c`（3層リネーム後コミット）に更新。参照仕様書 v0.8 → v0.9（CODEX F-01 対応）。
 - v0.9（2026-02-14 JST）: 参照仕様書バージョンを v0.7 → v0.8 に更新（CODEX F-02 対応。仕様書との文書間トレーサビリティ整合）。
 - v0.8（2026-02-14 JST）: `.cfctx/` → `.repo-id/` リネーム。身元確認ディレクトリ参照を更新。

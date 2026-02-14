@@ -1,6 +1,6 @@
 # 仕様書 — context-framework
 
-version: 0.9
+version: 0.10
 date: 2026-02-14
 status: as-built
 
@@ -8,7 +8,7 @@ status: as-built
 
 ## 0. 目的・位置づけ
 
-本書は `as_built/as_built_requirements.md`（要件定義書 v0.4）に定義された全要件に対する **技術仕様** を記述する。
+本書は `as_built/as_built_requirements.md`（要件定義書 v0.5）に定義された全要件に対する **技術仕様** を記述する。
 
 - 本書は **as-built（実態記述）** である。
 - 要件定義書（`as_built/as_built_requirements.md`）・実装計画書（`as_built/as_built_implementation_plan.md`）とトレーサブルである。
@@ -37,9 +37,9 @@ context-framework/
 │   ├── agent_role_assignment.example.yaml  # 役割割り当てテンプレート
 │   └── repo_fingerprint.json    # リポジトリフィンガープリント
 ├── _handoff_check/              # SSOT 3ファイルバンドル (REQ-CF-T02)
-│   ├── cf_handoff_prompt.md     # 引継ぎサマリ
-│   ├── cf_update_runbook.md     # 運用マニュアル
-│   └── cf_task_tracker_v5.md    # 進捗管理
+│   ├── handoff_prompt.md     # 引継ぎサマリ
+│   ├── update_runbook.md     # 運用マニュアル
+│   └── task_tracker.md    # 進捗管理
 ├── WORKFLOW/                    # Gate 運用・プロセス定義 (REQ-CF-T01)
 │   ├── GATES.md
 │   ├── MODES_AND_TRIGGERS.md
@@ -65,12 +65,12 @@ context-framework/
 ├── controller/                  # Python controller (REQ-CF-F01)
 │   └── main.py
 ├── tools/                       # Bash ユーティリティ (REQ-CF-F04)
-│   ├── cf-ci-validate.sh
-│   ├── cf-controller-smoke.sh
-│   ├── cf-doctor.sh
-│   ├── cf-guard.sh
-│   ├── cf-log-index.sh
-│   ├── cf-signature-report.sh
+│   ├── ci-validate.sh
+│   ├── controller-smoke.sh
+│   ├── doctor.sh
+│   ├── guard.sh
+│   ├── log-index.sh
+│   ├── signature-report.sh
 │   ├── cleanup-local-merged.sh
 │   └── delete-remote-branch.sh
 ├── SKILLS/                      # 再利用 Skill (REQ-CF-F06)
@@ -132,8 +132,8 @@ context-framework/
 
 - **対応要件**: REQ-CF-S02
 - **仕様**:
-  1. `tools/cf-guard.sh` がリポジトリのロック・検証を担当する。
-  2. Guard プロトコル: `_handoff_check/cf_update_runbook.md` §8 に定義。
+  1. `tools/guard.sh` がリポジトリのロック・検証を担当する。
+  2. Guard プロトコル: `_handoff_check/update_runbook.md` §8 に定義。
   3. `WORKFLOW/TOOLING/REPO_LOCK.md` にロック機構の仕様を記載。
 - **実装状態**: 実装済み
 
@@ -243,9 +243,9 @@ context-framework/
   1. `ssot_manifest.yaml` の `ssot` キーで定義:
      ```yaml
      ssot:
-       - "_handoff_check/cf_handoff_prompt.md"
-       - "_handoff_check/cf_update_runbook.md"
-       - "_handoff_check/cf_task_tracker_v5.md"
+       - "_handoff_check/handoff_prompt.md"
+       - "_handoff_check/update_runbook.md"
+       - "_handoff_check/task_tracker.md"
      ```
   2. 注: `ssot` はここでは「_handoff_check の 3 ファイル集合（bundle）」の意味であり、最上位 SSOT の意味ではない。
   3. `handoff_check_files` キーは将来用の明示キー（`ssot` と同値）。
@@ -260,9 +260,9 @@ context-framework/
      - `ci/`: CI 実行ログ
      - `controller/`: controller 実行ログ
      - `ctx-run/`: コンテキストランナーログ
-  2. `tools/cf-log-index.sh`:
-     - `cf_task_tracker_v5.md` から `INDEX.md` を自動生成
-     - 実行: `./tools/cf-log-index.sh`
+  2. `tools/log-index.sh`:
+     - `task_tracker.md` から `INDEX.md` を自動生成
+     - 実行: `./tools/log-index.sh`
 - **実装状態**: 実装済み
 
 ### SPEC-CF-T04: CI/CQ パイプライン統合仕様
@@ -271,7 +271,7 @@ context-framework/
 - **仕様**:
   1. `ci-validate.yml`:
      - トリガー: `pull_request` + `push` (main)
-     - 実行内容: `./tools/cf-ci-validate.sh`（rules/manifest/routes/policy 検証 + smoke test）
+     - 実行内容: `./tools/ci-validate.sh`（rules/manifest/routes/policy 検証 + smoke test）
      - Python 3.11
      - 証跡: `LOGS/ci/*.log` をアーティファクトとしてアップロード
   2. `ciqa.yml`:
@@ -422,12 +422,12 @@ context-framework/
   1. ツール一覧:
      | ツール | 機能 |
      |--------|------|
-     | `cf-ci-validate.sh` | rules/manifest/routes/policy バリデーション + smoke test |
-     | `cf-controller-smoke.sh` | controller smoke test |
-     | `cf-doctor.sh` | Phase 0 診断（STEP-G003） |
-     | `cf-guard.sh` | リポジトリロック・検証 |
-     | `cf-log-index.sh` | LOGS/INDEX.md 自動生成（tracker から生成） |
-     | `cf-signature-report.sh` | 署名/フィンガープリント報告 |
+     | `ci-validate.sh` | rules/manifest/routes/policy バリデーション + smoke test |
+     | `controller-smoke.sh` | controller smoke test |
+     | `doctor.sh` | Phase 0 診断（STEP-G003） |
+     | `guard.sh` | リポジトリロック・検証 |
+     | `log-index.sh` | LOGS/INDEX.md 自動生成（tracker から生成） |
+     | `signature-report.sh` | 署名/フィンガープリント報告 |
      | `cleanup-local-merged.sh` | マージ済みローカルブランチクリーンアップ |
      | `delete-remote-branch.sh` | リモートブランチ削除 |
   2. すべて `tools/` に配置し、実行権限を付与する。
@@ -477,7 +477,7 @@ context-framework/
      - ステップ:
        1. checkout（SHA pin）
        2. setup-python 3.11（SHA pin）
-       3. `./tools/cf-ci-validate.sh` 実行
+       3. `./tools/ci-validate.sh` 実行
        4. LOGS/ci/ アーティファクトアップロード（SHA pin）
      - permissions: `contents: read`
   2. `ciqa.yml`:
@@ -566,6 +566,7 @@ context-framework/
 
 ## 8. 変更履歴
 
+- v0.10（2026-02-14 JST）: `cf_` / `cf-` プレフィックス除去。SSOT 3 ファイル名・ツール 6 ファイル名・ディレクトリ構造図を新名に更新。
 - v0.9（2026-02-14 JST）: SPEC-CF-D02: CIQA_REF を `4d31f39` → `9da152c`（3層リネーム後コミット）に更新（CODEX F-01 対応）。SPEC-CF-DIR01: `.gate-audit/` の配置モデルを明確化 — repo 内は snapshot、運用時は repo 外 KIT_ROOT から実行（CODEX F-02 対応）。
 - v0.8（2026-02-14 JST）: SPEC-CF-DIR01 に `.gate-audit/`（設計整合監査キット）と `.repo-id/`（身元メタデータ）をレイアウト図に追記（CODEX F-02 対応）。
 - v0.7（2026-02-14 JST）: `.cfctx/` → `.repo-id/` リネーム。SPEC-CF-O02 の初期設定パス参照を更新。
