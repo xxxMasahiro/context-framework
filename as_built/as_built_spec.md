@@ -1,6 +1,6 @@
 # 仕様書 — context-framework
 
-version: 0.11
+version: 0.12
 date: 2026-02-15
 status: as-built
 
@@ -188,7 +188,8 @@ context-framework/
      - SHA pin: `actions/setup-python@0b93645e9fea7318ecaed2b359559ac225c90a2b`
      - SHA pin: `actions/upload-artifact@5d5d22a31266ced268874388b861e4b58bb5c2f3`
   2. `ciqa.yml`:
-     - `permissions: contents: read, pull-requests: write`
+     - ワークフローレベル `permissions: contents: read`
+     - `notify_failure` ジョブレベル `permissions: contents: read, pull-requests: write`（最小権限原則に準拠）
      - SHA pin: `actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11`
      - SHA pin: `actions/upload-artifact@5d5d22a31266ced268874388b861e4b58bb5c2f3`
      - SHA pin: `actions/download-artifact@c850b930e6ba138125429b7e5c93fc707a7f8427`
@@ -565,6 +566,7 @@ context-framework/
 
 ## 8. 変更履歴
 
+- v0.12（2026-02-15 JST）: SPEC-CF-S06 ciqa.yml 権限記述を実装準拠に修正。`pull-requests: write` がワークフローレベルではなく `notify_failure` ジョブレベルであることを明記（CODEX F-02 対応）。
 - v0.11（2026-02-15 JST）: vendor/ 廃止（ZIP 運用完全終了）。SPEC-CF-DIR01 ディレクトリ構造図から vendor/ 行を削除。互換シンボリックリンク 9 本撤去（完全ゼロ化）。
 - v0.10（2026-02-14 JST）: `cf_` / `cf-` プレフィックス除去。SSOT 3 ファイル名・ツール 6 ファイル名・ディレクトリ構造図を新名に更新。
 - v0.9（2026-02-14 JST）: SPEC-CF-D02: CIQA_REF を `4d31f39` → `9da152c`（3層リネーム後コミット）に更新（CODEX F-01 対応）。SPEC-CF-DIR01: `.gate-audit/` の配置モデルを明確化 — repo 内は snapshot、運用時は repo 外 KIT_ROOT から実行（CODEX F-02 対応）。

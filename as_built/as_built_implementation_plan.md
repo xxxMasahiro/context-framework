@@ -1,6 +1,6 @@
 # 実装計画書 — context-framework
 
-version: 1.2
+version: 1.3
 date: 2026-02-15
 status: as-built
 
@@ -8,7 +8,7 @@ status: as-built
 
 ## 0. 目的・位置づけ
 
-本書は `as_built/as_built_requirements.md`（要件定義書 v0.6）および `as_built/as_built_spec.md`（仕様書 v0.11）に完全準拠した **実装計画** を記述する。
+本書は `as_built/as_built_requirements.md`（要件定義書 v0.6）および `as_built/as_built_spec.md`（仕様書 v0.12）に完全準拠した **実装計画** を記述する。
 
 - 本書は **as-built（実態記述）** である。
 - 要件定義書（`as_built/as_built_requirements.md`）・仕様書（`as_built/as_built_spec.md`）とトレーサブルである。
@@ -225,7 +225,7 @@ status: as-built
   - CF プロファイル存在確認
   - 各ジョブ: 依存インストール + ciqa 実行 + secrets スキャン + evidence アップロード
   - notify_failure: 失敗時 PR コメント投稿
-  - permissions: `contents: read`, `pull-requests: write`
+  - permissions: ワークフローレベル `contents: read`、`notify_failure` ジョブレベル `pull-requests: write`（最小権限原則）
 - **完了条件**: ciqa.yml が `.github/workflows/` に存在し、全ジョブが定義されている
 - **注記**: CIQA_REF は ciqa リポジトリ最終コミット SHA `9da152c0d8a916b501b20e9bc210f55894d03cf9` に確定済み
 - **状態**: 実装済み
@@ -330,6 +330,7 @@ P10 (as-built 文書) ← P1-P9 全完了後
 
 ## 14. 変更履歴
 
+- v1.3（2026-02-15 JST）: IMPL-CF-P8-01 ciqa.yml 権限記述を実装準拠に修正。`pull-requests: write` が `notify_failure` ジョブレベルであることを明記。参照 v0.6 / v0.12（CODEX F-02 対応）。
 - v1.2（2026-02-15 JST）: vendor/ 廃止（ZIP 運用完全終了）。互換シンボリックリンク 9 本撤去（完全ゼロ化）。参照 v0.6 / v0.11。
 - v1.1（2026-02-14 JST）: `cf_` / `cf-` プレフィックス除去。全ツール名・SSOT ファイル名参照を新名に更新。参照 v0.5 / v0.10。
 - v1.0（2026-02-14 JST）: CIQA_REF を `4d31f39` → `9da152c`（3層リネーム後コミット）に更新。参照仕様書 v0.8 → v0.9（CODEX F-01 対応）。
