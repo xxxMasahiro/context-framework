@@ -22,7 +22,7 @@ jobs:
           python-version: '3.11'
 
       - name: Run CI validate
-        run: ./tools/cf-ci-validate.sh
+        run: ./tools/ci-validate.sh
 
       - name: Upload logs
         if: always()

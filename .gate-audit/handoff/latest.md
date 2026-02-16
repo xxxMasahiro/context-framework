@@ -13,9 +13,9 @@
 - status: dirty (18 files)
 - repo_lock: OK
 - SSOT fingerprint:
-  - cf_handoff_prompt.md: 8e7dc706
-  - cf_update_runbook.md: 9c589b99
-  - cf_task_tracker_v5.md: c0304cde
+  - handoff_prompt.md: 8e7dc706
+  - update_runbook.md: 9c589b99
+  - task_tracker.md: c0304cde
 - SSOT match: YES (kit SSOT/ vs repo _handoff_check/)
 
 ## 3. Trackers Digest
@@ -167,9 +167,9 @@
 Total: 97 evidences (79 PASS, 2 FAIL, 0 DIAG, 16 UNKNOWN)
 
 ## 5. Kit Files
-- SSOT/cf_handoff_prompt.md
-- SSOT/cf_update_runbook.md
-- SSOT/cf_task_tracker_v5.md
+- SSOT/handoff_prompt.md
+- SSOT/update_runbook.md
+- SSOT/task_tracker.md
 - verify/verify_requirements.md
 - verify/verify_spec.md
 - verify/verify_implementation_plan.md

@@ -15,7 +15,7 @@ run_check() {
   local details=""
 
   # SSOT files to compare
-  local ssot_files=("cf_handoff_prompt.md" "cf_update_runbook.md" "cf_task_tracker_v5.md")
+  local ssot_files=("handoff_prompt.md" "update_runbook.md" "task_tracker.md")
 
   local kit_ssot_dir="${KIT_ROOT}/SSOT"
   local repo_ssot_dir="${MAIN_REPO}/_handoff_check"

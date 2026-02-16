@@ -50,7 +50,7 @@ verify_gate_f() {
     echo ""
 
     echo "--- Runbook Gate F references ---"
-    grep -n -i "gate.f\|初期設定\|INITIAL_SETTINGS\|role.assign" "${MAIN_REPO}/_handoff_check/cf_update_runbook.md" 2>/dev/null | head -20 || echo "(none)"
+    grep -n -i "gate.f\|初期設定\|INITIAL_SETTINGS\|role.assign" "${MAIN_REPO}/_handoff_check/update_runbook.md" 2>/dev/null | head -20 || echo "(none)"
   } > "$req1_out"
 
   if [[ -f "${MAIN_REPO}/WORKFLOW/TOOLING/INITIAL_SETTINGS.md" ]]; then
@@ -82,7 +82,7 @@ verify_gate_f() {
 
     # Check runbook STEP-507 to STEP-512
     echo "--- Runbook STEP-50x (Gate F steps) ---"
-    grep -n "STEP-50\|STEP-51" "${MAIN_REPO}/_handoff_check/cf_update_runbook.md" 2>/dev/null | head -20 || echo "(none)"
+    grep -n "STEP-50\|STEP-51" "${MAIN_REPO}/_handoff_check/update_runbook.md" 2>/dev/null | head -20 || echo "(none)"
   } > "$req2_out"
 
   # Check at least one adapter references initial settings or role

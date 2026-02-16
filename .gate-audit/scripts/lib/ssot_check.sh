@@ -11,9 +11,9 @@ run_ssot_check() {
   local diff_found=0
 
   local ssot_files=(
-    "cf_handoff_prompt.md"
-    "cf_update_runbook.md"
-    "cf_task_tracker_v5.md"
+    "handoff_prompt.md"
+    "update_runbook.md"
+    "task_tracker.md"
   )
 
   local output_file="${EVIDENCE_DIR}/ssot_comparison.txt"

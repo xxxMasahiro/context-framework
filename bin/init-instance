@@ -1,0 +1,174 @@
+#!/usr/bin/env bash
+# bin/init-instance — テンプレート初期化スクリプト (SPEC-CF-I04)
+# Usage: ./bin/init-instance --project <name> --owner <owner> [--ciqa-ref <40hex>]
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
+
+# --- Parse arguments ---
+PROJECT=""
+OWNER=""
+CIQA_REF=""
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --project)  PROJECT="$2"; shift 2 ;;
+    --owner)    OWNER="$2"; shift 2 ;;
+    --ciqa-ref) CIQA_REF="$2"; shift 2 ;;
+    -h|--help)
+      echo "Usage: $0 --project <name> --owner <owner> [--ciqa-ref <40hex>]"
+      echo ""
+      echo "Initialize a context-framework instance from the template."
+      echo ""
+      echo "Options:"
+      echo "  --project <name>     Project/repository name (required)"
+      echo "  --owner <owner>      GitHub owner/org (required)"
+      echo "  --ciqa-ref <40hex>   Update ciqa.yml uses: SHA (optional)"
+      exit 0
+      ;;
+    *) echo "[ERROR] Unknown option: $1"; exit 1 ;;
+  esac
+done
+
+# --- Validate ---
+if [[ -z "$PROJECT" ]]; then
+  echo "[ERROR] --project is required."
+  exit 1
+fi
+if [[ -z "$OWNER" ]]; then
+  echo "[ERROR] --owner is required."
+  exit 1
+fi
+if [[ ! -d "$REPO_ROOT/.git" ]]; then
+  echo "[ERROR] Not a git repository: $REPO_ROOT"
+  exit 1
+fi
+if [[ -n "$CIQA_REF" ]] && ! [[ "$CIQA_REF" =~ ^[0-9a-f]{40}$ ]]; then
+  echo "[ERROR] --ciqa-ref must be a 40-character hex SHA. Got: $CIQA_REF"
+  exit 1
+fi
+
+echo "[INFO] Initializing instance: project=$PROJECT owner=$OWNER"
+
+# --- Step 1: .repo-id/repo_fingerprint.json ---
+echo "[Step 1] Regenerating .repo-id/repo_fingerprint.json..."
+mkdir -p "$REPO_ROOT/.repo-id"
+INSTANCE_ID=$(uuidgen 2>/dev/null || cat /proc/sys/kernel/random/uuid 2>/dev/null || python3 -c "import uuid; print(uuid.uuid4())")
+CREATED_AT=$(date -u +"%Y-%m-%dT%H:%M:%S+00:00")
+cat > "$REPO_ROOT/.repo-id/repo_fingerprint.json" <<FINGERPRINT
+{
+  "repo_id": "${INSTANCE_ID}",
+  "repo_name": "${PROJECT}",
+  "created_at": "${CREATED_AT}",
+  "expected_remotes": [
+    "github-${OWNER}:${OWNER}/${PROJECT}",
+    "https://github.com/${OWNER}/${PROJECT}"
+  ],
+  "notes": "Repo Lockの根拠ファイル。パスに依存しない同一性判定に使う。"
+}
+FINGERPRINT
+echo "  [OK] repo_fingerprint.json (instance_id=$INSTANCE_ID)"
+
+# --- Step 2: CODEOWNERS ---
+echo "[Step 2] Updating CODEOWNERS..."
+CODEOWNERS="$REPO_ROOT/CODEOWNERS"
+if [[ -f "$CODEOWNERS" ]]; then
+  sed -i "s/@xxxMasahiro/@${OWNER}/g" "$CODEOWNERS"
+  sed -i "s/context-framework/${PROJECT}/g" "$CODEOWNERS"
+  echo "  [OK] CODEOWNERS updated"
+else
+  echo "  [SKIP] CODEOWNERS not found"
+fi
+
+# --- Step 3: _handoff_check/ reset ---
+echo "[Step 3] Resetting _handoff_check/ to template state..."
+HANDOFF_DIR="$REPO_ROOT/_handoff_check"
+if [[ -d "$HANDOFF_DIR" ]]; then
+  cat > "$HANDOFF_DIR/handoff_prompt.md" <<'HANDOFF'
+# Handoff Prompt
+
+> This file is the initial template state. Update it with your project's handoff information.
+HANDOFF
+  cat > "$HANDOFF_DIR/update_runbook.md" <<'RUNBOOK'
+# Update Runbook
+
+> This file is the initial template state. Document your update procedures here.
+RUNBOOK
+  cat > "$HANDOFF_DIR/task_tracker.md" <<'TRACKER'
+# Task Tracker
+
+> This file is the initial template state. Track your project tasks here.
+TRACKER
+  echo "  [OK] _handoff_check/ reset (3 files)"
+else
+  mkdir -p "$HANDOFF_DIR"
+  echo "  [OK] _handoff_check/ created (3 files)"
+fi
+
+# --- Step 4: ARTIFACTS/ reset ---
+echo "[Step 4] Resetting ARTIFACTS/ to template state..."
+ARTIFACTS_DIR="$REPO_ROOT/ARTIFACTS"
+if [[ -d "$ARTIFACTS_DIR" ]]; then
+  # Remove content files but keep the directory
+  find "$ARTIFACTS_DIR" -type f -not -name '.gitkeep' -delete 2>/dev/null || true
+  touch "$ARTIFACTS_DIR/.gitkeep"
+  echo "  [OK] ARTIFACTS/ reset"
+else
+  mkdir -p "$ARTIFACTS_DIR"
+  touch "$ARTIFACTS_DIR/.gitkeep"
+  echo "  [OK] ARTIFACTS/ created"
+fi
+
+# --- Step 5: README.md ---
+echo "[Step 5] Updating README.md..."
+README="$REPO_ROOT/README.md"
+if [[ -f "$README" ]]; then
+  sed -i "s/context-framework/${PROJECT}/g" "$README"
+  echo "  [OK] README.md updated"
+else
+  echo "  [SKIP] README.md not found"
+fi
+
+# --- Step 6: CHANGELOG.md ---
+echo "[Step 6] Initializing CHANGELOG.md..."
+cat > "$REPO_ROOT/CHANGELOG.md" <<CHANGELOG
+# Changelog — ${PROJECT}
+
+## [Unreleased]
+
+- Initial instance created from context-framework template.
+CHANGELOG
+echo "  [OK] CHANGELOG.md initialized"
+
+# --- Step 7: .ciqa/profile.yml ---
+echo "[Step 7] Updating .ciqa/profile.yml..."
+PROFILE="$REPO_ROOT/.ciqa/profile.yml"
+if [[ -f "$PROFILE" ]]; then
+  sed -i "s/context-framework/${PROJECT}/g" "$PROFILE"
+  sed -i "s/xxxMasahiro/${OWNER}/g" "$PROFILE"
+  echo "  [OK] .ciqa/profile.yml updated"
+else
+  echo "  [SKIP] .ciqa/profile.yml not found"
+fi
+
+# --- Step 8: ciqa.yml SHA update (optional) ---
+if [[ -n "$CIQA_REF" ]]; then
+  echo "[Step 8] Updating ciqa.yml SHA..."
+  CIQA_YML="$REPO_ROOT/.github/workflows/ciqa.yml"
+  if [[ -f "$CIQA_YML" ]]; then
+    sed -i "s|pipeline\.yml@[0-9a-f]\{40\}|pipeline.yml@${CIQA_REF}|g" "$CIQA_YML"
+    sed -i "s|ciqa-ref: \"[0-9a-f]\{40\}\"|ciqa-ref: \"${CIQA_REF}\"|g" "$CIQA_YML"
+    echo "  [OK] ciqa.yml SHA updated to ${CIQA_REF}"
+  else
+    echo "  [SKIP] ciqa.yml not found"
+  fi
+else
+  echo "[Step 8] Skipped (no --ciqa-ref provided)"
+fi
+
+echo ""
+echo "[INFO] Instance initialization complete."
+echo "  Project: $PROJECT"
+echo "  Owner:   $OWNER"
+echo "  Next: review changes, commit, and push."

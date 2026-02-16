@@ -21,7 +21,7 @@
 - 目的：高リスク変更の失敗確率を下げ、監査/説明責任に耐える
 - 適用範囲：重大な変更（破壊的変更、セキュリティ、外部依存や課金など）
 - 期待する成果物の粒度：意思決定ログ、詳細な検証、証跡の完全性
-- 衝突時の意思決定フローは `_handoff_check/cf_update_runbook.md` の 4.1 ロール（責務）「衝突時の意思決定」を参照
+- 衝突時の意思決定フローは `_handoff_check/update_runbook.md` の 4.1 ロール（責務）「衝突時の意思決定」を参照
 
 ## Triggers定義（Yes / No）
 - **Triggers = Yes**：Standard以上へエスカレーションすべき条件がある
@@ -62,6 +62,18 @@
 - Reason: 
 - 定義: [../WORKFLOW/MODES_AND_TRIGGERS.md](../WORKFLOW/MODES_AND_TRIGGERS.md)
 ```
+
+## app/ 変更と Mode の関係（REQ-CF-I11）
+
+Mode はフレームワークのガバナンス変更（L1/L2）に対する運用ルールであり、`app/`（L3）内の開発には適用しません。
+
+| Mode | L1/L2 変更 | app/ 変更 |
+|------|-----------|----------|
+| Lite | 通常どおり適用 | **Mode 適用なし** |
+| Standard | 通常どおり適用 | Mode 適用なし |
+| Strict | 通常どおり適用 | Mode 適用なし |
+
+L1/L2 を含む変更がある場合は、既存の Mode 運用に従います。
 
 ## GATEとの接続（最低限の運用手順）
 - Gate A：`ARTIFACTS/TASK_LISTS.md` に **Profile / Triggers** を記入して合意

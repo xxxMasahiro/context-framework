@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # gate_h.sh — Gate H: Controller / New Task Entry (コントローラー/新規タスク入口)
-# Verifies: controller/, rules/, bin/ctx-run, cf-controller-smoke.sh, cf-ci-validate.sh
+# Verifies: controller/, rules/, bin/ctx-run, controller-smoke.sh, ci-validate.sh
 
 verify_gate_h() {
   local pass=0 fail=0 total=3
@@ -55,7 +55,7 @@ verify_gate_h() {
     echo ""
 
     # Check tools
-    for tool in tools/cf-controller-smoke.sh tools/cf-ci-validate.sh; do
+    for tool in tools/controller-smoke.sh tools/ci-validate.sh; do
       echo "--- ${tool} ---"
       if [[ -f "${MAIN_REPO}/${tool}" ]]; then
         echo "EXISTS"
@@ -68,7 +68,7 @@ verify_gate_h() {
 
     # Runbook Gate H references
     echo "--- Runbook Gate H references ---"
-    grep -n -i "gate.h\|controller\|Phase 0\|Phase 1\|H[0-9]\+:" "${MAIN_REPO}/_handoff_check/cf_update_runbook.md" 2>/dev/null | head -30 || echo "(none)"
+    grep -n -i "gate.h\|controller\|Phase 0\|Phase 1\|H[0-9]\+:" "${MAIN_REPO}/_handoff_check/update_runbook.md" 2>/dev/null | head -30 || echo "(none)"
   } > "$req1_out"
 
   if [[ -d "${MAIN_REPO}/controller" ]] && [[ -d "${MAIN_REPO}/rules" ]]; then
@@ -110,7 +110,7 @@ verify_gate_h() {
 
     # Tracker Gate H references
     echo "--- Tracker Gate H completion ---"
-    grep -n -i "gate.h\|H[0-9]" "${MAIN_REPO}/_handoff_check/cf_task_tracker_v5.md" 2>/dev/null | head -20 || echo "(none)"
+    grep -n -i "gate.h\|H[0-9]" "${MAIN_REPO}/_handoff_check/task_tracker.md" 2>/dev/null | head -20 || echo "(none)"
   } > "$req2_out"
 
   local rules_ok=true
@@ -158,17 +158,17 @@ verify_gate_h() {
     fi
 
     ((ct++))
-    if [[ -f "${MAIN_REPO}/tools/cf-controller-smoke.sh" ]]; then
-      echo "CHECK: cf-controller-smoke.sh exists — PASS"; ((cp++))
+    if [[ -f "${MAIN_REPO}/tools/controller-smoke.sh" ]]; then
+      echo "CHECK: controller-smoke.sh exists — PASS"; ((cp++))
     else
-      echo "CHECK: cf-controller-smoke.sh exists — FAIL"
+      echo "CHECK: controller-smoke.sh exists — FAIL"
     fi
 
     ((ct++))
-    if [[ -f "${MAIN_REPO}/tools/cf-ci-validate.sh" ]]; then
-      echo "CHECK: cf-ci-validate.sh exists — PASS"; ((cp++))
+    if [[ -f "${MAIN_REPO}/tools/ci-validate.sh" ]]; then
+      echo "CHECK: ci-validate.sh exists — PASS"; ((cp++))
     else
-      echo "CHECK: cf-ci-validate.sh exists — FAIL"
+      echo "CHECK: ci-validate.sh exists — FAIL"
     fi
 
     for rf in rules/routes.yaml rules/policy.json rules/ssot_manifest.yaml; do

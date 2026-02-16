@@ -40,7 +40,7 @@
 - 本体repoへのアクセスは `status/diff/log/rev-parse` 等の参照系に限定する。
 
 ### 3.3 Repo Lock（MUST）
-- 検証開始時に `./tools/cf-guard.sh --check` を実行し、`Repo Lock: OK` を Evidence 化する。
+- 検証開始時に `./tools/guard.sh --check` を実行し、`Repo Lock: OK` を Evidence 化する。
 
 ### 3.4 検索の0終了（MUST）
 - `rg/grep` 等の検索は「見つからなくてもOK」のため **必ず `|| true` を付与**して 0 終了にする。
@@ -82,7 +82,7 @@
 ## 6. 機能要件（MUST）
 ### 6.1 最小スモーク（MUST）
 - Phase 2（最小スモーク）として最低限以下を PASS/FAIL 判定できること：
-  - Repo Lock を Evidence 化（cf-guard）
+  - Repo Lock を Evidence 化（guard）
   - doctor step（例：STEP-G003）を Evidence 化
   - Gate C（アダプタ参照整合）read-only 確認
   - Gate G（ログ導線：索引/ログ/ルールの存在）read-only 確認

@@ -1,0 +1,125 @@
+#!/usr/bin/env bash
+# bin/sync-upstream — L1 ファイル同期スクリプト (SPEC-CF-I05)
+# Usage: ./bin/sync-upstream [--dry-run]
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
+MANIFEST="${REPO_ROOT}/layer_manifest.yaml"
+
+DRY_RUN=false
+for arg in "$@"; do
+  case "$arg" in
+    --dry-run) DRY_RUN=true ;;
+    -h|--help)
+      echo "Usage: $0 [--dry-run]"
+      echo "  Sync L1 (Governance) files from upstream/main."
+      echo "  --dry-run  Preview changes without applying."
+      exit 0
+      ;;
+    *) echo "Unknown option: $arg"; exit 1 ;;
+  esac
+done
+
+# Safety: must not run on main
+CURRENT_BRANCH=$(git -C "$REPO_ROOT" rev-parse --abbrev-ref HEAD)
+if [[ "$CURRENT_BRANCH" == "main" ]]; then
+  echo "[ERROR] sync-upstream must NOT be run on main. Create a feature branch first."
+  exit 1
+fi
+
+# Prerequisite: upstream remote must exist
+if ! git -C "$REPO_ROOT" remote get-url upstream >/dev/null 2>&1; then
+  echo "[ERROR] 'upstream' remote is not configured."
+  echo "  Run: git remote add upstream <template-repo-url>"
+  exit 1
+fi
+
+# Prerequisite: layer_manifest.yaml must exist
+if [[ ! -f "$MANIFEST" ]]; then
+  echo "[ERROR] layer_manifest.yaml not found at: $MANIFEST"
+  exit 1
+fi
+
+# Fetch upstream
+echo "[INFO] Fetching upstream..."
+git -C "$REPO_ROOT" fetch upstream
+
+# Extract L1 paths from layer_manifest.yaml
+echo "[INFO] Reading L1 paths from layer_manifest.yaml..."
+L1_PATHS=()
+IN_L1=false
+while IFS= read -r line; do
+  # Detect L1_governance paths section
+  if [[ "$line" =~ ^[[:space:]]*L1_governance: ]]; then
+    IN_L1=true
+    continue
+  fi
+  # Detect next top-level key (L2 or other)
+  if $IN_L1 && [[ "$line" =~ ^[[:space:]]*[A-Za-z_]+: ]] && [[ ! "$line" =~ ^[[:space:]]*paths: ]] && [[ ! "$line" =~ ^[[:space:]]*description: ]] && [[ ! "$line" =~ ^[[:space:]]*sync_source: ]] && [[ ! "$line" =~ ^[[:space:]]*direct_edit: ]]; then
+    IN_L1=false
+    continue
+  fi
+  # Collect path entries
+  if $IN_L1 && [[ "$line" =~ ^[[:space:]]*-[[:space:]]*\"(.+)\" ]]; then
+    L1_PATHS+=("${BASH_REMATCH[1]}")
+  fi
+done < "$MANIFEST"
+
+if [[ ${#L1_PATHS[@]} -eq 0 ]]; then
+  echo "[ERROR] No L1 paths found in layer_manifest.yaml."
+  exit 1
+fi
+
+echo "[INFO] L1 paths (${#L1_PATHS[@]}):"
+for p in "${L1_PATHS[@]}"; do
+  echo "  - $p"
+done
+
+if $DRY_RUN; then
+  echo ""
+  echo "[DRY-RUN] Would checkout the following paths from upstream/main:"
+  for p in "${L1_PATHS[@]}"; do
+    echo "  git checkout upstream/main -- $p"
+  done
+  echo ""
+  echo "[DRY-RUN] Showing diff preview..."
+  for p in "${L1_PATHS[@]}"; do
+    git -C "$REPO_ROOT" diff HEAD..upstream/main -- "$p" 2>/dev/null || true
+  done
+  echo "[DRY-RUN] No changes applied."
+  exit 0
+fi
+
+# Checkout L1 paths from upstream/main
+echo "[INFO] Checking out L1 files from upstream/main..."
+CHANGED=false
+for p in "${L1_PATHS[@]}"; do
+  if git -C "$REPO_ROOT" checkout upstream/main -- "$p" 2>/dev/null; then
+    CHANGED=true
+    echo "  [OK] $p"
+  else
+    echo "  [SKIP] $p (not found in upstream/main or no changes)"
+  fi
+done
+
+if ! $CHANGED; then
+  echo "[INFO] No L1 files changed. Already up to date."
+  exit 0
+fi
+
+# Stage and commit
+echo "[INFO] Staging L1 changes..."
+git -C "$REPO_ROOT" add "${L1_PATHS[@]}" 2>/dev/null || true
+
+if git -C "$REPO_ROOT" diff --cached --quiet; then
+  echo "[INFO] No staged changes. Already up to date."
+  exit 0
+fi
+
+echo "[INFO] Creating sync commit..."
+git -C "$REPO_ROOT" commit -m "chore: sync L1 files from upstream/main
+
+Synced paths: ${L1_PATHS[*]}"
+
+echo "[INFO] L1 sync complete."

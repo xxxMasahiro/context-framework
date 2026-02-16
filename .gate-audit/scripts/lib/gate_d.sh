@@ -32,7 +32,7 @@ verify_gate_d() {
     echo ""
 
     echo "--- Runbook Gate D references ---"
-    grep -n -i "gate.d\|監査完了\|audit" "${MAIN_REPO}/_handoff_check/cf_update_runbook.md" 2>/dev/null | head -20 || echo "(none)"
+    grep -n -i "gate.d\|監査完了\|audit" "${MAIN_REPO}/_handoff_check/update_runbook.md" 2>/dev/null | head -20 || echo "(none)"
   } > "$req1_out"
 
   # Gate D key deliverables

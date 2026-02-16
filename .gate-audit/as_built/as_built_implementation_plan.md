@@ -1,8 +1,8 @@
 # as-built 実装計画書（正式版）— Temporary Verification Kit
 
-version: 2.1
+version: 2.2
 date: 2026-02-14
-status: 正式版（v2.1: 配置モデル明確化 — PLAN-PRE01 に CF repo snapshot 注記追加）
+status: 正式版（v2.2: cf_/cf- プレフィックス除去 — SSOT 3 ファイル名・ツール参照を新名に更新）
 
 ---
 
@@ -43,7 +43,7 @@ status: 正式版（v2.1: 配置モデル明確化 — PLAN-PRE01 に CF repo sn
 | タスク | 状態 | 根拠 |
 |--------|------|------|
 | KIT_ROOT 確認・Kit 生成 | 完了 | Kit が repo 外に存在 |
-| SSOT 3 ファイルを SSOT/ へコピー | 完了 | SSOT/cf_handoff_prompt.md 等 3 ファイル |
+| SSOT 3 ファイルを SSOT/ へコピー | 完了 | SSOT/handoff_prompt.md 等 3 ファイル |
 | context/ 作成 | 完了 | context/run_rules.md, codex_high_prompt.md |
 | tasks/ 作成 | 完了 | tasks/verify_task_tracker.md 他 6 ファイル |
 | scripts/ 作成 | 完了 | verify_all.sh, verify_gate.sh, generate_handoff.sh, run_tests.sh, self-check.sh, lib/ 配下 |
@@ -467,11 +467,12 @@ FATAL: Cannot locate main repo (context-framework).
 - v1.1（2026-02-06 JST）: 未文書化機能 6 件の実装詳細追加（PLAN-MAINT03 自動更新パイプライン・進捗ログ書式、PLAN-MAINT02 プラグインソート、PLAN-PROC04 否定構文、PLAN-P4 Phase 4a-4c サブフェーズ追加、REQ↔SPEC↔PLAN 対応表に REQ-F09〜F14 追加）
 - v1.2（2026-02-06 JST）: セキュリティ総合調査結果追加（PLAN-SEC01: 17 件の受容判定、リスクと対策テーブルにセキュリティ行追加、REQ↔SPEC↔PLAN 対応表に REQ-S05 追加）
 - v1.3（2026-02-07 JST）: REQ-S02 強化実装追加（Phase 4d: CQ-RO チェック、Phase 4e: Phase 1 ro mount 検証統合、REQ↔SPEC↔PLAN 対応表に REQ-F15 追加）
-- v1.4（2026-02-07 JST）: バグ修正 8 件の反映（Phase 4f 追加: verify_gate.sh 未知 Gate exit 1 化、run_tests.sh cf-guard.sh パス統一、evidence.sh 階層+コメント修正、kit サマリ抽出修正、gate_a/b/g/i.sh 判定厳格化）
+- v1.4（2026-02-07 JST）: バグ修正 8 件の反映（Phase 4f 追加: verify_gate.sh 未知 Gate exit 1 化、run_tests.sh guard.sh パス統一、evidence.sh 階層+コメント修正、kit サマリ抽出修正、gate_a/b/g/i.sh 判定厳格化）
 - v1.5（2026-02-07 JST）: Gate 動的スケーラビリティ対応（Phase 4g 追加: run_tests.sh A-I 固定 3 箇所→gate_registry.sh 動的検出に置換、tracker_updater.sh に Gate セクション自動生成 `_tu_auto_create_gate_section()` 追加、gate_registry.sh に Gate ID バリデーション追加〈`_gr_is_safe_gate_id()` ヘルパー、列挙時+source 前の 2 箇所で一貫適用〉、PLAN-MAINT01/03 にセクション自動生成・ID 制約手順追加）
 - v1.6（2026-02-07 JST）: Codex 評価指摘 4 件修正（Phase 4h 追加: verify_all.sh に Gate 0 件ガード + SSOT MATCH 必須化〈fail-closed〉、gate_registry.sh unsafe ID を WARN→FATAL+exit 1 + `for→while IFS= read -r` 堅牢化）
 - v1.7（2026-02-07 JST）: run_tests.sh Phase 2 Gate 0 件ガード追加（Phase 4i: プロセス置換 `< <(gr_list_gate_ids)` の exit code 非伝播による偽 PASS 防止）
 - v1.8（2026-02-07 JST）: gate_a.sh/gate_b.sh req② の `repo_grep` 呼び出しバグ修正（Phase 4j: `-i` フラグ誤渡しにより引数ずれ→常時 FAIL を解消。9 PASS / 0 FAIL + SSOT MATCH 達成）
 - v1.9（2026-02-07 JST）: Phase 5 lockdown/unlock 実装（PLAN-P5 完了: lockdown.sh quarantine 移動 + unlock.sh 二段階解除、SSOT verify_spec.md:93-108 準拠）+ MAIN_REPO バリデーション強化（REQ-F16/SPEC-S16: _validate_main_repo 4 段階検証 — SSOT sha256 照合で誤 repo 接続防止、find 全候補走査化）+ kit lockdown/unlock サブコマンド追加 + 未実装一覧 #1 解消 + リスクテーブル lockdown 行を「充足」に更新
+- v2.2（2026-02-14 JST）: cf_/cf- プレフィックス除去 — SSOT 3 ファイル名・ツール参照を新名に更新。
 - v2.1（2026-02-14 JST）: PLAN-PRE01 配置モデル明確化 — CF repo 内 `.gate-audit/` は snapshot と注記（CODEX F-02 対応）。
 - v2.0（2026-02-14 JST）: 3 層リネーム + 構造簡素化（`.cfctx_verify` → `.gate-audit`、`.cfctx` → `.repo-id`、内部 CIQA → self-check〈ファイル・関数 9 件・変数 13 件・CLI `ciqa` → `self-check`〉、環境変数 `CFCTX_*` → `GATE_AUDIT_*` / `SC_*`、ディレクトリ 3 段→2 段簡素化、全 Phase・手順のパス名・コマンド例更新）

@@ -36,6 +36,19 @@ PR経由の運用で **Gateコミット**によるレビューと証跡を残し
   - 監査運用の定義は `./AUDIT.md`
 - コミット例：`gate(D): audit passed`
 
+## app/ 変更時の Gate 適用境界（REQ-CF-I11）
+
+変更が `app/**` のみの場合、以下の Gate 免除が適用されます:
+
+| Gate | L1/L2 を含む変更 | app/ のみの変更 |
+|------|-----------------|----------------|
+| Gate A (Task Lists) | 必須 | **省略可** |
+| Gate B (Impl Plan) | 必須 | **省略可** |
+| Gate C (Walkthrough) | 必須 | **部分的**（CI/CQ 証跡で代替可） |
+| Gate D (Audit) | 必須 | **省略可** |
+
+**判定方法**: `git diff --name-only` で変更ファイル一覧を取得し、全ファイルが `app/` 配下であるかを判定する。L1/L2 を含む変更は既存どおり Gate A-D 必須。
+
 ## main への反映（PR経由）
 - Developer GO 後に PR を作成し、レビュー＋CI/CQ PASS を経てマージする
 

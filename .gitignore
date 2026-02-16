@@ -24,3 +24,18 @@ work/
 /_handoff_cache/
 # local-only: agent role assignment (do not commit)
 .repo-id/agent_role_assignment.yaml
+
+# App (L3) — language/framework common patterns
+app/node_modules/
+app/.env
+app/.env.*
+app/dist/
+app/build/
+app/.next/
+app/.nuxt/
+app/vendor/
+app/__pycache__/
+app/*.pyc
+app/.venv/
+app/target/
+app/.gradle/

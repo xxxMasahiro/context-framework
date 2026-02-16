@@ -18,5 +18,5 @@ Developer 設定
 ```
 
 ## 注意
-- Repo Lock（cf-guard.sh）とは別系統の仕組み。混同しない。
+- Repo Lock（guard.sh）とは別系統の仕組み。混同しない。
 - 役割の行動規範は SSOT（Charter → Mode → Artifacts → Skills）に従う。

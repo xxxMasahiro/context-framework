@@ -1,7 +1,7 @@
 # 要件定義書 — context-framework
 
-version: 0.4
-date: 2026-02-14
+version: 0.8
+date: 2026-02-17
 status: as-built
 
 ---
@@ -31,7 +31,7 @@ status: as-built
 
 - CI/CQ 基盤（ciqa）自体の実装（別リポジトリで管理）
 - controller（main.py）のロジック詳細変更
-- vendor/ 配下のサードパーティコード変更
+- 外部サードパーティコードの変更
 
 ---
 
@@ -69,8 +69,8 @@ status: as-built
 
 ### REQ-CF-S02: リポジトリロック
 
-- **要件**: `tools/cf-guard.sh` によるリポジトリロック機構を提供し、意図しない変更を防止する。
-- **受入条件**: `cf-guard.sh` が実行可能で、ロック・検証機能が動作する。
+- **要件**: `tools/guard.sh` によるリポジトリロック機構を提供し、意図しない変更を防止する。
+- **受入条件**: `guard.sh` が実行可能で、ロック・検証機能が動作する。
 - **実装状態**: 実装済み
 - **根拠**: `WORKFLOW/TOOLING/REPO_LOCK.md`
 
@@ -133,9 +133,9 @@ status: as-built
 ### REQ-CF-T02: SSOT 3 ファイルバンドル
 
 - **要件**: `_handoff_check/` に以下の 3 ファイルを SSOT バンドルとして管理する:
-  - `cf_handoff_prompt.md`（引継ぎサマリ）
-  - `cf_update_runbook.md`（運用マニュアル）
-  - `cf_task_tracker_v5.md`（進捗管理）
+  - `handoff_prompt.md`（引継ぎサマリ）
+  - `update_runbook.md`（運用マニュアル）
+  - `task_tracker.md`（進捗管理）
 - `ssot_manifest.yaml` の `ssot` キーでバンドルを定義する。
 - **受入条件**: 3 ファイルが `_handoff_check/` に存在し、`ssot_manifest.yaml` に登録されている。
 - **実装状態**: 実装済み
@@ -144,9 +144,9 @@ status: as-built
 ### REQ-CF-T03: 証跡ログ管理
 
 - **要件**: 実行ログを `LOGS/` に保存し、`LOGS/INDEX.md` を自動生成する。
-- **受入条件**: `tools/cf-log-index.sh` で `LOGS/INDEX.md` が生成可能。
+- **受入条件**: `tools/log-index.sh` で `LOGS/INDEX.md` が生成可能。
 - **実装状態**: 実装済み
-- **根拠**: `LOGS/INDEX.md`, `tools/cf-log-index.sh`
+- **根拠**: `LOGS/INDEX.md`, `tools/log-index.sh`
 
 ### REQ-CF-T04: CI/CQ パイプライン統合
 
@@ -245,12 +245,12 @@ status: as-built
 ### REQ-CF-F04: tools（ユーティリティ群）
 
 - **要件**: 以下のツールを `tools/` に提供する:
-  - `cf-ci-validate.sh`: rules/manifest/routes/policy バリデーション + smoke test
-  - `cf-controller-smoke.sh`: controller smoke test
-  - `cf-doctor.sh`: Phase 0 診断（STEP-G003）
-  - `cf-guard.sh`: リポジトリロック・検証
-  - `cf-log-index.sh`: LOGS/INDEX.md 自動生成
-  - `cf-signature-report.sh`: 署名/フィンガープリント報告
+  - `ci-validate.sh`: rules/manifest/routes/policy バリデーション + smoke test
+  - `controller-smoke.sh`: controller smoke test
+  - `doctor.sh`: Phase 0 診断（STEP-G003）
+  - `guard.sh`: リポジトリロック・検証
+  - `log-index.sh`: LOGS/INDEX.md 自動生成
+  - `signature-report.sh`: 署名/フィンガープリント報告
 - **受入条件**: 各ツールが `tools/` に存在し、実行可能である。
 - **実装状態**: 実装済み
 - **根拠**: `tools/`
@@ -296,6 +296,98 @@ status: as-built
 
 ---
 
+## 6a. インスタンス化要件（MUST/SHOULD）
+
+### REQ-CF-I01: GitHub Template Repository
+
+- **要件**: context-framework リポジトリを GitHub Template Repository として設定し、「Use this template」ボタンでインスタンスを生成可能にする。
+- **受入条件**: GitHub リポジトリ設定で「Template repository」が有効化されている。
+- **優先度**: MUST
+- **実装状態**: 実装済み（GitHub UI 設定は手動実施）
+- **根拠**: SPEC-CF-I01
+
+### REQ-CF-I02: 3 層ディレクトリ分類
+
+- **要件**: リポジトリ内の全ディレクトリ・ファイルを L1/L2/L3 の 3 層に分類し、`layer_manifest.yaml` で定義する。パスベースの分類解決ルール（specific > general）を採用する。
+- **受入条件**: `layer_manifest.yaml` がリポジトリルートに存在し、分類解決ルールが定義されている。
+- **優先度**: MUST
+- **実装状態**: 実装済み
+- **根拠**: `layer_manifest.yaml`
+
+### REQ-CF-I03: app/ ディレクトリ統合
+
+- **要件**: `app/` ディレクトリを L3（App）層として定義し、フレームワーク（L1/L2）は `app/` 内部に一切関与しない。Gate 進行管理（A-D）の対象外とする。
+- **受入条件**: `app/` ディレクトリが存在し `.gitkeep` が配置されている。`allow_read_prefix` に `app/` を含まない。
+- **優先度**: MUST
+- **実装状態**: 実装済み
+- **根拠**: `app/.gitkeep`, `layer_manifest.yaml`
+
+### REQ-CF-I04: インスタンス初期化フロー
+
+- **要件**: テンプレートからインスタンスを生成した後の初期化スクリプト（`bin/init-instance`）を提供する。外部ツール不要（gh CLI 不要）。
+- **受入条件**: `bin/init-instance --project <name> --owner <owner>` が実行可能で、初期化後に `tools/ci-validate.sh` を通過する。
+- **優先度**: MUST
+- **実装状態**: 実装済み
+- **根拠**: `bin/init-instance`
+
+### REQ-CF-I05: upstream 同期メカニズム
+
+- **要件**: テンプレートリポジトリ（upstream）の L1 層更新をインスタンスに同期する `bin/sync-upstream` を提供する。専用ブランチ必須（`main` 直適用禁止）。
+- **受入条件**: `bin/sync-upstream` が L1 ファイルのみを更新し、`--dry-run` でプレビュー可能。
+- **優先度**: SHOULD
+- **実装状態**: 実装済み
+- **根拠**: `bin/sync-upstream`
+
+### REQ-CF-I06: ssot_manifest.yaml の app/ 対応
+
+- **要件**: `rules/ssot_manifest.yaml` に `layer_manifest` キーを追加し、`allow_read_prefix` に `app/` を含めない。既存カテゴリは変更しない。
+- **受入条件**: `layer_manifest` キーが存在し、`allow_read_prefix` に `app/` が含まれない。
+- **優先度**: MUST
+- **実装状態**: 実装済み
+- **根拠**: `rules/ssot_manifest.yaml`
+
+### REQ-CF-I07: .gitignore の app/ パターン
+
+- **要件**: `.gitignore` に `app/` 内で一般的に使用されるパターンを追加する。既存パターンは変更しない。
+- **受入条件**: `.gitignore` に `app/` 関連パターンが追加されている。
+- **優先度**: SHOULD
+- **実装状態**: 実装済み
+- **根拠**: `.gitignore`
+
+### REQ-CF-I08: ciqa.yml 簡素化（reusable workflow caller）
+
+- **要件**: `.github/workflows/ciqa.yml` を ~15 行の reusable workflow caller に変換し、CI/CQ ロジックを ciqa リポジトリの reusable workflow に移管する。
+- **受入条件**: ciqa.yml が ~15 行の reusable workflow caller に変換され、CI/CQ 動作が reusable workflow 経由で同一結果を返す。
+- **優先度**: MUST
+- **実装状態**: 実装済み
+- **根拠**: `.github/workflows/ciqa.yml`
+
+### REQ-CF-I09: ciqa profile 自己完結
+
+- **要件**: インスタンスの ciqa プロファイルを `.ciqa/profile.yml` としてインスタンス内に配置し、ciqa リポジトリへのプロファイル追加を不要にする。
+- **受入条件**: `.ciqa/profile.yml` がテンプレートリポジトリに存在し、`--profile-file` フラグで直接指定できる。
+- **優先度**: MUST
+- **実装状態**: 実装済み
+- **根拠**: `.ciqa/profile.yml`
+
+### REQ-CF-I10: CIQA_REF pin 保持
+
+- **要件**: ciqa リポジトリの参照バージョンを ciqa.yml の `uses:` 行の SHA pin で管理し、再現性を保証する。明示更新のみ許可（`--ciqa-ref <40hex>`）。
+- **受入条件**: `uses:` の SHA が CIQA_REF として機能し、`--ciqa-ref` 未指定時はテンプレートの SHA が維持される。
+- **優先度**: MUST
+- **実装状態**: 実装済み
+- **根拠**: `.github/workflows/ciqa.yml`, `bin/init-instance`
+
+### REQ-CF-I11: Gate 適用境界
+
+- **要件**: Gate 進行管理（A-D）の適用境界をパスベースで明文化する: `app/**` のみの変更は Gate A/B 省略可、L1/L2 を含む変更は Gate A-D 必須。
+- **受入条件**: Gate 適用条件がパスベースで定義され、REQ-CF-T01 と矛盾しない。
+- **優先度**: MUST
+- **実装状態**: 実装済み
+- **根拠**: `WORKFLOW/GATES.md`, SPEC-CF-I11
+
+---
+
 ## 7. トレーサビリティ（REQ → 根拠）
 
 | 要件 | 根拠 | 備考 |
@@ -309,7 +401,7 @@ status: as-built
 | REQ-CF-S07 (CODEOWNERS) | CODEOWNERS | |
 | REQ-CF-T01 (Gate A-D) | WORKFLOW/GATES.md | |
 | REQ-CF-T02 (SSOT 3 ファイル) | ssot_manifest.yaml | |
-| REQ-CF-T03 (証跡ログ) | tools/cf-log-index.sh | |
+| REQ-CF-T03 (証跡ログ) | tools/log-index.sh | |
 | REQ-CF-T04 (CI/CQ 統合) | .github/workflows/ | |
 | REQ-CF-T05 (Audit 証跡) | WORKFLOW/AUDIT.md | |
 | REQ-CF-O01 (ブランチ運用) | WORKFLOW/BRANCHING.md | |
@@ -323,6 +415,17 @@ status: as-built
 | REQ-CF-F06 (Skills) | SKILLS/ | |
 | REQ-CF-F07 (CI/CQ WF) | .github/workflows/ | |
 | REQ-CF-F08 (PROMPTS) | PROMPTS/ | |
+| REQ-CF-I01 (Template Repository) | SPEC-CF-I01 | GitHub UI 設定 |
+| REQ-CF-I02 (3 層分類) | layer_manifest.yaml | |
+| REQ-CF-I03 (app/ 統合) | app/.gitkeep, layer_manifest.yaml | |
+| REQ-CF-I04 (初期化フロー) | bin/init-instance | |
+| REQ-CF-I05 (upstream 同期) | bin/sync-upstream | |
+| REQ-CF-I06 (ssot_manifest 拡張) | rules/ssot_manifest.yaml | layer_manifest キー |
+| REQ-CF-I07 (.gitignore 拡張) | .gitignore | app/ パターン |
+| REQ-CF-I08 (ciqa.yml 簡素化) | .github/workflows/ciqa.yml | reusable workflow caller |
+| REQ-CF-I09 (ciqa profile) | .ciqa/profile.yml | |
+| REQ-CF-I10 (CIQA_REF pin) | .github/workflows/ciqa.yml | uses: SHA |
+| REQ-CF-I11 (Gate 適用境界) | WORKFLOW/GATES.md | パスベース判定 |
 
 ---
 
@@ -330,9 +433,9 @@ status: as-built
 
 ### REQ-CF-D01: ciqa プロファイル
 
-- **内容**: ciqa.yml で参照する CF 用プロファイルは ciqa リポジトリ側で管理される。CF リポジトリ側での定義は不要。
-- **影響度**: 解消済み
-- **対応**: ciqa リポジトリに `profiles/context-framework/profile.yml` を作成済み（strict モード、SSOT required、Gate 5 件、timeouts: check=300/job=900）。
+- **内容**: REQ-CF-I09 により `.ciqa/profile.yml` としてインスタンス内に配置。ciqa リポジトリ側の `profiles/context-framework/profile.yml` は ciqa 自身の CI 用として残存する。
+- **影響度**: 解消済み（REQ-CF-I09 で完全移行）
+- **対応**: `.ciqa/profile.yml` をテンプレートリポジトリに作成済み。reusable workflow 経由で `--profile-file` で参照。
 
 ### REQ-CF-D02: ブランチ保護ルール
 
@@ -344,6 +447,10 @@ status: as-built
 
 ## 9. 変更履歴
 
+- v0.8（2026-02-17 JST）: REQ-CF-I08 の行数記述を ~10 行 → ~15 行に修正（実体 ciqa.yml 15 行・仕様書/実装計画書との整合）。
+- v0.7（2026-02-16 JST）: インスタンス化要件 11 件（REQ-CF-I01〜I11）追加。§6a 新設。§7 トレーサビリティ表に 11 行追加。REQ-CF-D01 を REQ-CF-I09 で完全移行に更新。
+- v0.6（2026-02-15 JST）: vendor/ 廃止（ZIP 運用完全終了）。互換シンボリックリンク 9 本撤去（完全ゼロ化）。REQ-CF-S02/F04 の非対象から vendor/ を削除。
+- v0.5（2026-02-14 JST）: `cf_` / `cf-` プレフィックス除去。SSOT 3 ファイル名（`handoff_prompt.md` / `update_runbook.md` / `task_tracker.md`）およびツール 6 ファイル名を新名に更新。
 - v0.4（2026-02-14 JST）: `.cfctx/` → `.repo-id/` リネーム。身元確認ディレクトリ名を直感的な名称に変更。
 - v0.3（2026-02-13 JST）: CODEX H-04 解消。REQ-CF-D01: ciqa プロファイル作成済みに更新（影響度: 解消済み）。
 - v0.2（2026-02-13 JST）: リポジトリ名ドリフト修正。タイトル・目的・スコープ・プロファイルパスの旧名 `cf-context-framework` を `context-framework` に統一（CODEX H-02/M-01 対応）。

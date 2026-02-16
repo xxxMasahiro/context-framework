@@ -26,9 +26,9 @@
 - status: clean | dirty (<dirty_count> files)
 - repo_lock: OK | NG
 - SSOT fingerprint:
-  - cf_handoff_prompt.md: <sha256_first8>
-  - cf_update_runbook.md: <sha256_first8>
-  - cf_task_tracker_v5.md: <sha256_first8>
+  - handoff_prompt.md: <sha256_first8>
+  - update_runbook.md: <sha256_first8>
+  - task_tracker.md: <sha256_first8>
 - SSOT match: YES | NO (kit SSOT/ vs repo _handoff_check/)
 
 ## 3. Trackers Digest
@@ -62,9 +62,9 @@
 Total: <N> evidences (<pass_count> PASS, <fail_count> FAIL)
 
 ## 5. Kit Files
-- SSOT/cf_handoff_prompt.md
-- SSOT/cf_update_runbook.md
-- SSOT/cf_task_tracker_v5.md
+- SSOT/handoff_prompt.md
+- SSOT/update_runbook.md
+- SSOT/task_tracker.md
 - verify/verify_requirements.md
 - verify/verify_spec.md
 - verify/verify_implementation_plan.md
@@ -253,7 +253,7 @@ VERDICT: PASS | FAIL
    - `git -C $MAIN_REPO rev-parse --short HEAD` / `rev-parse HEAD`
    - `git -C $MAIN_REPO symbolic-ref --short HEAD`
    - `git -C $MAIN_REPO status --porcelain`
-   - `$MAIN_REPO/tools/cf-guard.sh --check` の結果をパース
+   - `$MAIN_REPO/tools/guard.sh --check` の結果をパース
    - SSOT/ 内3ファイルの sha256（先頭8桁）
    - Kit SSOT/ vs Repo _handoff_check/ の diff
 3. **Trackers Digest**:

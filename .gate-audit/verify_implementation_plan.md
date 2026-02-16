@@ -22,8 +22,8 @@
 - `scripts/verify.sh` が read-only で動作し、ログが残る（dry-run でも可）
 
 ### Phase 2：最小検証（スモーク）
-- `./tools/cf-guard.sh --check`（Repo Lock）を Evidence 化
-- `./tools/cf-doctor.sh step STEP-G003`（最小スモーク）を Evidence 化
+- `./tools/guard.sh --check`（Repo Lock）を Evidence 化
+- `./tools/doctor.sh step STEP-G003`（最小スモーク）を Evidence 化
 - Gate C（アダプタ）参照整合のチェック（ファイル存在/参照先）を read-only で確認
 - Gate G（ログ導線）最低限の “辿れる” 確認（索引/ログ/ルールの存在）を確認
 

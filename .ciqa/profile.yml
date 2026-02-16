@@ -1,0 +1,30 @@
+schema_version: "1.0"
+project_name: "context-framework"
+repo_validation:
+  mode: "strict"
+  allowlist:
+    - owner: "xxxMasahiro"
+      repo: "context-framework"
+ssot:
+  mode: "required"
+  path: "rules/ssot_manifest.yaml"
+rules:
+  path: "rules/"
+gates:
+  - name: "phase0"
+    type: "spec_check"
+  - name: "lint"
+    type: "ci"
+    command: "echo 'TODO: configure lint command for app/'"
+  - name: "build"
+    type: "ci"
+    command: "echo 'TODO: configure build command for app/'"
+  - name: "unit_test"
+    type: "ci"
+    command: "echo 'TODO: configure test command for app/'"
+  - name: "cq"
+    type: "quality"
+timeouts:
+  check: 600
+  job: 1800
+retention_days: 30

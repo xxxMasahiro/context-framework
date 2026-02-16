@@ -88,16 +88,16 @@ run_phase1() {
   fi
 
   # Repo Lock check
-  if [[ -n "$MAIN_REPO" && -f "${MAIN_REPO}/tools/cf-guard.sh" ]]; then
+  if [[ -n "$MAIN_REPO" && -f "${MAIN_REPO}/tools/guard.sh" ]]; then
     local lock_result
-    lock_result="$(cd "$MAIN_REPO" && bash tools/cf-guard.sh --check 2>&1)" || lock_result="FAIL: ${lock_result:-unknown}"
+    lock_result="$(cd "$MAIN_REPO" && bash tools/guard.sh --check 2>&1)" || lock_result="FAIL: ${lock_result:-unknown}"
     if [[ "$lock_result" == FAIL:* ]]; then
-      output+="Repo Lock (cf-guard.sh): WARN (${lock_result})"$'\n'
+      output+="Repo Lock (guard.sh): WARN (${lock_result})"$'\n'
     else
-      output+="Repo Lock (cf-guard.sh): OK"$'\n'
+      output+="Repo Lock (guard.sh): OK"$'\n'
     fi
   else
-    output+="Repo Lock: cf-guard.sh not found (skipped)"$'\n'
+    output+="Repo Lock: guard.sh not found (skipped)"$'\n'
   fi
 
   # Scripts read-only check (no git push/commit/write in gate scripts)
@@ -297,9 +297,9 @@ run_phase3() {
 
   # Step 2: Kit structure check
   local required_files=(
-    "SSOT/cf_handoff_prompt.md"
-    "SSOT/cf_update_runbook.md"
-    "SSOT/cf_task_tracker_v5.md"
+    "SSOT/handoff_prompt.md"
+    "SSOT/update_runbook.md"
+    "SSOT/task_tracker.md"
     "scripts/verify_all.sh"
     "scripts/verify_gate.sh"
     "scripts/generate_handoff.sh"
@@ -328,7 +328,7 @@ run_phase3() {
 
   # Step 3: SSOT comparison
   output+="--- 3b: SSOT比較 ---"$'\n'
-  local ssot_files=("cf_handoff_prompt.md" "cf_update_runbook.md" "cf_task_tracker_v5.md")
+  local ssot_files=("handoff_prompt.md" "update_runbook.md" "task_tracker.md")
   local ssot_match=0
   local ssot_total=0
   for sf in "${ssot_files[@]}"; do

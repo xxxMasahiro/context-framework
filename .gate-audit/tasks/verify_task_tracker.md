@@ -24,11 +24,11 @@
 - Evidence: logs/evidence/20260202T061249Z_* 以降のディレクトリ群（旧形式）
 
 ## 1. Phase 2（最小スモーク）チェックリスト
-- [x] Repo Lock を Evidence 化（`./tools/cf-guard.sh --check`）
+- [x] Repo Lock を Evidence 化（`./tools/guard.sh --check`）
   - Evidence: logs/evidence/20260131-154132_repo_lock.txt
   - 判定: PASS
   - 日時: 2026-01-31 15:41 JST
-- [x] doctor STEP-G003 を Evidence 化（`./tools/cf-doctor.sh step STEP-G003`）
+- [x] doctor STEP-G003 を Evidence 化（`./tools/doctor.sh step STEP-G003`）
   - Evidence: logs/evidence/20260131-155343_doctor_step-g003.txt
   - 判定: PASS
   - 日時: 2026-01-31 15:53 JST
@@ -255,7 +255,7 @@
 - [x] verify_gate.sh: 未知 Gate 指定時に exit 0 → exit 1 に修正（invalid_args カウンタ追加）  - 判定: PASS
   - Evidence: claude_codeの回答.txt §H 提案1
   - 日時: 2026-02-07 JST
-- [x] run_tests.sh: cf-guard.sh パス不一致を tools/cf-guard.sh --check に統一  - 判定: PASS
+- [x] run_tests.sh: guard.sh パス不一致を tools/guard.sh --check に統一  - 判定: PASS
   - Evidence: claude_codeの回答.txt §H 提案2
   - 日時: 2026-02-07 JST
 - [x] evidence.sh: discover_main_repo 階層ずれ（$kit/../.. → $kit/..）+ コメント修正  - 判定: PASS
