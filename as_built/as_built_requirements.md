@@ -1,7 +1,7 @@
 # 要件定義書 — context-framework
 
-version: 0.6
-date: 2026-02-15
+version: 0.7
+date: 2026-02-16
 status: as-built
 
 ---
@@ -296,6 +296,98 @@ status: as-built
 
 ---
 
+## 6a. インスタンス化要件（MUST/SHOULD）
+
+### REQ-CF-I01: GitHub Template Repository
+
+- **要件**: context-framework リポジトリを GitHub Template Repository として設定し、「Use this template」ボタンでインスタンスを生成可能にする。
+- **受入条件**: GitHub リポジトリ設定で「Template repository」が有効化されている。
+- **優先度**: MUST
+- **実装状態**: 実装済み（GitHub UI 設定は手動実施）
+- **根拠**: SPEC-CF-I01
+
+### REQ-CF-I02: 3 層ディレクトリ分類
+
+- **要件**: リポジトリ内の全ディレクトリ・ファイルを L1/L2/L3 の 3 層に分類し、`layer_manifest.yaml` で定義する。パスベースの分類解決ルール（specific > general）を採用する。
+- **受入条件**: `layer_manifest.yaml` がリポジトリルートに存在し、分類解決ルールが定義されている。
+- **優先度**: MUST
+- **実装状態**: 実装済み
+- **根拠**: `layer_manifest.yaml`
+
+### REQ-CF-I03: app/ ディレクトリ統合
+
+- **要件**: `app/` ディレクトリを L3（App）層として定義し、フレームワーク（L1/L2）は `app/` 内部に一切関与しない。Gate 進行管理（A-D）の対象外とする。
+- **受入条件**: `app/` ディレクトリが存在し `.gitkeep` が配置されている。`allow_read_prefix` に `app/` を含まない。
+- **優先度**: MUST
+- **実装状態**: 実装済み
+- **根拠**: `app/.gitkeep`, `layer_manifest.yaml`
+
+### REQ-CF-I04: インスタンス初期化フロー
+
+- **要件**: テンプレートからインスタンスを生成した後の初期化スクリプト（`bin/init-instance`）を提供する。外部ツール不要（gh CLI 不要）。
+- **受入条件**: `bin/init-instance --project <name> --owner <owner>` が実行可能で、初期化後に `tools/ci-validate.sh` を通過する。
+- **優先度**: MUST
+- **実装状態**: 実装済み
+- **根拠**: `bin/init-instance`
+
+### REQ-CF-I05: upstream 同期メカニズム
+
+- **要件**: テンプレートリポジトリ（upstream）の L1 層更新をインスタンスに同期する `bin/sync-upstream` を提供する。専用ブランチ必須（`main` 直適用禁止）。
+- **受入条件**: `bin/sync-upstream` が L1 ファイルのみを更新し、`--dry-run` でプレビュー可能。
+- **優先度**: SHOULD
+- **実装状態**: 実装済み
+- **根拠**: `bin/sync-upstream`
+
+### REQ-CF-I06: ssot_manifest.yaml の app/ 対応
+
+- **要件**: `rules/ssot_manifest.yaml` に `layer_manifest` キーを追加し、`allow_read_prefix` に `app/` を含めない。既存カテゴリは変更しない。
+- **受入条件**: `layer_manifest` キーが存在し、`allow_read_prefix` に `app/` が含まれない。
+- **優先度**: MUST
+- **実装状態**: 実装済み
+- **根拠**: `rules/ssot_manifest.yaml`
+
+### REQ-CF-I07: .gitignore の app/ パターン
+
+- **要件**: `.gitignore` に `app/` 内で一般的に使用されるパターンを追加する。既存パターンは変更しない。
+- **受入条件**: `.gitignore` に `app/` 関連パターンが追加されている。
+- **優先度**: SHOULD
+- **実装状態**: 実装済み
+- **根拠**: `.gitignore`
+
+### REQ-CF-I08: ciqa.yml 簡素化（reusable workflow caller）
+
+- **要件**: `.github/workflows/ciqa.yml` を ~10 行の reusable workflow caller に変換し、CI/CQ ロジックを ciqa リポジトリの reusable workflow に移管する。
+- **受入条件**: ciqa.yml が ~10 行の caller に変換され、CI/CQ 動作が reusable workflow 経由で同一結果を返す。
+- **優先度**: MUST
+- **実装状態**: 実装済み
+- **根拠**: `.github/workflows/ciqa.yml`
+
+### REQ-CF-I09: ciqa profile 自己完結
+
+- **要件**: インスタンスの ciqa プロファイルを `.ciqa/profile.yml` としてインスタンス内に配置し、ciqa リポジトリへのプロファイル追加を不要にする。
+- **受入条件**: `.ciqa/profile.yml` がテンプレートリポジトリに存在し、`--profile-file` フラグで直接指定できる。
+- **優先度**: MUST
+- **実装状態**: 実装済み
+- **根拠**: `.ciqa/profile.yml`
+
+### REQ-CF-I10: CIQA_REF pin 保持
+
+- **要件**: ciqa リポジトリの参照バージョンを ciqa.yml の `uses:` 行の SHA pin で管理し、再現性を保証する。明示更新のみ許可（`--ciqa-ref <40hex>`）。
+- **受入条件**: `uses:` の SHA が CIQA_REF として機能し、`--ciqa-ref` 未指定時はテンプレートの SHA が維持される。
+- **優先度**: MUST
+- **実装状態**: 実装済み
+- **根拠**: `.github/workflows/ciqa.yml`, `bin/init-instance`
+
+### REQ-CF-I11: Gate 適用境界
+
+- **要件**: Gate 進行管理（A-D）の適用境界をパスベースで明文化する: `app/**` のみの変更は Gate A/B 省略可、L1/L2 を含む変更は Gate A-D 必須。
+- **受入条件**: Gate 適用条件がパスベースで定義され、REQ-CF-T01 と矛盾しない。
+- **優先度**: MUST
+- **実装状態**: 実装済み
+- **根拠**: `WORKFLOW/GATES.md`, SPEC-CF-I11
+
+---
+
 ## 7. トレーサビリティ（REQ → 根拠）
 
 | 要件 | 根拠 | 備考 |
@@ -323,6 +415,17 @@ status: as-built
 | REQ-CF-F06 (Skills) | SKILLS/ | |
 | REQ-CF-F07 (CI/CQ WF) | .github/workflows/ | |
 | REQ-CF-F08 (PROMPTS) | PROMPTS/ | |
+| REQ-CF-I01 (Template Repository) | SPEC-CF-I01 | GitHub UI 設定 |
+| REQ-CF-I02 (3 層分類) | layer_manifest.yaml | |
+| REQ-CF-I03 (app/ 統合) | app/.gitkeep, layer_manifest.yaml | |
+| REQ-CF-I04 (初期化フロー) | bin/init-instance | |
+| REQ-CF-I05 (upstream 同期) | bin/sync-upstream | |
+| REQ-CF-I06 (ssot_manifest 拡張) | rules/ssot_manifest.yaml | layer_manifest キー |
+| REQ-CF-I07 (.gitignore 拡張) | .gitignore | app/ パターン |
+| REQ-CF-I08 (ciqa.yml 簡素化) | .github/workflows/ciqa.yml | reusable workflow caller |
+| REQ-CF-I09 (ciqa profile) | .ciqa/profile.yml | |
+| REQ-CF-I10 (CIQA_REF pin) | .github/workflows/ciqa.yml | uses: SHA |
+| REQ-CF-I11 (Gate 適用境界) | WORKFLOW/GATES.md | パスベース判定 |
 
 ---
 
@@ -330,9 +433,9 @@ status: as-built
 
 ### REQ-CF-D01: ciqa プロファイル
 
-- **内容**: ciqa.yml で参照する CF 用プロファイルは ciqa リポジトリ側で管理される。CF リポジトリ側での定義は不要。
-- **影響度**: 解消済み
-- **対応**: ciqa リポジトリに `profiles/context-framework/profile.yml` を作成済み（strict モード、SSOT required、Gate 5 件、timeouts: check=300/job=900）。
+- **内容**: REQ-CF-I09 により `.ciqa/profile.yml` としてインスタンス内に配置。ciqa リポジトリ側の `profiles/context-framework/profile.yml` は ciqa 自身の CI 用として残存する。
+- **影響度**: 解消済み（REQ-CF-I09 で完全移行）
+- **対応**: `.ciqa/profile.yml` をテンプレートリポジトリに作成済み。reusable workflow 経由で `--profile-file` で参照。
 
 ### REQ-CF-D02: ブランチ保護ルール
 
@@ -344,6 +447,7 @@ status: as-built
 
 ## 9. 変更履歴
 
+- v0.7（2026-02-16 JST）: インスタンス化要件 11 件（REQ-CF-I01〜I11）追加。§6a 新設。§7 トレーサビリティ表に 11 行追加。REQ-CF-D01 を REQ-CF-I09 で完全移行に更新。
 - v0.6（2026-02-15 JST）: vendor/ 廃止（ZIP 運用完全終了）。互換シンボリックリンク 9 本撤去（完全ゼロ化）。REQ-CF-S02/F04 の非対象から vendor/ を削除。
 - v0.5（2026-02-14 JST）: `cf_` / `cf-` プレフィックス除去。SSOT 3 ファイル名（`handoff_prompt.md` / `update_runbook.md` / `task_tracker.md`）およびツール 6 ファイル名を新名に更新。
 - v0.4（2026-02-14 JST）: `.cfctx/` → `.repo-id/` リネーム。身元確認ディレクトリ名を直感的な名称に変更。

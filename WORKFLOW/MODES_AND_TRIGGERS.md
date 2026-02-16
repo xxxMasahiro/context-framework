@@ -63,6 +63,18 @@
 - 定義: [../WORKFLOW/MODES_AND_TRIGGERS.md](../WORKFLOW/MODES_AND_TRIGGERS.md)
 ```
 
+## app/ 変更と Mode の関係（REQ-CF-I11）
+
+Mode はフレームワークのガバナンス変更（L1/L2）に対する運用ルールであり、`app/`（L3）内の開発には適用しません。
+
+| Mode | L1/L2 変更 | app/ 変更 |
+|------|-----------|----------|
+| Lite | 通常どおり適用 | **Mode 適用なし** |
+| Standard | 通常どおり適用 | Mode 適用なし |
+| Strict | 通常どおり適用 | Mode 適用なし |
+
+L1/L2 を含む変更がある場合は、既存の Mode 運用に従います。
+
 ## GATEとの接続（最低限の運用手順）
 - Gate A：`ARTIFACTS/TASK_LISTS.md` に **Profile / Triggers** を記入して合意
 - Gate B：`ARTIFACTS/IMPLEMENTATION_PLAN.md` で **Profile / Triggers** を再確認（必要なら昇格）

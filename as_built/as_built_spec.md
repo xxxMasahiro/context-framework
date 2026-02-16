@@ -1,14 +1,14 @@
 # 仕様書 — context-framework
 
-version: 0.12
-date: 2026-02-15
+version: 0.13
+date: 2026-02-16
 status: as-built
 
 ---
 
 ## 0. 目的・位置づけ
 
-本書は `as_built/as_built_requirements.md`（要件定義書 v0.6）に定義された全要件に対する **技術仕様** を記述する。
+本書は `as_built/as_built_requirements.md`（要件定義書 v0.7）に定義された全要件に対する **技術仕様** を記述する。
 
 - 本書は **as-built（実態記述）** である。
 - 要件定義書（`as_built/as_built_requirements.md`）・実装計画書（`as_built/as_built_implementation_plan.md`）とトレーサブルである。
@@ -29,10 +29,12 @@ context-framework/
 │   ├── as_built/                # 検証キット as-built 文書
 │   ├── SSOT/                    # _handoff_check/ 同期コピー
 │   └── ...                      # config, docs, tasks, logs 等
+├── .ciqa/                       # ciqa ローカルプロファイル (REQ-CF-I09)
+│   └── profile.yml              # インスタンス固有プロファイル
 ├── .github/
 │   └── workflows/
 │       ├── ci-validate.yml      # 既存 CI バリデーション (REQ-CF-T04)
-│       └── ciqa.yml             # ciqa フルパイプライン (REQ-CF-F07)
+│       └── ciqa.yml             # ciqa reusable workflow caller (REQ-CF-I08)
 ├── .repo-id/                    # リポジトリ身元メタデータ (REQ-CF-O02)
 │   ├── agent_role_assignment.example.yaml  # 役割割り当てテンプレート
 │   └── repo_fingerprint.json    # リポジトリフィンガープリント
@@ -91,9 +93,13 @@ context-framework/
 │       ├── CLAUDE.template.md
 │       ├── AGENTS.template.md
 │       └── GEMINI.template.md
+├── app/                         # L3 アプリケーションコード (REQ-CF-I03)
+│   └── .gitkeep
 ├── bin/                         # CLI ツール
 │   ├── ctx-run
-│   └── ctx-controller
+│   ├── ctx-controller
+│   ├── init-instance            # テンプレート初期化 (REQ-CF-I04)
+│   └── sync-upstream            # L1 upstream 同期 (REQ-CF-I05)
 ├── CLAUDE.md                    # Claude 運用アダプタ (REQ-CF-F05)
 ├── AGENTS.md                    # Codex 運用アダプタ (REQ-CF-F05)
 ├── GEMINI.md                    # Gemini 運用アダプタ (REQ-CF-F05)
@@ -101,6 +107,7 @@ context-framework/
 │   ├── as_built_requirements.md # 要件定義書
 │   ├── as_built_spec.md         # 仕様書（本書）
 │   └── as_built_implementation_plan.md # 実装計画書
+├── layer_manifest.yaml           # 3 層ディレクトリ分類 (REQ-CF-I02)
 ├── CODEOWNERS                   # SSOT 保護 (REQ-CF-S07)
 ├── README.md                    # ブートストラップ文書
 ├── QUICK_START.md               # セットアップガイド
@@ -187,12 +194,10 @@ context-framework/
      - SHA pin: `actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11`
      - SHA pin: `actions/setup-python@0b93645e9fea7318ecaed2b359559ac225c90a2b`
      - SHA pin: `actions/upload-artifact@5d5d22a31266ced268874388b861e4b58bb5c2f3`
-  2. `ciqa.yml`:
-     - ワークフローレベル `permissions: contents: read`
-     - `notify_failure` ジョブレベル `permissions: contents: read, pull-requests: write`（最小権限原則に準拠）
-     - SHA pin: `actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11`
-     - SHA pin: `actions/upload-artifact@5d5d22a31266ced268874388b861e4b58bb5c2f3`
-     - SHA pin: `actions/download-artifact@c850b930e6ba138125429b7e5c93fc707a7f8427`
+  2. `ciqa.yml`（reusable workflow caller）:
+     - ワークフローレベル `permissions: contents: read, pull-requests: write`
+     - `uses:` 行で ciqa の reusable workflow を SHA pin で参照
+     - SHA pin された actions（checkout, upload-artifact, download-artifact）は ciqa リポジトリ側の `pipeline.yml` で管理
 - **実装状態**: 実装済み
 
 ### SPEC-CF-S07: CODEOWNERS 仕様
@@ -274,13 +279,12 @@ context-framework/
      - 実行内容: `./tools/ci-validate.sh`（rules/manifest/routes/policy 検証 + smoke test）
      - Python 3.11
      - 証跡: `LOGS/ci/*.log` をアーティファクトとしてアップロード
-  2. `ciqa.yml`:
+  2. `ciqa.yml`（reusable workflow caller）:
      - トリガー: `on: [push, pull_request]`（ブランチフィルタなし）
-     - ジョブ順序: phase0 → lint → build → unit_test → cq → report + notify_failure
-     - ciqa リポジトリを `CIQA_REF`（SHA pin）でチェックアウト
-     - CF プロファイル存在確認（`ciqa/profiles/context-framework/profile.yml`）
-     - 各ジョブで secrets スキャン + evidence アップロード
-     - notify_failure: 失敗時に PR コメント投稿
+     - reusable workflow: `uses: xxxMasahiro/ciqa/.github/workflows/pipeline.yml@<sha>`
+     - プロファイル: `.ciqa/profile.yml`（インスタンスローカル、REQ-CF-I09）
+     - CI/CQ パイプライン（7 jobs）は ciqa リポジトリの reusable workflow で実行
+     - app/ のビルド・テストは `.ciqa/profile.yml` の `gates[].command` で設定可能
 - **実装状態**: 実装済み
 
 ### SPEC-CF-T05: Audit 証跡仕様
@@ -480,26 +484,13 @@ context-framework/
        3. `./tools/ci-validate.sh` 実行
        4. LOGS/ci/ アーティファクトアップロード（SHA pin）
      - permissions: `contents: read`
-  2. `ciqa.yml`:
+  2. `ciqa.yml`（reusable workflow caller、REQ-CF-I08）:
      - トリガー: `on: [push, pull_request]`（ブランチフィルタなし）
-     - ランナー: `ubuntu-24.04`
-     - ジョブ構成（直列チェーン）:
-       ```
-       phase0 → lint → build → unit_test → cq → report + notify_failure
-       ```
-     - 各ジョブ共通:
-       - CF リポジトリ checkout（target/）
-       - ciqa リポジトリ checkout（ciqa/、CIQA_REF で SHA pin）
-       - CIQA_REF プレースホルダ検証
-       - 依存インストール（jq, uuid-runtime, shellcheck, yq, ajv-cli）
-       - CF プロファイル存在確認
-       - ciqa コマンド実行
-       - secrets スキャン
-       - evidence アーティファクトアップロード（retention-days: 30）
-     - notify_failure:
-       - 条件: `failure() && github.event_name == 'pull_request'`
-       - evidence ダウンロード + PR コメント投稿
-     - permissions: `contents: read`, `pull-requests: write`
+     - reusable workflow 呼び出し: `uses: xxxMasahiro/ciqa/.github/workflows/pipeline.yml@<sha>`
+     - 入力: `profile-path: .ciqa/profile.yml`、`ciqa-ref: "<sha>"`
+     - `secrets: inherit` でシークレット伝播
+     - permissions: `contents: read`, `pull-requests: write`（ワークフローレベル）
+     - CI/CQ ロジック（7 jobs: phase0 → lint → build → unit_test → cq → report + notify_failure）は ciqa リポジトリの `pipeline.yml` に移管
 - **実装状態**: 実装済み
 
 ### SPEC-CF-F08: PROMPTS 仕様
@@ -514,6 +505,141 @@ context-framework/
      | `CHATGPT_ARCHITECT_ORCHESTRATOR.md` | Architect/Orchestrator |
      | `AUDITOR.md` | Auditor（監査担当） |
   2. `PROMPTS/` に配置。
+- **実装状態**: 実装済み
+
+---
+
+## 5a. インスタンス化仕様
+
+### SPEC-CF-I01: GitHub Template Repository 仕様
+
+- **対応要件**: REQ-CF-I01
+- **仕様**:
+  1. GitHub リポジトリ Settings → General → 「Template repository」チェックボックスを有効化する。
+  2. テンプレートからの生成時、GitHub は全ファイルをコピーし、新しい `.git` を作成する。コミット履歴は引き継がれない。
+- **実装状態**: 実装済み（GitHub UI 設定は手動実施）
+
+### SPEC-CF-I02: 3 層ディレクトリ分類仕様（layer_manifest.yaml）
+
+- **対応要件**: REQ-CF-I02
+- **仕様**:
+  1. `layer_manifest.yaml` をリポジトリルートに配置する。
+  2. スキーマ: `schema_version: "1.0"`, `resolution_rules` (precedence: specific_over_general, unknown: warn), `layers` (L1_governance, L2_project, L3_app), `excluded`
+  3. L1 (12 paths): WORKFLOW/, rules/, controller/, tools/, SKILLS/, PROMPTS/, TOOLING/, bin/, .gate-audit/, CHARTER/, .github/workflows/ci-validate.yml, layer_manifest.yaml
+  4. L2 (16 paths): .repo-id/, .github/, .ciqa/, _handoff_check/, ARTIFACTS/, LOGS/, as_built/, CLAUDE.md, AGENTS.md, GEMINI.md, CODEOWNERS, README.md, QUICK_START.md, CHANGELOG.md, .gitignore, Prompt.md
+  5. L3: app/（governance_scope: none）
+  6. `resolution_rules.precedence: "specific_over_general"` により、`.github/workflows/ci-validate.yml`（L1）が `.github/`（L2）より優先される。
+- **実装状態**: 実装済み
+
+### SPEC-CF-I03: app/ ディレクトリ統合仕様
+
+- **対応要件**: REQ-CF-I03
+- **仕様**:
+  1. `app/` ディレクトリに `.gitkeep` を配置する。
+  2. フレームワーク非干渉の原則:
+     - `ssot_manifest.yaml` の `allow_read_prefix` に `app/` を追加 **しない**。
+     - `CODEOWNERS` に `app/` パスを追加 **しない**。
+     - Gate 進行管理（A-D）は `app/` 内の変更を対象 **としない**。
+  3. CI/CQ パイプラインとの関係: `.ciqa/profile.yml` の `gates[].command` で `app/` 内のビルド・テストを実行可能。
+- **実装状態**: 実装済み
+
+### SPEC-CF-I04: インスタンス初期化フロー仕様（init-instance）
+
+- **対応要件**: REQ-CF-I04
+- **仕様**:
+  1. スクリプトパス: `bin/init-instance`
+  2. CLI: `./bin/init-instance --project <name> --owner <owner> [--ciqa-ref <40hex>]`
+  3. 処理ステップ:
+     - Step 1: `.repo-id/repo_fingerprint.json` 再生成（UUID v4, ISO 8601 日時）
+     - Step 2: CODEOWNERS オーナー置換（`@xxxMasahiro` → `@<owner>`）
+     - Step 3: `_handoff_check/` の 3 ファイルを初期テンプレート状態にリセット
+     - Step 4: `ARTIFACTS/` を初期テンプレート状態にリセット
+     - Step 5: README.md プレースホルダ置換（`context-framework` → `<project>`）
+     - Step 6: CHANGELOG.md 初期化
+     - Step 7: `.ciqa/profile.yml` 置換（`context-framework` → `<project>`, `xxxMasahiro` → `<owner>`）
+     - Step 8: (--ciqa-ref 指定時のみ) ciqa.yml の `uses:` SHA を更新
+  4. 冪等性: 複数回実行しても安全。外部ツール不要（gh CLI 不要）。
+- **実装状態**: 実装済み
+
+### SPEC-CF-I05: upstream 同期メカニズム仕様（sync-upstream）
+
+- **対応要件**: REQ-CF-I05
+- **仕様**:
+  1. スクリプトパス: `bin/sync-upstream`
+  2. 前提条件: upstream remote が設定済み
+  3. 専用ブランチ必須: 実行先が `main` の場合はエラー終了
+  4. 処理フロー: upstream 最新取得 → `layer_manifest.yaml` から L1 パス一覧取得 → L1 パスのみ checkout → ステージング + コミット
+  5. 安全策: L2/L3 パスは checkout 対象外。`--dry-run` でプレビューのみ。
+- **実装状態**: 実装済み
+
+### SPEC-CF-I06: ssot_manifest.yaml の app/ 対応仕様
+
+- **対応要件**: REQ-CF-I06
+- **仕様**:
+  1. `rules/ssot_manifest.yaml` に `layer_manifest: "layer_manifest.yaml"` キーを追加。
+  2. 既存カテゴリ（ssot, handoff_check_files, charter, architect, skills, projection, allow_read_prefix）は一切変更しない。
+  3. `allow_read_prefix` に `app/` を追加しない。
+- **実装状態**: 実装済み
+
+### SPEC-CF-I07: .gitignore の app/ パターン仕様
+
+- **対応要件**: REQ-CF-I07
+- **仕様**:
+  1. `.gitignore` に `# App (L3)` セクションを追加（12 パターン）: `app/node_modules/`, `app/.env`, `app/.env.*`, `app/dist/`, `app/build/`, `app/.next/`, `app/.nuxt/`, `app/vendor/`, `app/__pycache__/`, `app/*.pyc`, `app/.venv/`, `app/target/`, `app/.gradle/`
+  2. 既存パターンは変更しない。
+- **実装状態**: 実装済み
+
+### SPEC-CF-I08: ciqa.yml 簡素化仕様（reusable workflow caller）
+
+- **対応要件**: REQ-CF-I08
+- **仕様**:
+  1. `.github/workflows/ciqa.yml` を ~15 行の reusable workflow caller に変換:
+     ```yaml
+     name: CI/CQ
+     on: [push, pull_request]
+     permissions:
+       contents: read
+       pull-requests: write
+     jobs:
+       ciqa:
+         uses: xxxMasahiro/ciqa/.github/workflows/pipeline.yml@<sha>
+         with:
+           profile-path: .ciqa/profile.yml
+           ciqa-ref: "<sha>"
+         secrets: inherit
+     ```
+  2. CI/CQ 動作は reusable workflow 経由で同一結果を返す。
+  3. check context 名が 2 階層（`CI/CQ / <job>`）から 3 階層（`CI/CQ / ciqa / <job>`）に変更される。
+- **実装状態**: 実装済み
+
+### SPEC-CF-I09: ciqa profile 自己完結仕様
+
+- **対応要件**: REQ-CF-I09
+- **仕様**:
+  1. `.ciqa/profile.yml` をテンプレートリポジトリに配置する（実値: `context-framework` / `xxxMasahiro`）。
+  2. `init-instance` の Step 7 で `context-framework` → `<project>`, `xxxMasahiro` → `<owner>` を置換する。
+  3. ciqa リポジトリへのプロファイル追加は不要。
+- **実装状態**: 実装済み
+
+### SPEC-CF-I10: CIQA_REF pin 保持仕様
+
+- **対応要件**: REQ-CF-I10
+- **仕様**:
+  1. CIQA_REF は ciqa.yml の `uses:` 行の SHA として管理される。
+  2. `init-instance` は `--ciqa-ref` 未指定時にテンプレートの SHA を維持する。
+  3. `--ciqa-ref <40hex>` 指定時のみ `uses:` 行の SHA を更新する。
+  4. 値の妥当性検証: 40 桁の hex 文字列であることを確認する。
+- **実装状態**: 実装済み
+
+### SPEC-CF-I11: Gate 適用境界仕様
+
+- **対応要件**: REQ-CF-I11
+- **仕様**:
+  1. Gate 適用条件をパスベースで定義:
+     - 変更が `app/**` のみ: Gate A/B 省略可（任意）
+     - L1/L2 を含む変更: 既存どおり Gate A-D 必須
+  2. 判定方法: `git diff --name-only` で変更ファイル一覧を取得し、全ファイルが `app/` 配下であるかを判定。
+  3. REQ-CF-T01（Gate A-D）との整合: Gate 適用免除の条件が明文化されており、矛盾しない。
 - **実装状態**: 実装済み
 
 ---
@@ -545,6 +671,17 @@ context-framework/
 | REQ-CF-F06 (Skills) | SPEC-CF-F06 | |
 | REQ-CF-F07 (CI/CQ WF) | SPEC-CF-F07 | |
 | REQ-CF-F08 (PROMPTS) | SPEC-CF-F08 | |
+| REQ-CF-I01 (Template Repository) | SPEC-CF-I01 | GitHub UI 設定 |
+| REQ-CF-I02 (3 層分類) | SPEC-CF-I02 | layer_manifest.yaml |
+| REQ-CF-I03 (app/ 統合) | SPEC-CF-I03 | |
+| REQ-CF-I04 (初期化フロー) | SPEC-CF-I04 | bin/init-instance |
+| REQ-CF-I05 (upstream 同期) | SPEC-CF-I05 | bin/sync-upstream |
+| REQ-CF-I06 (ssot_manifest 拡張) | SPEC-CF-I06 | layer_manifest キー |
+| REQ-CF-I07 (.gitignore 拡張) | SPEC-CF-I07 | app/ パターン |
+| REQ-CF-I08 (ciqa.yml 簡素化) | SPEC-CF-I08 | reusable workflow caller |
+| REQ-CF-I09 (ciqa profile) | SPEC-CF-I09 | .ciqa/profile.yml |
+| REQ-CF-I10 (CIQA_REF pin) | SPEC-CF-I10 | uses: SHA |
+| REQ-CF-I11 (Gate 適用境界) | SPEC-CF-I11 | パスベース判定 |
 
 ---
 
@@ -552,20 +689,21 @@ context-framework/
 
 ### SPEC-CF-D01: ciqa プロファイル詳細
 
-- **対応**: REQ-CF-D01
-- **状況**: ciqa リポジトリに `profiles/context-framework/profile.yml` を作成済み（strict モード、SSOT required、Gate 5 件）。ciqa.yml の各ジョブが参照するプロファイル存在確認ステップを通過可能。
-- **影響度**: 解消済み
+- **対応**: REQ-CF-D01, REQ-CF-I09
+- **状況**: SPEC-CF-I09 により `.ciqa/profile.yml` としてインスタンス内に配置。ciqa リポジトリ側の `profiles/context-framework/profile.yml` は ciqa 自身の CI 用として残存。reusable workflow 経由で `--profile-file` で参照。
+- **影響度**: 解消済み（SPEC-CF-I09 で完全移行）
 
 ### SPEC-CF-D02: CIQA_REF 確定
 
-- **対応**: —
-- **状況**: ciqa.yml の `CIQA_REF` を ciqa リポジトリ最終コミット SHA（`9da152c0d8a916b501b20e9bc210f55894d03cf9`）に確定済み。プレースホルダ検証ステップを通過可能。
+- **対応**: REQ-CF-I10, SPEC-CF-I10
+- **状況**: ciqa.yml の `uses:` 行の SHA として管理（SPEC-CF-I08/I10）。現在の SHA: `8133a15765246f3cbccebe4210c306a5e17114cf`（ciqa CPI-3 コミット）。
 - **影響度**: 解消済み
 
 ---
 
 ## 8. 変更履歴
 
+- v0.13（2026-02-16 JST）: インスタンス化仕様 11 件（SPEC-CF-I01〜I11）追加。§5a 新設。SPEC-CF-DIR01 に app/, .ciqa/, layer_manifest.yaml, bin/init-instance, bin/sync-upstream を追記。SPEC-CF-F07/T04/S06 を reusable workflow caller に更新。§6 トレーサビリティ表に 11 行追加。SPEC-CF-D01/D02 を更新。参照要件 v0.7。
 - v0.12（2026-02-15 JST）: SPEC-CF-S06 ciqa.yml 権限記述を実装準拠に修正。`pull-requests: write` がワークフローレベルではなく `notify_failure` ジョブレベルであることを明記（CODEX F-02 対応）。
 - v0.11（2026-02-15 JST）: vendor/ 廃止（ZIP 運用完全終了）。SPEC-CF-DIR01 ディレクトリ構造図から vendor/ 行を削除。互換シンボリックリンク 9 本撤去（完全ゼロ化）。
 - v0.10（2026-02-14 JST）: `cf_` / `cf-` プレフィックス除去。SSOT 3 ファイル名・ツール 6 ファイル名・ディレクトリ構造図を新名に更新。

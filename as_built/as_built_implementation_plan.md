@@ -1,14 +1,14 @@
 # 実装計画書 — context-framework
 
-version: 1.3
-date: 2026-02-15
+version: 1.4
+date: 2026-02-16
 status: as-built
 
 ---
 
 ## 0. 目的・位置づけ
 
-本書は `as_built/as_built_requirements.md`（要件定義書 v0.6）および `as_built/as_built_spec.md`（仕様書 v0.12）に完全準拠した **実装計画** を記述する。
+本書は `as_built/as_built_requirements.md`（要件定義書 v0.7）および `as_built/as_built_spec.md`（仕様書 v0.13）に完全準拠した **実装計画** を記述する。
 
 - 本書は **as-built（実態記述）** である。
 - 要件定義書（`as_built/as_built_requirements.md`）・仕様書（`as_built/as_built_spec.md`）とトレーサブルである。
@@ -307,6 +307,17 @@ status: as-built
 | REQ-CF-F06 (Skills) | SPEC-CF-F06 | P6-01 |
 | REQ-CF-F07 (CI/CQ WF) | SPEC-CF-F07 | P8-01, P8-02 |
 | REQ-CF-F08 (PROMPTS) | SPEC-CF-F08 | P7-01 |
+| REQ-CF-I01 (Template Repository) | SPEC-CF-I01 | PI-6 |
+| REQ-CF-I02 (3 層分類) | SPEC-CF-I02 | PI-1 |
+| REQ-CF-I03 (app/ 統合) | SPEC-CF-I03 | PI-1 |
+| REQ-CF-I04 (初期化フロー) | SPEC-CF-I04 | PI-4 |
+| REQ-CF-I05 (upstream 同期) | SPEC-CF-I05 | PI-5 |
+| REQ-CF-I06 (ssot_manifest 拡張) | SPEC-CF-I06 | PI-3 |
+| REQ-CF-I07 (.gitignore 拡張) | SPEC-CF-I07 | PI-3 |
+| REQ-CF-I08 (ciqa.yml 簡素化) | SPEC-CF-I08 | PI-2 |
+| REQ-CF-I09 (ciqa profile) | SPEC-CF-I09 | PI-1 |
+| REQ-CF-I10 (CIQA_REF pin) | SPEC-CF-I10 | PI-2, PI-4 |
+| REQ-CF-I11 (Gate 適用境界) | SPEC-CF-I11 | PI-4, PI-7 |
 
 ---
 
@@ -324,12 +335,138 @@ P1 (基盤構成)
       └── P7 (PROMPTS)
 
 P10 (as-built 文書) ← P1-P9 全完了後
+
+--- インスタンス化フェーズ ---
+
+CPI-1 (profile-file) → CPI-2 (reusable workflow) → CPI-3 (ciqa as-built)
+                                                          │
+PI-0 (Baseline) ←────────────────────────────────────────┘
+ ├── PI-1 (layer_manifest + .ciqa/ + app/)
+ │    ├── PI-3 (ssot_manifest + .gitignore)
+ │    │    └── PI-4 (init-instance) ← PI-1, PI-2, PI-3
+ │    └── PI-5 (sync-upstream) ← PI-1
+ ├── PI-2 (ciqa.yml simplification) ← CPI-2
+ └── PI-6 (Template Repository) ← PI-1〜PI-5
+      └── PI-7 (as-built + WORKFLOW + verification) ← PI-1〜PI-6
 ```
+
+---
+
+## 14a. インスタンス化フェーズ（CPI-1〜CPI-3 + PI-0〜PI-7）
+
+### ciqa 側前提条件
+
+#### IMPL-CPI-1: ローカルプロファイル検出
+
+- **対応 SPEC**: SPEC-F17
+- **対応 REQ**: REQ-F17
+- **実装内容**:
+  - `core/profile_engine.sh` の `resolve_profile()` に `--profile-file` 優先順位を追加
+  - `ciqa` CLI に `--profile-file <path>` オプションを追加
+  - `core/runner.sh` の `run_pipeline()` に `profile_file_path` パラメータ追加
+  - `tests/test_profile_local.sh` テスト追加
+- **状態**: 実装済み
+
+#### IMPL-CPI-2: reusable workflow 作成
+
+- **対応 SPEC**: SPEC-F18
+- **対応 REQ**: REQ-F18
+- **実装内容**:
+  - `.github/workflows/pipeline.yml` を新規作成（`workflow_call` トリガー）
+  - 入力: `profile-path`（デフォルト: `.ciqa/profile.yml`）、`ciqa-ref`（必須）
+  - 7 jobs 構成: phase0 → lint → build → unit_test → cq → report + notify_failure
+  - SHA pinned actions、permissions 構造保全
+  - 既存 `ci.yml` は不変（REQ-O03 保全）
+- **状態**: 実装済み
+
+#### IMPL-CPI-3: ciqa as-built 更新
+
+- **実装内容**:
+  - ciqa as-built 3 文書に CPI-1/CPI-2 を反映（REQ-F17/F18, SPEC-F17/F18）
+  - CPI-3 コミット SHA: `8133a15765246f3cbccebe4210c306a5e17114cf`
+- **状態**: 実装済み
+
+### CF 側実装
+
+#### IMPL-PI-0: Baseline 固定
+
+- **実装内容**:
+  - CF as-built 版数記録: req v0.6 / spec v0.12 / impl v1.3
+  - ciqa as-built 版数記録: req v0.9 / spec v0.16 / impl v0.12（CPI-3 後: v0.10 / v0.17 / v0.13）
+- **状態**: 実装済み
+
+#### IMPL-PI-1: 非破壊基盤追加
+
+- **対応 SPEC**: SPEC-CF-I02, SPEC-CF-I03, SPEC-CF-I09
+- **対応 REQ**: REQ-CF-I02, REQ-CF-I03, REQ-CF-I09
+- **実装内容**:
+  - `layer_manifest.yaml` 作成（L1/L2/L3 パス分類、resolution_rules 付き）
+  - `.ciqa/profile.yml` テンプレート作成（実値: `context-framework` / `xxxMasahiro`）
+  - `app/.gitkeep` 作成
+- **状態**: 実装済み
+
+#### IMPL-PI-2: ciqa.yml 簡素化
+
+- **対応 SPEC**: SPEC-CF-I08, SPEC-CF-I10
+- **対応 REQ**: REQ-CF-I08, REQ-CF-I10
+- **実装内容**:
+  - 現行 559 行 → ~15 行の reusable workflow caller に置換
+  - `uses: xxxMasahiro/ciqa/.github/workflows/pipeline.yml@8133a15765246f3cbccebe4210c306a5e17114cf`
+  - `with: profile-path: .ciqa/profile.yml`、`ciqa-ref: "8133a15..."`
+- **状態**: 実装済み
+
+#### IMPL-PI-3: ssot_manifest + .gitignore 拡張
+
+- **対応 SPEC**: SPEC-CF-I06, SPEC-CF-I07
+- **対応 REQ**: REQ-CF-I06, REQ-CF-I07
+- **実装内容**:
+  - `rules/ssot_manifest.yaml` に `layer_manifest: "layer_manifest.yaml"` 追加
+  - `.gitignore` に `# App (L3)` セクション追加（12 パターン）
+  - `parse_manifest()` 後方互換検証済み
+- **状態**: 実装済み
+
+#### IMPL-PI-4: init-instance 実装
+
+- **対応 SPEC**: SPEC-CF-I04
+- **対応 REQ**: REQ-CF-I04
+- **実装内容**:
+  - `bin/init-instance` 新規作成（8 Steps、~175 行）
+  - CLI: `--project <name> --owner <owner> [--ciqa-ref <40hex>]`
+  - 外部ツール不要（gh CLI 不要）、冪等性確保
+- **状態**: 実装済み
+
+#### IMPL-PI-5: sync-upstream 実装
+
+- **対応 SPEC**: SPEC-CF-I05
+- **対応 REQ**: REQ-CF-I05
+- **実装内容**:
+  - `bin/sync-upstream` 新規作成（~126 行）
+  - `main` ブランチ実行禁止、L1 パスのみ同期
+  - `--dry-run` オプション
+- **状態**: 実装済み
+
+#### IMPL-PI-6: Template Repository 設定
+
+- **対応 SPEC**: SPEC-CF-I01
+- **対応 REQ**: REQ-CF-I01
+- **実装内容**: GitHub UI で Settings → General → 「Template repository」有効化（手動実施）
+- **状態**: 実装済み
+
+#### IMPL-PI-7: as-built + WORKFLOW 更新 + 最終検証
+
+- **対応 REQ**: REQ-CF-I01〜I11
+- **実装内容**:
+  - CF as-built 3 文書に I01-I11 反映
+  - WORKFLOW 3 文書に app/ 免除条件追記
+  - トレーサビリティ表完全化
+  - 最終版数確定
+- **状態**: 実装済み
 
 ---
 
 ## 14. 変更履歴
 
+- v1.4（2026-02-16 JST）: インスタンス化フェーズ追加。§14a 新設（CPI-1〜CPI-3 + PI-0〜PI-7）。§12 トレーサビリティ表に 11 行追加。§13 依存関係グラフ更新。参照 v0.7 / v0.13。
 - v1.3（2026-02-15 JST）: IMPL-CF-P8-01 ciqa.yml 権限記述を実装準拠に修正。`pull-requests: write` が `notify_failure` ジョブレベルであることを明記。参照 v0.6 / v0.12（CODEX F-02 対応）。
 - v1.2（2026-02-15 JST）: vendor/ 廃止（ZIP 運用完全終了）。互換シンボリックリンク 9 本撤去（完全ゼロ化）。参照 v0.6 / v0.11。
 - v1.1（2026-02-14 JST）: `cf_` / `cf-` プレフィックス除去。全ツール名・SSOT ファイル名参照を新名に更新。参照 v0.5 / v0.10。
