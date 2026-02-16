@@ -1,6 +1,6 @@
 # 仕様書 — context-framework
 
-version: 0.14
+version: 0.15
 date: 2026-02-17
 status: as-built
 
@@ -696,13 +696,14 @@ context-framework/
 ### SPEC-CF-D02: CIQA_REF 確定
 
 - **対応**: REQ-CF-I10, SPEC-CF-I10
-- **状況**: ciqa.yml の `uses:` 行の SHA として管理（SPEC-CF-I08/I10）。現在の SHA: `8133a15765246f3cbccebe4210c306a5e17114cf`（ciqa CPI-3 コミット）。
+- **状況**: ciqa.yml の `uses:` 行の SHA として管理（SPEC-CF-I08/I10）。現在の SHA: `dc2b906f27a652b532f2e235f32b68c756b0725f`（ciqa cq_readonly false positive 修正コミット）。
 - **影響度**: 解消済み
 
 ---
 
 ## 8. 変更履歴
 
+- v0.15（2026-02-17 JST）: SPEC-CF-D02 の CIQA_REF SHA を `8133a15...` → `dc2b906...` に更新（ciqa cq_readonly false positive 修正に伴う SHA 追従、CODEX HIGH 対応）。
 - v0.14（2026-02-17 JST）: 参照要件定義書バージョンを v0.7 → v0.8 に更新（REQ-CF-I08 行数記述修正との整合）。
 - v0.13（2026-02-16 JST）: インスタンス化仕様 11 件（SPEC-CF-I01〜I11）追加。§5a 新設。SPEC-CF-DIR01 に app/, .ciqa/, layer_manifest.yaml, bin/init-instance, bin/sync-upstream を追記。SPEC-CF-F07/T04/S06 を reusable workflow caller に更新。§6 トレーサビリティ表に 11 行追加。SPEC-CF-D01/D02 を更新。参照要件 v0.7。
 - v0.12（2026-02-15 JST）: SPEC-CF-S06 ciqa.yml 権限記述を実装準拠に修正。`pull-requests: write` がワークフローレベルではなく `notify_failure` ジョブレベルであることを明記（CODEX F-02 対応）。
