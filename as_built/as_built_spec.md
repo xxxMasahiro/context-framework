@@ -1,14 +1,14 @@
 # 仕様書 — context-framework
 
-version: 0.13
-date: 2026-02-16
+version: 0.14
+date: 2026-02-17
 status: as-built
 
 ---
 
 ## 0. 目的・位置づけ
 
-本書は `as_built/as_built_requirements.md`（要件定義書 v0.7）に定義された全要件に対する **技術仕様** を記述する。
+本書は `as_built/as_built_requirements.md`（要件定義書 v0.8）に定義された全要件に対する **技術仕様** を記述する。
 
 - 本書は **as-built（実態記述）** である。
 - 要件定義書（`as_built/as_built_requirements.md`）・実装計画書（`as_built/as_built_implementation_plan.md`）とトレーサブルである。
@@ -703,6 +703,7 @@ context-framework/
 
 ## 8. 変更履歴
 
+- v0.14（2026-02-17 JST）: 参照要件定義書バージョンを v0.7 → v0.8 に更新（REQ-CF-I08 行数記述修正との整合）。
 - v0.13（2026-02-16 JST）: インスタンス化仕様 11 件（SPEC-CF-I01〜I11）追加。§5a 新設。SPEC-CF-DIR01 に app/, .ciqa/, layer_manifest.yaml, bin/init-instance, bin/sync-upstream を追記。SPEC-CF-F07/T04/S06 を reusable workflow caller に更新。§6 トレーサビリティ表に 11 行追加。SPEC-CF-D01/D02 を更新。参照要件 v0.7。
 - v0.12（2026-02-15 JST）: SPEC-CF-S06 ciqa.yml 権限記述を実装準拠に修正。`pull-requests: write` がワークフローレベルではなく `notify_failure` ジョブレベルであることを明記（CODEX F-02 対応）。
 - v0.11（2026-02-15 JST）: vendor/ 廃止（ZIP 運用完全終了）。SPEC-CF-DIR01 ディレクトリ構造図から vendor/ 行を削除。互換シンボリックリンク 9 本撤去（完全ゼロ化）。

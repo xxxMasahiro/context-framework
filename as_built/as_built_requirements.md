@@ -1,7 +1,7 @@
 # 要件定義書 — context-framework
 
-version: 0.7
-date: 2026-02-16
+version: 0.8
+date: 2026-02-17
 status: as-built
 
 ---
@@ -356,8 +356,8 @@ status: as-built
 
 ### REQ-CF-I08: ciqa.yml 簡素化（reusable workflow caller）
 
-- **要件**: `.github/workflows/ciqa.yml` を ~10 行の reusable workflow caller に変換し、CI/CQ ロジックを ciqa リポジトリの reusable workflow に移管する。
-- **受入条件**: ciqa.yml が ~10 行の caller に変換され、CI/CQ 動作が reusable workflow 経由で同一結果を返す。
+- **要件**: `.github/workflows/ciqa.yml` を ~15 行の reusable workflow caller に変換し、CI/CQ ロジックを ciqa リポジトリの reusable workflow に移管する。
+- **受入条件**: ciqa.yml が ~15 行の reusable workflow caller に変換され、CI/CQ 動作が reusable workflow 経由で同一結果を返す。
 - **優先度**: MUST
 - **実装状態**: 実装済み
 - **根拠**: `.github/workflows/ciqa.yml`
@@ -447,6 +447,7 @@ status: as-built
 
 ## 9. 変更履歴
 
+- v0.8（2026-02-17 JST）: REQ-CF-I08 の行数記述を ~10 行 → ~15 行に修正（実体 ciqa.yml 15 行・仕様書/実装計画書との整合）。
 - v0.7（2026-02-16 JST）: インスタンス化要件 11 件（REQ-CF-I01〜I11）追加。§6a 新設。§7 トレーサビリティ表に 11 行追加。REQ-CF-D01 を REQ-CF-I09 で完全移行に更新。
 - v0.6（2026-02-15 JST）: vendor/ 廃止（ZIP 運用完全終了）。互換シンボリックリンク 9 本撤去（完全ゼロ化）。REQ-CF-S02/F04 の非対象から vendor/ を削除。
 - v0.5（2026-02-14 JST）: `cf_` / `cf-` プレフィックス除去。SSOT 3 ファイル名（`handoff_prompt.md` / `update_runbook.md` / `task_tracker.md`）およびツール 6 ファイル名を新名に更新。

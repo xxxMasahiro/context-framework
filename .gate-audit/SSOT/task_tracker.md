@@ -64,6 +64,7 @@
 - Gate H（完了）：詳細は runbook 付録「Gate H アーカイブ（完了済みチェックリスト）」を参照
 
 ## 4. 更新ログ（Progress Log/Updates）※直近のみ
+- 2026-02-17T00:45:00+09:00 | UPD-20260217-01 | インスタンス化全フェーズ完了（CPI-1〜CPI-3 + PI-0〜PI-7）| Evidence: branch wip/cf-zero-phase1 commits b6c6f4e..855113a, ciqa branch wip/cf-zero-profile commits 5a25381..8133a15. as-built v0.7/v0.13/v1.4. WORKFLOW 3文書 app/免除条件追記済み. ci-validate PASS.
 - 2026-02-02T00:33:11+09:00 | UPD-20260202-01 | Gate D REQ3 STRICT PASS | Evidence: ~/.gate-audit_root/.gate-audit/logs/evidence/20260201T150142Z_gateD_redo_req3_functional_strict.txt
 - 2026-01-31T13:35:37+09:00 | UPD-20260131-04 | Gate J: J0 追加（次にやる1手を Gate J へ移行） | Evidence: tracker に Gate J 行が無かったため入口J0を最小追加（この変更コミット参照）
 - 2026-01-31T10:50:39+09:00 | UPD-20260131-03 | Gate I: I4/I5 Done[x]（最小スモーク: ./tools/doctor.sh step STEP-G003 => PASS / 運用統合runbook追記済み） | Evidence: doctor PASS（出力のrefs: runbook L818/L1191, LOGS/INDEX L47 ほか）

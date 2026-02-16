@@ -1,14 +1,14 @@
 # 実装計画書 — context-framework
 
-version: 1.4
-date: 2026-02-16
+version: 1.5
+date: 2026-02-17
 status: as-built
 
 ---
 
 ## 0. 目的・位置づけ
 
-本書は `as_built/as_built_requirements.md`（要件定義書 v0.7）および `as_built/as_built_spec.md`（仕様書 v0.13）に完全準拠した **実装計画** を記述する。
+本書は `as_built/as_built_requirements.md`（要件定義書 v0.8）および `as_built/as_built_spec.md`（仕様書 v0.14）に完全準拠した **実装計画** を記述する。
 
 - 本書は **as-built（実態記述）** である。
 - 要件定義書（`as_built/as_built_requirements.md`）・仕様書（`as_built/as_built_spec.md`）とトレーサブルである。
@@ -466,6 +466,7 @@ PI-0 (Baseline) ←────────────────────�
 
 ## 14. 変更履歴
 
+- v1.5（2026-02-17 JST）: 参照要件定義書/仕様書バージョンを v0.7/v0.13 → v0.8/v0.14 に更新（REQ-CF-I08 行数記述修正との整合）。
 - v1.4（2026-02-16 JST）: インスタンス化フェーズ追加。§14a 新設（CPI-1〜CPI-3 + PI-0〜PI-7）。§12 トレーサビリティ表に 11 行追加。§13 依存関係グラフ更新。参照 v0.7 / v0.13。
 - v1.3（2026-02-15 JST）: IMPL-CF-P8-01 ciqa.yml 権限記述を実装準拠に修正。`pull-requests: write` が `notify_failure` ジョブレベルであることを明記。参照 v0.6 / v0.12（CODEX F-02 対応）。
 - v1.2（2026-02-15 JST）: vendor/ 廃止（ZIP 運用完全終了）。互換シンボリックリンク 9 本撤去（完全ゼロ化）。参照 v0.6 / v0.11。
