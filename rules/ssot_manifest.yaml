@@ -18,6 +18,7 @@ projection:
   - "CLAUDE.md"
   - "AGENTS.md"
   - "GEMINI.md"
+layer_manifest: "layer_manifest.yaml"
 allow_read_prefix:
   - "_handoff_check/"
   - "CHARTER/"
