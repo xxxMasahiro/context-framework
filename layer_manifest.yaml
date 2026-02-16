@@ -1,0 +1,55 @@
+schema_version: "1.0"
+resolution_rules:
+  precedence: "specific_over_general"
+  unknown: "warn"
+layers:
+  L1_governance:
+    description: "フレームワークのコア機能・ルール（upstream 同期対象）"
+    sync_source: upstream
+    direct_edit: prohibited
+    paths:
+      - "WORKFLOW/"
+      - "rules/"
+      - "controller/"
+      - "tools/"
+      - "SKILLS/"
+      - "PROMPTS/"
+      - "TOOLING/"
+      - "bin/"
+      - ".gate-audit/"
+      - "CHARTER/"
+      - ".github/workflows/ci-validate.yml"
+      - "layer_manifest.yaml"
+  L2_project:
+    description: "インスタンス固有の構成・成果物"
+    sync_source: instance
+    direct_edit: allowed
+    paths:
+      - ".repo-id/"
+      - ".github/"
+      - ".ciqa/"
+      - "_handoff_check/"
+      - "ARTIFACTS/"
+      - "LOGS/"
+      - "as_built/"
+      - "CLAUDE.md"
+      - "AGENTS.md"
+      - "GEMINI.md"
+      - "CODEOWNERS"
+      - "README.md"
+      - "QUICK_START.md"
+      - "CHANGELOG.md"
+      - ".gitignore"
+      - "Prompt.md"
+  L3_app:
+    description: "アプリケーションコード（開発者完全自由）"
+    sync_source: developer
+    direct_edit: allowed
+    governance_scope: none
+    paths:
+      - "app/"
+excluded:
+  description: "分類対象外"
+  paths:
+    - ".git/"
+    - ".claude/"
