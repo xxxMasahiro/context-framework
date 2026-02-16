@@ -1,0 +1,42 @@
+{
+  "timestamp": "2026-02-17T00:19:20",
+  "task": "",
+  "classification": {
+    "intent": "verify",
+    "actor": "codex",
+    "risk": "low",
+    "needs_gonogo": false,
+    "context_profile": "ssot_only",
+    "output_format": "checklist",
+    "notes": "test",
+    "route_id": "verify_readonly"
+  },
+  "adapter_check": {
+    "ok": true,
+    "checks": {
+      "sot_declaration_same": true,
+      "links_consistent": true,
+      "skill_first_present": true
+    }
+  },
+  "risk_hits": {
+    "risk_flags": [],
+    "dangerous_ops": [],
+    "prohibited_words": [],
+    "banned": []
+  },
+  "bundle_files": [],
+  "tags": [
+    "generated_invalid"
+  ],
+  "generated_validation": {
+    "ok": false,
+    "errors": [
+      "missing:意味（復習用）",
+      "missing:変更点",
+      "missing:Add",
+      "missing:Del",
+      "missing:Mod"
+    ]
+  }
+}

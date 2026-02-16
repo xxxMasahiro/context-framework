@@ -1,0 +1,8 @@
+== ci-validate ==
+root=/home/masahiro/projects/context-framework
+log=/home/masahiro/projects/context-framework/LOGS/ci/ci-validate-20260217T000854.log
+Repo Lock: OK
+OK: rules/schema validated
+== smoke ==
+OK: smoke tests passed
+OK: ci validate

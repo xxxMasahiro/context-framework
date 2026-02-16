@@ -1,0 +1,8 @@
+== ci-validate ==
+root=/home/masahiro/projects/context-framework
+log=/home/masahiro/projects/context-framework/LOGS/ci/ci-validate-20260217T001714.log
+Repo Lock: NG
+root: /home/masahiro/ciqa
+origin: github-masahiro:xxxMasahiro/ciqa.git
+branch: wip/cf-zero-profile
+reason: missing .repo-id/repo_fingerprint.json

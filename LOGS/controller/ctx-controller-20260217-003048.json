@@ -1,0 +1,40 @@
+{
+  "timestamp": "2026-02-17T00:30:48",
+  "task": "",
+  "classification": {
+    "intent": "verify",
+    "actor": "codex",
+    "risk": "low",
+    "needs_gonogo": false,
+    "context_profile": "ssot_only",
+    "output_format": "checklist",
+    "notes": "test",
+    "route_id": "verify_readonly"
+  },
+  "adapter_check": {
+    "ok": false,
+    "checks": {
+      "sot_declaration_same": false,
+      "links_consistent": true,
+      "skill_first_present": false
+    },
+    "reason": "sot_mismatch",
+    "adapters": [
+      "/tmp/tmp.HkwGwdWqIg/adapters/CLAUDE.md",
+      "/tmp/tmp.HkwGwdWqIg/adapters/AGENTS.md",
+      "/tmp/tmp.HkwGwdWqIg/adapters/GEMINI.md"
+    ]
+  },
+  "risk_hits": {
+    "risk_flags": [],
+    "dangerous_ops": [],
+    "prohibited_words": [],
+    "banned": []
+  },
+  "bundle_files": [],
+  "tags": [],
+  "generated_validation": {
+    "ok": true,
+    "errors": []
+  }
+}
