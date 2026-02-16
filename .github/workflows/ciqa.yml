@@ -7,8 +7,8 @@ permissions:
 
 jobs:
   ciqa:
-    uses: xxxMasahiro/ciqa/.github/workflows/pipeline.yml@8133a15765246f3cbccebe4210c306a5e17114cf
+    uses: xxxMasahiro/ciqa/.github/workflows/pipeline.yml@dc2b906f27a652b532f2e235f32b68c756b0725f
     with:
       profile-path: .ciqa/profile.yml
-      ciqa-ref: "8133a15765246f3cbccebe4210c306a5e17114cf"
+      ciqa-ref: "dc2b906f27a652b532f2e235f32b68c756b0725f"
     secrets: inherit
