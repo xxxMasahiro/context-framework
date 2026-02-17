@@ -49,6 +49,7 @@
 
 | Date | ID | Summary | Evidence |
 |------|----|---------|---------|
+| 2026-02-17 | UPD-20260217-03 | Charter + handoff restructure + .gate-audit 削除完了 | PR#115, merge:82b6237 |
 | 2026-02-17 | UPD-20260217-02 | Charter 作成 + handoff リストラクチャ開始 | branch: wip/handoff-restructure |
 | 2026-02-17 | UPD-20260217-01 | インスタンス化全フェーズ完了 | branch: wip/cf-zero-phase1, as-built v0.7/v0.13/v1.4 |
 | 2026-02-02 | UPD-20260202-01 | Gate D REQ3 STRICT PASS | evidence: gateD_redo_req3_functional_strict.txt |
