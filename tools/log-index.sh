@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-input="${1:-_handoff_check/task_tracker.md}"
+input="${1:-handoff/task_tracker.md}"
 output="${2:-LOGS/INDEX.md}"
 
 if [ ! -f "$input" ]; then

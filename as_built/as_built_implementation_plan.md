@@ -1,6 +1,6 @@
 # 実装計画書 — context-framework
 
-version: 1.6
+version: 1.7
 date: 2026-02-17
 status: as-built
 
@@ -12,7 +12,7 @@ status: as-built
 
 - 本書は **as-built（実態記述）** である。
 - 要件定義書（`as_built/as_built_requirements.md`）・仕様書（`as_built/as_built_spec.md`）とトレーサブルである。
-- `_handoff_check/` の内容を正（SSOT）として、本書はそれと整合する形で作成された。
+- `handoff/` の内容を正（SSOT）として、本書はそれと整合する形で作成された。
 
 ### 0.1 前提条件
 
@@ -138,15 +138,14 @@ status: as-built
 - **完了条件**: 全成果物テンプレートが `ARTIFACTS/` に存在する
 - **状態**: 実装済み
 
-### IMPL-CF-P4-03: SSOT 3 ファイルバンドル
+### IMPL-CF-P4-03: SSOT 2 ファイルバンドル
 
 - **対応 SPEC**: SPEC-CF-T02
 - **対応 REQ**: REQ-CF-T02
 - **成果物**:
-  - `_handoff_check/handoff_prompt.md`
-  - `_handoff_check/update_runbook.md`
-  - `_handoff_check/task_tracker.md`
-- **完了条件**: 3 ファイルが `_handoff_check/` に存在し、`ssot_manifest.yaml` に登録されている
+  - `handoff/latest.md`
+  - `handoff/task_tracker.md`
+- **完了条件**: 2 ファイルが `handoff/` に存在し、`ssot_manifest.yaml` に登録されている
 - **状態**: 実装済み
 
 ---
@@ -243,7 +242,7 @@ status: as-built
   ```
   /rules/ssot_manifest.yaml  @xxxMasahiro
   /rules/                    @xxxMasahiro
-  /_handoff_check/           @xxxMasahiro
+  /handoff/                  @xxxMasahiro
   /WORKFLOW/                 @xxxMasahiro
   ```
 - **完了条件**: CODEOWNERS が存在し、SSOT パスにオーナーが設定されている
@@ -466,6 +465,7 @@ PI-0 (Baseline) ←────────────────────�
 
 ## 14. 変更履歴
 
+- v1.7（2026-02-17 JST）: Charter 作成 + handoff リストラクチャ。IMPL-CF-P4-03: 3→2 ファイルバンドル、`_handoff_check/` → `handoff/`。CODEOWNERS パス更新。参照 v0.9 / v0.16。
 - v1.6（2026-02-17 JST）: IMPL-PI-2 の CIQA_REF SHA を `8133a15...` → `dc2b906...` に更新。参照仕様書 v0.14 → v0.15（CODEX HIGH 対応）。
 - v1.5（2026-02-17 JST）: 参照要件定義書/仕様書バージョンを v0.7/v0.13 → v0.8/v0.14 に更新（REQ-CF-I08 行数記述修正との整合）。
 - v1.4（2026-02-16 JST）: インスタンス化フェーズ追加。§14a 新設（CPI-1〜CPI-3 + PI-0〜PI-7）。§12 トレーサビリティ表に 11 行追加。§13 依存関係グラフ更新。参照 v0.7 / v0.13。

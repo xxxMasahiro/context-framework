@@ -1,6 +1,6 @@
 # 仕様書 — context-framework
 
-version: 0.15
+version: 0.16
 date: 2026-02-17
 status: as-built
 
@@ -12,7 +12,7 @@ status: as-built
 
 - 本書は **as-built（実態記述）** である。
 - 要件定義書（`as_built/as_built_requirements.md`）・実装計画書（`as_built/as_built_implementation_plan.md`）とトレーサブルである。
-- `_handoff_check/` の内容を正（SSOT）として、本書はそれと整合する形で作成された。
+- `handoff/` の内容を正（SSOT）として、本書はそれと整合する形で作成された。
 
 ---
 
@@ -22,13 +22,8 @@ status: as-built
 
 ```
 context-framework/
-├── .gate-audit/                 # 設計整合監査キット snapshot（運用時は repo 外 KIT_ROOT から実行, REQ-CF-T01）
-│   ├── kit                      # 監査 CLI
-│   ├── scripts/                 # Gate スクリプト群
-│   ├── verify/                  # 検証仕様 (SSOT)
-│   ├── as_built/                # 検証キット as-built 文書
-│   ├── SSOT/                    # _handoff_check/ 同期コピー
-│   └── ...                      # config, docs, tasks, logs 等
+├── CHARTER/                     # 最高憲章 (SSOT 最上位)
+│   └── CHARTER.md               # §1-§12: Purpose / Sovereignty / Execution / Immutable / Governance / Mode / Architect / Skills / Roles / Safety / Language / Amendment
 ├── .ciqa/                       # ciqa ローカルプロファイル (REQ-CF-I09)
 │   └── profile.yml              # インスタンス固有プロファイル
 ├── .github/
@@ -38,10 +33,9 @@ context-framework/
 ├── .repo-id/                    # リポジトリ身元メタデータ (REQ-CF-O02)
 │   ├── agent_role_assignment.example.yaml  # 役割割り当てテンプレート
 │   └── repo_fingerprint.json    # リポジトリフィンガープリント
-├── _handoff_check/              # SSOT 3ファイルバンドル (REQ-CF-T02)
-│   ├── handoff_prompt.md     # 引継ぎサマリ
-│   ├── update_runbook.md     # 運用マニュアル
-│   └── task_tracker.md    # 進捗管理
+├── handoff/                     # SSOT 2ファイルバンドル (REQ-CF-T02)
+│   ├── latest.md                # 現在の状態スナップショット
+│   └── task_tracker.md          # Gate 完了サマリ + 進捗ログ
 ├── WORKFLOW/                    # Gate 運用・プロセス定義 (REQ-CF-T01)
 │   ├── GATES.md
 │   ├── MODES_AND_TRIGGERS.md
@@ -139,7 +133,7 @@ context-framework/
 - **対応要件**: REQ-CF-S02
 - **仕様**:
   1. `tools/guard.sh` がリポジトリのロック・検証を担当する。
-  2. Guard プロトコル: `_handoff_check/update_runbook.md` §8 に定義。
+  2. Guard プロトコル: `handoff/latest.md` および Charter を参照。
   3. `WORKFLOW/TOOLING/REPO_LOCK.md` にロック機構の仕様を記載。
 - **実装状態**: 実装済み
 
@@ -208,10 +202,10 @@ context-framework/
      ```
      /rules/ssot_manifest.yaml  @xxxMasahiro
      /rules/                    @xxxMasahiro
-     /_handoff_check/           @xxxMasahiro
+     /handoff/                  @xxxMasahiro
      /WORKFLOW/                 @xxxMasahiro
      ```
-  2. SSOT パス・rules・_handoff_check・WORKFLOW への変更に必須レビューを設定。
+  2. SSOT パス・rules・handoff・WORKFLOW への変更に必須レビューを設定。
 - **実装状態**: 実装済み
 
 ---
@@ -248,12 +242,11 @@ context-framework/
   1. `ssot_manifest.yaml` の `ssot` キーで定義:
      ```yaml
      ssot:
-       - "_handoff_check/handoff_prompt.md"
-       - "_handoff_check/update_runbook.md"
-       - "_handoff_check/task_tracker.md"
+       - "handoff/latest.md"
+       - "handoff/task_tracker.md"
      ```
-  2. 注: `ssot` はここでは「_handoff_check の 3 ファイル集合（bundle）」の意味であり、最上位 SSOT の意味ではない。
-  3. `handoff_check_files` キーは将来用の明示キー（`ssot` と同値）。
+  2. 注: `ssot` はここでは「handoff の 2 ファイル集合（bundle）」の意味であり、最上位 SSOT の意味ではない。
+  3. `handoff_check_files` キーは `ssot` と同値（REQ-CF-F03 必須カテゴリ / SPEC-CF-I06 既存カテゴリ不変契約により削除せず同値更新）。
 - **実装状態**: 実装済み
 
 ### SPEC-CF-T03: 証跡ログ管理仕様
@@ -409,14 +402,14 @@ context-framework/
   1. カテゴリ定義:
      | カテゴリ | 内容 |
      |----------|------|
-     | `ssot` | 3 ファイルバンドル（`_handoff_check/` の 3 ファイル） |
-     | `handoff_check_files` | 将来用明示キー（ssot と同値） |
+     | `ssot` | 2 ファイルバンドル（`handoff/` の 2 ファイル） |
+     | `handoff_check_files` | ssot と同値（REQ-CF-F03 必須カテゴリ維持） |
      | `charter` | `CHARTER/*.md` |
      | `architect` | `WORKFLOW/*.md` |
      | `skills` | `SKILLS/**/*.md` |
      | `projection` | CLAUDE.md, AGENTS.md, GEMINI.md |
-     | `allow_read_prefix` | 公開読取ゾーン（_handoff_check/, CHARTER/, WORKFLOW/, SKILLS/, LOGS/） |
-  2. 注: `ssot` キーは「_handoff_check の 3 ファイル集合（bundle）」の意味であり、フレームワーク全体の SSOT 最上位の意味ではない。
+     | `allow_read_prefix` | 公開読取ゾーン（handoff/, CHARTER/, WORKFLOW/, SKILLS/, LOGS/） |
+  2. 注: `ssot` キーは「handoff の 2 ファイル集合（bundle）」の意味であり、フレームワーク全体の SSOT 最上位の意味ではない。
 - **実装状態**: 実装済み
 
 ### SPEC-CF-F04: tools 仕様
@@ -525,8 +518,8 @@ context-framework/
 - **仕様**:
   1. `layer_manifest.yaml` をリポジトリルートに配置する。
   2. スキーマ: `schema_version: "1.0"`, `resolution_rules` (precedence: specific_over_general, unknown: warn), `layers` (L1_governance, L2_project, L3_app), `excluded`
-  3. L1 (12 paths): WORKFLOW/, rules/, controller/, tools/, SKILLS/, PROMPTS/, TOOLING/, bin/, .gate-audit/, CHARTER/, .github/workflows/ci-validate.yml, layer_manifest.yaml
-  4. L2 (16 paths): .repo-id/, .github/, .ciqa/, _handoff_check/, ARTIFACTS/, LOGS/, as_built/, CLAUDE.md, AGENTS.md, GEMINI.md, CODEOWNERS, README.md, QUICK_START.md, CHANGELOG.md, .gitignore, Prompt.md
+  3. L1 (11 paths): WORKFLOW/, rules/, controller/, tools/, SKILLS/, PROMPTS/, TOOLING/, bin/, CHARTER/, .github/workflows/ci-validate.yml, layer_manifest.yaml
+  4. L2 (16 paths): .repo-id/, .github/, .ciqa/, handoff/, ARTIFACTS/, LOGS/, as_built/, CLAUDE.md, AGENTS.md, GEMINI.md, CODEOWNERS, README.md, QUICK_START.md, CHANGELOG.md, .gitignore, Prompt.md
   5. L3: app/（governance_scope: none）
   6. `resolution_rules.precedence: "specific_over_general"` により、`.github/workflows/ci-validate.yml`（L1）が `.github/`（L2）より優先される。
 - **実装状態**: 実装済み
@@ -552,7 +545,7 @@ context-framework/
   3. 処理ステップ:
      - Step 1: `.repo-id/repo_fingerprint.json` 再生成（UUID v4, ISO 8601 日時）
      - Step 2: CODEOWNERS オーナー置換（`@xxxMasahiro` → `@<owner>`）
-     - Step 3: `_handoff_check/` の 3 ファイルを初期テンプレート状態にリセット
+     - Step 3: `handoff/` の 2 ファイルを初期テンプレート状態にリセット
      - Step 4: `ARTIFACTS/` を初期テンプレート状態にリセット
      - Step 5: README.md プレースホルダ置換（`context-framework` → `<project>`）
      - Step 6: CHANGELOG.md 初期化
@@ -577,7 +570,7 @@ context-framework/
 - **対応要件**: REQ-CF-I06
 - **仕様**:
   1. `rules/ssot_manifest.yaml` に `layer_manifest: "layer_manifest.yaml"` キーを追加。
-  2. 既存カテゴリ（ssot, handoff_check_files, charter, architect, skills, projection, allow_read_prefix）は一切変更しない。
+  2. 既存カテゴリ（ssot, handoff_check_files, charter, architect, skills, projection, allow_read_prefix）のキー名は一切変更しない（値の更新は許容: handoff リストラクチャで ssot/handoff_check_files の値を `handoff/` パスに同値更新済み）。
   3. `allow_read_prefix` に `app/` を追加しない。
 - **実装状態**: 実装済み
 
@@ -703,6 +696,7 @@ context-framework/
 
 ## 8. 変更履歴
 
+- v0.16（2026-02-17 JST）: Charter 作成 + handoff リストラクチャ。SPEC-CF-DIR01: `_handoff_check/` → `handoff/` (2 files)、`.gate-audit/` 削除、`CHARTER/` 追加。SPEC-CF-S02/S07/T02/F03/I02/I04/I06 のパスと記述を更新。
 - v0.15（2026-02-17 JST）: SPEC-CF-D02 の CIQA_REF SHA を `8133a15...` → `dc2b906...` に更新（ciqa cq_readonly false positive 修正に伴う SHA 追従、CODEX HIGH 対応）。
 - v0.14（2026-02-17 JST）: 参照要件定義書バージョンを v0.7 → v0.8 に更新（REQ-CF-I08 行数記述修正との整合）。
 - v0.13（2026-02-16 JST）: インスタンス化仕様 11 件（SPEC-CF-I01〜I11）追加。§5a 新設。SPEC-CF-DIR01 に app/, .ciqa/, layer_manifest.yaml, bin/init-instance, bin/sync-upstream を追記。SPEC-CF-F07/T04/S06 を reusable workflow caller に更新。§6 トレーサビリティ表に 11 行追加。SPEC-CF-D01/D02 を更新。参照要件 v0.7。

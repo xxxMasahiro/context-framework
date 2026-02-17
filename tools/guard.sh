@@ -43,12 +43,12 @@ fi
 
 if [ -z "$reason" ]; then
   fingerprint="$root/.repo-id/repo_fingerprint.json"
-  runbook="$root/_handoff_check/update_runbook.md"
+  handoff="$root/handoff/latest.md"
 
   if [ ! -f "$fingerprint" ]; then
     reason="missing .repo-id/repo_fingerprint.json"
-  elif [ ! -f "$runbook" ]; then
-    reason="missing _handoff_check/update_runbook.md"
+  elif [ ! -f "$handoff" ]; then
+    reason="missing handoff/latest.md"
   elif [ -z "$origin_url" ]; then
     reason="missing origin remote"
   else

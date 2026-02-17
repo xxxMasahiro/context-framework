@@ -1,13 +1,9 @@
-# ssot は「_handoff_check の3ファイル集合（bundle）」の意味。SSOT最上位の意味ではない。
 ssot:
-  - "_handoff_check/handoff_prompt.md"
-  - "_handoff_check/update_runbook.md"
-  - "_handoff_check/task_tracker.md"
-# 将来用の明示キー（ssot と同値、誤解防止）
+  - "handoff/latest.md"
+  - "handoff/task_tracker.md"
 handoff_check_files:
-  - "_handoff_check/handoff_prompt.md"
-  - "_handoff_check/update_runbook.md"
-  - "_handoff_check/task_tracker.md"
+  - "handoff/latest.md"
+  - "handoff/task_tracker.md"
 charter:
   - "CHARTER/*.md"
 architect:
@@ -20,7 +16,7 @@ projection:
   - "GEMINI.md"
 layer_manifest: "layer_manifest.yaml"
 allow_read_prefix:
-  - "_handoff_check/"
+  - "handoff/"
   - "CHARTER/"
   - "WORKFLOW/"
   - "SKILLS/"

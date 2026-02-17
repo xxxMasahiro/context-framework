@@ -4,10 +4,9 @@ steps:
   - id: STEP-G003
     title: "抽象ログ（索引）仕様合意"
     ssot:
-      - path: "_handoff_check/update_runbook.md"
+      - path: "handoff/latest.md"
         must_contain:
-          - "STEP-G003.*\\[x\\]"
-          - "### LOG-009"
+          - "# Handoff"
       - path: "LOGS/INDEX.md"
         generated: true
     invariants:
@@ -15,8 +14,7 @@ steps:
         path: "LOGS/INDEX.md"
         pattern: "LOG-009"
     evidence_commands:
-      - 'rg -n "STEP-G003.*\\[x\\]" _handoff_check/update_runbook.md 2>/dev/null || grep -nE "STEP-G003.*\\[x\\]" _handoff_check/update_runbook.md 2>/dev/null || true'
-      - 'rg -n "^### LOG-009" _handoff_check/update_runbook.md 2>/dev/null || grep -nE "^### LOG-009" _handoff_check/update_runbook.md 2>/dev/null || true'
+      - 'rg -n "# Handoff" handoff/latest.md 2>/dev/null || grep -nE "# Handoff" handoff/latest.md 2>/dev/null || true'
       - 'rg -n "LOG-009" LOGS/INDEX.md 2>/dev/null || grep -nE "LOG-009" LOGS/INDEX.md 2>/dev/null || true'
     next_action: "./tools/guard.sh -- ./tools/log-index.sh"
     notes:

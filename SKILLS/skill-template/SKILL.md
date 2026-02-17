@@ -28,7 +28,7 @@
 
 ## 4. 入力（Inputs）
 - （例）対象ファイル: `WORKFLOW/AUDIT.md`
-- （例）対象トラッカー: `_handoff_check/task_tracker.md`
+- （例）対象トラッカー: `handoff/task_tracker.md`
 - （例）関連SSOT/ルール: `WORKFLOW/TOOLING/COEXIST_3FILES.md`
 
 ---

@@ -1,9 +1,0 @@
-=== Evidence Meta ===
-ts_utc: 20260203T154326Z
-ts_jst: 2026-02-04T00:43:26+0900
-gate: gateF
-main_repo_path: /home/masahiro/projects/_cfctx/cf-context-framework
-main_repo_head: a879a52308f587eb8d34e5344f3fa24f79721d92
-main_repo_status: clean
-kit_root: /home/masahiro/.cfctx_verify_root/.cfctx_verify
-
