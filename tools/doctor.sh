@@ -2,7 +2,7 @@
 set -eu
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-RUNBOOK="$ROOT/_handoff_check/update_runbook.md"
+HANDOFF="$ROOT/handoff/latest.md"
 INDEX="$ROOT/LOGS/INDEX.md"
 
 usage() {
@@ -34,7 +34,7 @@ status="PASS"
 evidence=""
 failures=""
 need_index_fix=0
-need_runbook_fix=0
+need_handoff_fix=0
 
 check_pattern() {
   file="$1"
@@ -44,7 +44,7 @@ check_pattern() {
     status="FAIL"
     failures="$failures
 - missing file: $label"
-    [ "$label" = "LOGS/INDEX.md" ] && need_index_fix=1 || need_runbook_fix=1
+    [ "$label" = "LOGS/INDEX.md" ] && need_index_fix=1 || need_handoff_fix=1
     return
   fi
   match=$(search_first "$file" "$pattern")
@@ -57,13 +57,12 @@ check_pattern() {
     status="FAIL"
     failures="$failures
 - missing pattern: $label | $pattern"
-    [ "$label" = "LOGS/INDEX.md" ] && need_index_fix=1 || need_runbook_fix=1
+    [ "$label" = "LOGS/INDEX.md" ] && need_index_fix=1 || need_handoff_fix=1
   fi
 }
 
 echo "[doctor] step=STEP-G003"
-check_pattern "$RUNBOOK" "STEP-G003.*\\[x\\]" "_handoff_check/update_runbook.md"
-check_pattern "$RUNBOOK" "^### LOG-009" "_handoff_check/update_runbook.md"
+check_pattern "$HANDOFF" "# Handoff" "handoff/latest.md"
 check_pattern "$INDEX" "LOG-009" "LOGS/INDEX.md"
 
 if [ "$status" = "PASS" ]; then
@@ -83,8 +82,8 @@ printf '%s\\n' "$evidence" | sed '/^$/d' | sed 's/^/  /'
 next_action=""
 if [ "$need_index_fix" -eq 1 ]; then
   next_action="./tools/guard.sh -- ./tools/log-index.sh"
-elif [ "$need_runbook_fix" -eq 1 ]; then
-  next_action="./tools/guard.sh -- rg -n \"STEP-G003|LOG-009\" _handoff_check/update_runbook.md || true"
+elif [ "$need_handoff_fix" -eq 1 ]; then
+  next_action="./tools/guard.sh -- ls handoff/latest.md"
 fi
 
 if [ -n "$next_action" ]; then

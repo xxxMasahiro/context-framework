@@ -17,4 +17,4 @@
 ## 運用指針
 - 破壊的操作（restore/reset/clean/rm など）は Guard 経由を推奨する（強制ではない）。
 - Guard が通らない場合は、リポジトリ取り違えの可能性があるため作業を中止する。
-- 詳細運用は `_handoff_check/update_runbook.md` を正とする。
+- 詳細運用は `handoff/latest.md` および Charter を正とする。

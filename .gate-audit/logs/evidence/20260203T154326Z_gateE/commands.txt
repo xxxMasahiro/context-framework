@@ -1,3 +1,0 @@
-[20260203T154326Z] req①: Check language policy additions in SSOT
-[20260203T154326Z] req②: Language policy coherence across documents
-[20260203T154326Z] req③: Functional language policy check

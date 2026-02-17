@@ -81,30 +81,46 @@ else
   echo "  [SKIP] CODEOWNERS not found"
 fi
 
-# --- Step 3: _handoff_check/ reset ---
-echo "[Step 3] Resetting _handoff_check/ to template state..."
-HANDOFF_DIR="$REPO_ROOT/_handoff_check"
-if [[ -d "$HANDOFF_DIR" ]]; then
-  cat > "$HANDOFF_DIR/handoff_prompt.md" <<'HANDOFF'
-# Handoff Prompt
+# --- Step 3: handoff/ reset ---
+echo "[Step 3] Resetting handoff/ to template state..."
+HANDOFF_DIR="$REPO_ROOT/handoff"
+mkdir -p "$HANDOFF_DIR"
+cat > "$HANDOFF_DIR/latest.md" <<'LATEST'
+# Handoff — Latest
 
-> This file is the initial template state. Update it with your project's handoff information.
-HANDOFF
-  cat > "$HANDOFF_DIR/update_runbook.md" <<'RUNBOOK'
-# Update Runbook
+## Current State
 
-> This file is the initial template state. Document your update procedures here.
-RUNBOOK
-  cat > "$HANDOFF_DIR/task_tracker.md" <<'TRACKER'
-# Task Tracker
+- **Version**: (initial)
+- **Last Gate**: —
+- **Branch**: main
+- **CI Status**: —
 
-> This file is the initial template state. Track your project tasks here.
+## Active Work
+
+(none)
+
+## References
+
+- SSOT マニフェスト: `rules/ssot_manifest.yaml`
+- Charter: `CHARTER/CHARTER.md`
+LATEST
+cat > "$HANDOFF_DIR/task_tracker.md" <<'TRACKER'
+# context-framework — Task Tracker
+
+## 進捗サマリ
+
+- 未完了タスク: なし
+- 次の作業: —
+
+## タスク一覧（Gate 別）
+
+(初期状態)
+
+## 更新ログ（Progress Log）
+
+(none)
 TRACKER
-  echo "  [OK] _handoff_check/ reset (3 files)"
-else
-  mkdir -p "$HANDOFF_DIR"
-  echo "  [OK] _handoff_check/ created (3 files)"
-fi
+echo "  [OK] handoff/ reset (2 files)"
 
 # --- Step 4: ARTIFACTS/ reset ---
 echo "[Step 4] Resetting ARTIFACTS/ to template state..."

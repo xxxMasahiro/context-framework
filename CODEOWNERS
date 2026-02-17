@@ -3,5 +3,5 @@
 
 /rules/ssot_manifest.yaml  @xxxMasahiro
 /rules/                    @xxxMasahiro
-/_handoff_check/           @xxxMasahiro
+/handoff/                  @xxxMasahiro
 /WORKFLOW/                 @xxxMasahiro
